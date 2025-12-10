@@ -1,0 +1,74 @@
+### 1. Archivos específicos de Visual Studio (IDE) y Sistema (Windows) ###
+
+# Archivos de configuración de usuario/solución
+*.suo
+*.user
+*.config.user
+
+# Archivos de la papelera de reciclaje de Windows
+$Recycle.Bin/
+
+# Archivos temporales de Windows
+[Tt]humbs.db
+# Archivo de metadatos de macOS (por si acaso)
+.DS_Store
+
+### 2. Carpetas de Compilación y Resultados de C# (dentro de GRASP_Builder/) ###
+
+# Carpetas de resultados de compilación (.NET / C#)
+GRASP_Builder/[Bb]in/
+GRASP_Builder/[Oo]bj/
+GRASP_Builder/[Dd]ebug/
+GRASP_Builder/[Rr]elease/
+# Archivos de empaquetado de NuGet
+GRASP_Builder/*.nupkg
+
+# Directorios de pruebas y entorno local de VS
+GRASP_Builder/TestResults/
+GRASP_Builder/.vs/
+GRASP_Builder/*.log
+GRASP_Builder/*.bak
+GRASP_Builder/*.orig
+
+### 3. Archivos Generados por LaTeX (dentro de Thesis document/) ###
+
+# Definimos la ruta de la carpeta de LaTeX
+LATEX_DIR = Thesis document/
+
+# Archivos de registro y auxiliares
+$LATEX_DIR/*.aux
+$LATEX_DIR/*.bbl
+$LATEX_DIR/*.blg
+$LATEX_DIR/*.brf
+$LATEX_DIR/*.idx
+$LATEX_DIR/*.lof
+$LATEX_DIR/*.lot
+$LATEX_DIR/*.out
+$LATEX_DIR/*.toc
+$LATEX_DIR/*.log
+$LATEX_DIR/*.nav
+$LATEX_DIR/*.snm
+$LATEX_DIR/*.vrb
+$LATEX_DIR/*.gz
+$LATEX_DIR/*.synctex.gz
+$LATEX_DIR/*.fls
+$LATEX_DIR/*.fdb_latexmk
+
+# Archivos de índices y glosarios
+$LATEX_DIR/*.ind
+$LATEX_DIR/*.ilg
+$LATEX_DIR/*.gls
+$LATEX_DIR/*.glo
+$LATEX_DIR/*.ist
+
+# Archivos de la salida final (si no quieres rastrearlos)
+# Si quieres que el PDF final SÍ se rastree, elimina la siguiente línea.
+$LATEX_DIR/*.pdf
+
+### 4. Carpetas adicionales que quieres ignorar ###
+
+# Directorio de paquetes restaurados
+packages/
+
+# Carpeta específica ignorada a petición
+datacrossing23/

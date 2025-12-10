@@ -1,0 +1,117 @@
+\clearpage\section{Methodology and project development: }
+
+ {In order to create a new application , it is necessary to follow the following steps, in order to create a strong foundation. This will help not only the maintanence of the corresponding developemnt, but to make the application more flexible and easier to update, even for new developers. }
+
+\begin{itemize}
+    \item {Create a list of requirements}
+    \item {Research and plan}
+    \item {Design the architecture}
+    \item {Desing the graphical user interface (GUI)}
+    \item {Set up development environment}
+    \item {Implement}
+    \item {Test}
+    \item {Deployment}
+    \item {Maintenance}
+\end{itemize}
+%Here you have a couple of references about LaTeX ~\cite{latexcompanion} and electrodynamics \cite{einstein}.
+\subsection{List of requirements}
+  {This first step is crucial for the correct result. It is needed to define a clear and well defined list of requirements. This defines the main scope of the project, the different futures to be implemented and prevents from building something that is not desired. }
+\smallskip
+{This project, need to be able to fulfill the following requirements: }
+\begin{enumerate} 
+    \item {Application can be executed in CALCULA operating system (Linux)}
+    \item {Download measurements from the internet}
+    \begin{enumerate}
+      \item {Download measurements from a defined date range}
+      \item {Download measurements from a defined location}
+      \item {Download measurements from the Actris-Earlinet Data Portal \cite{earlinet_web}}
+      \begin{itemize}
+        \item {Download ELPP products} %Una altra manera de descriure-ho¿?
+        \item {Download Optical products}
+      \end{itemize}
+      \item {Download measurements from the Aeronet web \cite{aeronet_web}}
+      \begin{itemize} %no es descarreguen tots, revisar quin eliminar
+        \item {Download Raw Almucantar Sky Scan Radiance measurements}
+        \item {Download Raw Hybrid Sky Scan Radiance measurements}
+        \item {Download Raw Principal Plane Sky Scan Radiance measurements}
+        \item {Download Raw Polarized Principal Plane Sky Scan Radiance and Degree of Polarization measurements}
+        \item {Download Raw Polarized Almucantar Sky Scan Radiance and Degree of Polarization measurements}
+        \item {Download Raw Polarized Hybrid Sky Scan Radiance and Degree of Polarization measurements}
+      \end{itemize}
+      \item 
+    \end{enumerate}
+    \item {Filter Earlinet measurement files depending on the the data type}
+    \begin{enumerate}
+      \item {002, 008}
+      \item {007}
+    \end{enumerate}
+    \item {Execute full GRASP algorithm sequence:}
+    \begin{enumerate}
+      \item {Preprocessing:}
+      \begin{itemize}
+        \item {}
+        \item {}
+        \item {}
+        \item {}
+        \item {}
+      \end{itemize}
+      \item {Retrieve aerosol optical depth}
+      \item {Retrieve aerosol extinction}
+      \item {Retrieve aerosol single scattering albedo}
+      \item {Retrieve aerosol Ångström exponent}
+    \end{enumerate}
+    \item {Execute the GRASP algorithm}
+    \item {Give the user the possibility to plot the different results after executing the algorithm}
+    \item {Application can work with project/workspaces}
+    \begin{enumerate}
+      \item {User can create, open and import a project}
+      \item {Downloaded data from web services are stored in the project folder}
+      \item {Results of the GRASP algorithm are stored in the project folder}
+      \item {Once a project is closed, all the data is deleted}
+    \end{enumerate}
+    \item {}
+    \item {}
+\end{enumerate}
+\bigskip
+
+\subsection{Research and plan}
+{This second step helps optimize both time and resources by preventing unnecessary work. Since this project builds upon a previous one, it is not required to develop new code for certain application requirements. Furthermore, the availability of APIs for downloading measurements from the ACTRIS–EARLINET Data Portal \cite{earlinet_web} and AERONET web application \cite{aeronet_web} provides a convenient and efficient solution that can significantly reduce development effort.}
+\medskip
+\subsubsection{Web services development}
+\subsubsection{Matlab controller development}
+\bigskip
+
+\subsection{Design the architecture}
+
+\subsubsection{Why is architecture needed}
+\subsubsection{Tools} 
+\begin{itemize}
+  \item{MVVM}
+  \item{SOLID principles}
+\end{itemize}
+
+\subsubsection{Project architecture}
+
+\bigskip
+
+\subsection{Design the graphical user interface (GUI)}
+
+\bigskip
+
+\subsection{Set up development environment}
+
+\bigskip
+
+\subsection{Implement}
+
+\bigskip
+
+\subsection{Test}
+
+\bigskip
+
+\subsection{Deployment}
+
+\bigskip
+
+\subsection{Maintenance}

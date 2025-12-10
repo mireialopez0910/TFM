@@ -1,0 +1,321 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>config_file.m (Fitxer de configuraci&oacute;)</title>
+<meta name="generator" content="MATLAB 24.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-10-16">
+<meta name="DC.source" content="config_file_doc.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>config_file.m (Fitxer de configuraci&oacute;)</h1>
+<!--introduction-->
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">DESCRIPCI&Oacute;</a>
+</li>
+</ul>
+</div>
+<h2 id="1">DESCRIPCI&Oacute;</h2>
+<p>Fitxer de configuraci&oacute; de l'aplicaci&oacute; que cont&eacute; una s&egrave;rie de variables d'inicialitzaci&oacute; i funcionament en general:</p>
+<p>
+<b>VARIABLES DE CONFIGURACI&Oacute; SCC</b>
+</p>
+<p>
+<b>Autenticaci&oacute; general</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>CONFIG_GenericU</tt> - Usuari de l'autenticaci&oacute; general a SCC</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>CONFIG_GenericP</tt> - Clau de l'autenticaci&oacute; general a SCC</li>
+</ul>
+</div>
+<p>
+<b>Autenticaci&oacute; personal</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>CONFIG_PersonalU</tt> - Usuari de l'autenticaci&oacute; personal a SCC</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>CONFIG_PersonalP</tt> - Clau de l'autenticaci&oacute; personal a SCC</li>
+</ul>
+</div>
+<p>
+<b>URL d'acc&eacute;s al SCC</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>CONFIG_SCCDomain[String]:</tt> - Domini web de Single Calculus Chain (SCC). Preconfigurat com a: <tt>https://scc.imaa.cnr.it/</tt>
+</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>URLdownload_1</tt> - URL completa (amb domini) a la p&agrave;gina de mesures del SCC. Preconfigurat com a: <tt>https://scc.imaa.cnr.it/data_processing/measurements/</tt>
+</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>URLdownload_2ELDA</tt> - URL per a les desc&agrave;rregues (&ograve;ptica data) sense incloure el domini. Preconfigurat com: <tt>/download-optical/</tt>
+</li>
+</ul>
+</div>
+<p>
+<tt>URLdownload_2ELPP</tt> - URL per a les desc&agrave;rregues (preprocessed data) sense incloure el domini: <tt>/download-preprocessed/</tt>
+</p>
+<p>
+<b>VARIABLES DE CONFIGURACI&Oacute; DE MESURES</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>CONFIG_folder_SCC</tt> - Ruta a l'arbre de directoris local on es troba la configuraci&oacute; de mesures. Preconfigurat com a: <tt>config</tt>
+</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>CONFIG_config_SCC</tt> - Nom del fitxer de configuraci&oacute; de mesures. Preconfigurat com a: <tt>configuracions_SCC.xlsx</tt>
+</li>
+</ul>
+</div>
+<p>
+<b>VARIABLES DE CONFIGURACI&Oacute; DEL REPOSITORI</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>CONFIG_LIDAR_folder</tt> - Ruta d'acc&eacute;s a la carpeta on es descarreguen els fitxers LIDAR del SCC necessaris per crear les configuracions de mesures a l'aplicaci&oacute;. Preconfigurat com a: <tt>/repository/LIDAR/</tt>
+</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>CONFIG_AERONET_folder</tt> - Ruta d'acc&eacute;s a la carpeta on es troben precarregats els fitxers d'AERONED necessaris per crear les configuracions de mesures a l'aplicaci&oacute;. Preconfigurat com a: <tt>/repository/AERONET/</tt>
+</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>CONFIG_output</tt> - Ruta d'acc&eacute;s a la carpeta de sortida on es generen tots els fitxers processats per l'aplicaci&oacute;. Preconfigurat com a: <tt>/Output/MeasureID/</tt>
+</li>
+</ul>
+</div>
+<p>
+<b>VARIABLES DE CONFIGURACI&Oacute; DE RUTES</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>currentFolder</tt> - Ruta completa del fitxer .m que s'est&agrave; executant.</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>parentFolder</tt> - Extrau el directori pare de currentFolder.</li>
+</ul>
+</div>
+<p>
+<b>VARIABLES DE CONFIGURACI&Oacute; DE L'AJUDA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>CONFIG_help_root</tt> - Ruta a la carpeta on es genera la documentaci&oacute;.</li>
+</ul>
+</div>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% config_file.m (Fitxer de configuració)
+%% DESCRIPCIÓ
+%
+% Fitxer de configuració de l'aplicació que conté una sèrie de
+% variables d'inicialització i funcionament en general:
+%
+% *VARIABLES DE CONFIGURACIÓ SCC*
+%
+% *Autenticació general*
+%
+% * |CONFIG_GenericU| -
+% Usuari de l'autenticació general a SCC
+%
+% * |CONFIG_GenericP| -
+% Clau de l'autenticació general a SCC
+%
+% *Autenticació personal*
+%
+% * |CONFIG_PersonalU| -
+% Usuari de l'autenticació personal a SCC
+%
+% * |CONFIG_PersonalP| -
+% Clau de l'autenticació personal a SCC
+%
+% *URL d'accés al SCC*
+%
+% * |CONFIG_SCCDomain[String]:| -
+% Domini web de Single Calculus Chain (SCC).
+% Preconfigurat com a: |https://scc.imaa.cnr.it/|
+%
+% * |URLdownload_1| -
+% URL completa (amb domini) a la p&agrave;gina de mesures del SCC.
+% Preconfigurat com a: |https://scc.imaa.cnr.it/data_processing/measurements/|
+%
+% * |URLdownload_2ELDA| -
+% URL per a les desc&agrave;rregues (òptica data) sense incloure el domini.
+% Preconfigurat com: |/download-optical/|
+%
+% |URLdownload_2ELPP| -
+% URL per a les desc&agrave;rregues (preprocessed data) sense incloure el domini: |/download-preprocessed/|
+%
+%
+%
+%
+% *VARIABLES DE CONFIGURACIÓ DE MESURES*
+%
+% * |CONFIG_folder_SCC| -
+% Ruta a l'arbre de directoris local on es troba la configuració de mesures.
+% Preconfigurat com a: |config|
+%
+% * |CONFIG_config_SCC| -
+% Nom del fitxer de configuració de mesures.
+% Preconfigurat com a: |configuracions_SCC.xlsx|
+%
+%
+%
+%
+% *VARIABLES DE CONFIGURACIÓ DEL REPOSITORI*
+%
+% * |CONFIG_LIDAR_folder| -
+% Ruta d'accés a la carpeta on es descarreguen els fitxers LIDAR
+% del SCC necessaris per crear les configuracions de mesures a l'aplicació.
+% Preconfigurat com a: |/repository/LIDAR/|
+%
+% * |CONFIG_AERONET_folder| -
+% Ruta d'accés a la carpeta on es troben precarregats els fitxers
+% d'AERONED necessaris per crear les configuracions de mesures a l'aplicació.
+% Preconfigurat com a: |/repository/AERONET/|
+%
+% * |CONFIG_output| -
+% Ruta d'accés a la carpeta de sortida on es generen tots els
+% fitxers processats per l'aplicació.
+% Preconfigurat com a: |/Output/MeasureID/|
+%
+%
+%
+%
+% *VARIABLES DE CONFIGURACIÓ DE RUTES*
+%
+% * |currentFolder| -
+% Ruta completa del fitxer .m que s'est&agrave; executant.
+%
+% * |parentFolder| -
+% Extrau el directori pare de currentFolder.
+%
+%
+%
+%
+% *VARIABLES DE CONFIGURACIÓ DE L'AJUDA*
+%
+% * |CONFIG_help_root| -
+% Ruta a la carpeta on es genera la documentació.
+
+##### SOURCE END #####
+-->
+</body>
+</html>

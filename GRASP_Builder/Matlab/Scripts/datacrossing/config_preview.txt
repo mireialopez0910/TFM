@@ -1,0 +1,6 @@
+preview=true
+sendData=false
+selected_measure_ID=20250208brc1030
+plot_ELPP=false
+heightLimitMax=27805
+heightLimitMin=145

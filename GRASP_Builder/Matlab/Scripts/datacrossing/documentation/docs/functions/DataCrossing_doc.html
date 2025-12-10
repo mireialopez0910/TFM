@@ -1,0 +1,2552 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>DataCrossing &lt; matlab.apps.AppBase</title>
+<meta name="generator" content="MATLAB 24.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-10-16">
+<meta name="DC.source" content="DataCrossing_doc.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>DataCrossing &lt; matlab.apps.AppBase</h1>
+<!--introduction-->
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Descripci&oacute;</a>
+</li>
+<li>
+<a href="#2">Propietats del GUI</a>
+</li>
+<li>
+<a href="#3">Private Functions</a>
+</li>
+<li>
+<a href="#4">[foundFilesAOD, foundFilesAlm, foundFilesAlp, foundFilesAll] = loadResources(app)</a>
+</li>
+<li>
+<a href="#5">logMessage(app, message)</a>
+</li>
+<li>
+<a href="#6">measuresIDfound = reloadMeasuresID(app)</a>
+</li>
+<li>
+<a href="#7">plotter(app)</a>
+</li>
+<li>
+<a href="#8">[minELPPAltitude, maxELPPAltitude, minVDAltitude, maxVDAltitude] = getValidEldaAltitude(app)</a>
+</li>
+<li>
+<a href="#9">urltofigurefiles = reloadFigureFiles(app)</a>
+</li>
+<li>
+<a href="#10">startupFcn(app)</a>
+</li>
+<li>
+<a href="#11">LoadButtonPushed(app)</a>
+</li>
+<li>
+<a href="#12">FilterdatesButtonPushed(app, event)</a>
+</li>
+<li>
+<a href="#13">SelectedIDLabelDropDownValueChanged(app, event)</a>
+</li>
+<li>
+<a href="#14">AcceptButtonPushed(app, event)</a>
+</li>
+<li>
+<a href="#15">SettingsButtonGroupSelectionChanged(app, event)</a>
+</li>
+<li>
+<a href="#16">SendButtonPushed(app, event)</a>
+</li>
+<li>
+<a href="#17">HeightminSpinnerValueChanged(app, event)</a>
+</li>
+<li>
+<a href="#18">HeightmaxSpinnerValueChanged(app, event)</a>
+</li>
+<li>
+<a href="#19">PlotdataButtonPushed(app, event)</a>
+</li>
+<li>
+<a href="#20">RButton_2Pushed(app, event)</a>
+</li>
+<li>
+<a href="#21">RButtonPushed(app, event)</a>
+</li>
+<li>
+<a href="#22">HyperlinkClicked(app, event)</a>
+</li>
+<li>
+<a href="#23">AeronetButtonPushed(app, event)</a>
+</li>
+<li>
+<a href="#24">OutputButtonPushed(app, event)</a>
+</li>
+<li>
+<a href="#25">LIDARButtonPushed(app, event)</a>
+</li>
+<li>
+<a href="#26">AltiudeSwitchValueChanged(app, event)</a>
+</li>
+<li>
+<a href="#27">LoginButtonPushed(app)</a>
+</li>
+<li>
+<a href="#28">SelectaMeasureIDDropDownValueChanged(app)</a>
+</li>
+<li>
+<a href="#29">SelectaMeasureIDDropDownOpening(app)</a>
+</li>
+<li>
+<a href="#30">SavefiguresButtonPushed(app, event)</a>
+</li>
+<li>
+<a href="#31">Button_2Pushed(app, event)</a>
+</li>
+<li>
+<a href="#32">TreeSelectionChanged(app, event)</a>
+</li>
+<li>
+<a href="#33">SCCpasswordEditFieldValueChanging(app, event)</a>
+</li>
+<li>
+<a href="#34">PasswordEditFieldValueChanging(app, event)</a>
+</li>
+<li>
+<a href="#35">SelectaconfigurationDropDownValueChanged(app)</a>
+</li>
+<li>
+<a href="#36">reloadFigureFiles(app)</a>
+</li>
+<li>
+<a href="#37">PlotfigureButtonPushed(app)</a>
+</li>
+<li>
+<a href="#38">ButtonPushed(app)</a>
+</li>
+<li>
+<a href="#39">createComponents(app)</a>
+</li>
+<li>
+<a href="#40">app = DataCrossing</a>
+</li>
+<li>
+<a href="#41">delete(app)</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Descripci&oacute;</h2>
+<p>
+<b>Interf&iacute;cie gr&agrave;fic DataCrossing (mlapp)</b>
+</p>
+<p>Aquest document ofereix informaci&oacute; t&egrave;cnica sobre les principals funcions incloses al GUIApp de l'aplicaci&oacute;</p>
+<h2 id="2">Propietats del GUI</h2>
+<p>Propietats p&uacute;bliques creades a partir dels components de la interf&iacute;cie</p>
+<p>
+<b>Property name (Classe)</b>
+</p>
+<div>
+<ul>
+<li>UIFigure (matlab.ui.Figure)</li>
+<li>TabGroup (matlab.ui.container.TabGroup)</li>
+<li>AuthenticationTab (matlab.ui.container.Tab)</li>
+<li>StatusLamp (matlab.ui.control.Lamp)</li>
+<li>StatusLampLabel (matlab.ui.control.Label)</li>
+<li>PasswordEditField (matlab.ui.control.EditField)</li>
+<li>PasswordEditFieldLabel (matlab.ui.control.Label)</li>
+<li>UsernameEditField (matlab.ui.control.EditField)</li>
+<li>UsernameEditFieldLabel (matlab.ui.control.Label)</li>
+<li>SCCpasswordEditField (matlab.ui.control.EditField)</li>
+<li>SCCpasswordEditFieldLabel (matlab.ui.control.Label)</li>
+<li>SCCuserEditField (matlab.ui.control.EditField)</li>
+<li>SCCuserEditFieldLabel (matlab.ui.control.Label)</li>
+<li>Label_2 (matlab.ui.control.Label)</li>
+<li>Image (matlab.ui.control.Image)</li>
+<li>PersonalSCCAuthenticationLabel (matlab.ui.control.Label)</li>
+<li>LoginButton (matlab.ui.control.Button)</li>
+<li>GenericSCCAuthenticationLabel (matlab.ui.control.Label)</li>
+<li>PreBuildingTab (matlab.ui.container.Tab)</li>
+<li>CurrentIDEditField (matlab.ui.control.EditField)</li>
+<li>CurrentIDEditFieldLabel (matlab.ui.control.Label)</li>
+<li>HeightmaxSpinner (matlab.ui.control.Spinner)</li>
+<li>HeightmaxSpinnerLabel (matlab.ui.control.Label)</li>
+<li>HeightminSpinner (matlab.ui.control.Spinner)</li>
+<li>HeightminSpinnerLabel (matlab.ui.control.Label)</li>
+<li>StopdateDatePicker (matlab.ui.control.DatePicker)</li>
+<li>StopdateDatePickerLabel (matlab.ui.control.Label)</li>
+<li>StartDateDatePicker (matlab.ui.control.DatePicker)</li>
+<li>StartDateDatePickerLabel (matlab.ui.control.Label)</li>
+<li>AltiudeSwitch (matlab.ui.control.Switch)</li>
+<li>ExportLIDARCheckBox (matlab.ui.control.CheckBox)</li>
+<li>RButton_2 (matlab.ui.control.Button)</li>
+<li>RButton (matlab.ui.control.Button)</li>
+<li>ViewfiguresCheckBox (matlab.ui.control.CheckBox)</li>
+<li>StopdateDatePickerLabel_5 (matlab.ui.control.Label)</li>
+<li>PlotdataButton (matlab.ui.control.Button)</li>
+<li>GRASPfilebuilderLabel (matlab.ui.control.Label)</li>
+<li>SendButton (matlab.ui.control.Button)</li>
+<li>SettingsButtonGroup (matlab.ui.container.ButtonGroup)</li>
+<li>D1P_L_VDPhotom_pollidar_depButton (matlab.ui.control.RadioButton)</li>
+<li>D1_L_VDPhotometerlidar_depButton (matlab.ui.control.RadioButton)</li>
+<li>D1P_LPhotom_pollidarButton (matlab.ui.control.RadioButton)</li>
+<li>D1_LPhotometerlidarButton (matlab.ui.control.RadioButton)</li>
+<li>StopdateDatePickerLabel_2 (matlab.ui.control.Label)</li>
+<li>DatacollectionLabel (matlab.ui.control.Label)</li>
+<li>FilterbydatesLabel (matlab.ui.control.Label)</li>
+<li>AcceptButton (matlab.ui.control.Button)</li>
+<li>SelectedIDLabelDropDown (matlab.ui.control.DropDown)</li>
+<li>FilterdatesButton (matlab.ui.control.Button)</li>
+<li>DatabaseloadLabel (matlab.ui.control.Label)</li>
+<li>LoadButton (matlab.ui.control.Button)</li>
+<li>PlotTab (matlab.ui.container.Tab)</li>
+<li>Button (matlab.ui.control.Button)</li>
+<li>PlotfigureButton (matlab.ui.control.Button)</li>
+<li>SelectthefiguretoshowDropDown (matlab.ui.control.DropDown)</li>
+<li>SelectthefiguretoshowLabel (matlab.ui.control.Label)</li>
+<li>Label_3 (matlab.ui.control.Label)</li>
+<li>Label_4 (matlab.ui.control.Label)</li>
+<li>SelectaconfigurationDropDown (matlab.ui.control.DropDown)</li>
+<li>SelectaconfigurationDropDownLabel (matlab.ui.control.Label)</li>
+<li>SelectaMeasureIDDropDown (matlab.ui.control.DropDown)</li>
+<li>SelectaMeasureIDDropDownLabel (matlab.ui.control.Label)</li>
+<li>Button_2 (matlab.ui.control.Button)</li>
+<li>SavefiguresButton (matlab.ui.control.Button)</li>
+<li>HelpTab (matlab.ui.container.Tab)</li>
+<li>Tree (matlab.ui.container.Tree)</li>
+<li>UserGuidesNode (matlab.ui.container.TreeNode)</li>
+<li>FunctionsNode (matlab.ui.container.TreeNode)</li>
+<li>HTML (matlab.ui.control.HTML)</li>
+<li>LIDARButton (matlab.ui.control.Button)</li>
+<li>StopdateDatePickerLabel_7 (matlab.ui.control.Label)</li>
+<li>StopdateDatePickerLabel_6 (matlab.ui.control.Label)</li>
+<li>OutputButton (matlab.ui.control.Button)</li>
+<li>AeronetButton (matlab.ui.control.Button)</li>
+<li>Hyperlink (matlab.ui.control.Hyperlink)</li>
+<li>DataCrossingLabel (matlab.ui.control.Label)</li>
+<li>StopdateDatePickerLabel_4 (matlab.ui.control.Label)</li>
+<li>DataBaseTextArea (matlab.ui.control.TextArea)</li>
+<li>UIAxes (matlab.ui.control.UIAxes) <b>Propietats p&uacute;bliques personalitzades</b>
+</li>
+</ul>
+</div>
+<p>Properties personalitzades usades durant el cicle de l'aplicaci&oacute;.</p>
+<p>
+<b>Propietat (&uacute;s)</b>
+</p>
+<div>
+<ul>
+<li>RealSCCPassword (Emmagatzema la contrasenya real gen&egrave;rica)</li>
+<li>RealPassword (Emmagatzema la contrasenya real personalitzada)</li>
+<li>Auth (estructura per moure les credencials)</li>
+<li>measureIDFolder (Guarda la carpeta dels measuresID)</li>
+<li>selected_measure_ID (cont&eacute; la mesura seleccionada)</li>
+<li>logger = [] (cont&eacute; la informaci&oacute; a incloure al log de l'app);</li>
+<li>system_ids = [];</li>
+<li>foundFilesELDA (control de fitxers ELDA trobats)</li>
+<li>foundFilesAOD (control de fitxers AOD trobats)</li>
+<li>foundFilesALM (control de fitxers ALM trobats)</li>
+<li>foundFilesALP (control de fitxers ALP trobats)</li>
+<li>foundFilesALL (control de fitxers ALL trobats)</li>
+<li>heightELPPLimitMin (estableix el l&iacute;mit m&iacute;nim d'al&ccedil;ada ELPP)</li>
+<li>heightELPPLimitMax (estableix el l&iacute;mit m&iacute;nim d'al&ccedil;ada ELPP)</li>
+<li>heightVDLimitMin (estableix el l&iacute;mit m&iacute;nim d'al&ccedil;ada de despolaritzaci&oacute; de volum)</li>
+<li>heightVDLimitMax (estableix el l&iacute;mit m&iacute;nim d'al&ccedil;ada de despolaritzaci&oacute; de volum)</li>
+</ul>
+</div>
+<h2 id="3">Private Functions</h2>
+<p>S'enumeren les funcions (privades) que afecten la interf&iacute;cie (no s'hi inclouen funcions addicionals fora de l'app principal.</p>
+<h2 id="4">[foundFilesAOD, foundFilesAlm, foundFilesAlp, foundFilesAll] = loadResources(app)</h2>
+<p>Carregueu els recursos est&agrave;tics de l'aplicaci&oacute; que s&oacute;n els fitxers corresponents a les taules de mesures d'Aeronet/Almucantar. Aquests fitxers es troba a la carpeta del repositori i es poden actualitzar mantenint les especificacions de compatibilitat definides en la descripci&oacute; de cadascun dels fitxers (definici&oacute; de noms de camps de les taules)</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [App object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>foundFilesAOD: [int]</tt> - Fitxers AOD trobats al repositori</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>foundFilesAlm: [int]</tt> - Fitxers ALM trobats al repositori</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>foundFilesAlp: [int]</tt> - Fitxers ALP trobats al repositori</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>foundFilesAll: [int]</tt> - Fitxers ALL trobats al repositori</li>
+</ul>
+</div>
+<h2 id="5">logMessage(app, message)</h2>
+<p>Imprimeix un missatge de text al contenidor de logs La funci&oacute; afegeix autom&agrave;ticament la data d'impressi&oacute; de log (quan es va generar l'esdeveniment) i l'hora</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [App object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>message: [string]</tt> - Missatge de text per imprimir al log</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="6">measuresIDfound = reloadMeasuresID(app)</h2>
+<p>Actualitza les mesures disponibles MeasureID adequada per poder ser utilitzats en les funcions de c&agrave;lcul i plotejat:</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [App object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="7">plotter(app)</h2>
+<p>Dibuixa al visor les gr&agrave;fiques representatives de la mesura i al&ccedil;ades seleccionades que es troba a l'espai de treball (identificable com a tipus elda a l'espai de noms)</p>
+<p>
+<b>Volume Depolarization</b>
+</p>
+<p>Analitza si hi ha dades VD de despolaritzaci&oacute; i si les troba els ploteja tamb&eacute;. Si hi ha valors no v&agrave;lids a altura (Nan) als seus extrems (m&iacute;nim i m&agrave;xim) llan&ccedil;a una alerta per prevenir errors en el processament GRASP posterior. Aplica un factor d'amplificaci&oacute; de 10^11</p>
+<p>
+<b>Total Power Channel</b>
+</p>
+<p>Extrau la informaci&oacute; d'ELPP per obtenir Total Power Channel (TPC) Cerca vectors de dades amb valors per a Total Power Channel Si trobeu valors v&agrave;lids per a la longitud d'ona 1064 li aplica, un factor d'amplificaci&oacute;. Per defecte est&agrave; definit a 10000.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [App object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="8">[minELPPAltitude, maxELPPAltitude, minVDAltitude, maxVDAltitude] = getValidEldaAltitude(app)</h2>
+<p>Detecta les dades ELDA v&agrave;lides (no NaN) per a l'al&ccedil;ada m&iacute;nima i m&agrave;xima. Addicionalment cercar&agrave; informaci&oacute; de Despolaritzaci&oacute; del Volum. Si la troba, tamb&eacute; tornar&agrave; els valors m&iacute;mims i v&agrave;lids d'al&ccedil;ada.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [App object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>minELPPAltitude: [int]</tt> - Valor v&agrave;lid de l'al&ccedil;ada m&iacute;nima</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>maxELPPAltitude: [int]</tt> - Valor v&agrave;lid de l'al&ccedil;ada m&iacute;nima</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>minVDAltitude: [int]</tt> - Valor v&agrave;lid de l'al&ccedil;ada m&iacute;nima per al Volum de Despolaritzaci&oacute;</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>maxVDAltitude: [int]</tt> - Valor v&agrave;lid de l'al&ccedil;ada m&agrave;xima per al Volum de Despolaritzaci&oacute;</li>
+</ul>
+</div>
+<h2 id="9">urltofigurefiles = reloadFigureFiles(app)</h2>
+<p>Torna la ruta on s'ubica les gr&agrave;fiques per a una mesura i configuraci&oacute; determinada. Tant la mesura amb la configuraci&oacute; es detecten dels corresponents components de selecci&oacute; del GUI:</p>
+<div>
+<ul>
+<li>SelectaMeasureIDDropDown</li>
+<li>SelectaconfigurationDropDown</li>
+</ul>
+</div>
+<p>Ruta: /&lt;currentFolder&gt;/&lt;output&gt;/&lt;measure&gt;/&lt;configuration&gt;/figures/'|</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [App object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>urltofigurefiles: [string]</tt> - ruta a la carpeta de gr&agrave;fiques per a una mesura i configuraci&oacute;</li>
+</ul>
+</div>
+<h2 id="10">startupFcn(app)</h2>
+<p>Aquesta funci&oacute; s'executa despr&eacute;s de la creaci&oacute; dels components i inicialitza els tres m&ograve;duls de la interf&iacute;cie:</p>
+<p>
+<b>M&ograve;dul de credencials (Authentication)</b>
+</p>
+<p>Carrega fitxer de configuraci&oacute; per obtenir les credencials. <b>Atenci&oacute;:</b> Les credencials nom&eacute;s s'han d'emmagatzemar en mode test per facilitar-ne l'acc&eacute;s de forma r&agrave;pida. Un cop en producci&oacute; s'han d'esborrar per ser introdu&iuml;des manualment per l'usuari.</p>
+<p>Degut a les limitacions de MatLabs no hi ha camps de tipus clau i se simulen mitjan&ccedil;ant una funci&oacute; a mida.</p>
+<p>
+<b>M&ograve;dul de representaci&oacute; (Plotting)</b>
+</p>
+<p>Crea la ruta cap a la carpeta contenidora de mesures (measureID) Carrega les mesures disponibles a la carpeta al selector de mesures. Carrega les configuracions disponibles a la carpeta al selector de configuracions. Carrega les gr&agrave;fiques disponibles a la carpeta per a una configuraci&oacute; definida al selector de gr&agrave;fiques (figures).</p>
+<p>
+<b>M&ograve;dul de modelatge de dades (Prebuild)</b>
+</p>
+<p>Es desactiven els elements interactuables de la interf&iacute;cie Crea l'estructura de directoris per als recursos AERONET si no existeix Els fitxers esperats d'AERONET s'han de col&middot;locar en aquesta carpeta manualment. Carrega els fitxers Aeronet i Almucantar (AOD, ALM, ALP, ALL) Es registren a les propietats corresponents els fitxers trobats.</p>
+<p>
+<b>M&ograve;dul d'ajuda (Help)</b>
+</p>
+<p>Defineix la ruta del directori on es troben els fitxers publicats per a la secci&oacute; de funcions i la de guies.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [App object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="11">LoadButtonPushed(app)</h2>
+<p>Obre un quadre de di&agrave;leg per seleccionar el fitxer CSV d'entrada que contindr&agrave; la base de dades de mesures disponibles. (MeasureID). Si es carrega correctament s'assignar&agrave; a una taula al workspace anomenada 'tDatabase'</p>
+<p>A continuaci&oacute; cerca el fitxer de configuraci&oacute; a la ruta predefinida al fitxer de configuraci&oacute; i llegeix la primera columna on s'assumeix per convenci&oacute; que hi ha els identificadors v&agrave;lids a creuar amb la base de dades pr&egrave;viament carregada. El resultat &eacute;s la llista de MeasureID v&agrave;lids sobre els quals es podr&agrave; treballar.</p>
+<p>Si trobeu IDs v&agrave;lids s'activaran els components de selecci&oacute; de data per filtrar</p>
+<p>En cas que no es puguin llegir els fitxers mostrar&agrave; el missatge derror corresponent.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [App object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="12">FilterdatesButtonPushed(app, event)</h2>
+<p>En pr&eacute;mer el bot&oacute; de filtrar per dates 'Filter dates' es desencadenen diferents processos que permeten filtres les dades de les mesures disponibles</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [App object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<p>En detall:</p>
+<div>
+<ul>
+<li>Comprova que la taula 'tDatabase' existeix al workspace i activa el selector de mesures (measureID) i el bot&oacute; 'Accept'. Si no existeix, mostra un missatge d'error.</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>Filtra les entrades a 'tDatabase' el 'system_id' del qual coincideixin amb la llista precarregada de la configuraci&oacute; i crea la taula 'tfMeasures'.</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>Aplica un filtratge basat en rang de dates sobre les dades anteriors usant 'StartDateDatePicker' i 'StopdateDatePicker' del component de la interf&iacute;cie assignant-los a la taula 'T_filt' carregant-la al selector 'SelectedIDLabelDropDown'</li>
+</ul>
+</div>
+<h2 id="13">SelectedIDLabelDropDownValueChanged(app, event)</h2>
+<p>Assigna la variable <tt>app.selected_measure_ID</tt> l'identificador de la mesura seleccionada al selector de mesures disponibles quan aquest canvia dopci&oacute;.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="14">AcceptButtonPushed(app, event)</h2>
+<p>En accionar el bot&oacute; <tt>AcceptButton</tt> descarrega els fitxers LIDAR referits a la mesura (measureID) seleccionada per al rang de dates entre 'Start Date' i 'Stop Date'</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<p>
+<b>En detall</b>
+</p>
+<div>
+<ul>
+<li>Identifica la mesura</li>
+<li>Descarrega els fitxers ELDA i ELPP usant la funci&oacute;</li>
+<li>download(...) passant com a par&agrave;metre l'ID de la mesura i el</li>
+<li>tipus de fitxer a descarregar (ELDA o ELPP). &Eacute;s invocat dues vegades (un per a cada tipus).</li>
+<li>Si tornen algun error es mostra a la consola de log i finalitza el proc&eacute;s de desc&agrave;rrega.</li>
+<li>Neteja possibles taules pr&egrave;vies ELDA al workspace.</li>
+<li>Desactiva els spinners d'al&ccedil;ades m&iacute;nima i m&agrave;xima.</li>
+<li>Desactiva els botons de reinici d'altures m&iacute;nima i m&agrave;xima.</li>
+<li>Desactiva totes les configuracions del selector.</li>
+<li>Si trobeu fitxers ELDA procedeix a analitzar-lo amb la funci&oacute; <tt>checkElda(...)</tt> i torna l'estat i un missatge per a cadascuna de les longituds d'ona inspecionades: (status_1064, message_1064, status_0532, message_0532, status_0355, message_0355]</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>Es verifica els arxius obtinguts permetent un m&agrave;xim de dos fitxers AOD (contemplant fitxer lunar), un per ALM i un per ALL. En cas de trobar algun problema amb algun d'ells, mostra en una finestra de di&agrave;leg cada tipus derror.</li>
+</ul>
+</div>
+<p>Si els fitxers requerits s&oacute;n correctes:</p>
+<div>
+<ul>
+<li>Busca els l&iacute;mits d'altitud als ELDAs i se'ls assigna als components del GUI</li>
+<li>S'activa el component 'switch' per a 'ELPP/VD' si troba altura al canal Volume Depolarization (VD)</li>
+<li>Configura els spinners Defineix el format dels spinners d'al&ccedil;ada com a enters (sense decimals) Si el 'switch' est&agrave; en mode ELPP assigna els limits dels spinners als m&iacute;nims i m&agrave;xims trobats als vectors de dades ignorant el canal VD (en cas que existeixi) Si el 'switch' est&agrave; en mode VD assigna els limits dels spinners als m&iacute;nims i m&agrave;xims trobats als vectors de dades VD</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>activa els spinners</li>
+<li>activa els botons de reinici dels spinners</li>
+<li>activa el bot&oacute; de ploteig 'PlotDataButton' Si el 'switch' est&agrave; en mode ELPP, assigna el valor m&iacute;nim ELPP al spinner d'al&ccedil;ada m&iacute;nima i el valor m&agrave;xim ELPP en spinner d'al&ccedil;ada m&agrave;xima. Si el 'switch' est&agrave; en mode VD, assigna el valor m&iacute;nim VD al spinner d'al&ccedil;ada m&iacute;nima i el valor m&agrave;xim VD en spinner d'al&ccedil;ada m&agrave;xima</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>recupera les dades filtrades entre les dates seleccionades a les taules AOD, ALM, ALP, ALL i ELDA utilitzant la funci&oacute; <tt>getFilteredTable(...)</tt> que torna una taula amb les dades filtrades i un comptador de l&iacute;nies trobades per a cadascuna</li>
+<li>Crea les taules anteriors al workspace</li>
+<li>Verifica si hi ha dades a les taules filtrades ALM &amp; AOD. Si no fos aix&iacute;, mostra l'error en un quadre de di&agrave;leg</li>
+<li>Comprova quines configuracions estan disponibles amb la funci&oacute; <tt>checkSendDataConfigs(...)</tt> i les activa al component GUI d'opcions de configuracions.</li>
+</ul>
+</div>
+<h2 id="15">SettingsButtonGroupSelectionChanged(app, event)</h2>
+<p>Assigna a la variable <tt>selectedButton</tt> el valor de l'opci&oacute; escollida al selector de configuracions de mesures quan el selector canvia.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="16">SendButtonPushed(app, event)</h2>
+<p>Invoca la funci&oacute; encarregada d'escriure el fitxer de configuraci&oacute; de mesura segons la selecci&oacute; realitzada al selector <tt>SettingsButtonGroup</tt> corresponent.</p>
+<div>
+<ul>
+<li>
+<tt>sendData_D1P_L_VD(...)</tt>
+</li>
+<li>
+<tt>sendData_D1P_L(...)</tt>
+</li>
+<li>
+<tt>sendData_D1_L_VD(...)</tt>
+</li>
+<li>
+<tt>sendData_D1_L(...)</tt>
+</li>
+</ul>
+</div>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="17">HeightminSpinnerValueChanged(app, event)</h2>
+<p>Verifica que quan canvia el valor de l'spinner d'al&ccedil;ada m&iacute;nima no sobrepassa els l&iacute;mits inferior i superior corresponents al tipus canal que t&eacute; seleccionat (ELDA o VD).</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="18">HeightmaxSpinnerValueChanged(app, event)</h2>
+<p>Verifica que quan canvia el valor de l'spinner d'al&ccedil;ada m&agrave;xima no sobrepassa els l&iacute;mits inferior i superior corresponents al tipus canal que t&eacute; seleccionat (ELDA o VD).</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="19">PlotdataButtonPushed(app, event)</h2>
+<p>En pr&eacute;mer sobre el component 'PlotdataButton' invoca la funci&oacute; 'plotter(...) per graficar al visor les dades de la mesura LIDAR seleccionada.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="20">RButton_2Pushed(app, event)</h2>
+<p>En pr&eacute;mer sobre el component 'RButton_2' reinicia els valors del spinner d'al&ccedil;ada m&agrave;xima als l&iacute;mits m&agrave;xims per defecte.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="21">RButtonPushed(app, event)</h2>
+<p>En pr&eacute;mer sobre el component 'RButton' reinicia els valors del spinner d'al&ccedil;ada m&iacute;nima als l&iacute;mits m&iacute;nims per defecte.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="22">HyperlinkClicked(app, event)</h2>
+<p>En pr&eacute;mer sobre el component 'Hyperlink' esborra el contingut del log en pantalla.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="23">AeronetButtonPushed(app, event)</h2>
+<p>En pr&eacute;mer sobre el component 'AeronetButton' Obre una finestra al sistema per mostrar la carpeta que cont&eacute; els fitxers AERONET. Si la carpeta no existeix, mostra un error a la pantalla.</p>
+<p>Ruta: &gt;root_folder&amp;rt;/&gt;CONFIG_LIDAR_folder&amp;rt;</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="24">OutputButtonPushed(app, event)</h2>
+<p>En pr&eacute;mer sobre el component 'OutputButton' Obre una finestra al sistema per mostrar la carpeta de sortida on es generen els fitxers '*.sat', '*.mat' i 'figures' amb els seus corresponents gr&agrave;fiques. Si la carpeta no existeix, mostra un error a la pantalla.</p>
+<p>Ruta: &gt;root_folder&amp;rt;/&gt;CONFIG_output&amp;rt;</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="25">LIDARButtonPushed(app, event)</h2>
+<p>En pr&eacute;mer sobre el component 'LIDARButton' Obre una finestra al sistema per mostrar la carpeta que cont&eacute; els fitxers LIDAR descarregats per cada mesura seleccionada. Si la carpeta no hi ha mostra un error en pantalla.</p>
+<p>Ruta: &gt;root_folder&amp;rt;/&gt;CONFIG_LIDAR_folder&amp;rt;</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="26">AltiudeSwitchValueChanged(app, event)</h2>
+<p>Obt&eacute; els valors m&iacute;nims i m&agrave;xims d'al&ccedil;ada de 'Total Power Channel' i 'Volume Depolarization' usant la funci&oacute; 'getValidEldaAltitude(...)' i els assigna segons els seleccioneu al component 'AltiudeSwitch' l'opci&oacute; 'ELPP' o 'VD' com a valors i l&iacute;mits als spinners 'HeightminSpinner' i 'HeightmaxSpinner'</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="27">LoginButtonPushed(app)</h2>
+<p>Carrega les dues credencials a l'estructura <tt>app.Auth</tt> i s'envien amb la funci&oacute; AuthSCCAccess(...) al servidor perqu&egrave; determini si s&oacute;n v&agrave;lides o no retornant dos par&agrave;metres:</p>
+<div>
+<ul>
+<li>isValid: [boolean] indicant si les credencials han estat acceptades</li>
+<li>message: [string] amb un missatge descriptiu del resultat]</li>
+</ul>
+</div>
+<p>
+<b>Si les credencials s&oacute;n correctes</b> el led situat a l'esquerra del bot&oacute; de 'Login' es posar&agrave; de color verd i tant el bot&oacute; de c&agrave;rrega de base de dades com a checkbox per visualitzar figures s'habilitaran.</p>
+<p>
+<b>Si les credencials no s&oacute;n correctes</b> el led es posar&agrave; de color vermell i els components esmentats anteriorment es deshabilitaran</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="28">SelectaMeasureIDDropDownValueChanged(app)</h2>
+<p>Funci&oacute; que s'invoca quan canvia el valor del selector de mesures (MeasureID). Invoca la funci&oacute; findSpecificFolders(...) per trobar la ruta on s'ubiquen les configuracions per a la mesura seleccionada i se li assigna al selector de configuracions. Finalment, recarrega les gr&agrave;fiques disponibles per a la configuraci&oacute; assignada al selector. Si no hi ha cap gr&agrave;fica disponible desactiva el bot&oacute; de representar gr&agrave;fiques (PlotfigureButton)</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="29">SelectaMeasureIDDropDownOpening(app)</h2>
+<p>Funci&oacute; que s'invoca quan s'obre el selector de mides (MeasureID). Invoca la funci&oacute; findSpecificFolders(...) per trobar la ruta on s'ubiquen les configuracions per a la mesura seleccionada i se li assigna al selector de configuracions. Finalment, recarrega les gr&agrave;fiques disponibles per a la configuraci&oacute; assignada al selector.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="30">SavefiguresButtonPushed(app, event)</h2>
+<p>Llan&ccedil;a la petici&oacute; de ploteig per a la mesura i configuraci&oacute; seleccionada als selectors corresponents de la interf&iacute;cie.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<p>
+<b>Nota 1:</b> Es distingeixen en codi les diferents configuracions per motius d'escalabilitat en futures versions, per&ograve; a l'actual les quatre configuracions invoquen la mateixa funci&oacute; de ploteig.</p>
+<p>
+<b>Nota 2:</b> El bot&oacute; es desactiva una vegada premut fins que finalitza el plotejat de les dades. D'aquesta manera s'impedeix iniciar un nou ploteig abans de finalitzar l'anterior i el conseg&uuml;ent missatge d'error del sistema.</p>
+<p>Es defineixen totes les longituds d'ones utilitzades a l'entrada de GRASP.</p>
+<div>
+<ul>
+<li>Lambda: 355,380,440,500,532,675,870,1020,1064,1640</li>
+<li>Waves_AERONET2: 380,440,500,675,870,1020,1640</li>
+</ul>
+</div>
+<p>Valors de GRASP a VSD:</p>
+<div>
+<ul>
+<li>size_binsF: 0.05,0.0656,0.086,0.11294,0.14818,0.19443,0.25511, 0.33472,0.43917,0.57623];</li>
+<li>size_binsC: 0.33472,0.43917,0.57623,0.75605,0.99199,1.3016,1.7078,</li>
+</ul>
+</div>
+<p>Finalment, invoca la funci&oacute; grasp_plotting_UPC(...) amb la configuraci&oacute; corresponent per iniciar el proc&eacute;s de generaci&oacute; de gr&agrave;fiques</p>
+<h2 id="31">Button_2Pushed(app, event)</h2>
+<p>Actualitza les mesures i les gr&agrave;fiques disponibles a tots dos selectors invocant les funcions:</p>
+<div>
+<ul>
+<li>reloadMeasuresID(app);</li>
+<li>reloadFigureFiles(app);</li>
+</ul>
+</div>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="32">TreeSelectionChanged(app, event)</h2>
+<p>S'executa despr&eacute;s de l'esdeveniment de canvi de node de l'arbre d'ajuda. Si el node i el valor no estan buits, envieu l'URL al contenidor HTML per mostrar el fitxer d'ajuda corresponent (app.HTML.HTMLSource).</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="33">SCCpasswordEditFieldValueChanging(app, event)</h2>
+<p>Aquesta funci&oacute; pertany al conjunt de simulaci&oacute; de camps de contrasenya que amaga la clau amb asteriscs. Es llen&ccedil;a l'esdeveniment quan es perd el focus sobre el component (per ex. escriure o esborrar-ne el contingut i es canvia a un altre component).</p>
+<p>En detall: Obt&eacute; el valor visible actual al camp (cosa que l'usuari escriu), actualitza la contrasenya real directament des del camp visible i reempla&ccedil;a el contingut visible del camp amb asteriscs.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="34">PasswordEditFieldValueChanging(app, event)</h2>
+<p>Aquesta funci&oacute; pertany al conjunt de simulaci&oacute; de camps de contrasenya que amaga la clau amb asteriscs. Es llan&ccedil;a l'esdeveniment quan es produeix qualsevol modificaci&oacute; al camp (per ex. escriure o esborrar un car&agrave;cter. En detall:</p>
+<p>Obt&eacute; el valor visible actual al camp (cosa que l'usuari escriu), actualitza la contrasenya real directament des del camp visible i reempla&ccedil;a el contingut visible del camp amb asteriscs.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>event: [event object]</tt> - Executeu la funci&oacute; quan es produeix l'esdeveniment assignat. A aquest cas la pulsaci&oacute; del bot&oacute;</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="35">SelectaconfigurationDropDownValueChanged(app)</h2>
+<p>Aquesta funci&oacute; &eacute;s cridada quan el valor del selector de configuraci&oacute; canvia. Recarrega el contingut del selector de gr&agrave;fics i si no cont&eacute; cap que estigui disponible per ser representada, deshabilita el bot&oacute; que mostra les gr&agrave;fiques (PlotfigureButton). En cas contrari ho activa.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="36">reloadFigureFiles(app)</h2>
+<p>Aquesta funci&oacute; &eacute;s cridada quan el valor del selector de figures canvia i s'assegura que en contingui alguna abans d'activar el bot&oacute; que permet mostrar les gr&agrave;fiques (PlotfigureButton). En cas contrari ho desactiva.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="37">PlotfigureButtonPushed(app)</h2>
+<p>Imprimeix el gr&agrave;fic seleccionat al selector <tt>SelectthefiguretoshowDropDown</tt> Per aix&ograve; primer carrega la gr&agrave;fica des del fitxer en mode 'invisible' i procedeix a copiar-la al visor de la interf&iacute;cie:</p>
+<div>
+<ul>
+<li>Verifica si hi ha eixos a la figura</li>
+<li>Si nom&eacute;s hi ha un eix, treballa amb ell directament</li>
+<li>Copia els fills (dades del gr&agrave;fic) al UIAxes</li>
+<li>Copia les etiquetes dels eixos (X, Y, T&iacute;tol)</li>
+<li>Copia la llegenda si existeix</li>
+<li>Elimina la figura oculta.</li>
+</ul>
+</div>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="38">ButtonPushed(app)</h2>
+<p>Esborra la gr&agrave;fica del visor UIAxes i reinicia els seus valors als de per defecte.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="39">createComponents(app)</h2>
+<p>Crea els components de la interf&iacute;cie gr&agrave;fica. A continuaci&oacute; es llisten els components que es creen a la interf&iacute;cie:</p>
+<div>
+<ul>
+<li>Create UIFigure and hide until all components are created</li>
+<li>Create UIAxes</li>
+<li>Create DataBaseTextArea</li>
+<li>Create StopdateDatePickerLabel_4</li>
+<li>Create DataCrossingLabel</li>
+<li>Create Hyperlink</li>
+<li>Create AeronetButton</li>
+<li>Create OutputButton</li>
+<li>Create StopdateDatePickerLabel_6</li>
+<li>Create StopdateDatePickerLabel_7</li>
+<li>Create LIDARButton</li>
+<li>Create TabGroup</li>
+<li>Create AuthenticationTab</li>
+<li>Create GenericSCCAuthenticationLabel</li>
+<li>Create LoginButton</li>
+<li>Create PersonalSCCAuthenticationLabel</li>
+<li>Create Image</li>
+<li>Create Label_2</li>
+<li>Create SCCuserEditFieldLabel</li>
+<li>Create SCCuserEditField</li>
+<li>Create SCCpasswordEditFieldLabel</li>
+<li>Create SCCpasswordEditField</li>
+<li>Create UsernameEditFieldLabel</li>
+<li>Create UsernameEditField</li>
+<li>Create PasswordEditFieldLabel</li>
+<li>Create PasswordEditField</li>
+<li>Create StatusLamp</li>
+<li>Create PreBuildingTab</li>
+<li>Create LoadButton</li>
+<li>Create DatabaseloadLabel</li>
+<li>Create FilterdatesButton</li>
+<li>Create SelectedIDLabelDropDown</li>
+<li>Create AcceptButton</li>
+<li>Create FilterbydatesLabel</li>
+<li>Create DatacollectionLabel</li>
+<li>Create StopdateDatePickerLabel_2</li>
+<li>Create SettingsButtonGroup</li>
+<li>Create D1_LPhotometerlidarButton</li>
+<li>Create D1P_LPhotom_pollidarButton</li>
+<li>Create D1_L_VDPhotometerlidar_depButton</li>
+<li>Create D1P_L_VDPhotom_pollidar_depButton</li>
+<li>Create SendButton</li>
+<li>Create GRASPfilebuilderLabel</li>
+<li>Create PlotdataButton</li>
+<li>Create StopdateDatePickerLabel_5</li>
+<li>Create ViewfiguresCheckBox</li>
+<li>Create RButton</li>
+<li>Create RButton_2</li>
+<li>Create ExportLIDARCheckBox</li>
+<li>Create AltiudeSwitch</li>
+<li>Create StartDateDatePickerLabel</li>
+<li>Create StartDateDatePicker</li>
+<li>Create StopdateDatePickerLabel</li>
+<li>Create StopdateDatePicker</li>
+<li>Create HeightminSpinnerLabel</li>
+<li>Create HeightminSpinner</li>
+<li>Create HeightmaxSpinnerLabel</li>
+<li>Create HeightmaxSpinner</li>
+<li>Create CurrentIDEditFieldLabel</li>
+<li>Create CurrentIDEditField</li>
+<li>Create PlotTab</li>
+<li>Create SavefiguresButton</li>
+<li>Create Button_2</li>
+<li>Create SelectaMeasureIDDropDownLabel</li>
+<li>Create SelectaMeasureIDDropDown</li>
+<li>Create SelectaconfigurationDropDownLabel</li>
+<li>Create SelectaconfigurationDropDown</li>
+<li>Create Label_4</li>
+<li>Create Label_3</li>
+<li>Create SelectthefiguretoshowLabel</li>
+<li>Create SelectthefiguretoshowDropDown</li>
+<li>Create PlotfigureButton</li>
+<li>Create Button</li>
+<li>Create HelpTab</li>
+<li>Create HTML</li>
+<li>Create Tree</li>
+<li>Create UserGuidesNode</li>
+</ul>
+</div>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que creeu</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<h2 id="40">app = DataCrossing</h2>
+<p>&Eacute;s el constructor de l'aplicaci&oacute;:</p>
+<div>
+<ul>
+<li>Crea la interf&iacute;cie i els seus components</li>
+<li>Registra l'app a l'App Designer</li>
+<li>Executa la funci&oacute; d'arrencada runStartupFcn(...)</li>
+</ul>
+</div>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>No teniu par&agrave;metres d'entrada</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que heu creat</li>
+</ul>
+</div>
+<h2 id="41">delete(app)</h2>
+<p>Aquesta funci&oacute; s'executa abans d'eliminar l'aplicaci&oacute; i eliminar tots els components de la interf&iacute;cie quan l'app s'elimina.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>app: [app object]</tt> - Inst&agrave;ncia de la classe de l'aplicaci&oacute; que heu creat</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE SORTIDA</b>
+</p>
+<div>
+<ul>
+<li>No torna cap valor</li>
+</ul>
+</div>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% DataCrossing < matlab.apps.AppBase
+%
+%% Descripció
+%
+% *Interfície gr&agrave;fic DataCrossing (mlapp)*
+%
+% Aquest document ofereix informació tècnica sobre les principals funcions
+% incloses al GUIApp de l'aplicació
+%
+%% Propietats del GUI
+% Propietats públiques creades a partir dels components de la interfície
+%
+% *Property name (Classe)*
+%
+% * UIFigure                        (matlab.ui.Figure)
+% * TabGroup                        (matlab.ui.container.TabGroup)
+% * AuthenticationTab               (matlab.ui.container.Tab)
+% * StatusLamp                      (matlab.ui.control.Lamp)
+% * StatusLampLabel                 (matlab.ui.control.Label)
+% * PasswordEditField               (matlab.ui.control.EditField)
+% * PasswordEditFieldLabel          (matlab.ui.control.Label)
+% * UsernameEditField               (matlab.ui.control.EditField)
+% * UsernameEditFieldLabel          (matlab.ui.control.Label)
+% * SCCpasswordEditField            (matlab.ui.control.EditField)
+% * SCCpasswordEditFieldLabel       (matlab.ui.control.Label)
+% * SCCuserEditField                (matlab.ui.control.EditField)
+% * SCCuserEditFieldLabel           (matlab.ui.control.Label)
+% * Label_2                         (matlab.ui.control.Label)
+% * Image                           (matlab.ui.control.Image)
+% * PersonalSCCAuthenticationLabel  (matlab.ui.control.Label)
+% * LoginButton                     (matlab.ui.control.Button)
+% * GenericSCCAuthenticationLabel   (matlab.ui.control.Label)
+% * PreBuildingTab                  (matlab.ui.container.Tab)
+% * CurrentIDEditField              (matlab.ui.control.EditField)
+% * CurrentIDEditFieldLabel         (matlab.ui.control.Label)
+% * HeightmaxSpinner                (matlab.ui.control.Spinner)
+% * HeightmaxSpinnerLabel           (matlab.ui.control.Label)
+% * HeightminSpinner                (matlab.ui.control.Spinner)
+% * HeightminSpinnerLabel           (matlab.ui.control.Label)
+% * StopdateDatePicker              (matlab.ui.control.DatePicker)
+% * StopdateDatePickerLabel         (matlab.ui.control.Label)
+% * StartDateDatePicker             (matlab.ui.control.DatePicker)
+% * StartDateDatePickerLabel        (matlab.ui.control.Label)
+% * AltiudeSwitch                   (matlab.ui.control.Switch)
+% * ExportLIDARCheckBox             (matlab.ui.control.CheckBox)
+% * RButton_2                       (matlab.ui.control.Button)
+% * RButton                         (matlab.ui.control.Button)
+% * ViewfiguresCheckBox             (matlab.ui.control.CheckBox)
+% * StopdateDatePickerLabel_5       (matlab.ui.control.Label)
+% * PlotdataButton                  (matlab.ui.control.Button)
+% * GRASPfilebuilderLabel           (matlab.ui.control.Label)
+% * SendButton                      (matlab.ui.control.Button)
+% * SettingsButtonGroup             (matlab.ui.container.ButtonGroup)
+% * D1P_L_VDPhotom_pollidar_depButton  (matlab.ui.control.RadioButton)
+% * D1_L_VDPhotometerlidar_depButton  (matlab.ui.control.RadioButton)
+% * D1P_LPhotom_pollidarButton      (matlab.ui.control.RadioButton)
+% * D1_LPhotometerlidarButton       (matlab.ui.control.RadioButton)
+% * StopdateDatePickerLabel_2       (matlab.ui.control.Label)
+% * DatacollectionLabel             (matlab.ui.control.Label)
+% * FilterbydatesLabel              (matlab.ui.control.Label)
+% * AcceptButton                    (matlab.ui.control.Button)
+% * SelectedIDLabelDropDown         (matlab.ui.control.DropDown)
+% * FilterdatesButton               (matlab.ui.control.Button)
+% * DatabaseloadLabel               (matlab.ui.control.Label)
+% * LoadButton                      (matlab.ui.control.Button)
+% * PlotTab                         (matlab.ui.container.Tab)
+% * Button                          (matlab.ui.control.Button)
+% * PlotfigureButton                (matlab.ui.control.Button)
+% * SelectthefiguretoshowDropDown   (matlab.ui.control.DropDown)
+% * SelectthefiguretoshowLabel      (matlab.ui.control.Label)
+% * Label_3                         (matlab.ui.control.Label)
+% * Label_4                         (matlab.ui.control.Label)
+% * SelectaconfigurationDropDown    (matlab.ui.control.DropDown)
+% * SelectaconfigurationDropDownLabel  (matlab.ui.control.Label)
+% * SelectaMeasureIDDropDown        (matlab.ui.control.DropDown)
+% * SelectaMeasureIDDropDownLabel   (matlab.ui.control.Label)
+% * Button_2                        (matlab.ui.control.Button)
+% * SavefiguresButton               (matlab.ui.control.Button)
+% * HelpTab                         (matlab.ui.container.Tab)
+% * Tree                            (matlab.ui.container.Tree)
+% * UserGuidesNode                  (matlab.ui.container.TreeNode)
+% * FunctionsNode                   (matlab.ui.container.TreeNode)
+% * HTML                            (matlab.ui.control.HTML)
+% * LIDARButton                     (matlab.ui.control.Button)
+% * StopdateDatePickerLabel_7       (matlab.ui.control.Label)
+% * StopdateDatePickerLabel_6       (matlab.ui.control.Label)
+% * OutputButton                    (matlab.ui.control.Button)
+% * AeronetButton                   (matlab.ui.control.Button)
+% * Hyperlink                       (matlab.ui.control.Hyperlink)
+% * DataCrossingLabel               (matlab.ui.control.Label)
+% * StopdateDatePickerLabel_4       (matlab.ui.control.Label)
+% * DataBaseTextArea                (matlab.ui.control.TextArea)
+% * UIAxes                          (matlab.ui.control.UIAxes)
+% *Propietats públiques personalitzades*
+%
+% Properties personalitzades usades durant el cicle de l'aplicació.
+%
+% *Propietat (ús)*
+%
+% * RealSCCPassword (Emmagatzema la contrasenya real genèrica)
+% * RealPassword (Emmagatzema la contrasenya real personalitzada)
+% * Auth (estructura per moure les credencials)
+% * measureIDFolder (Guarda la carpeta dels measuresID)
+% * selected_measure_ID (conté la mesura seleccionada)
+% * logger = [] (conté la informació a incloure al log de l'app);
+% * system_ids = [];
+% * foundFilesELDA (control de fitxers ELDA trobats)
+% * foundFilesAOD (control de fitxers AOD trobats)
+% * foundFilesALM (control de fitxers ALM trobats)
+% * foundFilesALP (control de fitxers ALP trobats)
+% * foundFilesALL (control de fitxers ALL trobats)
+% * heightELPPLimitMin (estableix el límit mínim d'alçada ELPP)
+% * heightELPPLimitMax (estableix el límit mínim d'alçada ELPP)
+% * heightVDLimitMin (estableix el límit mínim d'alçada de despolarització de volum)
+% * heightVDLimitMax (estableix el límit mínim d'alçada de despolarització de volum)
+%% Private Functions
+% S'enumeren les funcions (privades) que afecten la interfície
+% (no s'hi inclouen funcions addicionals fora de l'app principal.
+%% [foundFilesAOD, foundFilesAlm, foundFilesAlp, foundFilesAll] = loadResources(app)
+% Carregueu els recursos est&agrave;tics de l'aplicació que són els fitxers
+% corresponents a les taules de mesures d'Aeronet/Almucantar.
+% Aquests fitxers es troba a la carpeta del repositori i
+% es poden actualitzar mantenint les especificacions de
+% compatibilitat definides en la descripció de cadascun dels
+% fitxers (definició de noms de camps de les taules)
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [App object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% *VALORS DE SORTIDA*
+%
+% * |foundFilesAOD: [int]| -
+% Fitxers AOD trobats al repositori
+%
+% * |foundFilesAlm: [int]| -
+% Fitxers ALM trobats al repositori
+%
+% * |foundFilesAlp: [int]| -
+% Fitxers ALP trobats al repositori
+%
+% * |foundFilesAll: [int]| -
+% Fitxers ALL trobats al repositori
+%
+%% logMessage(app, message)
+% Imprimeix un missatge de text al contenidor de logs
+% La funció afegeix autom&agrave;ticament la data d'impressió de log
+% (quan es va generar l'esdeveniment) i l'hora
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [App object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |message: [string]| -
+% Missatge de text per imprimir al log
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% measuresIDfound = reloadMeasuresID(app)
+%
+% Actualitza les mesures disponibles MeasureID
+% adequada per poder ser utilitzats en les funcions de c&agrave;lcul i plotejat:
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [App object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% plotter(app)
+%
+% Dibuixa al visor les gr&agrave;fiques representatives de la mesura
+% i alçades seleccionades que es troba a l'espai de
+% treball (identificable com a tipus elda a l'espai de noms)
+%
+% *Volume Depolarization*
+%
+% Analitza si hi ha dades VD de despolarització i si les
+% troba els ploteja també. Si hi ha valors no v&agrave;lids a
+% altura (Nan) als seus extrems (mínim i m&agrave;xim) llança una alerta
+% per prevenir errors en el processament GRASP posterior. Aplica
+% un factor d'amplificació de 10^11
+%
+% *Total Power Channel*
+%
+% Extrau la informació d'ELPP per obtenir Total Power Channel (TPC)
+% Cerca vectors de dades amb valors per a Total Power Channel
+% Si trobeu valors v&agrave;lids per a la longitud d'ona 1064 li
+% aplica, un factor d'amplificació. Per defecte est&agrave; definit
+% a 10000.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [App object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% [minELPPAltitude, maxELPPAltitude, minVDAltitude, maxVDAltitude] = getValidEldaAltitude(app)
+%
+% Detecta les dades ELDA v&agrave;lides (no NaN) per a l'alçada mínima i m&agrave;xima.
+% Addicionalment cercar&agrave; informació de Despolarització del Volum.
+% Si la troba, també tornar&agrave; els valors mímims i v&agrave;lids d'alçada.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [App object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% *VALORS DE SORTIDA*
+%
+% * |minELPPAltitude: [int]| -
+% Valor v&agrave;lid de l'alçada mínima
+%
+% * |maxELPPAltitude: [int]| -
+% Valor v&agrave;lid de l'alçada mínima
+%
+% * |minVDAltitude: [int]| -
+% Valor v&agrave;lid de l'alçada mínima per al Volum de Despolarització
+%
+% * |maxVDAltitude: [int]| -
+% Valor v&agrave;lid de l'alçada m&agrave;xima per al Volum de Despolarització
+%
+%% urltofigurefiles = reloadFigureFiles(app)
+%
+% Torna la ruta on s'ubica les gr&agrave;fiques per a una mesura i configuració determinada.
+% Tant la mesura amb la configuració es detecten dels
+% corresponents components de selecció del GUI:
+%
+% * SelectaMeasureIDDropDown
+% * SelectaconfigurationDropDown
+%
+% Ruta: /<currentFolder>/<output>/<measure>/<configuration>/figures/'|
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [App object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% *VALORS DE SORTIDA*
+%
+% * |urltofigurefiles: [string]| -
+% ruta a la carpeta de gr&agrave;fiques per a una mesura i configuració
+%
+%% startupFcn(app)
+%
+% Aquesta funció s'executa després de la creació dels components i inicialitza
+% els tres mòduls de la interfície:
+%
+% *Mòdul de credencials (Authentication)*
+%
+% Carrega fitxer de configuració per obtenir les credencials.
+% *Atenció:* Les credencials només s'han d'emmagatzemar en mode test
+% per facilitar-ne l'accés de forma r&agrave;pida. Un cop en producció
+% s'han d'esborrar per ser introduïdes manualment per l'usuari.
+%
+% Degut a les limitacions de MatLabs no hi ha camps de tipus clau
+% i se simulen mitjançant una funció a mida.
+%
+% *Mòdul de representació (Plotting)*
+%
+% Crea la ruta cap a la carpeta contenidora de mesures (measureID)
+% Carrega les mesures disponibles a la carpeta al selector de mesures.
+% Carrega les configuracions disponibles a la carpeta al selector de configuracions.
+% Carrega les gr&agrave;fiques disponibles a la carpeta per a una
+% configuració definida al selector de gr&agrave;fiques (figures).
+%
+% *Mòdul de modelatge de dades (Prebuild)*
+%
+% Es desactiven els elements interactuables de la interfície
+% Crea l'estructura de directoris per als recursos AERONET si no existeix
+% Els fitxers esperats d'AERONET s'han de col·locar en aquesta
+% carpeta manualment.
+% Carrega els fitxers Aeronet i Almucantar (AOD, ALM, ALP, ALL)
+% Es registren a les propietats corresponents els fitxers trobats.
+%
+% *Mòdul d'ajuda (Help)*
+%
+% Defineix la ruta del directori on es troben els fitxers
+% publicats per a la secció de funcions i la de guies.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [App object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% LoadButtonPushed(app)
+%
+% Obre un quadre de di&agrave;leg per seleccionar el fitxer CSV
+% d'entrada que contindr&agrave; la base de dades de mesures disponibles.
+% (MeasureID). Si es carrega correctament s'assignar&agrave; a una taula
+% al workspace anomenada 'tDatabase'
+%
+% A continuació cerca el fitxer de configuració a la ruta
+% predefinida al fitxer de configuració i llegeix la primera
+% columna on s'assumeix per convenció que hi ha els identificadors v&agrave;lids a creuar
+% amb la base de dades prèviament carregada.
+% El resultat és la llista de MeasureID v&agrave;lids sobre els quals es
+% podr&agrave; treballar.
+%
+% Si trobeu IDs v&agrave;lids s'activaran els components de
+% selecció de data per filtrar
+%
+% En cas que no es puguin llegir els fitxers mostrar&agrave; el missatge
+% derror corresponent.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [App object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% FilterdatesButtonPushed(app, event)
+%
+% En prémer el botó de filtrar per dates 'Filter dates' es desencadenen
+% diferents processos que permeten filtres les dades de les mesures disponibles
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [App object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%
+% En detall:
+%
+% * Comprova que la taula 'tDatabase' existeix al workspace
+% i activa el selector de mesures (measureID) i el botó 'Accept'.
+% Si no existeix, mostra un missatge d'error.
+%
+% * Filtra les entrades a 'tDatabase' el 'system_id' del qual coincideixin
+% amb la llista precarregada de la configuració i crea la taula
+% 'tfMeasures'.
+%
+% * Aplica un filtratge basat en rang de dates sobre les dades
+% anteriors usant 'StartDateDatePicker' i 'StopdateDatePicker'
+% del component de la interfície assignant-los a la taula 'T_filt'
+% carregant-la al selector 'SelectedIDLabelDropDown'
+%% SelectedIDLabelDropDownValueChanged(app, event)
+%
+% Assigna la variable |app.selected_measure_ID| l'identificador
+% de la mesura seleccionada al selector de mesures disponibles
+% quan aquest canvia dopció.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% AcceptButtonPushed(app, event)
+%
+% En accionar el botó |AcceptButton| descarrega els fitxers LIDAR
+% referits a la mesura (measureID) seleccionada per al rang de
+% dates entre 'Start Date' i 'Stop Date'
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+% *En detall*
+%
+% * Identifica la mesura
+% * Descarrega els fitxers ELDA i ELPP usant la funció
+% * download(...) passant com a par&agrave;metre l'ID de la mesura i el
+% * tipus de fitxer a descarregar (ELDA o ELPP). És invocat dues vegades (un per a cada tipus).
+% * Si tornen algun error es mostra a la consola de log i finalitza el procés de desc&agrave;rrega.
+% * Neteja possibles taules prèvies ELDA al workspace.
+% * Desactiva els spinners d'alçades mínima i m&agrave;xima.
+% * Desactiva els botons de reinici d'altures mínima i m&agrave;xima.
+% * Desactiva totes les configuracions del selector.
+% * Si trobeu fitxers ELDA procedeix a analitzar-lo amb la funció
+% |checkElda(...)| i torna l'estat i un missatge per a cadascuna de les
+% longituds d'ona inspecionades: (status_1064, message_1064,
+% status_0532, message_0532, status_0355, message_0355]
+%
+% * Es verifica els arxius obtinguts permetent un m&agrave;xim de dos fitxers AOD (contemplant
+% fitxer lunar), un per ALM i un per ALL. En cas de
+% trobar algun problema amb algun d'ells, mostra en una finestra de
+% di&agrave;leg cada tipus derror.
+%
+% Si els fitxers requerits són correctes:
+%
+% * Busca els límits d'altitud als ELDAs i se'ls assigna als components del GUI
+% * S'activa el component 'switch' per a 'ELPP/VD' si troba altura al canal Volume Depolarization (VD)
+% * Configura els spinners
+% ** Defineix el format dels spinners d'alçada com a enters (sense decimals)
+% ** Si el 'switch' est&agrave; en mode ELPP assigna els limits dels
+% spinners als mínims i m&agrave;xims trobats als vectors de
+% dades ignorant el canal VD (en cas que existeixi)
+% ** Si el 'switch' est&agrave; en mode VD assigna els limits dels
+% spinners als mínims i m&agrave;xims trobats als vectors de
+% dades VD
+%
+% * activa els spinners
+% * activa els botons de reinici dels spinners
+% * activa el botó de ploteig 'PlotDataButton'
+% ** Si el 'switch' est&agrave; en mode ELPP, assigna el valor mínim ELPP al
+% spinner d'alçada mínima i el valor m&agrave;xim ELPP en spinner d'alçada m&agrave;xima.
+% ** Si el 'switch' est&agrave; en mode VD, assigna el valor mínim VD al
+% spinner d'alçada mínima i el valor m&agrave;xim VD en spinner d'alçada m&agrave;xima
+%
+% * recupera les dades filtrades entre les dates
+% seleccionades a les taules AOD, ALM, ALP, ALL i ELDA
+% utilitzant la funció |getFilteredTable(...)|
+% que torna una taula amb les dades filtrades i un
+% comptador de línies trobades per a cadascuna
+% * Crea les taules anteriors al workspace
+% * Verifica si hi ha dades a les taules filtrades ALM & AOD.
+% Si no fos així, mostra l'error en un quadre de di&agrave;leg
+% * Comprova quines configuracions estan disponibles amb la funció
+% |checkSendDataConfigs(...)| i les activa al component GUI
+% d'opcions de configuracions.
+%% SettingsButtonGroupSelectionChanged(app, event)
+%
+% Assigna a la variable |selectedButton| el valor de l'opció
+% escollida al selector de configuracions de mesures quan
+% el selector canvia.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% SendButtonPushed(app, event)
+%
+% Invoca la funció encarregada d'escriure el fitxer de
+% configuració de mesura segons la selecció realitzada al
+% selector |SettingsButtonGroup| corresponent.
+%
+% * |sendData_D1P_L_VD(...)|
+% * |sendData_D1P_L(...)|
+% * |sendData_D1_L_VD(...)|
+% * |sendData_D1_L(...)|
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% HeightminSpinnerValueChanged(app, event)
+%
+% Verifica que quan canvia el valor de l'spinner d'alçada mínima
+% no sobrepassa els límits inferior i superior corresponents al
+% tipus canal que té seleccionat (ELDA o VD).
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% HeightmaxSpinnerValueChanged(app, event)
+%
+% Verifica que quan canvia el valor de l'spinner d'alçada m&agrave;xima
+% no sobrepassa els límits inferior i superior corresponents al
+% tipus canal que té seleccionat (ELDA o VD).
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% PlotdataButtonPushed(app, event)
+%
+% En prémer sobre el component 'PlotdataButton' invoca la funció
+% 'plotter(...) per graficar al visor les dades de la mesura
+% LIDAR seleccionada.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% RButton_2Pushed(app, event)
+%
+% En prémer sobre el component 'RButton_2' reinicia els valors del
+% spinner d'alçada m&agrave;xima als límits m&agrave;xims per defecte.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% RButtonPushed(app, event)
+%
+% En prémer sobre el component 'RButton' reinicia els valors del
+% spinner d'alçada mínima als límits mínims per defecte.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% HyperlinkClicked(app, event)
+%
+% En prémer sobre el component 'Hyperlink' esborra el contingut del
+% log en pantalla.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% AeronetButtonPushed(app, event)
+%
+% En prémer sobre el component 'AeronetButton' Obre una finestra
+% al sistema per mostrar la carpeta que conté els fitxers
+% AERONET. Si la carpeta no existeix, mostra un error a la pantalla.
+%
+% Ruta: &gt;root_folder&rt;/&gt;CONFIG_LIDAR_folder&rt;
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% OutputButtonPushed(app, event)
+%
+% En prémer sobre el component 'OutputButton' Obre una finestra
+% al sistema per mostrar la carpeta de sortida on es generen
+% els fitxers '*.sat', '*.mat' i 'figures' amb els seus corresponents
+% gr&agrave;fiques. Si la carpeta no existeix, mostra un error a la pantalla.
+%
+% Ruta: &gt;root_folder&rt;/&gt;CONFIG_output&rt;
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% LIDARButtonPushed(app, event)
+%
+% En prémer sobre el component 'LIDARButton' Obre una finestra
+% al sistema per mostrar la carpeta que conté els fitxers LIDAR
+% descarregats per cada mesura seleccionada. Si la carpeta no
+% hi ha mostra un error en pantalla.
+%
+% Ruta: &gt;root_folder&rt;/&gt;CONFIG_LIDAR_folder&rt;
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% AltiudeSwitchValueChanged(app, event)
+%
+%
+% Obté els valors mínims i m&agrave;xims d'alçada de 'Total Power
+% Channel' i 'Volume Depolarization' usant la funció
+% 'getValidEldaAltitude(...)' i els assigna segons els seleccioneu
+% al component 'AltiudeSwitch' l'opció 'ELPP' o 'VD' com a valors
+% i límits als spinners 'HeightminSpinner' i 'HeightmaxSpinner'
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% LoginButtonPushed(app)
+%
+% Carrega les dues credencials a l'estructura |app.Auth| i s'envien
+% amb la funció AuthSCCAccess(...) al servidor perquè determini si
+% són v&agrave;lides o no retornant dos par&agrave;metres:
+%
+% * isValid: [boolean] indicant si les credencials han estat acceptades
+% * message: [string] amb un missatge descriptiu del resultat]
+%
+% *Si les credencials són correctes* el led situat a l'esquerra
+% del botó de 'Login' es posar&agrave; de color verd i tant el botó
+% de c&agrave;rrega de base de dades com a checkbox per visualitzar figures
+% s'habilitaran.
+%
+% *Si les credencials no són correctes* el led es posar&agrave; de color
+% vermell i els components esmentats anteriorment es deshabilitaran
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% SelectaMeasureIDDropDownValueChanged(app)
+%
+% Funció que s'invoca quan canvia el valor del selector de mesures
+% (MeasureID). Invoca la funció findSpecificFolders(...) per
+% trobar la ruta on s'ubiquen les configuracions per a la
+% mesura seleccionada i se li assigna al selector de configuracions.
+% Finalment, recarrega les gr&agrave;fiques disponibles per a la
+% configuració assignada al selector. Si no hi ha cap gr&agrave;fica
+% disponible desactiva el botó de representar gr&agrave;fiques (PlotfigureButton)
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% SelectaMeasureIDDropDownOpening(app)
+%
+% Funció que s'invoca quan s'obre el selector de mides
+% (MeasureID). Invoca la funció findSpecificFolders(...) per
+% trobar la ruta on s'ubiquen les configuracions per a la
+% mesura seleccionada i se li assigna al selector de configuracions.
+% Finalment, recarrega les gr&agrave;fiques disponibles per a la
+% configuració assignada al selector.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% SavefiguresButtonPushed(app, event)
+%
+% Llança la petició de ploteig per a la mesura i configuració
+% seleccionada als selectors corresponents de la interfície.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%
+% *Nota 1:* Es distingeixen en codi les diferents configuracions
+% per motius d'escalabilitat en futures versions, però a
+% l'actual les quatre configuracions invoquen la mateixa funció de
+% ploteig.
+%
+% *Nota 2:* El botó es desactiva una vegada premut fins que finalitza
+% el plotejat de les dades. D'aquesta manera s'impedeix iniciar un nou
+% ploteig abans de finalitzar l'anterior i el consegüent missatge d'error
+% del sistema.
+%
+% Es defineixen totes les longituds d'ones utilitzades a l'entrada de GRASP.
+%
+% * Lambda: 355,380,440,500,532,675,870,1020,1064,1640
+% * Waves_AERONET2: 380,440,500,675,870,1020,1640
+%
+% Valors de GRASP a VSD:
+%
+% * size_binsF: 0.05,0.0656,0.086,0.11294,0.14818,0.19443,0.25511,
+% 0.33472,0.43917,0.57623];
+% * size_binsC: 0.33472,0.43917,0.57623,0.75605,0.99199,1.3016,1.7078,
+%
+% Finalment, invoca la funció grasp_plotting_UPC(...) amb la configuració
+% corresponent per iniciar el procés de generació de gr&agrave;fiques
+%
+%% Button_2Pushed(app, event)
+%
+% Actualitza les mesures i les gr&agrave;fiques disponibles a tots dos selectors invocant les funcions:
+%
+% * reloadMeasuresID(app);
+% * reloadFigureFiles(app);
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% TreeSelectionChanged(app, event)
+%
+% S'executa després de l'esdeveniment de canvi de node de l'arbre d'ajuda.
+% Si el node i el valor no estan buits, envieu l'URL al contenidor
+% HTML per mostrar el fitxer d'ajuda corresponent (app.HTML.HTMLSource).
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% SCCpasswordEditFieldValueChanging(app, event)
+%
+% Aquesta funció pertany al conjunt de simulació de camps
+% de contrasenya que amaga la clau amb asteriscs.
+% Es llença l'esdeveniment quan es perd el focus sobre el component
+% (per ex. escriure o esborrar-ne el contingut i es canvia a un altre component).
+%
+% En detall:
+% Obté el valor visible actual al camp (cosa que l'usuari
+% escriu), actualitza la contrasenya real directament des del camp
+% visible i reemplaça el contingut visible del camp amb asteriscs.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% PasswordEditFieldValueChanging(app, event)
+%
+% Aquesta funció pertany al conjunt de simulació de camps
+% de contrasenya que amaga la clau amb asteriscs.
+% Es llança l'esdeveniment quan es produeix qualsevol modificació al
+% camp (per ex. escriure o esborrar un car&agrave;cter.
+% En detall:
+%
+% Obté el valor visible actual al camp (cosa que l'usuari
+% escriu), actualitza la contrasenya real directament des del camp
+% visible i reemplaça el contingut visible del camp amb asteriscs.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% * |event: [event object]| -
+% Executeu la funció quan es produeix l'esdeveniment assignat. A
+% aquest cas la pulsació del botó
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% SelectaconfigurationDropDownValueChanged(app)
+%
+% Aquesta funció és cridada quan el valor del selector de
+% configuració canvia.
+% Recarrega el contingut del selector de gr&agrave;fics i si no conté
+% cap que estigui disponible per ser representada, deshabilita el
+% botó que mostra les gr&agrave;fiques (PlotfigureButton).
+% En cas contrari ho activa.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% reloadFigureFiles(app)
+%
+% Aquesta funció és cridada quan el valor del selector de
+% figures canvia i s'assegura que en contingui alguna abans
+% d'activar el botó que permet mostrar les gr&agrave;fiques (PlotfigureButton).
+% En cas contrari ho desactiva.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% PlotfigureButtonPushed(app)
+%
+% Imprimeix el gr&agrave;fic seleccionat al selector |SelectthefiguretoshowDropDown|
+% Per això primer carrega la gr&agrave;fica des del fitxer en mode
+% 'invisible' i procedeix a copiar-la al visor de la interfície:
+%
+% * Verifica si hi ha eixos a la figura
+% * Si només hi ha un eix, treballa amb ell directament
+% * Copia els fills (dades del gr&agrave;fic) al UIAxes
+% * Copia les etiquetes dels eixos (X, Y, Títol)
+% * Copia la llegenda si existeix
+% * Elimina la figura oculta.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% ButtonPushed(app)
+%
+% Esborra la gr&agrave;fica del visor UIAxes i reinicia els seus valors als
+% de per defecte.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% createComponents(app)
+%
+% Crea els components de la interfície gr&agrave;fica. A continuació es llisten els components
+% que es creen a la interfície:
+%
+% * Create UIFigure and hide until all components are created
+% * Create UIAxes
+% * Create DataBaseTextArea
+% * Create StopdateDatePickerLabel_4
+% * Create DataCrossingLabel
+% * Create Hyperlink
+% * Create AeronetButton
+% * Create OutputButton
+% * Create StopdateDatePickerLabel_6
+% * Create StopdateDatePickerLabel_7
+% * Create LIDARButton
+% * Create TabGroup
+% * Create AuthenticationTab
+% * Create GenericSCCAuthenticationLabel
+% * Create LoginButton
+% * Create PersonalSCCAuthenticationLabel
+% * Create Image
+% * Create Label_2
+% * Create SCCuserEditFieldLabel
+% * Create SCCuserEditField
+% * Create SCCpasswordEditFieldLabel
+% * Create SCCpasswordEditField
+% * Create UsernameEditFieldLabel
+% * Create UsernameEditField
+% * Create PasswordEditFieldLabel
+% * Create PasswordEditField
+% * Create StatusLamp
+% * Create PreBuildingTab
+% * Create LoadButton
+% * Create DatabaseloadLabel
+% * Create FilterdatesButton
+% * Create SelectedIDLabelDropDown
+% * Create AcceptButton
+% * Create FilterbydatesLabel
+% * Create DatacollectionLabel
+% * Create StopdateDatePickerLabel_2
+% * Create SettingsButtonGroup
+% * Create D1_LPhotometerlidarButton
+% * Create D1P_LPhotom_pollidarButton
+% * Create D1_L_VDPhotometerlidar_depButton
+% * Create D1P_L_VDPhotom_pollidar_depButton
+% * Create SendButton
+% * Create GRASPfilebuilderLabel
+% * Create PlotdataButton
+% * Create StopdateDatePickerLabel_5
+% * Create ViewfiguresCheckBox
+% * Create RButton
+% * Create RButton_2
+% * Create ExportLIDARCheckBox
+% * Create AltiudeSwitch
+% * Create StartDateDatePickerLabel
+% * Create StartDateDatePicker
+% * Create StopdateDatePickerLabel
+% * Create StopdateDatePicker
+% * Create HeightminSpinnerLabel
+% * Create HeightminSpinner
+% * Create HeightmaxSpinnerLabel
+% * Create HeightmaxSpinner
+% * Create CurrentIDEditFieldLabel
+% * Create CurrentIDEditField
+% * Create PlotTab
+% * Create SavefiguresButton
+% * Create Button_2
+% * Create SelectaMeasureIDDropDownLabel
+% * Create SelectaMeasureIDDropDown
+% * Create SelectaconfigurationDropDownLabel
+% * Create SelectaconfigurationDropDown
+% * Create Label_4
+% * Create Label_3
+% * Create SelectthefiguretoshowLabel
+% * Create SelectthefiguretoshowDropDown
+% * Create PlotfigureButton
+% * Create Button
+% * Create HelpTab
+% * Create HTML
+% * Create Tree
+% * Create UserGuidesNode
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que creeu
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+%% app = DataCrossing
+%
+% És el constructor de l'aplicació:
+%
+% * Crea la interfície i els seus components
+% * Registra l'app a l'App Designer
+% * Executa la funció d'arrencada runStartupFcn(...)
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * No teniu par&agrave;metres d'entrada
+%
+% *VALORS DE SORTIDA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que heu creat
+%
+%% delete(app)
+%
+% Aquesta funció s'executa abans d'eliminar l'aplicació i eliminar tots els
+% components de la interfície quan l'app s'elimina.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |app: [app object]| -
+% Inst&agrave;ncia de la classe de l'aplicació que heu creat
+%
+% *VALORS DE SORTIDA*
+%
+% * No torna cap valor
+%
+
+##### SOURCE END #####
+-->
+</body>
+</html>

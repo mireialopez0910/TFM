@@ -1,0 +1,82 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:uielement="using:GRASPBuilder.UIElement"
+		mc:Ignorable="d" Width="1600" Height="910"
+		CanResize="False" WindowStartupLocation="CenterScreen"
+		x:Class="GRASP_Builder.Views.MainWindow"
+		xmlns:vm="using:GRASP_Builder.ViewModels"
+		xmlns:n="using:GRASP_Builder"
+		x:DataType="vm:MainWindowViewModel"
+		Icon="/Resources/logo.ico"
+		Title="{Binding Title}">
+
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+		to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+	<Border>
+		<StackPanel>
+			<TabControl  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="675">
+				<TabItem Header="Home" >
+					<TabItem.Content>
+						<n:HomeView />
+					</TabItem.Content>
+				</TabItem>
+
+				<TabItem Header="Settings" >
+					<TabItem.Content>
+						<n:ConfigurationView />
+					</TabItem.Content>
+				</TabItem>
+				
+				<TabItem Header="Download">
+					<TabItem.Content>
+						<n:DownloadFiles/>
+					</TabItem.Content>
+				</TabItem>
+				
+				<TabItem Header="Data combination">
+					<TabItem.Content>
+						<n:DataConvinationView />
+					</TabItem.Content>
+				</TabItem>
+				
+				<!--<TabItem Header="Matlab">
+				<TabItem.Content>
+				<n:MatlabView />
+				</TabItem.Content>
+				</TabItem>-->
+				
+				<TabItem Header="About">
+					<TabItem.Content>
+						<!--<Views:AboutView />-->
+					</TabItem.Content>
+				</TabItem>
+			</TabControl>
+			
+			<TabControl>
+				<TabItem Header="Log" FontSize="18">
+					<TabItem.Content >
+						<n:LogView Margin="0,5"/>
+					</TabItem.Content>
+				</TabItem>
+			</TabControl>
+			
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				
+				<Image Source="avares://GRASP_Builder/Resources/logo.png" Stretch="Fill" Opacity="1" Margin="1" Height="20" Width="20"
+					   HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="1" />
+				
+				<Image Source="avares://GRASP_Builder/Resources/logo_UPC.png" Stretch="Fill" Opacity="1" Margin="1" Height="30" Width="150"
+					   HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" />
+			</Grid>
+		</StackPanel>
+	</Border>
+</Window>

@@ -1,0 +1,81 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Models/" />
+    <AvaloniaResource Include="Assets/**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="config.txt" />
+    <None Remove="plot_test.m" />
+    <None Remove="Resources\create_new_folder.png" />
+    <None Remove="Resources\import_zip.png" />
+    <None Remove="Resources\logo.ico" />
+    <None Remove="Resources\logo.png" />
+    <None Remove="Resources\logo_UPC.png" />
+    <None Remove="Resources\open_folder.png" />
+    <None Remove="Resources\SplashScreen.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.3.6" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.6" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.6" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.6" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.3.6">
+      <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+      <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+    <PackageReference Include="Microsoft.Extensions.ApiDescription.Client" Version="9.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="NSwag.ApiDescription.Client" Version="14.6.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views/DataConvinationView.axaml.cs">
+      <DependentUpon>DataConvinationView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\HomeProjectActionWindow.axaml.cs">
+      <DependentUpon>HomeProjectActionWindow.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Matlab/Scripts/**/*">
+			<!--/**/*/  includes all files and subfolders recursively-->
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AvaloniaResource Include="Resources\create_new_folder.png" />
+	  <AvaloniaResource Include="Resources\import_zip.png" />
+	  <AvaloniaResource Include="Resources\logo.ico" />
+	  <AvaloniaResource Include="Resources\logo.png" />
+	  <AvaloniaResource Include="Resources\logo_UPC.png" />
+	  <AvaloniaResource Include="Resources\open_folder.png" />
+	  <AvaloniaResource Include="Resources\SplashScreen.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Views\CreateProjectWindow.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </None>
+	</ItemGroup>
+</Project>

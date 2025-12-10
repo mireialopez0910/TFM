@@ -1,0 +1,17 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="GRASP_Builder.App"
+             xmlns:local="using:GRASP_Builder"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+  <Application.Styles>
+        <!-- Force Light theme -->
+        <FluentTheme/>
+    </Application.Styles>
+</Application>
+
+<!--dotnet publish -r linux-x64 -c Release-->
