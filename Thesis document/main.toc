@@ -20,16 +20,16 @@
 \contentsline {subsection}{\numberline {5.2}Matlab controller development}{14}{subsection.5.2}%
 \contentsline {subsubsection}{\numberline {5.2.1}Create script configuration files and output files}{14}{subsubsection.5.2.1}%
 \contentsline {subsubsection}{\numberline {5.2.2}Automatize MATLAB repository for needed data files }{14}{subsubsection.5.2.2}%
-\contentsline {subsubsection}{\numberline {5.2.3}Adapt old scripts to new file formats}{15}{subsubsection.5.2.3}%
-\contentsline {subsubsection}{\numberline {5.2.4}Execute MATLAB scripts from C\#}{15}{subsubsection.5.2.4}%
-\contentsline {section}{\numberline {6}Architecture}{17}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Tools}{17}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Project architecture}{17}{subsection.6.2}%
-\contentsline {section}{\numberline {7}Graphic User Interface (GUI) design}{18}{section.7}%
-\contentsline {section}{\numberline {8}Implementation}{19}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Set up development enviroment}{19}{subsection.8.1}%
-\contentsline {section}{\numberline {9}Testing}{20}{section.9}%
-\contentsline {section}{\numberline {10}Results}{21}{section.10}%
-\contentsline {section}{\numberline {11}Conclusions}{23}{section.11}%
-\contentsline {section}{References}{24}{section*.7}%
-\contentsline {section}{Appendices}{25}{section*.8}%
+\contentsline {subsubsection}{\numberline {5.2.3}Adapt old scripts to new file formats}{14}{subsubsection.5.2.3}%
+\contentsline {subsubsection}{\numberline {5.2.4}Execute MATLAB scripts from C\#}{14}{subsubsection.5.2.4}%
+\contentsline {section}{\numberline {6}Architecture}{16}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Tools}{16}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Project architecture}{16}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Graphic User Interface (GUI) design}{17}{section.7}%
+\contentsline {section}{\numberline {8}Implementation}{18}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Set up development enviroment}{18}{subsection.8.1}%
+\contentsline {section}{\numberline {9}Testing}{19}{section.9}%
+\contentsline {section}{\numberline {10}Results}{20}{section.10}%
+\contentsline {section}{\numberline {11}Conclusions}{22}{section.11}%
+\contentsline {section}{References}{23}{section*.7}%
+\contentsline {section}{Appendices}{24}{section*.8}%

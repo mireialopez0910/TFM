@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex main"] 1765487504.25782 "main.aux" "main.bbl" "main" 1765487568.4281 0
+["bibtex main"] 1765487780.45225 "main.aux" "main.bbl" "main" 1765487862.70542 0
   "./bibliography.bib" 1765473164 2808 ce14ed79dbb7fc2e4e5b88bcc634e354 ""
   "C:/Users/mirei/AppData/Local/Programs/MiKTeX/bibtex/bst/bibtex/unsrt.bst" 1291864736 18030 1376b4b231b50c66211e47e42eda2875 ""
-  "codi_tempdistrib.aux" 1765487567 1957 ee5d222fa99194e8e60c3a77b276efde "pdflatex"
-  "main.aux" 1765487567 5900 9fcca6d24e140a3e3001f53ad14adbc5 "pdflatex"
+  "codi_tempdistrib.aux" 1765487861 1957 f171b3bfd366e329800ac13b6b7d7fa4 "pdflatex"
+  "main.aux" 1765487861 5900 74bcb617bbd75e0eadbaf8c79bd7a616 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1765487563.08323 "c:/Users/mirei/OneDrive/Documents/Master/TFM/Thesis document/main.tex" "main.pdf" "main" 1765487568.42958 0
+["pdflatex"] 1765487857.64392 "c:/Users/mirei/OneDrive/Documents/Master/TFM/Thesis document/main.tex" "main.pdf" "main" 1765487862.70655 0
   "C:/Users/mirei/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1765316090 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/mirei/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1200.pk" 1765317509 14064 186d3ffe6007332be4c4a98abc4a3613 ""
   "C:/Users/mirei/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tctt1000.pk" 1765469322 9492 5dbc06f2009bfaf797f72588c99b3c77 ""
@@ -284,7 +284,7 @@
   "C:/Users/mirei/AppData/Local/Programs/MiKTeX/tex/latex/zref/zref-savepos.sty" 1750428951 2766 fb37a30a32b0188102a125681d0de6b8 ""
   "architecture.tex" 1765400109 153 da231926c9c958253b2cdd66c29624c5 ""
   "c:/Users/mirei/OneDrive/Documents/Master/TFM/Thesis document/main.tex" 1765399723 2557 49d55f79f8eef00c30f8777e6c69be48 ""
-  "codi_tempdistrib.aux" 1765487567 1957 ee5d222fa99194e8e60c3a77b276efde "pdflatex"
+  "codi_tempdistrib.aux" 1765487861 1957 f171b3bfd366e329800ac13b6b7d7fa4 "pdflatex"
   "codi_tempdistrib.tex" 1765270417 1125 37faa58df8bc98bd827c9c564908a116 ""
   "conclusions.tex" 1765399973 21 962245b29278b6028e8e709db79a2139 ""
   "gantt_diagrama.tex" 1765270417 1211 063495214f18da8d8b3b0944d27cafe8 ""
@@ -296,16 +296,16 @@
   "implementation.tex" 1765399973 68 8062c780c718f1e929fd42b1ac635b2d ""
   "introduction.tex" 1765270417 1155 49d263cf65fa8be433a7045dd0899391 ""
   "list_of_requirements.tex" 1765400109 2894 23eb481685279980ff7b43f0eb9a8bd8 ""
-  "main.aux" 1765487567 5900 9fcca6d24e140a3e3001f53ad14adbc5 "pdflatex"
-  "main.bbl" 1765487504 2153 133856f78467514f5f3fdc04c8e09d92 "bibtex main"
-  "main.lof" 1765487567 313 5a8222c87ffb0d532aa6fb8d4d59f8ec "pdflatex"
-  "main.lol" 1765487566 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "main.lot" 1765487567 222 c4b85134a634cf5650d120c83b9d3e0c "pdflatex"
-  "main.out" 1765487567 4783 80268eb6331f4597c8a716e7481f7357 "pdflatex"
+  "main.aux" 1765487861 5900 74bcb617bbd75e0eadbaf8c79bd7a616 "pdflatex"
+  "main.bbl" 1765487780 2153 133856f78467514f5f3fdc04c8e09d92 "bibtex main"
+  "main.lof" 1765487861 313 c3b5841ba7691048d7a4ec2b54a2a4af "pdflatex"
+  "main.lol" 1765487860 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "main.lot" 1765487861 222 5607da884207ecf85a7348178ad3c9b5 "pdflatex"
+  "main.out" 1765487861 4783 80268eb6331f4597c8a716e7481f7357 "pdflatex"
   "main.tex" 1765399723 2557 49d55f79f8eef00c30f8777e6c69be48 ""
-  "main.toc" 1765487567 2597 6d8f342fd17a3aa788ffa01af9d27750 "pdflatex"
+  "main.toc" 1765487861 2597 3a5be88d7a2f0a8a3c755e90b73bd9f2 "pdflatex"
   "methodology.tex" 1765465047 1204 eece50709ea0069c3c10b614dfdedfad ""
-  "research_and_plan.tex" 1765487562 11652 9ec872661b242b50460ca8d61a3438b7 ""
+  "research_and_plan.tex" 1765487856 11484 85e0882a3fe4e2ee69391392a89eacc4 ""
   "result.tex" 1765270417 1402 4a588890d0bb98130c60a2503b143709 ""
   "revision_history.tex" 1765321868 1313 253b03a0a91f46f610dfc310571e29f5 ""
   "state_of_the_art.tex" 1765315576 460 2bf71070fb961cfbc0b6e4725fb3d774 ""

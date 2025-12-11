@@ -1,4 +1,4 @@
-\section{Research and plan}
+\section{Research, plan and adapt}
 {This step helps optimize both time and resources by preventing unnecessary work. Since this project builds upon a previous one, it is not required to develop new code for certain application requirements, but to adapt it to the new needs. Furthermore, the availability of APIs for downloading measurements from the ACTRIS–EARLINET Data Portal \cite{earlinet_web} and AERONET web application \cite{aeronet_web} provides a convenient and efficient solution that can significantly reduce development effort.}
 \smallskip
 \subsection{Web services development}
@@ -11,25 +11,19 @@ Even if other configuration parameters are available (measurementID, wavelength 
 Once the behaviour is understood, a class is created to handle the requests and responses of the API.\smallskip\\
 }
 \begin{lstlisting}
-public class EarlinetService
-{
+public class EarlinetService{
     string baseUrl = "https://api.actris-ares.eu/api/services/restapi/";
-    public virtual System.Threading.Tasks.Task<bool> DownloadProductByDateRangeAsync(string type,string FromDate,string ToDate,string outputFolder)
-    {
+    public virtual System.Threading.Tasks.Task<bool> DownloadProductByDateRangeAsync(string type,string FromDate,string ToDate,string outputFolder){
         return DownloadProductByDateRangeAsync(type,FromDate,ToDate,outputFolder,System.Threading.CancellationToken.None);
     }
 
-    public async Task<bool> DownloadProductByDateRangeAsync(string type,string FromDate,string ToDate,string outputFilePath,System.Threading.CancellationToken cancellationToken = default)
-    {
-        try
-        {
+    public async Task<bool> DownloadProductByDateRangeAsync(string type,string FromDate,string ToDate,string outputFilePath,System.Threading.CancellationToken cancellationToken = default){
+        try{
             string url = $"{baseUrl}products/downloads?kind={type}&fromDate={FromDate}&toDate={ToDate}&stations=brc";
-            using (HttpClient client = new HttpClient())
-            {
+            using (HttpClient client = new HttpClient()){
                 HttpResponseMessage response = await client.GetAsync(url);
                 response.EnsureSuccessStatusCode();
-                using (var fs = new FileStream(outputFilePath,FileMode.Create,FileAccess.Write,FileShare.None))
-                {
+                using (var fs = new FileStream(outputFilePath,FileMode.Create,FileAccess.Write,FileShare.None)){
                     await response.Content.CopyToAsync(fs);
                 }
                 System.IO.FileInfo f = new FileInfo(outputFilePath);
@@ -38,8 +32,7 @@ public class EarlinetService
                 return true;
             }
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex){
             return false;
         }
     }
@@ -67,18 +60,13 @@ The amount of files to be downloaded in this website is larger thant the one in 
     \end{itemize}
 \end{enumerate}
 \smallskip
-{For the creation of this class it has been taken into account the fact that the DownlaodProductByDateRangeAsync method can be used in different points of the program with different configurations.It has also been implemented in such a way that adding new functionalities is easy using the same design pattern. For clarity and organization, it has been created the DataType Enum, since the different data types need different Url content in order to be downloaded.}
-\smallskip
+{For the creation of this class it has been taken into account the fact that the DownlaodProductByDateRangeAsync method can be used in different points of the program with different configurations.It has also been implemented in such a way that adding new functionalities is easy using the same design pattern. For clarity and organization, it has been created the DataType Enum, since the different data types need different Url content in order to be downloaded.\smallskip\\}
 \begin{lstlisting}
-public class AeronetService
-{
+public class AeronetService{
     private string baseUrl = "https://aeronet.gsfc.nasa.gov/cgi-bin/";
-    public async Task DownloadDataAsync(string destinationFile,string url)
-    {
-        try
-        {
-            using (HttpClient client = new HttpClient())
-            {
+    public async Task DownloadDataAsync(string destinationFile,string url){
+        try{
+            using (HttpClient client = new HttpClient()){
                 var response = await client.GetAsync(url);
                 response.EnsureSuccessStatusCode();
 
@@ -86,16 +74,13 @@ public class AeronetService
                 await File.WriteAllBytesAsync(destinationFile,content);
             }
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex){
             Console.WriteLine($"Error downloading data: {ex.Message}");
         }
     }
 
-    public string BuildUrl(DataType _dataType,DateTime startDate,DateTime endDate,string productType = "",string site = "",string product = "",string AVG = "",bool isEnabled = false)
-    {
-        switch (_dataType)
-        {
+    public string BuildUrl(DataType _dataType,DateTime startDate,DateTime endDate,string productType = "",string site = "",string product = "",string AVG = "",bool isEnabled = false){
+        switch (_dataType){
             case DataType.AerosolInversions:
                 if (isEnabled)
                     return BuildUrlAerosolInversions(startDate,endDate,productType,site,product,AVG);
@@ -135,12 +120,9 @@ In order to be able to automatize the process of downloading and giving the appl
 {In order to execute the MATLAB scripts from C\#, it is needed to create a method that uses the ProcessStartInfo class, that can be imported as a library, to execute the MATLAB script. The following example shows a method called RunMatlabScript that takes a string parameter containing the path to the script to be executed. The method uses the Process class to execute the script and it redirects the standard output and standard error to the console.\smallskip\\
 }
 \begin{lstlisting}
-public static void RunMatlabScript (string scriptPath)
-{
-    try
-    {
-        ProcessStartInfo startInfo = new ProcessStartInfo
-        {
+public static void RunMatlabScript (string scriptPath){
+    try{
+        ProcessStartInfo startInfo = new ProcessStartInfo{
             FileName = "matlab",
             Arguments = $"-batch \"run('{scriptPath}')\"",
             RedirectStandardOutput = true,
@@ -161,19 +143,16 @@ public static void RunMatlabScript (string scriptPath)
         process.BeginOutputReadLine();
         process.BeginErrorReadLine();
         process.WaitForExit();
-        if (process.ExitCode == 0) //OK
-        {
+        if (process.ExitCode == 0){ //OK
             Logger.Log($"Script was executed correctly,executing post execution actions . . .");
             script.PostExecutionActions();
         }
-        else
-        {
+        else{
             Logger.Log($"Error occured during execution,executing post execution actions . . .");
             script.PostExecutionActions(false);
         }
     }
-    catch (Exception ex)
-    {
+    catch (Exception ex){
         Logger.Log($"Error occured during execution,executing post execution actions . . .");
         script.PostExecutionActions(false);
     }

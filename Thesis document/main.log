@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.9)  11 DEC 2025 22:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.12.9)  11 DEC 2025 22:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1354,55 +1354,50 @@ Underfull \hbox (badness 10000) in paragraph at lines 7--13
 
 File: img/logos/upclogo.png Graphic file (type png)
 <use img/logos/upclogo.png>
-Package pdftex.def Info: img/logos/upclogo.png  used on input line 30.
+Package pdftex.def Info: img/logos/upclogo.png  used on input line 29.
 (pdftex.def)             Requested size: 154.31738pt x 34.14322pt.
 File: img/logos/logo_telecos.png Graphic file (type png)
 <use img/logos/logo_telecos.png>
-Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 30.
+Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 29.
 (pdftex.def)             Requested size: 61.21034pt x 34.14322pt.
 [11
 
 ]
-File: img/logos/upclogo.png Graphic file (type png)
-<use img/logos/upclogo.png>
-Package pdftex.def Info: img/logos/upclogo.png  used on input line 72.
-(pdftex.def)             Requested size: 154.31738pt x 34.14322pt.
-File: img/logos/logo_telecos.png Graphic file (type png)
-<use img/logos/logo_telecos.png>
-Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 72.
-(pdftex.def)             Requested size: 61.21034pt x 34.14322pt.
- [12]
-File: img/logos/upclogo.png Graphic file (type png)
-<use img/logos/upclogo.png>
-Package pdftex.def Info: img/logos/upclogo.png  used on input line 115.
-(pdftex.def)             Requested size: 154.31738pt x 34.14322pt.
-File: img/logos/logo_telecos.png Graphic file (type png)
-<use img/logos/logo_telecos.png>
-Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 115.
-(pdftex.def)             Requested size: 61.21034pt x 34.14322pt.
- [13]
-File: img/logos/upclogo.png Graphic file (type png)
-<use img/logos/upclogo.png>
-Package pdftex.def Info: img/logos/upclogo.png  used on input line 132.
-(pdftex.def)             Requested size: 154.31738pt x 34.14322pt.
-File: img/logos/logo_telecos.png Graphic file (type png)
-<use img/logos/logo_telecos.png>
-Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 132.
-(pdftex.def)             Requested size: 61.21034pt x 34.14322pt.
- [14]
-Underfull \hbox (badness 10000) in paragraph at lines 135--137
+Underfull \hbox (badness 10000) in paragraph at lines 63--64
 
  []
 
 File: img/logos/upclogo.png Graphic file (type png)
 <use img/logos/upclogo.png>
-Package pdftex.def Info: img/logos/upclogo.png  used on input line 173.
+Package pdftex.def Info: img/logos/upclogo.png  used on input line 68.
 (pdftex.def)             Requested size: 154.31738pt x 34.14322pt.
 File: img/logos/logo_telecos.png Graphic file (type png)
 <use img/logos/logo_telecos.png>
-Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 173.
+Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 68.
 (pdftex.def)             Requested size: 61.21034pt x 34.14322pt.
-[15])
+[12]
+File: img/logos/upclogo.png Graphic file (type png)
+<use img/logos/upclogo.png>
+Package pdftex.def Info: img/logos/upclogo.png  used on input line 109.
+(pdftex.def)             Requested size: 154.31738pt x 34.14322pt.
+File: img/logos/logo_telecos.png Graphic file (type png)
+<use img/logos/logo_telecos.png>
+Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 109.
+(pdftex.def)             Requested size: 61.21034pt x 34.14322pt.
+ [13]
+Underfull \hbox (badness 10000) in paragraph at lines 120--122
+
+ []
+
+File: img/logos/upclogo.png Graphic file (type png)
+<use img/logos/upclogo.png>
+Package pdftex.def Info: img/logos/upclogo.png  used on input line 122.
+(pdftex.def)             Requested size: 154.31738pt x 34.14322pt.
+File: img/logos/logo_telecos.png Graphic file (type png)
+<use img/logos/logo_telecos.png>
+Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 122.
+(pdftex.def)             Requested size: 61.21034pt x 34.14322pt.
+[14])
 File: img/logos/upclogo.png Graphic file (type png)
 <use img/logos/upclogo.png>
 Package pdftex.def Info: img/logos/upclogo.png  used on input line 86.
@@ -1411,7 +1406,7 @@ File: img/logos/logo_telecos.png Graphic file (type png)
 <use img/logos/logo_telecos.png>
 Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 86.
 (pdftex.def)             Requested size: 61.21034pt x 34.14322pt.
- [16] (architecture.tex)
+ [15] (architecture.tex)
 File: img/logos/upclogo.png Graphic file (type png)
 <use img/logos/upclogo.png>
 Package pdftex.def Info: img/logos/upclogo.png  used on input line 90.
@@ -1420,7 +1415,7 @@ File: img/logos/logo_telecos.png Graphic file (type png)
 <use img/logos/logo_telecos.png>
 Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 90.
 (pdftex.def)             Requested size: 61.21034pt x 34.14322pt.
- [17
+ [16
 
 ] (gui.tex)
 File: img/logos/upclogo.png Graphic file (type png)
@@ -1431,7 +1426,7 @@ File: img/logos/logo_telecos.png Graphic file (type png)
 <use img/logos/logo_telecos.png>
 Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 94.
 (pdftex.def)             Requested size: 61.21034pt x 34.14322pt.
- [18
+ [17
 
 ] (implementation.tex)
 File: img/logos/upclogo.png Graphic file (type png)
@@ -1442,7 +1437,7 @@ File: img/logos/logo_telecos.png Graphic file (type png)
 <use img/logos/logo_telecos.png>
 Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 98.
 (pdftex.def)             Requested size: 61.21034pt x 34.14322pt.
- [19
+ [18
 
 ] (testing.tex)
 File: img/logos/upclogo.png Graphic file (type png)
@@ -1453,10 +1448,10 @@ File: img/logos/logo_telecos.png Graphic file (type png)
 <use img/logos/logo_telecos.png>
 Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 102.
 (pdftex.def)             Requested size: 61.21034pt x 34.14322pt.
- [20
+ [19
 
 ] (result.tex
-<img/Chapter4/prototype1_edited.jpg, id=453, 1043.9pt x 586.19pt>
+<img/Chapter4/prototype1_edited.jpg, id=429, 1043.9pt x 586.19pt>
 File: img/Chapter4/prototype1_edited.jpg Graphic file (type jpg)
 <use img/Chapter4/prototype1_edited.jpg>
 Package pdftex.def Info: img/Chapter4/prototype1_edited.jpg  used on input line 8.
@@ -1469,7 +1464,7 @@ File: img/logos/logo_telecos.png Graphic file (type png)
 <use img/logos/logo_telecos.png>
 Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 35.
 (pdftex.def)             Requested size: 61.21034pt x 34.14322pt.
- [21
+ [20
 
 
  <./img/Chapter4/prototype1_edited.jpg>]
@@ -1486,7 +1481,7 @@ File: img/logos/logo_telecos.png Graphic file (type png)
 <use img/logos/logo_telecos.png>
 Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 35.
 (pdftex.def)             Requested size: 61.21034pt x 34.14322pt.
- [22
+ [21
 
 ]) (conclusions.tex)
 File: img/logos/upclogo.png Graphic file (type png)
@@ -1497,7 +1492,7 @@ File: img/logos/logo_telecos.png Graphic file (type png)
 <use img/logos/logo_telecos.png>
 Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 110.
 (pdftex.def)             Requested size: 61.21034pt x 34.14322pt.
- [23
+ [22
 
 
 
@@ -1520,7 +1515,7 @@ File: img/logos/logo_telecos.png Graphic file (type png)
 <use img/logos/logo_telecos.png>
 Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 120.
 (pdftex.def)             Requested size: 61.21034pt x 34.14322pt.
- [24
+ [23
 
 ]
 
@@ -1535,7 +1530,7 @@ File: img/logos/logo_telecos.png Graphic file (type png)
 <use img/logos/logo_telecos.png>
 Package pdftex.def Info: img/logos/logo_telecos.png  used on input line 129.
 (pdftex.def)             Requested size: 61.21034pt x 34.14322pt.
-[25
+[24
 
 ] 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
@@ -1548,17 +1543,17 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 80268EB6331F4597C8A716E7481F7357;4783.
  ) 
 Here is how much of TeX's memory you used:
- 39461 strings out of 467871
- 796078 string characters out of 5418376
- 1482391 words of memory out of 5000000
+ 39440 strings out of 467871
+ 795771 string characters out of 5418376
+ 1506391 words of memory out of 5000000
  67355 multiletter control sequences out of 15000+600000
- 642026 words of font info for 93 fonts, out of 8000000 for 9000
+ 642025 words of font info for 93 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  103i,16n,111p,812b,2155s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\mirei\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tctt1000.pk> <C:\Users\mirei\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss17.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi12.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/mirei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (25 pages, 869020 bytes).
+Output written on main.pdf (24 pages, 863722 bytes).
 PDF statistics:
- 650 PDF objects out of 1000 (max. 8388607)
- 237 named destinations out of 1000 (max. 500000)
+ 618 PDF objects out of 1000 (max. 8388607)
+ 216 named destinations out of 1000 (max. 500000)
  273 words of extra memory for PDF output out of 10000 (max. 10000000)
 
