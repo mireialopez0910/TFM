@@ -31,4 +31,17 @@ NASA.
 \newblock Web Application available at
   \url{https://data.earlinet.org/earlinet/desktop.zul}, 2025.
 
+\bibitem{profile_OOP}
+Miriam~Martínez Canelo.
+\newblock ¿qué es la programación orientada a objetos?
+\newblock Web Application available at
+  \url{https://profile.es/blog/que-es-la-programacion-orientada-a-objetos/},
+  2025.
+
+\bibitem{matlab}
+MathWorks.
+\newblock Matlab.
+\newblock Web Application available at
+  \url{https://es.mathworks.com/products/matlab.html}, 2025.
+
 \end{thebibliography}
