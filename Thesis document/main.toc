@@ -15,15 +15,21 @@
 \contentsline {section}{\numberline {4}List of requirements}{9}{section.4}%
 \contentsline {section}{\numberline {5}Research and plan}{11}{section.5}%
 \contentsline {subsection}{\numberline {5.1}Web services development}{11}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Matlab controller development}{11}{subsection.5.2}%
-\contentsline {section}{\numberline {6}Architecture}{12}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Tools}{12}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Project architecture}{12}{subsection.6.2}%
-\contentsline {section}{\numberline {7}Graphic User Interface (GUI) design}{13}{section.7}%
-\contentsline {section}{\numberline {8}Implementation}{14}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Set up development enviroment}{14}{subsection.8.1}%
-\contentsline {section}{\numberline {9}Testing}{15}{section.9}%
-\contentsline {section}{\numberline {10}Results}{16}{section.10}%
-\contentsline {section}{\numberline {11}Conclusions}{18}{section.11}%
-\contentsline {section}{References}{19}{section*.7}%
-\contentsline {section}{Appendices}{20}{section*.8}%
+\contentsline {subsubsection}{\numberline {5.1.1}ACTRIS–EARLINET service}{11}{subsubsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.2}AERONET service}{12}{subsubsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.2}Matlab controller development}{14}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {5.2.1}Create script configuration files and output files}{14}{subsubsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.2}Automatize MATLAB repository for needed data files }{14}{subsubsection.5.2.2}%
+\contentsline {subsubsection}{\numberline {5.2.3}Adapt old scripts to new file formats}{15}{subsubsection.5.2.3}%
+\contentsline {subsubsection}{\numberline {5.2.4}Execute MATLAB scripts from C\#}{15}{subsubsection.5.2.4}%
+\contentsline {section}{\numberline {6}Architecture}{17}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Tools}{17}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Project architecture}{17}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Graphic User Interface (GUI) design}{18}{section.7}%
+\contentsline {section}{\numberline {8}Implementation}{19}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Set up development enviroment}{19}{subsection.8.1}%
+\contentsline {section}{\numberline {9}Testing}{20}{section.9}%
+\contentsline {section}{\numberline {10}Results}{21}{section.10}%
+\contentsline {section}{\numberline {11}Conclusions}{23}{section.11}%
+\contentsline {section}{References}{24}{section*.7}%
+\contentsline {section}{Appendices}{25}{section*.8}%

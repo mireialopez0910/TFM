@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{skalagantt}
 Wolfgang Skala.
@@ -43,5 +43,31 @@ MathWorks.
 \newblock Matlab.
 \newblock Web Application available at
   \url{https://es.mathworks.com/products/matlab.html}, 2025.
+
+\bibitem{rest_api_earlinet}
+C.N.R. IMAA.
+\newblock Actris-earlinet rest api.
+\newblock Web Application available at
+  \url{https://data.earlinet.org/api/swagger-ui/}, 2025.
+
+\bibitem{aod_solar}
+NASA.
+\newblock Aerosol optical depth.
+\newblock Web Application available at
+  \url{https://aeronet.gsfc.nasa.gov/print_web_data_help_v3_new.html}, 2025.
+
+\bibitem{raw_aod_solar}
+NASA.
+\newblock Raw products aerosol optical depth.
+\newblock Web Application available at
+  \url{https://aeronet.gsfc.nasa.gov/print_web_data_help_v3_raw_sky_new.html},
+  2025.
+
+\bibitem{inversions_aod_solar}
+NASA.
+\newblock Aerosol inversions.
+\newblock Web Application available at
+  \url{https://aeronet.gsfc.nasa.gov/print_web_data_help_v3_inv_new.html},
+  2025.
 
 \end{thebibliography}

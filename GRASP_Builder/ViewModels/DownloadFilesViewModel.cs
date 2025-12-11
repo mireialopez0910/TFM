@@ -301,7 +301,7 @@ namespace GRASP_Builder.ViewModels
             string destinationFile = $@"{_aeronetRepositoryDirectory}{FileType.AeronetInversions.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.all";
 
             await _aeronetService.DescargarDatosAsync(destinationFile, url);
-            Logger.Log($"{_workingDirectory}aeronet Aerosol inversion products data have downloaded and saved in file {destinationFile}");
+            Logger.Log("AERONET Aerosol inversion products data have downloaded and saved in file {destinationFile}");
 
             Progress = "50";
 
@@ -311,7 +311,7 @@ namespace GRASP_Builder.ViewModels
 
             await _aeronetService.DescargarDatosAsync(destinationFile, url); //.lev15
 
-            Logger.Log($"{_workingDirectory}aeronet AOD data have been downloaded and saved in file {destinationFile}");
+            Logger.Log("AERONET AOD data have been downloaded and saved in file {destinationFile}");
 
             Progress = "60";
 
@@ -332,7 +332,7 @@ namespace GRASP_Builder.ViewModels
             await _aeronetService.DescargarDatosAsync(destinationFile, url); //.alm
             Progress = "80";
 
-            Logger.Log($"{_workingDirectory}aeronet Raw Almucantar data have been downloaded and saved in file {destinationFile}");
+            Logger.Log("AERONET Raw Almucantar data have been downloaded and saved in file {destinationFile}");
 
             url = _aeronetService.BuildUrl(DataType.RawProductsOpticalDepth, FromDate, ToDate, RawProductsOpticalDepth.ALP00);
 
@@ -341,7 +341,7 @@ namespace GRASP_Builder.ViewModels
             await _aeronetService.DescargarDatosAsync(destinationFile, url); //.alp
             Progress = "90";
 
-            Logger.Log($"{_workingDirectory}aeronet Raw polarized almucantar has been downloaded and saved in file {destinationFile}");
+            Logger.Log("AERONET Raw polarized almucantar has been downloaded and saved in file {destinationFile}");
         }
 
         private async Task DownloadExecute()
