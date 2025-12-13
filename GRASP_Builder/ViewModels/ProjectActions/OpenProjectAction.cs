@@ -13,7 +13,7 @@ namespace GRASP_Builder.ViewModels.ProjectActions
         public string DirectoryPath { get; set; }
         public string ProjectName { get; set; }
         public bool IsProjectNameVisible { get; set; } = false;
-
+        public bool IsDirectoryPathVisible { get; set; } = true;
         public async Task Browse()
         {
             // Show folder picker (cross-platform via Avalonia)

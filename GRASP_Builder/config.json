@@ -1,4 +1,5 @@
 {
   "WorkingDirectory": "./Data/",
-  "MatlabProjectFilePath": ".//Matlab//Scripts//datacrossing//"
+  "MatlabProjectFilePath": ".//Matlab//Scripts//datacrossing//",
+  "MatlabOutputDirectory": ".//Matlab//Scripts//datacrossing//Output//"
 }

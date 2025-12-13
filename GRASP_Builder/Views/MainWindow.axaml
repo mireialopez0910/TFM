@@ -19,62 +19,72 @@
 	</Design.DataContext>
 	<Border>
 		<StackPanel>
-			<TabControl  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="675">
+			<TabControl  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="880" IsVisible="{Binding IsHomeVisible}">
 				<TabItem Header="Home" >
 					<TabItem.Content>
 						<n:HomeView />
 					</TabItem.Content>
 				</TabItem>
-
-				<TabItem Header="Settings" >
-					<TabItem.Content>
-						<n:ConfigurationView />
-					</TabItem.Content>
-				</TabItem>
-				
-				<TabItem Header="Download">
-					<TabItem.Content>
-						<n:DownloadFiles/>
-					</TabItem.Content>
-				</TabItem>
-				
-				<TabItem Header="Data combination">
-					<TabItem.Content>
-						<n:DataConvinationView />
-					</TabItem.Content>
-				</TabItem>
-				
-				<!--<TabItem Header="Matlab">
-				<TabItem.Content>
-				<n:MatlabView />
-				</TabItem.Content>
-				</TabItem>-->
-				
-				<TabItem Header="About">
-					<TabItem.Content>
-						<!--<Views:AboutView />-->
-					</TabItem.Content>
-				</TabItem>
 			</TabControl>
-			
-			<TabControl>
+			<Grid IsVisible="{Binding IsProjectLoaded}">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+
+				<TabControl  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="680" Grid.ColumnSpan="2" Background="Transparent">
+					<TabItem Header="Download">
+						<TabItem.Content>
+							<n:DownloadFiles/>
+						</TabItem.Content>
+					</TabItem>
+
+					<TabItem Header="Data combination">
+						<TabItem.Content>
+							<n:DataConvinationView />
+						</TabItem.Content>
+					</TabItem>
+
+					<TabItem Header="Plotting">
+						<TabItem.Content>
+							<n:PlotView />
+						</TabItem.Content>
+					</TabItem>
+				</TabControl>
+
+				<Menu HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1" >
+					<MenuItem Header="File">
+						<MenuItem Header="Create a new project" Command="{Binding CreateCmd}"/>
+						<MenuItem Header="Open an other project" Command="{Binding OpenCmd}"/>
+						<MenuItem Header="Import an other project" Command="{Binding ImportCmd}"/>
+						<MenuItem Header="Export project" Command="{Binding ExportCmd}"/>
+						<MenuItem Header="Close project"  Command="{Binding CloseCmd}"/>
+					</MenuItem>
+					
+					<MenuItem Header="Settings"  Command="{Binding SettingsCmd}"/>
+										
+					<MenuItem Header="About"  Command="{Binding AboutCmd}"/>
+				</Menu>
+			</Grid>
+
+			<TabControl IsVisible="{Binding IsProjectLoaded}">
 				<TabItem Header="Log" FontSize="18">
 					<TabItem.Content >
 						<n:LogView Margin="0,5"/>
 					</TabItem.Content>
 				</TabItem>
 			</TabControl>
-			
+
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				
-				<Image Source="avares://GRASP_Builder/Resources/logo.png" Stretch="Fill" Opacity="1" Margin="1" Height="20" Width="20"
+
+				<Image Source="avares://GRASP_Builder/Resources/logo.png" Stretch="Fill" Opacity="1" Margin="1,1,10,-10" Height="25" Width="25"
 					   HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="1" />
-				
-				<Image Source="avares://GRASP_Builder/Resources/logo_UPC.png" Stretch="Fill" Opacity="1" Margin="1" Height="30" Width="150"
+
+				<Image Source="avares://GRASP_Builder/Resources/logo_UPC.png" Stretch="Fill" Opacity="1" Height="25" Width="200" Margin="10,1,1,-7"
 					   HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" />
 			</Grid>
 		</StackPanel>

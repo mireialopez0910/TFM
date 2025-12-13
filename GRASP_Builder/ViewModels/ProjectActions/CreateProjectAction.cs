@@ -16,6 +16,7 @@ namespace GRASP_Builder.ViewModels.ProjectActions
         public string DirectoryPath { get; set; }
         public string ProjectName { get; set; } = "NewGRASPProject";
         public bool IsProjectNameVisible { get; set; } = true;
+        public bool IsDirectoryPathVisible { get; set; } = true;
         public async Task Browse()
         {
             // parameter is expected to be an Avalonia.Controls.Window (the owner). If null the dialog will be shown without owner.

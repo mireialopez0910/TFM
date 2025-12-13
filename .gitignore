@@ -32,43 +32,37 @@ GRASP_Builder/*.orig
 
 ### 3. Archivos Generados por LaTeX (dentro de Thesis document/) ###
 
-# Definimos la ruta de la carpeta de LaTeX
-LATEX_DIR = Thesis document/
-
 # Archivos de registro y auxiliares
-LATEX_DIR/*.aux
-LATEX_DIR/*.bbl
-LATEX_DIR/*.blg
-LATEX_DIR/*.brf
-LATEX_DIR/*.idx
-LATEX_DIR/*.lof
-LATEX_DIR/*.lot
-LATEX_DIR/*.out
-LATEX_DIR/*.toc
-LATEX_DIR/*.log
-LATEX_DIR/*.nav
-LATEX_DIR/*.snm
-LATEX_DIR/*.vrb
-LATEX_DIR/*.gz
-LATEX_DIR/*.synctex.gz
-LATEX_DIR/*.fls
-LATEX_DIR/*.fdb_latexmk
+Thesis document/*.aux
+Thesis document/*.bbl
+Thesis document/*.blg
+Thesis document/*.brf
+Thesis document/*.idx
+Thesis document/*.lof
+Thesis document/*.lot
+Thesis document/*.out
+Thesis document/*.toc
+Thesis document/*.log
+Thesis document/*.nav
+Thesis document/*.snm
+Thesis document/*.vrb
+Thesis document/*.gz
+Thesis document/*.synctex.gz
+Thesis document/*.fls
+Thesis document/*.fdb_latexmk
 
 # Archivos de índices y glosarios
-LATEX_DIR/*.ind
-LATEX_DIR/*.ilg
-LATEX_DIR/*.gls
-LATEX_DIR/*.glo
-LATEX_DIR/*.ist
+Thesis document/*.ind
+Thesis document/*.ilg
+Thesis document/*.gls
+Thesis document/*.glo
+Thesis document/*.ist
 
 # Archivos de la salida final (si no quieres rastrearlos)
 # Si quieres que el PDF final SÍ se rastree, elimina la siguiente línea.
-$LATEX_DIR/*.pdf
+$Thesis document/*.pdf
 
 ### 4. Carpetas adicionales que quieres ignorar ###
 
 # Directorio de paquetes restaurados
 packages/
-
-# Carpeta específica ignorada a petición
-datacrossing23/

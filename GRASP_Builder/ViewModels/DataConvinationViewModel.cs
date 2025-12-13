@@ -372,6 +372,8 @@ namespace GRASP_Builder.ViewModels
 
             MatlabController.RunMatlabScript(ScriptType.Preview, dict);
             IsConfigSelectionEnabled = true;
+
+            Messenger.Default.Send<object>("ReloadMeasureID", null);
         }
 
         private bool CanSendData(object _)

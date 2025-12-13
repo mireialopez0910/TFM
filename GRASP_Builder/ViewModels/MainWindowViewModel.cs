@@ -1,5 +1,7 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using Avalonia.Controls.ApplicationLifetimes;
+using CommunityToolkit.Mvvm.Messaging;
 using GRASP_Builder.UIElement;
+using GRASP_Builder.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +13,6 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-
 namespace GRASP_Builder.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
@@ -20,12 +21,18 @@ namespace GRASP_Builder.ViewModels
 
         public MainWindowViewModel()
         {
-            Messenger.Default.Register<object>("UpdateAppTitle", UpdateAppTitle);
+            Messenger.Default.Register<bool>("UpdateProjectLoaded", UpdateProjectLoaded);
         }
 
-        private void UpdateAppTitle(object obj)
+        private void UpdateProjectLoaded(bool projectLoaded)
         {
-            Title= $"GRASP Builder: {AppConfig.Instance.GetValue("ProjectName")}";
+            if (projectLoaded)
+                Title = $"GRASP Builder: {AppConfig.Instance.GetValue("ProjectName")}";
+            
+            else
+                Title = "GRASP Builder";
+            
+            IsProjectLoaded = projectLoaded;
         }
 
         #endregion
@@ -39,10 +46,76 @@ namespace GRASP_Builder.ViewModels
             set => SetProperty(ref _title, value);
         }
 
+        private bool _isProjectLoaded = false;
+        public bool IsProjectLoaded
+        {
+            get => _isProjectLoaded;
+            set
+            {
+                SetProperty(ref _isProjectLoaded, value);
+                IsHomeVisible = !value;
+            }
+        }
+
+        private bool _isHomeVisible = true;
+        public bool IsHomeVisible
+        {
+            get => _isHomeVisible;
+            set => SetProperty(ref _isHomeVisible, value);
+        }
         #endregion
 
         #region Commands   
 
+        //All commands can be executed when menu is visible
+        private bool CanExecute(object _)
+        {
+            return true;
+        }
+
+        public ICommand CreateCmd => new RelayCommand(CreateExecute, CanExecute);
+        private async void CreateExecute(object _)
+        {
+            Messenger.Default.Send("ExecuteHomeCommand", "Create");
+        }
+
+        public ICommand OpenCmd => new RelayCommand(OpenExecute, CanExecute);
+        private async void OpenExecute(object _)
+        {
+            Messenger.Default.Send("ExecuteHomeCommand", "Open");
+        }
+
+        public ICommand ImportCmd => new RelayCommand(ImportExecute, CanExecute);
+        private async void ImportExecute(object _)
+        {
+            Messenger.Default.Send("ExecuteHomeCommand", "Import");
+        }
+
+        public ICommand ExportCmd => new RelayCommand(ExportExecute, CanExecute);
+        private async void ExportExecute(object _)
+        {
+            Messenger.Default.Send("ExecuteHomeCommand", "Export");
+        }
+
+        public ICommand CloseCmd => new RelayCommand(CloseExecute, CanExecute);
+        private async void CloseExecute(object _)
+        {
+            UpdateProjectLoaded(false);
+        }
+        public ICommand SettingsCmd => new RelayCommand(SettingsExecute, CanExecute);
+        private async void SettingsExecute(object _)
+        {
+            var desktop = App.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
+            var owner = desktop?.MainWindow;
+
+            var dialog = new SettingsWindow();
+            var result = await dialog.ShowDialog<bool>(owner);
+        }
+
+        public ICommand AboutCmd => new RelayCommand(AboutExecute, CanExecute);
+        private async void AboutExecute(object _)
+        {
+        }
         #endregion
     }
 }

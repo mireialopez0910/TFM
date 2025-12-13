@@ -14,7 +14,8 @@ namespace GRASP_Builder.ViewModels.ProjectActions
         public string DirectoryPath { get; set; }    // will hold the selected .zip file path
         public string ProjectName { get; set; }
         public bool IsProjectNameVisible { get; set; } = false;
-
+        public bool IsDirectoryPathVisible { get; set; } = true;
+        
         public async Task Browse()
         {
             // Show file picker for zip files
@@ -80,30 +81,28 @@ namespace GRASP_Builder.ViewModels.ProjectActions
                 }
 
                 // Determine final destination folder
-                string finalName = !string.IsNullOrWhiteSpace(ProjectName)
-                    ? ProjectName
-                    : Path.GetFileName(extractedProjectRoot.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                string finalName = Path.GetFileName(extractedProjectRoot.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 
-                string targetDir = Path.Combine(parentDir, finalName);
+                DirectoryPath = Path.Combine(parentDir, finalName); // update to point to the imported project folder
 
-                if (Directory.Exists(targetDir))
+                if (Directory.Exists(DirectoryPath))
                 {
-                    Logger.Log($"ImportProject: target folder already exists: {targetDir}");
+                    Logger.Log($"ImportProject: target folder already exists: {DirectoryPath}");
                     return;
                 }
 
-                // Move extracted content to targetDir. Prefer Directory.Move, fallback to copy if moving fails (cross-drive)
+                // Move extracted content to DirectoryPath. Prefer Directory.Move, fallback to copy if moving fails (cross-drive)
                 try
                 {
-                    Directory.Move(extractedProjectRoot, targetDir);
+                    Directory.Move(extractedProjectRoot, DirectoryPath);
                 }
                 catch
                 {
                     // fallback to copy
-                    CopyDirectory(extractedProjectRoot, targetDir);
+                    CopyDirectory(extractedProjectRoot, DirectoryPath);
                 }
 
-                Logger.Log($"Project imported to: {targetDir}");
+                Logger.Log($"Project imported to: {DirectoryPath}");
             }
             catch (InvalidDataException)
             {

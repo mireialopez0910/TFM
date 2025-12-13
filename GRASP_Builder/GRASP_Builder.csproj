@@ -16,6 +16,7 @@
   <ItemGroup>
     <None Remove="config.txt" />
     <None Remove="plot_test.m" />
+    <None Remove="Resources\config_icon.png" />
     <None Remove="Resources\create_new_folder.png" />
     <None Remove="Resources\import_zip.png" />
     <None Remove="Resources\logo.ico" />
@@ -71,6 +72,10 @@
 	  <AvaloniaResource Include="Resources\logo_UPC.png" />
 	  <AvaloniaResource Include="Resources\open_folder.png" />
 	  <AvaloniaResource Include="Resources\SplashScreen.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AvaloniaResource Include="Resources\config_icon.png" />
 	</ItemGroup>
 
 	<ItemGroup>

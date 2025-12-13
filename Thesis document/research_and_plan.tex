@@ -4,7 +4,7 @@
 \subsection{Web services development}
 \subsubsection{ACTRIS–EARLINET service} 
 \smallskip
-{The ACTRIS–EARLINET Data Portal provides a REST API for downloading measurements \cite{rest_api_earlinet}. This web, shows all the different requests that are supported by the API, gives examples of how to use them and the expected response.\smallskip\\
+{The ACTRIS-EARLINET Data Portal provides a REST API for downloading measurements \cite{rest_api_earlinet}. This web, shows all the different requests that are supported by the API, gives examples of how to use them and the expected response.\smallskip\\
 Having all this information available is really helpful, since it allows to localize the requests that are needed for the project requirements.\smallskip\\
 After testing and comparing the different options and the obtained responses, it becomes clear that the best option is to use the "/products/downloads" endpoint, which allows to download the measurements in a compressed format, filtering the data by type, date and station name.\smallskip\\
 Even if other configuration parameters are available (measurementID, wavelength and opticaltype), it is not necessary to use them for the project requirements.\smallskip\\
@@ -117,7 +117,7 @@ In order to be able to automatize the process of downloading and giving the appl
 \subsubsection{Adapt old scripts to new file formats}
 {}
 \subsubsection{Execute MATLAB scripts from C\#}
-{In order to execute the MATLAB scripts from C\#, it is needed to create a method that uses the ProcessStartInfo class, that can be imported as a library, to execute the MATLAB script. The following example shows a method called RunMatlabScript that takes a string parameter containing the path to the script to be executed. The method uses the Process class to execute the script and it redirects the standard output and standard error to the console.\smallskip\\
+{In order to execute the MATLAB scripts from C\#, it is needed to create a method that uses the ProcessStartInfo class, that can be imported as a library, to execute the MATLAB script. The following example shows a method called RunMatlabScript that takes a string parameter containing the path to the script to be executed. The method uses the Process class to execute the script and it redirects the standard output and standard error to the console.\smallskip
 }
 \begin{lstlisting}
 public static void RunMatlabScript (string scriptPath){

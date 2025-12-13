@@ -1,3 +1,5 @@
+configFile = 'config_preview.txt';
+
 %%%% LOAD RESOURCES %%%%
 warning('off','all');
 

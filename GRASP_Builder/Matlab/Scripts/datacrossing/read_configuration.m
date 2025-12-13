@@ -3,7 +3,6 @@
 %This script read the new CIMEL at 7 λ and Lidar SCC data and calls the WriteFiles_preGARRLiC_D1_L.m function.
 
 % --- Step 1: Read config file ---
-configFile = 'config_preview.txt';
 configData = readlines(configFile);
 
 % Initialize default values
@@ -43,7 +42,9 @@ for i = 1:length(configData)
     elseif startsWith(line, 'Folder_AERONET')
         Folder_AERONET = (extractAfter(line, '='));
     elseif startsWith(line, 'Folder_LIDAR')
-        Folder_LIDAR = (extractAfter(line, '='))
+        Folder_LIDAR = (extractAfter(line, '='));
+    elseif startsWith(line, 'selected_measurement_file_to_show')
+        selected_measurement_file_to_show = (extractAfter(line, '='));
     end
 end
 %%

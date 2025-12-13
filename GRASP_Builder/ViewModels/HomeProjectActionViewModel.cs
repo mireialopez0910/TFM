@@ -31,12 +31,18 @@ namespace GRASP_Builder.ViewModels
                 case "Import":
                     _projectAction = new ImportProjectAction();
                     break;
-                default:
+                case "Export":
+                    _projectAction = new ExportProjectAction();
+                    DirectoryPath = AppConfig.Instance.GetValue("ProjectDirectoryPath");
+                    _projectAction.DirectoryPath = DirectoryPath;
+                    ProjectName = new System.IO.DirectoryInfo(_projectAction.DirectoryPath).Name;
+                    _projectAction.ProjectName = ProjectName;
                     break;
             }
 
             Title = _projectAction.Title;
             IsProjectNameVisible = _projectAction.IsProjectNameVisible;
+            IsDirectoryPathVisible= _projectAction.IsDirectoryPathVisible;
         }
 
         #endregion
@@ -54,6 +60,13 @@ namespace GRASP_Builder.ViewModels
         {
             get => _isProjectNameVisible;
             set => SetProperty(ref _isProjectNameVisible, value);
+        }
+
+        private bool _isDirectoryPathVisible = false;
+        public bool IsDirectoryPathVisible
+        {
+            get => _isDirectoryPathVisible;
+            set => SetProperty(ref _isDirectoryPathVisible, value);
         }
 
         private string _projectName = "NewGRASPProject";
@@ -90,10 +103,11 @@ namespace GRASP_Builder.ViewModels
 
         private async Task BrowseExecute()
         {
-
             _projectAction.DirectoryPath = DirectoryPath;
             _projectAction.ProjectName = ProjectName;
+
             await _projectAction.Browse();
+            
             DirectoryPath = _projectAction.DirectoryPath;
             ProjectName = _projectAction.ProjectName;
         }
@@ -106,10 +120,13 @@ namespace GRASP_Builder.ViewModels
 
             _projectAction.Execute();
 
+            DirectoryPath = _projectAction.DirectoryPath;
+            ProjectName = _projectAction.ProjectName;
+
             AppConfig.Instance.SetValue("ProjectDirectoryPath", DirectoryPath);
             AppConfig.Instance.SetValue("ProjectName", ProjectName);
 
-            Messenger.Default.Send<object>("UpdateAppTitle", null);
+            Messenger.Default.Send<bool>("UpdateProjectLoaded", true);
         }
 
         private bool CanOK(object _)

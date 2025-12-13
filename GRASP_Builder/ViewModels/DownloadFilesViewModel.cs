@@ -49,7 +49,7 @@ namespace GRASP_Builder.ViewModels
             _earlinetClient = new EarlinetService();
             _aeronetService = new AeronetService();
 
-            Messenger.Default.Register<object>("UpdateAppTitle", UpdateAppTitle);
+            Messenger.Default.Register<bool>("UpdateProjectLoaded", UpdateProjectLoaded);
         }
 
         #endregion
@@ -118,30 +118,33 @@ namespace GRASP_Builder.ViewModels
 
         #region Messaging
 
-        private void UpdateAppTitle(object obj)
+        private void UpdateProjectLoaded(bool obj)
         {
-            _workingDirectory = AppConfig.Instance.GetValue("WorkingDirectory");
-            if (System.IO.Directory.Exists(_workingDirectory))
-                System.IO.Directory.Delete(_workingDirectory, true);
-            System.IO.Directory.CreateDirectory(_workingDirectory);
-
-            _repositoryDirectory = $@"{AppConfig.Instance.GetValue("ProjectDirectoryPath")}/Data/";
-
-            _aeronetRepositoryDirectory = $@"{_repositoryDirectory}AERONET/";
-            if (!System.IO.Directory.Exists(_aeronetRepositoryDirectory))
-                System.IO.Directory.CreateDirectory(_aeronetRepositoryDirectory);
-
-
-            _earlinetRepositoryDirectory = $@"{_repositoryDirectory}LIDAR/";
-            if (!System.IO.Directory.Exists(_earlinetRepositoryDirectory))
-                System.IO.Directory.CreateDirectory(_earlinetRepositoryDirectory);
-
-
-            UpdateListOfFiles();
-            if (DownloadedFiles_AERONET.Count > 0 || DownloadedFiles_EARLINET.Count > 0)
+            if (obj) //if project is unloaded, it is not necessary to initialize variables, it will be done when another project is laoded again
             {
-                IsSelectDateEnabled = true;
-                IsDownloadedFilesVisible = true;
+                _workingDirectory = AppConfig.Instance.GetValue("WorkingDirectory");
+                if (System.IO.Directory.Exists(_workingDirectory))
+                    System.IO.Directory.Delete(_workingDirectory, true);
+                System.IO.Directory.CreateDirectory(_workingDirectory);
+
+                _repositoryDirectory = $@"{AppConfig.Instance.GetValue("ProjectDirectoryPath")}/Data/";
+
+                _aeronetRepositoryDirectory = $@"{_repositoryDirectory}AERONET/";
+                if (!System.IO.Directory.Exists(_aeronetRepositoryDirectory))
+                    System.IO.Directory.CreateDirectory(_aeronetRepositoryDirectory);
+
+
+                _earlinetRepositoryDirectory = $@"{_repositoryDirectory}LIDAR/";
+                if (!System.IO.Directory.Exists(_earlinetRepositoryDirectory))
+                    System.IO.Directory.CreateDirectory(_earlinetRepositoryDirectory);
+
+
+                UpdateListOfFiles();
+                if (DownloadedFiles_AERONET.Count > 0 || DownloadedFiles_EARLINET.Count > 0)
+                {
+                    IsSelectDateEnabled = true;
+                    IsDownloadedFilesVisible = true;
+                }
             }
         }
 
@@ -527,9 +530,7 @@ namespace GRASP_Builder.ViewModels
 
         private bool CanKeepSelectedFiles(object _)
         {
-            var selectedAeronet = DownloadedFiles_AERONET.Where(o => o.IsChecked).Select(o => o.Name);
-            var selectedEarlinet = DownloadedFiles_EARLINET.Where(o => o.IsChecked).Select(o => o.Name);
-            return selectedAeronet.Any() || selectedEarlinet.Any();
+            return true;
         }
 
         #endregion

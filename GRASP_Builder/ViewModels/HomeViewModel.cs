@@ -15,48 +15,70 @@ namespace GRASP_Builder.ViewModels
     public class HomeViewModel: ViewModelBase
     {
         #region Constructor
-
+        string action = string.Empty;
         public HomeViewModel()
         {
+            Messenger.Default.Register<string>("ExecuteHomeCommand", ExecuteHomeCommand);
+        }
 
+        public void ExecuteHomeCommand(string command)
+        {
+            switch (command)
+            {
+                case "Create":
+                    CreateProjectCmd.Execute(null);
+                    break;
+                case "Open":
+                    OpenProjectCmd.Execute(null);
+                    break;
+                case "Import":
+                    ImportFromZipCmd.Execute(null);
+                    break;
+                case "Export":
+                    action = "Export";
+                    Execute();
+                    break;
+                default:
+                    break;
+            }
         }
 
         #endregion
 
         #region Commands
 
-        public ICommand CreateProjectCmd => new RelayCommand(CreateProjectExecute, CanCreateProject);
+        public ICommand CreateProjectCmd => new RelayCommand(CreateProjectExecute, CanExecute);
         private async void CreateProjectExecute(object _)
         {
-            await CreateProject();
-        }
-        private bool CanCreateProject(object _)
-        {
-            return true;
+            action = "Create";
+            Execute();
         }
 
-        private async Task CreateProject()
-        {
-            var desktop = App.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
-            var owner = desktop?.MainWindow;
-            await ShowMyDialog(owner, "Create");
-        }
-
-        public ICommand OpenProjectCmd => new RelayCommand(OpenProjectExecute, CanOpenProject);
+        public ICommand OpenProjectCmd => new RelayCommand(OpenProjectExecute, CanExecute);
         private async void OpenProjectExecute(object _)
         {
-            OpenProject();
+            action = "Open";
+            Execute();
         }
-        private bool CanOpenProject(object _)
+        
+        public ICommand ImportFromZipCmd => new RelayCommand(ImportFromZipExecute, CanExecute);
+        private void ImportFromZipExecute(object _)
+        {
+            action = "Import";
+            Execute();
+        }
+
+
+        //All type execute same method and can be executed when buttons are visible
+        private bool CanExecute(object _)
         {
             return true;
         }
-
-        private async Task OpenProject()
+        private async Task Execute()
         {
             var desktop = App.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
             var owner = desktop?.MainWindow;
-            await ShowMyDialog(owner,"Open");
+            await ShowMyDialog(owner, action);
         }
 
         public async Task ShowMyDialog(Window owner, string type)
@@ -72,22 +94,6 @@ namespace GRASP_Builder.ViewModels
             {
                 // User clicked Cancel
             }
-        }
-
-        public ICommand ImportFromZipCmd => new RelayCommand(ImportFromZipExecute, CanImportFromZip);
-        private void ImportFromZipExecute(object _)
-        {
-            ImportFromZip();
-        }
-        private bool CanImportFromZip(object _)
-        {
-            return true;
-        }
-        private async Task ImportFromZip()
-        {
-            var desktop = App.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
-            var owner = desktop?.MainWindow;
-            await ShowMyDialog(owner, "Import");
         }
 
         #endregion

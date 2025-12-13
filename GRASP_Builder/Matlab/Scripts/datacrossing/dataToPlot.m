@@ -1,4 +1,4 @@
-function dataToPlot(app, path2datafile)
+function dataToPlot(path2datafile)
 %%! dataToPlot(app, path2datafile)
 %%! Descripció
 %!

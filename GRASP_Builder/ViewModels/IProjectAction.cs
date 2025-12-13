@@ -12,6 +12,7 @@ namespace GRASP_Builder.ViewModels
         public string ProjectName { get; set; }
         public string DirectoryPath { get; set; }
         public bool IsProjectNameVisible { get; set; }
+        public bool IsDirectoryPathVisible { get; set; }
         public void Execute();
         public Task Browse();
     }

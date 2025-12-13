@@ -1,0 +1,35 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		Width="900" Height="600" Icon="/Resources/logo.ico"
+		WindowStartupLocation="CenterOwner" CanResize="False"
+		xmlns:vm="using:GRASP_Builder.ViewModels"
+        x:Class="GRASP_Builder.SettingsWindow"
+        Title="SettingsWindow"
+		x:DataType="vm:ConfigurationViewModel">
+	<Design.DataContext>
+	<!-- This only sets the DataContext for the previewer in an IDE,
+	to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+	<vm:ConfigurationViewModel/>
+
+	</Design.DataContext>
+	<StackPanel Margin="30">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="5"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="5"/>
+				<ColumnDefinition Width="400"/>
+				<ColumnDefinition Width="5"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+
+			<TextBlock Text="Matlab project file path:" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
+			
+			<TextBox Grid.Column="3" Grid.Row="3" Text="{Binding MatlabProjectFilePath, Mode=TwoWay}"/>
+			
+			<Button Content="..." Grid.Column="5" Grid.Row="3"/>
+		</Grid>
+	</StackPanel>
+</Window>

@@ -2,7 +2,7 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="700"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="700" HorizontalAlignment="Center"
 			 xmlns:vm="using:GRASP_Builder.ViewModels"
 			 x:DataType="vm:DataConvinationViewModel"
 			 x:Class="GRASP_Builder.DataConvinationView">
@@ -17,10 +17,7 @@
 				<StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
 					<TextBlock Text="Measure ID: " VerticalAlignment="Center" Margin="5"/>
 
-					<ComboBox ItemsSource="{Binding MeasureIDOptions, Mode=TwoWay}"
-							  SelectedItem="{Binding SelectedMeasureID, Mode=TwoWay}"
-							  Width="200"
-							  Margin="10"/>
+					<ComboBox ItemsSource="{Binding MeasureIDOptions, Mode=TwoWay}" SelectedItem="{Binding SelectedMeasureID, Mode=TwoWay}" Width="200" Margin="10"/>
 				</StackPanel>
 
 				<Grid Margin="5">
