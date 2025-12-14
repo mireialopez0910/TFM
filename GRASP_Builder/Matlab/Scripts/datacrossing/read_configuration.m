@@ -45,6 +45,8 @@ for i = 1:length(configData)
         Folder_LIDAR = (extractAfter(line, '='));
     elseif startsWith(line, 'selected_measurement_file_to_show')
         selected_measurement_file_to_show = (extractAfter(line, '='));
+    elseif startsWith(line, 'path_to_figure_data')
+        path_to_figure_data = (extractAfter(line, '='));
     end
 end
 %%

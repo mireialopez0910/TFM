@@ -9,14 +9,26 @@ namespace GRASP_Builder.Matlab
 {
     public class SendFiles : IMatlabScript
     {
-        public string Name { get; set; } = "SendFiles.m";
-        private bool _preview = false;
-        Dictionary<string, object> vars;
+        #region Construction
+
         public SendFiles(Dictionary<string, object> dic)
         {
             vars = dic;
         }
 
+        #endregion
+       
+        #region Members
+
+        private bool _preview = false;
+        
+        #endregion
+
+        #region Interface implementation
+
+        public string Name { get; set; } = "SendFiles.m";
+
+        public Dictionary<string, object> vars { get; set; }
 
         public void PostExecutionActions(bool resultOK = true)
         {
@@ -48,5 +60,6 @@ namespace GRASP_Builder.Matlab
                 _preview = false;
         }
 
+        #endregion
     }
 }

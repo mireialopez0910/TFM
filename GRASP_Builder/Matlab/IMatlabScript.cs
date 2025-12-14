@@ -11,6 +11,7 @@ namespace GRASP_Builder.Matlab
     public interface IMatlabScript
     {
         public string Name { get; }
+        public Dictionary<string, object> vars { get; set; }
         public void PreExecutionActions();
         public void PostExecutionActions(bool resultOK = true);
 

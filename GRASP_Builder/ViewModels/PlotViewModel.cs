@@ -111,9 +111,22 @@ namespace GRASP_Builder.ViewModels
         public ICommand SaveFiguresCmd => new RelayCommand(SaveFiguresExecute, CanSaveFigures);
         private void SaveFiguresExecute(object _)
         {
-
+            SaveFiguresMatlab();
         }
 
+        private void SaveFiguresMatlab()
+        {
+            var dict = new Dictionary<string, object>
+                    {
+                        { "selected_measure_ID", SelectedMeasureID},
+                        {"selected_measurement_file_to_show", SelectedFileToShow },
+                    };
+
+            if (AppConfig.Instance.IsDebugging())
+                Logger.Log($"SaveFigures Matlab script started with dicctionary: {Helpers.DictionaryToString(dict)}");
+
+            MatlabController.RunMatlabScript(ScriptType.Preview, dict);
+        }
         private bool CanSaveFigures(object _)
         {
             return true;
@@ -122,7 +135,20 @@ namespace GRASP_Builder.ViewModels
         public ICommand PlotFigureCmd => new RelayCommand(PlotFigureExecute, CanPlotFigure);
         private void PlotFigureExecute(object _)
         {
+            PlotFigureMatlab();
+        }
 
+        private void PlotFigureMatlab()
+        {
+            var dict = new Dictionary<string, object>
+                    {
+                        { "path_to_figure_data", Path.Combine(figureFolder,SelectedFigureToShow)},
+                    };
+
+            if (AppConfig.Instance.IsDebugging())
+                Logger.Log($"PlotFigures Matlab script started with dicctionary: {Helpers.DictionaryToString(dict)}");
+
+            MatlabController.RunMatlabScript(ScriptType.Preview, dict);
         }
 
         private bool CanPlotFigure(object _)

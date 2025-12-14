@@ -47,7 +47,7 @@ size_binsF = [0.05,0.0656,0.086,0.11294,0.14818,0.19443,0.25511,0.33472,0.43917,
 size_binsC = [0.33472,0.43917,0.57623,0.75605,0.99199,1.3016,1.7078,2.2407,2.94,3.8575,5.0613,6.6407,8.7131,11.432,15];
 % size_bins = [0.05,0.0656,0.086,0.11294,0.14818,0.19443,0.25511,0.33472,0.43917,0.57623,0.75605,0.99199,1.3016,1.7078,2.2407,2.94,3.8575,5.0613,6.6407,8.7131,11.432,15];
 %Aerosol volume concentration changes for each case run in GRASP
-% AVCF = input('Aerosol volupme concentration - Fine mode: ');
+% AVCF = input('Aerosol volume concentration - Fine mode: ');
 % AVCC = input('Aerosol volume concentration - Coarse mode: ');
 
 configFile = 'config_savefigures.txt';

@@ -322,20 +322,11 @@ namespace GRASP_Builder.ViewModels
 
 
             if (AppConfig.Instance.IsDebugging())
-                Logger.Log($"Preview Matlab script started with dicctionary: {DictionaryToString(dict)}");
+                Logger.Log($"Preview Matlab script started with dicctionary: {Helpers.DictionaryToString(dict)}");
 
             MatlabController.RunMatlabScript(ScriptType.Preview, dict);
 
             IsConfigSelectionEnabled = true;
-        }
-
-        private string DictionaryToString(Dictionary<string, object> dict)
-        {
-            string text = string.Empty;
-            foreach (KeyValuePair<string, object> kvp in dict)
-                text += $" {kvp.Key}&{kvp.Value.ToString()} | ";
-
-            return text.Substring(0, text.Length - 3);
         }
 
         private bool CanPlotPreview(object _)

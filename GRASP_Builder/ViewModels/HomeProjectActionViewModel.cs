@@ -33,8 +33,10 @@ namespace GRASP_Builder.ViewModels
                     break;
                 case "Export":
                     _projectAction = new ExportProjectAction();
+
                     DirectoryPath = AppConfig.Instance.GetValue("ProjectDirectoryPath");
                     _projectAction.DirectoryPath = DirectoryPath;
+                    
                     ProjectName = new System.IO.DirectoryInfo(_projectAction.DirectoryPath).Name;
                     _projectAction.ProjectName = ProjectName;
                     break;
