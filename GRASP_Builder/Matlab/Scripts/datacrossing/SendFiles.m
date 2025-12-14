@@ -191,19 +191,28 @@ if strcmpi(strtrim(sendData), "true")
     
     if strcmpi(strtrim(is_D1P_L_VD_checked), "true")
         [GARRLiC_file_name, errorVolumePolarization] = sendData_D1P_L_VD(selected_measure_ID, hMin, hMax, 0, 0);
+        fid = fopen('sendFiles_output.txt','w');
+        fprintf(fid, 'selected_config = D1P_L_VD\n');
+        fclose(fid);
     end
     if strcmpi(strtrim(is_D1P_L_checked), "true")
         GARRLiC_file_name = sendData_D1P_L(selected_measure_ID, hMin, hMax, 0, 0);
+        fprintf(fid, 'selected_config = D1P_L\n');
     end
     if strcmpi(strtrim(is_D1_L_VD_checked), "true")
         [GARRLiC_file_name, errorVolumePolarization] = sendData_D1_L_VD(selected_measure_ID, hMin, hMax, 0, 0);
+        fprintf(fid, 'selected_config = D1_L_VD\n');
     end
     if strcmpi(strtrim(is_D1_L_checked), "true")
         GARRLiC_file_name = sendData_D1_L(selected_measure_ID, hMin, hMax, 0, 0);
+        fprintf(fid, 'selected_config = D1_L\n');
     end
     
     if ~isempty(GARRLiC_file_name)
         logMessage( ['GARRLiC: output file ', GARRLiC_file_name, ' written correctly']);
+        fid = fopen('sendFiles_output.txt','w');
+        fprintf(fid, 'GARRLiC_file_name = %s\n', GARRLiC_file_name);
+        fclose(fid);
     else
         logMessage('GARRLiC: error writing the output file');
         if(errorVolumePolarization)

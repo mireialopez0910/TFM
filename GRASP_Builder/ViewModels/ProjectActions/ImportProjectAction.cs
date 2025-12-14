@@ -1,10 +1,13 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using GRASP_Builder.Views;
 using System;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
+using Tmds.DBus.Protocol;
+using static System.Collections.Specialized.BitVector32;
 
 namespace GRASP_Builder.ViewModels.ProjectActions
 {
@@ -49,12 +52,12 @@ namespace GRASP_Builder.ViewModels.ProjectActions
             }
         }
 
-        public void Execute()
+        public async Task<bool> Execute()
         {
             if (string.IsNullOrWhiteSpace(DirectoryPath) || !File.Exists(DirectoryPath))
             {
                 Logger.Log($"ImportProject: zip file not found: {DirectoryPath}");
-                return;
+                return false;
             }
 
             string zipPath = DirectoryPath;
@@ -87,8 +90,13 @@ namespace GRASP_Builder.ViewModels.ProjectActions
 
                 if (Directory.Exists(DirectoryPath))
                 {
+                    bool result = await Helpers.ShowMessage($"ERROR: target folder already exists: {DirectoryPath}. Folder will be overwritten, do you want to continue?", "Folder already exists", isWarning: true);
                     Logger.Log($"ImportProject: target folder already exists: {DirectoryPath}");
-                    return;
+                    if (!result)
+                    {
+                        Messenger.Default.Send<bool>("CloseProjectActionWindow", false);
+                        return false;
+                    }
                 }
 
                 // Move extracted content to DirectoryPath. Prefer Directory.Move, fallback to copy if moving fails (cross-drive)
@@ -103,14 +111,22 @@ namespace GRASP_Builder.ViewModels.ProjectActions
                 }
 
                 Logger.Log($"Project imported to: {DirectoryPath}");
+                Messenger.Default.Send<bool>("CloseProjectActionWindow", true);
+                return true;
             }
             catch (InvalidDataException)
             {
+                await Helpers.ShowMessage("ImportProject: invalid or corrupted zip file.", "ImportProject failed", isError: true);
                 Logger.Log("ImportProject: invalid or corrupted zip file.");
+                Messenger.Default.Send<bool>("CloseProjectActionWindow", false);
+                return false;
             }
             catch (Exception ex)
             {
+                await Helpers.ShowMessage($"ERROR: ImportProject failed: {ex.Message}", "ImportProject failed", isError: true);
                 Logger.Log($"ImportProject failed: {ex.Message}");
+                Messenger.Default.Send<bool>("CloseProjectActionWindow", false);
+                return false;
             }
             finally
             {

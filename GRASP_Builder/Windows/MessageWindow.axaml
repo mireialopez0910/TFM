@@ -1,0 +1,30 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		x:Class="GRASP_Builder.MessageWindow"
+		xmlns:vm="using:GRASP_Builder.ViewModels"
+		xmlns:n="using:GRASP_Builder" Icon="/Resources/logo.ico"
+		x:DataType="vm:MessageWindowViewModel"
+		Title="{Binding Title}" Height="260" Width="580" WindowStartupLocation="CenterOwner" CanResize="False">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+		to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:HomeProjectActionViewModel/>
+	</Design.DataContext>
+
+	<StackPanel Margin="10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+		<Image Source="avares://GRASP_Builder/Resources/error.png" IsVisible="{Binding IsError}" Height="100" Width="100" VerticalAlignment="Center"/>
+		<Image Source="avares://GRASP_Builder/Resources/warning.png" IsVisible="{Binding IsWarning}" Height="100" Width="100"  VerticalAlignment="Center"/>
+
+		<StackPanel VerticalAlignment="Center">
+			<TextBlock Text="{Binding Message}" Margin="10,0,0,0" TextWrapping="Wrap" Width="400" HorizontalAlignment="Center"/>
+			<StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
+				<Button Content="OK" Width="90" Click="Ok_Click" HorizontalContentAlignment="Center"/>
+				<Button Content="Cancel" Width="90" Click="Cancel_Click" HorizontalContentAlignment="Center"/>
+			</StackPanel>
+		</StackPanel>
+
+	</StackPanel>
+</Window>

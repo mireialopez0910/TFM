@@ -26,7 +26,6 @@ namespace GRASP_Builder.ViewModels
 
             _aeronetRepositoryDirectory = $@"{_repositoryDirectory}AERONET/";
             _earlinetRepositoryDirectory = $@"{_repositoryDirectory}LIDAR/";
-
         }
 
         #endregion
@@ -359,7 +358,7 @@ namespace GRASP_Builder.ViewModels
                     };
 
             if (AppConfig.Instance.IsDebugging())
-                Logger.Log($"Send Data Matlab script started with dicctionary: {DictionaryToString(dict)}");
+                Logger.Log($"Send Data Matlab script started with dicctionary: {Helpers.DictionaryToString(dict)}");
 
             MatlabController.RunMatlabScript(ScriptType.Preview, dict);
             IsConfigSelectionEnabled = true;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GRASP_Builder.ViewModels
+namespace GRASP_Builder.ViewModels.ProjectActions
 {
     public interface IProjectAction
     {
@@ -13,7 +13,7 @@ namespace GRASP_Builder.ViewModels
         public string DirectoryPath { get; set; }
         public bool IsProjectNameVisible { get; set; }
         public bool IsDirectoryPathVisible { get; set; }
-        public void Execute();
+        public Task<bool> Execute();
         public Task Browse();
     }
 }

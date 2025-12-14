@@ -42,7 +42,7 @@ namespace GRASP_Builder.ViewModels.ProjectActions
             }
         }
 
-        public void Execute() //Create project in DirectoryPath 
+        public async Task<bool> Execute() //Create project in DirectoryPath 
         {
             try
             {
@@ -60,10 +60,13 @@ namespace GRASP_Builder.ViewModels.ProjectActions
                 }
 
                 Logger.Log($"Project created at:{Environment.NewLine}{projectRoot}");
+                return true;
             }
             catch (Exception ex)
             {
+                await Helpers.ShowMessage($"ERROR: Failed to create project: {ex.Message}.", "Failed to create project", isError: true);
                 Logger.Log($"Failed to create project: {ex.Message}");
+                return false;
             }
         }
     }

@@ -12,12 +12,14 @@ public partial class HomeProjectActionWindow : Window
     {
         InitializeComponent();
         DataContext = new HomeProjectActionViewModel(type);
+        Messenger.Default.Register<bool>("CloseHomeProjectActionWindow", CloseWindow);
     }
 
-    private void Ok_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private  void CloseWindow(bool result)
     {
-        Close(true);   // return true as DialogResult
+        Close(result);
     }
+
     private void Cancel_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         Close(false);  // return false as DialogResult

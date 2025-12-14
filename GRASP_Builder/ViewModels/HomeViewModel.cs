@@ -74,7 +74,7 @@ namespace GRASP_Builder.ViewModels
         {
             return true;
         }
-        private async Task Execute()
+        private async void Execute()
         {
             var desktop = App.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
             var owner = desktop?.MainWindow;

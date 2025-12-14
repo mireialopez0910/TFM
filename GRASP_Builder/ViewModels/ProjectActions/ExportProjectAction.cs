@@ -42,12 +42,13 @@ namespace GRASP_Builder.ViewModels.ProjectActions
             }
         }
 
-        public void Execute()
+        public async Task<bool> Execute()
         {
             if (string.IsNullOrWhiteSpace(DirectoryPath) || !Directory.Exists(DirectoryPath))
             {
+                await Helpers.ShowMessage($"ERROR: ExportProject: project folder not found: {DirectoryPath}", "Project folder not found", isError: true);
                 Logger.Log($"ExportProject: project folder not found: {DirectoryPath}");
-                return;
+                return false;
             }
 
             try
@@ -66,8 +67,9 @@ namespace GRASP_Builder.ViewModels.ProjectActions
                 if (zipPath.StartsWith(projectFolder + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) ||
                     string.Equals(zipPath, Path.Combine(projectFolder, Path.GetFileName(zipPath)), StringComparison.OrdinalIgnoreCase))
                 {
+                    await Helpers.ShowMessage($"ERROR: Destination zip would be inside source folder. Choose a different location.", "Invalid location", isError: true);
                     Logger.Log("ExportProject: destination zip would be inside source folder. Choose a different location.");
-                    return;
+                    return false;
                 }
 
                 // overwrite existing zip if present
@@ -79,8 +81,9 @@ namespace GRASP_Builder.ViewModels.ProjectActions
                     }
                     catch (Exception ex)
                     {
+                        await Helpers.ShowMessage($"ERROR: Unable to remove existing zip {zipPath}: {ex.Message}", "Unable to remove existing zip", isError: true);
                         Logger.Log($"ExportProject: unable to remove existing zip {zipPath}: {ex.Message}");
-                        return;
+                        return false;
                     }
                 }
 
@@ -88,10 +91,13 @@ namespace GRASP_Builder.ViewModels.ProjectActions
                 ZipFile.CreateFromDirectory(projectFolder, zipPath, CompressionLevel.Optimal, includeBaseDirectory: true);
 
                 Logger.Log($"Project exported to: {zipPath}");
+                return true;
             }
             catch (Exception ex)
             {
+                await Helpers.ShowMessage($"ERROR: ExportProject failed: {ex.Message}", "Export failed", isError: true);
                 Logger.Log($"ExportProject failed: {ex.Message}");
+                return false;
             }
         }
     }

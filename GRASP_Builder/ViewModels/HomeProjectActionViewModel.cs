@@ -1,5 +1,4 @@
 using Avalonia.Controls;
-using GRASP_Builder.ViewModels;
 using GRASP_Builder.ViewModels.ProjectActions;
 using SkiaSharp;
 using System;
@@ -115,20 +114,23 @@ namespace GRASP_Builder.ViewModels
         }
 
         public ICommand OKCmd => new RelayCommand(OKExecute, CanOK);
-        private void OKExecute(object _)
+        private async void OKExecute(object _)
         {
             _projectAction.DirectoryPath = DirectoryPath;
             _projectAction.ProjectName = ProjectName;
 
-            _projectAction.Execute();
+            bool res = await _projectAction.Execute();
 
-            DirectoryPath = _projectAction.DirectoryPath;
-            ProjectName = _projectAction.ProjectName;
+            if (res)
+            {
+                DirectoryPath = _projectAction.DirectoryPath;
+                ProjectName = _projectAction.ProjectName;
 
-            AppConfig.Instance.SetValue("ProjectDirectoryPath", DirectoryPath);
-            AppConfig.Instance.SetValue("ProjectName", ProjectName);
+                AppConfig.Instance.SetValue("ProjectDirectoryPath", DirectoryPath);
+                AppConfig.Instance.SetValue("ProjectName", ProjectName);
 
-            Messenger.Default.Send<bool>("UpdateProjectLoaded", true);
+                Messenger.Default.Send<bool>("UpdateProjectLoaded", true);
+            }
         }
 
         private bool CanOK(object _)
