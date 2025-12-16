@@ -1,4 +1,4 @@
-function [GARRLiC_file_name, errorVolumePolarization] = sendData_D1P_L_VD( measureID, heightMin, heightMax, isFigure, isExportLidarData)
+function [GARRLiC_file_name, errorVolumePolarization] = sendData_D1P_L_VD( measureID, heightMin, heightMax, isFigure, isExportLidarData, CONFIG_output)
 %%! [GARRLiC_file_name, errorVolumePolarization] = sendData_D1P_L_VD( measureID, heightMin, heightMax, isFigure, isExportLidarData )
 %%! *DESCRIPCIÓ*
 %!
@@ -794,5 +794,9 @@ function [GARRLiC_file_name, errorVolumePolarization] = sendData_D1P_L_VD( measu
             logMessage('ERROR: Volume Polarization missing data || Please check LIDAR Volume Polarization avaliability in ''008'' files || Affected fields: VD355, VD532, RangeVD355, RangeVD532');
         end
     end
+
+    fid = fopen('sendFiles_output.txt','a');
+    fprintf(fid, 'output_dir = %s\n', char(URL_output));
+    fclose(fid);
 end
             

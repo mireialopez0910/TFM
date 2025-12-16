@@ -35,19 +35,23 @@ namespace GRASP_Builder.Matlab
         {
             if (resultOK)
             {
-                if (_preview)
-                {
-                    Dictionary<string, string> dic = MatlabController.ReadOutputFile("sendFiles_output.txt");
 
-                    Messenger.Default.Send<Dictionary<string, string>>("UpdateUI", dic);
-                    
-                    // corrected TryGetValue usage and call to save output name into config file
-                    if (dic.TryGetValue("GARRLiC_file_name", out string outputName))
+                Dictionary<string, string> dic = MatlabController.ReadOutputFile("sendFiles_output.txt");
+
+                Messenger.Default.Send<Dictionary<string, string>>("UpdateUI", dic);
+
+                // corrected TryGetValue usage and call to save output name into config file
+                if (dic.TryGetValue("GARRLiC_file_name", out string outputName))
+                {
+                    if (dic.TryGetValue("selected_config", out string selected_config)) 
                     {
-                        if (dic.TryGetValue("selected_config", out string selected_config))
-                            SaveOutputNameInConfigFile(outputName, selected_config);
+                        if (dic.TryGetValue("output_dir", out string output_dir))
+                            SaveOutputNameInConfigFile(outputName, selected_config, output_dir);
+                        else
+                            Logger.Log("ERROR; No output_dir in list of dicctionaries for send files, can not create configuration file .yml");
                     }
                 }
+
             }
             Messenger.Default.Send<bool>("UpdateButtonsEnabled", true);
         }
@@ -68,34 +72,33 @@ namespace GRASP_Builder.Matlab
                 _preview = false;
         }
 
-        private void SaveOutputNameInConfigFile(string outputName, string config)
+        private void SaveOutputNameInConfigFile(string outputName, string config, string output_dir)
         {
             //TO DO: ha de contenir la configuracio del GARRLiC en el nom
             try
             {
-                string configfilepath = $@"{AppConfig.Instance.GetValue("ProjectDirectoryPath")}/Matlab/Scripts/datacrossing";
-
-                Helpers.RenameFile(configfilepath, $"UPC_{config}.yml");
-                string configPath = Path.Combine(Directory.GetCurrentDirectory(), "config.txt");
-                string text = File.ReadAllText(configPath);
+                string aux_configfilepath = Path.Combine($@"{Directory.GetCurrentDirectory()}/Matlab/Scripts/datacrossing", $"UPC_Configuration.yml");
+                string configfilepath = Path.Combine(output_dir, $"UPC_{config}.yml");
+                
+                Helpers.CopyAndRenameFile_newPath(aux_configfilepath, configfilepath);
+                
+                string text = File.ReadAllText(configfilepath);
 
                 if (text.Contains("OutputName_Value"))
                 {
-                    text = text.Replace("outputdilenamevalue", outputName);
-                    File.WriteAllText(configPath, text);
-                    Logger.Log($"SaveOutputNameInConfigFile: replaced token with '{outputName}' in {configPath}");
+                    text = text.Replace("OutputName_Value", outputName);
+                    File.WriteAllText(configfilepath, text);
+                    Logger.Log($"SaveOutputNameInConfigFile: replaced token with '{outputName}' in {configfilepath}");
                 }
                 else
                 {
                     // If token not present, append an explicit key so the config contains the output name.
-                    var appendLine = Environment.NewLine + $"GARRLiC_file_name={outputName}";
-                    File.AppendAllText(configPath, appendLine);
-                    Logger.Log($"SaveOutputNameInConfigFile: token not found, appended GARRLiC_file_name={outputName} to {configPath}");
+                    Logger.Log($"ERROR in SaveOutputNameInConfigFile: OutputName_Value token was not found in {configfilepath}");
                 }
             }
             catch (Exception ex)
             {
-                Logger.Log($"SaveOutputNameInConfigFile failed: {ex.Message}");
+                Logger.Log($"ERROR SaveOutputNameInConfigFile failed: {ex.Message}");
             }
         }
 

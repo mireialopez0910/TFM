@@ -99,7 +99,7 @@ else
         heightLimitMax = hMax;
     end
 
-    fid = fopen('sendFiles_output.txt','w');
+    fid = fopen('sendFiles_output.txt','a');
 
     fprintf(fid, 'heightLimitMin = %s\n', num2str(heightLimitMin));
     fprintf(fid, 'heightLimitMax = %s\n', num2str(heightLimitMax));
@@ -188,37 +188,35 @@ if strcmpi(strtrim(sendData), "true")
     % cfgSelected = 'D1_L: Photometer + lidar' 
     GARRLiC_file_name = '';
     errorVolumePolarization = false;
-    
+    fid = fopen('sendFiles_output.txt','a');
     if strcmpi(strtrim(is_D1P_L_VD_checked), "true")
-        [GARRLiC_file_name, errorVolumePolarization] = sendData_D1P_L_VD(selected_measure_ID, hMin, hMax, 0, 0);
-        fid = fopen('sendFiles_output.txt','w');
+        [GARRLiC_file_name, errorVolumePolarization] = sendData_D1P_L_VD(selected_measure_ID, hMin, hMax, 0, 0, CONFIG_output);
         fprintf(fid, 'selected_config = D1P_L_VD\n');
-        fclose(fid);
     end
     if strcmpi(strtrim(is_D1P_L_checked), "true")
-        GARRLiC_file_name = sendData_D1P_L(selected_measure_ID, hMin, hMax, 0, 0);
+        GARRLiC_file_name = sendData_D1P_L(selected_measure_ID, hMin, hMax, 0, 0, CONFIG_output);
         fprintf(fid, 'selected_config = D1P_L\n');
     end
     if strcmpi(strtrim(is_D1_L_VD_checked), "true")
-        [GARRLiC_file_name, errorVolumePolarization] = sendData_D1_L_VD(selected_measure_ID, hMin, hMax, 0, 0);
+        [GARRLiC_file_name, errorVolumePolarization] = sendData_D1_L_VD(selected_measure_ID, hMin, hMax, 0, 0, CONFIG_output);
         fprintf(fid, 'selected_config = D1_L_VD\n');
     end
     if strcmpi(strtrim(is_D1_L_checked), "true")
-        GARRLiC_file_name = sendData_D1_L(selected_measure_ID, hMin, hMax, 0, 0);
+        GARRLiC_file_name = sendData_D1_L(selected_measure_ID, hMin, hMax, 0, 0, CONFIG_output);
         fprintf(fid, 'selected_config = D1_L\n');
     end
     
     if ~isempty(GARRLiC_file_name)
         logMessage( ['GARRLiC: output file ', GARRLiC_file_name, ' written correctly']);
-        fid = fopen('sendFiles_output.txt','w');
         fprintf(fid, 'GARRLiC_file_name = %s\n', GARRLiC_file_name);
-        fclose(fid);
     else
         logMessage('GARRLiC: error writing the output file');
         if(errorVolumePolarization)
             logMessage('----- Affected fields: VD355, VD532, RangeVD355, RangeVD532 || Please check LIDAR Volume Polarization avaliability in ''008'' files || ERROR: Volume Polarization missing data');
         end
     end
+
+    fclose(fid);
 end
 %%%%  SEND PUSHED %%%%
 

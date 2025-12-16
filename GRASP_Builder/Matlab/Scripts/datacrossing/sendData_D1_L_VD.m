@@ -1,4 +1,4 @@
-function [GARRLiC_file_name, errorVolumePolarization] = sendData_D1_L_VD( measureID, heightMin, heightMax, isFigure, isExportLidarData )
+function [GARRLiC_file_name, errorVolumePolarization] = sendData_D1_L_VD( measureID, heightMin, heightMax, isFigure, isExportLidarData , CONFIG_output)
 %%! [GARRLiC_file_name, errorVolumePolarization] = sendData_D1_L_VD( measureID, heightMin, heightMax, isFigure, isExportLidarData )
 %%! *DESCRIPCIÓ*
 %!
@@ -45,7 +45,7 @@ function [GARRLiC_file_name, errorVolumePolarization] = sendData_D1_L_VD( measur
     %! Crea l'estructura de directoris on es crearan els fitxers per a enviar a GRASP. El nom assignat es definirà en funció de la configuració seleccionada, la mesura i afegeix un sufix addicional que indica les altures mínima i màxima entre les quals s'han realitzat els càlculs.
 
     currentFolder = fileparts(mfilename('fullpath'));  
-    URL_output = fullfile(currentFolder, CONFIG_output, measureID, ['D1_L_VD-',measureID,'-', num2str(heightMin), '_', num2str(heightMax)]);
+    URL_output = fullfile(CONFIG_output, measureID, ['D1_L_VD-',measureID,'-', num2str(heightMin), '_', num2str(heightMax)]);
 
     %!
     %! Si els directoris no existeixen es creen però si existeixen no es realitza
@@ -660,5 +660,9 @@ function [GARRLiC_file_name, errorVolumePolarization] = sendData_D1_L_VD( measur
          if errorVolumePolarization 
             logMessage('ERROR: Volume Polarization missing data || Please check LIDAR Volume Polarization avaliability in ''008'' files || Affected fields: VD355, VD532, RangeVD355, RangeVD532');
         end
-     end
+    end
+
+    fid = fopen('sendFiles_output.txt','a');
+    fprintf(fid, 'output_dir = %s\n', char(URL_output));
+    fclose(fid);
 end

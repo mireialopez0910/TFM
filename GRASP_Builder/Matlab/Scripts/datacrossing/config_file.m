@@ -116,7 +116,6 @@ CONFIG_config_SCC = 'configuraciones_SCC.xlsx';
 
 CONFIG_LIDAR_folder = '/repository/LIDAR/';
 CONFIG_AERONET_folder = '/repository/AERONET/';
-CONFIG_output = '/Output/MeasureID/';
 
 % Obtener la ruta del repositorio de salida del modulo SCC
 currentFolder = fileparts(mfilename('fullpath'));

@@ -1,4 +1,4 @@
-function [GARRLiC_file_name] = sendData_D1_L( measureID, heightMin, heightMax, isFigure, isExportLidarData )
+function [GARRLiC_file_name] = sendData_D1_L( measureID, heightMin, heightMax, isFigure, isExportLidarData, CONFIG_output)
 %%! sendData_D1_L(measureID, heightMin, heightMax, isFigure, isExportLidarData)
 %%! *DESCRIPCIÓ*
 %!
@@ -35,7 +35,6 @@ function [GARRLiC_file_name] = sendData_D1_L( measureID, heightMin, heightMax, i
 %!      Nom del fitxer escrit després de processar totes les dades
 %!
 
-
     addpath('tools');
     run('config_file.m');
 
@@ -49,7 +48,7 @@ function [GARRLiC_file_name] = sendData_D1_L( measureID, heightMin, heightMax, i
     
     fileName = "D1_L-" + measureID + "-" + heightMin + "_" + heightMax;
 
-    URL_output = fullfile(currentFolder, CONFIG_output, measureID, fileName)
+    URL_output = fullfile(CONFIG_output, measureID, fileName)
 
     %!
     %! Si els directoris no existeixen es creen però si existeixen no es realitza
@@ -508,5 +507,7 @@ function [GARRLiC_file_name] = sendData_D1_L( measureID, heightMin, heightMax, i
         logMessage(ME.cause);
     end
 
-
+    fid = fopen('sendFiles_output.txt','a');
+    fprintf(fid, 'output_dir = %s\n', char(URL_output));
+    fclose(fid);
 end

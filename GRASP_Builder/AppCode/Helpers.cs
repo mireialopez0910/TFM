@@ -43,16 +43,13 @@ namespace GRASP_Builder
             string newPath = Path.Combine(directory, newName);
 
             // Mover el fichero (esto efectivamente lo renombra)
-            File.Copy(sourcePath, newPath);
+            File.Copy(sourcePath, newPath, true);
         }
 
         public static void CopyAndRenameFile_newPath(string sourcePath, string newPath) //classe nova file helper?? mirar quant codi es repeteix etc -> nadal?
         {
-            // Obtener el directorio del fichero original
-            string directory = Path.GetDirectoryName(sourcePath);
-
             // Mover el fichero (esto efectivamente lo renombra)
-            File.Copy(sourcePath, newPath);
+            File.Copy(sourcePath, newPath, true);
         }
 
 

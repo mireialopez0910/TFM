@@ -63,6 +63,8 @@ namespace GRASP_Builder.ViewModels
                         break;
                 }
             }
+
+            UpdateButtonsEnabled(true);
         }
 
         private void UpdateButtonsEnabled(bool status)
@@ -354,7 +356,8 @@ namespace GRASP_Builder.ViewModels
                         {"is_D1_L_checked",isChecked_D1_L },
                         {"is_D1P_L_checked",isChecked_D1P_L },
                         {"is_D1P_L_VD_checked",isChecked_D1P_L_VD },
-                        {"is_D1_L_VD_checked",isChecked_D1_L_VD }
+                        {"is_D1_L_VD_checked",isChecked_D1_L_VD },
+                        {"output_dir",$@"{AppConfig.Instance.GetValue("ProjectDirectoryPath")}/Matlab/Scripts/datacrossing/Output/" }
                     };
 
             if (AppConfig.Instance.IsDebugging())

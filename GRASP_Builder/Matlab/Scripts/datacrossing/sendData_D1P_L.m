@@ -1,4 +1,4 @@
-function [GARRLiC_file_name] = sendData_D1P_L( measureID, heightMin, heightMax, isFigure, isExportLidarData )
+function [GARRLiC_file_name] = sendData_D1P_L( measureID, heightMin, heightMax, isFigure, isExportLidarData, CONFIG_output)
 %%! [GARRLiC_file_name, errorVolumePolarization] = sendData_D1P_L( measureID, heightMin, heightMax, isFigure, isExportLidarData )
 %%! *DESCRIPCIÓ*
 %!
@@ -47,7 +47,7 @@ function [GARRLiC_file_name] = sendData_D1P_L( measureID, heightMin, heightMax, 
     
     fileName = "D1P_L-" + measureID + "-" + heightMin + "_" + heightMax;
 
-    URL_output = fullfile(currentFolder, CONFIG_output, measureID, fileName)
+    URL_output = fullfile(CONFIG_output, measureID, fileName)
 
     %!
     %! Si els directoris no existeixen es creen però si existeixen no es realitza
@@ -683,5 +683,8 @@ function [GARRLiC_file_name] = sendData_D1P_L( measureID, heightMin, heightMax, 
         logMessage(ME.identifier);
         logMessage(ME.message);
     end
-    
+   
+    fid = fopen('sendFiles_output.txt','a');
+    fprintf(fid, 'output_dir = %s\n', char(URL_output));
+    fclose(fid); 
 end

@@ -12,7 +12,7 @@ selected_measure_ID = '';
 fichero2 = '';
 fichero3 = '';
 sendData='false';
-
+CONFIG_output = '';
 
 % Parse each line
 for i = 1:length(configData)
@@ -47,7 +47,9 @@ for i = 1:length(configData)
         selected_measurement_file_to_show = (extractAfter(line, '='));
     elseif startsWith(line, 'path_to_figure_data')
         path_to_figure_data = (extractAfter(line, '='));
+    elseif startsWith(line, 'output_dir')
+        CONFIG_output = (extractAfter(line, '='));
     end
 end
-%%
+%% 
 % end

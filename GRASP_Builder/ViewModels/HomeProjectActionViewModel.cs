@@ -131,6 +131,8 @@ namespace GRASP_Builder.ViewModels
 
                 Messenger.Default.Send<bool>("UpdateProjectLoaded", true);
             }
+
+            Messenger.Default.Send<bool>("CloseHomeProjectActionWindow", res);
         }
 
         private bool CanOK(object _)
