@@ -1,4 +1,5 @@
-﻿using GRASP_Builder.Matlab;
+﻿using GRASP_Builder.AppCode;
+using GRASP_Builder.Matlab;
 using System;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,12 +18,18 @@ namespace GRASP_Builder
 {
     public class MatlabController
     {
+        private static string getMatlabProjectPath()
+        {
+            ProjectConfig projectCfg;
+            projectCfg = (App.Current as App)?.CurrentProjectConfig;
+            return projectCfg?.GetValue("MatlabProjectFilePath");
+        }
 
-        public static void RunMatlabScript(ScriptType type, Dictionary<string, object> list = null)
+        public static void RunMatlabScript(ScriptType type, Dictionary<string, object> list = null, string suffix_messenger = "")
         {
             IMatlabScript script = MatlabScriptFactory.Create(type, list);
 
-            string scriptPath = $@"{Directory.GetCurrentDirectory()}/Matlab/Scripts/datacrossing/{script.Name}";
+            string scriptPath = Path.Combine(getMatlabProjectPath(), script.Name);
 
             Thread t = new Thread(() =>
             {
@@ -46,16 +54,16 @@ namespace GRASP_Builder
                     process.OutputDataReceived += (s, e) =>
                     {
                         if (e.Data != null)
-                            Messenger.Default.Send<string>("WriteMatlabOutput", e.Data);
+                            Messenger.Default.Send<string>("WriteMatlabOutput" + suffix_messenger, e.Data);
                     };
 
                     process.ErrorDataReceived += (s, e) =>
                     {
                         if (e.Data != null)
-                            Messenger.Default.Send<string>("WriteMatlabErrors", e.Data);
+                            Messenger.Default.Send<string>("WriteMatlabErrors" + suffix_messenger, e.Data);
                     };
 
-                    Messenger.Default.Send<string>("WriteMatlabOutput", $"Executing MATLAB Script {script.Name} . . .");
+                    Messenger.Default.Send<string>("WriteMatlabOutput" + suffix_messenger, $"Executing MATLAB Script {script.Name} . . .");
 
                     process.Start();
 
@@ -73,14 +81,14 @@ namespace GRASP_Builder
                     {
                         Logger.Log($"Error occured during execution, executing post execution actions . . .");
                         script.PostExecutionActions(false);
-                        Messenger.Default.Send<string>("WriteMatlabOutput", $"MATLAB process exited with code {process.ExitCode}. Check error tab in order to know further information.");
+                        Messenger.Default.Send<string>("WriteMatlabOutput" + suffix_messenger, $"MATLAB process exited with code {process.ExitCode}. Check error tab in order to know further information.");
                     }
                 }
                 catch (Exception ex)
                 {
                     Logger.Log($"Exception occurred while running MATLAB script: {ex.Message}");
-                    Messenger.Default.Send<string>("WriteMatlabErrors", "Exception occurred while running MATLAB script: " + ex.Message);
-                    Messenger.Default.Send<string>("WriteMatlabOutput", $"Exception occured. Check error tab in order to know further information.");
+                    Messenger.Default.Send<string>("WriteMatlabErrors" + suffix_messenger, "Exception occurred while running MATLAB script: " + ex.Message);
+                    Messenger.Default.Send<string>("WriteMatlabOutput" + suffix_messenger, $"Exception occured. Check error tab in order to know further information.");
                 }
             });
             t.Start();
@@ -88,7 +96,7 @@ namespace GRASP_Builder
 
         public static Dictionary<string, string> ReadOutputFile(string ouputFileName)
         {
-            string filePath = @$"{Directory.GetCurrentDirectory()}/Matlab/Scripts/datacrossing/{ouputFileName}";
+            string filePath = Path.Combine(getMatlabProjectPath(), ouputFileName);
 
             var dict = new Dictionary<string, string>();
 
@@ -114,17 +122,17 @@ namespace GRASP_Builder
 
         public static void WriteInputFile(string fileName, Dictionary<string, object> vars)
         {
-            string configname = @$"{Directory.GetCurrentDirectory()}/Matlab/Scripts/datacrossing/{fileName}";
+            string configname = Path.Combine(getMatlabProjectPath(),fileName);
             File.Delete(configname);
             foreach (KeyValuePair<string, object> pair in vars)
             {
-                MatlabController.SaveValueInConfiguration(pair.Key, pair.Value.ToString(), "config_preview.txt");
+                MatlabController.SaveValueInConfiguration(pair.Key, pair.Value.ToString(), fileName);
             }
         }
 
         public static void SaveValueInConfiguration(string key, string value, string configFileName)
         {
-            string configname = @$"{Directory.GetCurrentDirectory()}/Matlab/Scripts/datacrossing/{configFileName}";
+            string configname = Path.Combine(getMatlabProjectPath(), configFileName);
             if (File.Exists(configname))
             {
                 string text = System.IO.File.ReadAllText(configname);
@@ -152,6 +160,19 @@ namespace GRASP_Builder
                 }
             }
         }
+
+        public static void CleanMatlabFiles(string configName, string outputName)
+        {
+            string configMatlabPath = Path.Combine(getMatlabProjectPath(), configName);
+            string outputMatlabPath = Path.Combine(getMatlabProjectPath(), outputName);
+
+            if (File.Exists(configMatlabPath))
+                File.Delete(configMatlabPath);
+
+            if (File.Exists(outputMatlabPath))
+                File.Delete(outputMatlabPath);
+        }
+
 
         bool IsMatlabRunning()
         {

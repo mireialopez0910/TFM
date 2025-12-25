@@ -14,11 +14,11 @@
 	<vm:ConfigurationViewModel/>
 
 	</Design.DataContext>
-	<StackPanel Margin="30">
-		<Grid>
+	<StackPanel Margin="30" Spacing="10">
+		<!--<Grid>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="5"/>
-				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="210"/>
 				<ColumnDefinition Width="5"/>
 				<ColumnDefinition Width="400"/>
 				<ColumnDefinition Width="5"/>
@@ -30,6 +30,76 @@
 			<TextBox Grid.Column="3" Grid.Row="3" Text="{Binding MatlabProjectFilePath, Mode=TwoWay}"/>
 			
 			<Button Content="..." Grid.Column="5" Grid.Row="3"/>
+		</Grid>-->
+
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="5"/>
+				<ColumnDefinition Width="210"/>
+				<ColumnDefinition Width="5"/>
+				<ColumnDefinition Width="400"/>
+				<ColumnDefinition Width="5"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+
+			<TextBlock Text="AERONET repository directory:" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
+			
+			<TextBox Grid.Column="3" Grid.Row="3" Text="{Binding AeronetRepositoryPath, Mode=TwoWay}"/>
+			
+			<Button Content="..." Grid.Column="5" Grid.Row="3"/>
 		</Grid>
+
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="5"/>
+				<ColumnDefinition Width="210"/>
+				<ColumnDefinition Width="5"/>
+				<ColumnDefinition Width="400"/>
+				<ColumnDefinition Width="5"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+
+			<TextBlock Text="EARLINET repository directory:" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
+			
+			<TextBox Grid.Column="3" Grid.Row="3" Text="{Binding EarlinetRepositoryPath, Mode=TwoWay}"/>
+			
+			<Button Content="..." Grid.Column="5" Grid.Row="3"/>
+		</Grid>
+
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="5"/>
+				<ColumnDefinition Width="210"/>
+				<ColumnDefinition Width="5"/>
+				<ColumnDefinition Width="400"/>
+				<ColumnDefinition Width="5"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+
+			<TextBlock Text="MATLAB Output directory:" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
+			
+			<TextBox Grid.Column="3" Grid.Row="3" Text="{Binding MatlabOutputDirectory, Mode=TwoWay}"/>
+			
+			<Button Content="..." Grid.Column="5" Grid.Row="3"/>
+		</Grid>
+
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="5"/>
+				<ColumnDefinition Width="210"/>
+				<ColumnDefinition Width="5"/>
+				<ColumnDefinition Width="400"/>
+				<ColumnDefinition Width="5"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+
+			<TextBlock Text="GRASP installation directory:" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"/>
+			
+			<TextBox Grid.Column="3" Grid.Row="3" Text="{Binding GraspInstallPath, Mode=TwoWay}"/>
+			
+			<Button Content="..." Grid.Column="5" Grid.Row="3"/>
+		</Grid>
+
+		<Button Content="Save" Command="{Binding SaveSettingsCmd}" Width="100" HorizontalAlignment="Center" Margin="0,20,0,0" Click="Save_Click"/>
 	</StackPanel>
 </Window>

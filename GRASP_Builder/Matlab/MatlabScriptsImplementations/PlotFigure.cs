@@ -20,7 +20,7 @@ namespace GRASP_Builder.Matlab.MatlabScriptsImplementations
         #region Interface implementation
 
         public string Name { get; set; } = "PlotFigure.m";
-        public Dictionary<string, object> vars { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Dictionary<string, object> vars { get; set; }
 
         public void PostExecutionActions(bool resultOK = true)
         {

@@ -47,19 +47,19 @@ namespace GRASP_Builder.ViewModels.ProjectActions
             try
             {
                 // create the project directory
-                var projectRoot = Path.Combine(DirectoryPath, ProjectName);
-                if (!Directory.Exists(projectRoot))
+                DirectoryPath = Path.Combine(DirectoryPath, ProjectName);
+                if (!Directory.Exists(DirectoryPath))
                 {
-                    Directory.CreateDirectory(projectRoot);
+                    Directory.CreateDirectory(DirectoryPath);
                 }
                 // optional: create a placeholder file
-                var placeholder = Path.Combine(projectRoot, "project.grasp");
+                var placeholder = Path.Combine(DirectoryPath, "project.grasp");
                 if (!File.Exists(placeholder))
                 {
                     File.WriteAllText(placeholder, $"# GRASP project: {ProjectName}{Environment.NewLine}");
                 }
 
-                Logger.Log($"Project created at:{Environment.NewLine}{projectRoot}");
+                Logger.Log($"Project created at:{Environment.NewLine}{DirectoryPath}");
                 return true;
             }
             catch (Exception ex)

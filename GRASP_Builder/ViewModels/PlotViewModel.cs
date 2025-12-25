@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using GRASP_Builder.AppCode;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,14 +18,16 @@ namespace GRASP_Builder.ViewModels
 
         public PlotViewModel()
         {
+            projectCfg = (App.Current as App)?.CurrentProjectConfig;
             Messenger.Default.Register<object>("ReloadMeasureID", ReloadMeasureID);
         }
         #endregion
 
         #region Members
 
-        string matlabOutputDirectory = AppConfig.Instance.GetValue("MatlabOutputDirectory");
-        string figureFolder;
+        private string matlabOutputDirectory;
+        private string figureFolder;
+        private ProjectConfig projectCfg;
 
         #endregion
 
@@ -46,7 +49,8 @@ namespace GRASP_Builder.ViewModels
                 if (AppConfig.Instance.IsDebugging())
                     Logger.Log($"Selected measure ID value modified to: {value}");
                 SetProperty<string>(ref _selectedMeasureID, value);
-                FindSpecificFolders();
+                if (!string.IsNullOrEmpty(value))
+                    FindSpecificFolders();
             }
         }
 
@@ -85,7 +89,8 @@ namespace GRASP_Builder.ViewModels
                 if (AppConfig.Instance.IsDebugging())
                     Logger.Log($"Selected measure ID value modified to: {value}");
                 SetProperty<string>(ref _selectedFileToShow, value);
-                ReloadFigureFiles();
+                if (!string.IsNullOrEmpty(value))
+                    ReloadFigureFiles();
             }
         }
 
@@ -125,7 +130,7 @@ namespace GRASP_Builder.ViewModels
             if (AppConfig.Instance.IsDebugging())
                 Logger.Log($"SaveFigures Matlab script started with dicctionary: {Helpers.DictionaryToString(dict)}");
 
-            MatlabController.RunMatlabScript(ScriptType.Preview, dict);
+            MatlabController.RunMatlabScript(ScriptType.SaveFigures, dict, "_Plot");
         }
         private bool CanSaveFigures(object _)
         {
@@ -148,7 +153,7 @@ namespace GRASP_Builder.ViewModels
             if (AppConfig.Instance.IsDebugging())
                 Logger.Log($"PlotFigures Matlab script started with dicctionary: {Helpers.DictionaryToString(dict)}");
 
-            MatlabController.RunMatlabScript(ScriptType.Preview, dict);
+            MatlabController.RunMatlabScript(ScriptType.PlotFigure, dict, "_Plot");
         }
 
         private bool CanPlotFigure(object _)
@@ -162,6 +167,8 @@ namespace GRASP_Builder.ViewModels
 
         private void ReloadMeasureID(object _ = null)
         {
+            matlabOutputDirectory = projectCfg?.GetValue("MatlabOutputDirectory");
+
             Logger.Log("Loading Measures ID");
 
             if (Directory.Exists(matlabOutputDirectory))
@@ -189,9 +196,7 @@ namespace GRASP_Builder.ViewModels
 
         private void FindSpecificFolders()
         {
-            string currentFolder = Directory.GetCurrentDirectory();
-
-            string measureIDFolder = Path.Combine(currentFolder, matlabOutputDirectory, SelectedMeasureID);
+            string measureIDFolder = Path.Combine(matlabOutputDirectory, SelectedMeasureID);
 
             Logger.Log($"Analizing {measureIDFolder} folder . . .");
 
@@ -224,23 +229,31 @@ namespace GRASP_Builder.ViewModels
 
             figureFolder = Path.Combine(currentFolder, matlabOutputDirectory, SelectedMeasureID, SelectedFileToShow, "figures");
 
-            var figureFileList = Directory.GetFiles(figureFolder, "*.mat");
-
-            //add available figures in combobox list options
-            FigureToShowOptions.Clear();
-            foreach (var file in figureFileList)
+            if (Directory.Exists(figureFolder))
             {
-                string nameWithoutExt = Path.GetFileNameWithoutExtension(file);
-                FigureToShowOptions.Add(nameWithoutExt);
+
+                var figureFileList = Directory.GetFiles(figureFolder, "*.mat");
+
+                //add available figures in combobox list options
+                FigureToShowOptions.Clear();
+                foreach (var file in figureFileList)
+                {
+                    string nameWithoutExt = Path.GetFileNameWithoutExtension(file);
+                    FigureToShowOptions.Add(nameWithoutExt);
+                }
+
+                string message = $"Figures found in {figureFolder}...";
+
+                foreach (var file in figureFileList)
+                {
+                    message += file + "; ";
+                }
+                Logger.Log(message);
             }
-
-            string message = $"Figures found in {figureFolder}...";
-
-            foreach (var file in figureFileList)
+            else
             {
-                message += file + "; ";
+                Logger.Log($"Folder {figureFolder} does not exist");
             }
-            Logger.Log(message);
         }
 
         #endregion

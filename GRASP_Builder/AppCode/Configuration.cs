@@ -26,7 +26,6 @@ namespace GRASP_Builder
         {
             _configFilePath = filePath;
             _configData = LoadConfig();
-            SetValue("WorkingDirectory", @"./Data/");
         }
         private Dictionary<string, object> LoadConfig()
         {

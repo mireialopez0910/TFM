@@ -23,9 +23,7 @@ namespace GRASP_Builder.ViewModels
             Messenger.Default.Register<ObservableCollection<string>>("UpdateMeasureIDList", UpdateMeasureIDList);
             Messenger.Default.Register<Dictionary<string, string>>("UpdateUI", UpdateUI);
             Messenger.Default.Register<bool>("UpdateButtonsEnabled", UpdateButtonsEnabled);
-
-            _aeronetRepositoryDirectory = $@"{_repositoryDirectory}AERONET/";
-            _earlinetRepositoryDirectory = $@"{_repositoryDirectory}LIDAR/";
+            Messenger.Default.Register<bool>("UpdateProjectLoaded", UpdateProjectLoaded);
         }
 
         #endregion
@@ -81,11 +79,21 @@ namespace GRASP_Builder.ViewModels
 
         private bool isEnabled(string v) { return v == "enabled"; }
 
+
+        private void UpdateProjectLoaded(bool obj)
+        {
+            var projectCfg = (App.Current as App)?.CurrentProjectConfig;
+
+            _aeronetRepositoryDirectory = projectCfg?.GetValue("AeronetRepositoryDirectory");
+            _earlinetRepositoryDirectory = projectCfg?.GetValue("EarlinetRepositoryDirectory");
+
+            SelectedMeasureID = string.Empty;
+        }
+
         #endregion
 
         #region Members
 
-        string _repositoryDirectory = $@"{AppConfig.Instance.GetValue("ProjectDirectoryPath")}/Data/";
         string _aeronetRepositoryDirectory = string.Empty;
         string _earlinetRepositoryDirectory = string.Empty;
 
@@ -297,7 +305,7 @@ namespace GRASP_Builder.ViewModels
 
         #region Commands
 
-        public ICommand PlotPreviewCmd => new RelayCommand(PlotPreviewExecute, CanPlotPreview);
+        public ICommand PlotPreviewCmd => new RelayCommand(PlotPreviewExecute, CanExecute);
         private void PlotPreviewExecute(object _)
         {
             PreviewMatlab();
@@ -325,17 +333,13 @@ namespace GRASP_Builder.ViewModels
             if (AppConfig.Instance.IsDebugging())
                 Logger.Log($"Preview Matlab script started with dicctionary: {Helpers.DictionaryToString(dict)}");
 
-            MatlabController.RunMatlabScript(ScriptType.Preview, dict);
+            MatlabController.RunMatlabScript(ScriptType.Preview, dict,"_DC");
 
             IsConfigSelectionEnabled = true;
         }
 
-        private bool CanPlotPreview(object _)
-        {
-            return !string.IsNullOrEmpty(SelectedMeasureID);
-        }
 
-        public ICommand SendDataCmd => new RelayCommand(SendDataExecute, CanSendData);
+        public ICommand SendDataCmd => new RelayCommand(SendDataExecute, CanExecute);
         private void SendDataExecute(object _)
         {
             SendData();
@@ -343,6 +347,8 @@ namespace GRASP_Builder.ViewModels
 
         private void SendData()
         {
+            var projectCfg = (App.Current as App)?.CurrentProjectConfig;
+
             var dict = new Dictionary<string, object>
                     {
                         { "preview", "false" },
@@ -357,19 +363,19 @@ namespace GRASP_Builder.ViewModels
                         {"is_D1P_L_checked",isChecked_D1P_L },
                         {"is_D1P_L_VD_checked",isChecked_D1P_L_VD },
                         {"is_D1_L_VD_checked",isChecked_D1_L_VD },
-                        {"output_dir",$@"{AppConfig.Instance.GetValue("ProjectDirectoryPath")}/Matlab/Scripts/datacrossing/Output/" }
+                        {"output_dir",$@"{projectCfg?.GetValue("MatlabOutputDirectory")}" }
                     };
 
             if (AppConfig.Instance.IsDebugging())
                 Logger.Log($"Send Data Matlab script started with dicctionary: {Helpers.DictionaryToString(dict)}");
 
-            MatlabController.RunMatlabScript(ScriptType.Preview, dict);
+            MatlabController.RunMatlabScript(ScriptType.Preview, dict,"_DC");
             IsConfigSelectionEnabled = true;
 
             Messenger.Default.Send<object>("ReloadMeasureID", null);
         }
 
-        private bool CanSendData(object _)
+        private bool CanExecute(object _)
         {
             return true;
         }

@@ -43,22 +43,24 @@ public class EarlinetService{
 \subsubsection{AERONET service}\smallskip
 {The AERONET web does not provide a REST API portlet, but it includes web servicie documentation that helps the implementation of a costume service.\smallskip\\
 The amount of files to be downloaded in this website is larger thant the one in Earlinet, and its documentation can be found in three different sections of the web:}
-\begin{enumerate} 
-    \item Optical Depth\cite{aod_solar}: 
-    \begin{itemize}
-        \item Aerosol Optical Depth (AOD): (descripcion de los datos), with extension .lev15
-        \item Spectral Deconvolution Algorithm (SDA) data: (descripcion de los datos), with extension .ONEILL\_lev15
-    \end{itemize}       
-    \item Aerosol Inversions\cite{inversions_aod_solar}:
-    \begin{itemize}
-        \item Inversion products:(descripcion de los datos), with extension .all
-    \end{itemize}
-    \item Raw Products Optical Depth\cite{raw_aod_solar};
-    \begin{itemize}
-        \item Raw Almucantar: (descripcion de los datos), with extension .alm
-        \item Raw Polarized Almucantar: (descripcion de los datos), with extension .alp
-    \end{itemize}
-\end{enumerate}
+\begin{table}[htbp]
+    \centering
+    \caption{AERONET Data Products and Extensions}
+    \label{tab:aeronet_products}
+    \begin{tabularx}{\textwidth}{lXl}
+        \toprule
+        \textbf{Category} & \textbf{Product Description} & \textbf{Extension} \\
+        \midrule
+        Optical Depth \cite{aod_solar} & Aerosol Optical Depth (AOD): (descripcion de los datos) & .lev15 \\
+        & Spectral Deconvolution Algorithm (SDA): (descripcion de los datos) & .ONEILL\_lev15 \\
+        \addlinespace
+        Aerosol Inversions \cite{inversions_aod_solar} & Inversion products: (descripcion de los datos) & .all \\
+        \addlinespace
+        Raw Products Optical Depth \cite{raw_aod_solar} & Raw Almucantar: (descripcion de los datos) & .alm \\
+        & Raw Polarized Almucantar: (descripcion de los datos) & .alp \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
 \smallskip
 {For the creation of this class it has been taken into account the fact that the DownlaodProductByDateRangeAsync method can be used in different points of the program with different configurations.It has also been implemented in such a way that adding new functionalities is easy using the same design pattern. For clarity and organization, it has been created the DataType Enum, since the different data types need different Url content in order to be downloaded.\smallskip\\}
 \begin{lstlisting}

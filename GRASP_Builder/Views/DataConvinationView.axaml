@@ -59,7 +59,7 @@
 					OnContent="ELPP"
 					OffContent="Optical" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" HorizontalAlignment="Center"/>
 
-					<Button Content="Preview" Command="{Binding PlotPreviewCmd}"
+					<Button Content="Preview" Command="{Binding PlotPreviewCmd}" IsEnabled="{Binding AreButtonsEnabled}"
 							Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="5" HorizontalAlignment="Center" Margin="10"/>
 				</Grid>
 			</StackPanel>

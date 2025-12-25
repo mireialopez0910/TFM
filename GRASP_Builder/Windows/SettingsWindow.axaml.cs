@@ -12,4 +12,8 @@ public partial class SettingsWindow : Window
         InitializeComponent();
         DataContext = new ConfigurationViewModel();
     }
+    private void Save_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        Close();
+    }
 }

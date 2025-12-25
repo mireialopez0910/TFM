@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Avalonia.Platform.Storage;
 
 namespace GRASP_Builder.Matlab
 {
@@ -58,6 +59,8 @@ namespace GRASP_Builder.Matlab
 
         public void PreExecutionActions()
         {
+            MatlabController.CleanMatlabFiles("config_preview.txt", "sendFiles_output.txt");
+
             Messenger.Default.Send<bool>("UpdateButtonsEnabled", false);
 
             MatlabController.WriteInputFile("config_preview.txt", vars);
@@ -77,11 +80,12 @@ namespace GRASP_Builder.Matlab
             //TO DO: ha de contenir la configuracio del GARRLiC en el nom
             try
             {
-                string aux_configfilepath = Path.Combine($@"{Directory.GetCurrentDirectory()}/Matlab/Scripts/datacrossing", $"UPC_Configuration.yml");
+                string aux_configfilepath = Path.Combine(Directory.GetCurrentDirectory(),"Matlab","Scripts", $"UPC_{config}.yml");
+                                
+                FileHelpers.CopyAndRenameFile_newPath(aux_configfilepath, output_dir, $"UPC_{config}.yml");
+
                 string configfilepath = Path.Combine(output_dir, $"UPC_{config}.yml");
-                
-                Helpers.CopyAndRenameFile_newPath(aux_configfilepath, configfilepath);
-                
+
                 string text = File.ReadAllText(configfilepath);
 
                 if (text.Contains("OutputName_Value"))
@@ -95,6 +99,11 @@ namespace GRASP_Builder.Matlab
                     // If token not present, append an explicit key so the config contains the output name.
                     Logger.Log($"ERROR in SaveOutputNameInConfigFile: OutputName_Value token was not found in {configfilepath}");
                 }
+
+                string figuresDir = Path.Combine(output_dir, "figures");
+                if(!Directory.Exists(figuresDir))
+                    Directory.CreateDirectory(figuresDir);
+                
             }
             catch (Exception ex)
             {

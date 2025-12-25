@@ -1,5 +1,6 @@
 {
   "WorkingDirectory": "./Data/",
-  "MatlabProjectFilePath": ".//Matlab//Scripts//datacrossing//",
-  "MatlabOutputDirectory": ".//Matlab//Scripts//datacrossing//Output//"
+  "MatlabProjectFilePath": "./Matlab/Scripts/",
+  "MatlabOutputDirectory": null,
+  "GraspInstallPath": "/opt/grasp-1.1.5/bin/"
 }

@@ -1,2 +1,0 @@
-heightLimitMin = 145
-heightLimitMax = 27805

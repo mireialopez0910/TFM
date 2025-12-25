@@ -23,6 +23,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Tmds.DBus.Protocol;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GRASP_Builder.ViewModels
 {
@@ -122,30 +123,67 @@ namespace GRASP_Builder.ViewModels
         {
             if (obj) //if project is unloaded, it is not necessary to initialize variables, it will be done when another project is laoded again
             {
-                _workingDirectory = AppConfig.Instance.GetValue("WorkingDirectory");
-                if (System.IO.Directory.Exists(_workingDirectory))
-                    System.IO.Directory.Delete(_workingDirectory, true);
-                System.IO.Directory.CreateDirectory(_workingDirectory);
-
-                _repositoryDirectory = $@"{AppConfig.Instance.GetValue("ProjectDirectoryPath")}/Data/";
-
-                _aeronetRepositoryDirectory = $@"{_repositoryDirectory}AERONET/";
-                if (!System.IO.Directory.Exists(_aeronetRepositoryDirectory))
-                    System.IO.Directory.CreateDirectory(_aeronetRepositoryDirectory);
-
-
-                _earlinetRepositoryDirectory = $@"{_repositoryDirectory}LIDAR/";
-                if (!System.IO.Directory.Exists(_earlinetRepositoryDirectory))
-                    System.IO.Directory.CreateDirectory(_earlinetRepositoryDirectory);
-
+                InitializeRepositories();
 
                 UpdateListOfFiles();
+
                 if (DownloadedFiles_AERONET.Count > 0 || DownloadedFiles_EARLINET.Count > 0)
                 {
+                    if (AppConfig.Instance.IsDebugging())
+                        Logger.Log($"Downloaded files detected: list of files is visible");
+
                     IsSelectDateEnabled = true;
                     IsDownloadedFilesVisible = true;
                 }
             }
+        }
+
+        private void InitializeRepositories()
+        {
+
+            var projectCfg = (App.Current as App)?.CurrentProjectConfig;
+
+            _workingDirectory = AppConfig.Instance.GetValue("WorkingDirectory");
+            _repositoryDirectory = $@"{AppConfig.Instance.GetValue("ProjectDirectoryPath")}/Data/";
+
+            if (System.IO.Directory.Exists(_workingDirectory))
+                System.IO.Directory.Delete(_workingDirectory, true);
+            System.IO.Directory.CreateDirectory(_workingDirectory);
+
+            if (AppConfig.Instance.IsDebugging())
+                Logger.Log($"RepositoryDirectory: {_repositoryDirectory}");
+
+            _aeronetRepositoryDirectory = projectCfg?.GetValue("AeronetRepositoryDirectory");
+            _earlinetRepositoryDirectory = projectCfg?.GetValue("EarlinetRepositoryDirectory");
+
+            if (string.IsNullOrEmpty(_aeronetRepositoryDirectory))
+            {
+                _aeronetRepositoryDirectory = $@"{_repositoryDirectory}AERONET/";
+                projectCfg.SetValue("AeronetRepositoryDirectory", _aeronetRepositoryDirectory);
+            }
+            if (string.IsNullOrEmpty(_earlinetRepositoryDirectory))
+            {
+                _earlinetRepositoryDirectory = $@"{_repositoryDirectory}LIDAR/";
+                projectCfg.SetValue("EarlinetRepositoryDirectory", _earlinetRepositoryDirectory);
+            }
+            projectCfg.Save();
+
+            if (!System.IO.Directory.Exists(_aeronetRepositoryDirectory))
+                System.IO.Directory.CreateDirectory(_aeronetRepositoryDirectory);
+
+            if (AppConfig.Instance.IsDebugging())
+                Logger.Log($"AeronetRepositoryDirectory: {_aeronetRepositoryDirectory}");
+
+
+            if (!System.IO.Directory.Exists(_earlinetRepositoryDirectory))
+                System.IO.Directory.CreateDirectory(_earlinetRepositoryDirectory);
+
+            if (AppConfig.Instance.IsDebugging())
+                Logger.Log($"EarlinetRepositoryDirectory: {_earlinetRepositoryDirectory}");
+
+            string _matlabOutputDirectory = projectCfg?.GetValue("MatlabOutputDirectory");
+            if(string.IsNullOrEmpty(_matlabOutputDirectory))
+                projectCfg?.SetValue("MatlabOutputDirectory", $"{AppConfig.Instance.GetValue("ProjectDirectoryPath")}/Output/");
         }
 
         #endregion
@@ -156,8 +194,10 @@ namespace GRASP_Builder.ViewModels
         private void UpdateFiles(List<string> fileNames, FileType fileType)
         {
             ObservableCollection<string> _measureIDList = new ObservableCollection<string>();
+            bool anyFile = false;
             foreach (string file in fileNames)
             {
+                anyFile = true;
                 switch (fileType)
                 {
                     case FileType.ELPP:
@@ -211,11 +251,12 @@ namespace GRASP_Builder.ViewModels
             //Share list of folders containing the list of available measureID to DataConvinationViewModel
             if (fileType == FileType.ELPP)
                 Messenger.Default.Send<ObservableCollection<string>>("UpdateMeasureIDList", _measureIDList);
+
+            if (anyFile) IsDownloadedFilesVisible = true;
         }
 
         private bool AddToMeasureIDList(string folder)
         {
-
             List<string> files = GetAllFiles(folder);
             foreach (string file in files)
             {
@@ -230,13 +271,13 @@ namespace GRASP_Builder.ViewModels
             DownloadedFiles_EARLINET.Clear();
             DownloadedFiles_AERONET.Clear();
 
+            IsDownloadedFilesVisible = false;
+
             foreach (FileType type in Enum.GetValues(typeof(FileType)))
             {
                 if (type != FileType.ELPP && type != FileType.Optical)
                 {
-
                     List<string> list = GetAllFiles(_aeronetRepositoryDirectory);
-
                     UpdateFiles(list, type);
                 }
                 else
@@ -431,6 +472,7 @@ namespace GRASP_Builder.ViewModels
             Progress = "100";
 
             Logger.Log("Download completed.");
+
             IsSelectDateEnabled = true;
             IsDownloadedFilesVisible = true;
         }
@@ -455,6 +497,9 @@ namespace GRASP_Builder.ViewModels
 
         private static void UnzipFile(string zipPath, string extractPath)
         {
+            if (AppConfig.Instance.IsDebugging())
+                Logger.Log($"Unziping file: {zipPath} to {extractPath}");
+
             try
             {
                 if (File.Exists(zipPath))
@@ -503,6 +548,8 @@ namespace GRASP_Builder.ViewModels
 
         private void KeepSelectedFilesExecute(object obj)
         {
+            if (AppConfig.Instance.IsDebugging())
+                Logger.Log($"Executing: Keep selected files");
             var notSelected = DownloadedFiles_AERONET.Where(o => !o.IsChecked).Select(o => o.Name);
             if (notSelected.Any())
             {

@@ -14,6 +14,5 @@ namespace GRASP_Builder.Matlab
         public Dictionary<string, object> vars { get; set; }
         public void PreExecutionActions();
         public void PostExecutionActions(bool resultOK = true);
-
     }
 }

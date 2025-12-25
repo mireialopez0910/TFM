@@ -126,12 +126,30 @@ namespace GRASP_Builder.ViewModels
                 DirectoryPath = _projectAction.DirectoryPath;
                 ProjectName = _projectAction.ProjectName;
 
+                if (App.Current is App app)
+                {
+                    try
+                    {
+                        var pc = new AppCode.ProjectConfig(DirectoryPath);
+                        pc.SetValue("ProjectName", ProjectName);
+                        pc.Save();
+                        app.CurrentProjectConfig = pc;
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log($"Failed to create ProjectConfig instance: {ex.Message}");
+                    }
+                }
+
+                // persist to AppConfig (existing behavior)
                 AppConfig.Instance.SetValue("ProjectDirectoryPath", DirectoryPath);
                 AppConfig.Instance.SetValue("ProjectName", ProjectName);
+
 
                 Messenger.Default.Send<bool>("UpdateProjectLoaded", true);
             }
 
+           
             Messenger.Default.Send<bool>("CloseHomeProjectActionWindow", res);
         }
 

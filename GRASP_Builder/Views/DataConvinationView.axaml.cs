@@ -14,8 +14,8 @@ public partial class DataConvinationView : UserControl
         InitializeComponent();
         DataContext = new DataConvinationViewModel();
 
-        Messenger.Default.Register<string>("WriteMatlabOutput", WriteMatlabOutput);
-        Messenger.Default.Register<string>("WriteMatlabErrors", WriteMatlabErrors);
+        Messenger.Default.Register<string>("WriteMatlabOutput_DC", WriteMatlabOutput);
+        Messenger.Default.Register<string>("WriteMatlabErrors_DC", WriteMatlabErrors);
     }
 
     private void WriteMatlabOutput(string message)

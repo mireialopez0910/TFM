@@ -4,6 +4,7 @@ using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
+using GRASP_Builder.AppCode;
 using GRASP_Builder.ViewModels;
 using GRASP_Builder.Views;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace GRASP_Builder
     public partial class App : Application
     {
         public List<string> measureIDFolders { get; set; } = new List<string>();
+        public ProjectConfig? CurrentProjectConfig { get; set; }
+
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);

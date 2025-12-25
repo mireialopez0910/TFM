@@ -83,6 +83,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Update="config.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	  <None Update="Views\CreateProjectWindow.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </None>

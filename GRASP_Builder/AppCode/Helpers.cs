@@ -22,6 +22,18 @@ namespace GRASP_Builder
 
             return text.Substring(0, text.Length - 3);
         }
+
+        public static async Task<bool> ShowMessage(string message, string title, bool isError = false, bool isWarning = false)
+        {
+            var desktop = App.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
+            var owner = desktop?.MainWindow;
+            var dialog = new MessageWindow(message, title, isError, isWarning);
+            return await dialog.ShowDialog<bool>(owner);
+        }
+    }
+
+    public class FileHelpers
+    {
         public static void RenameFile(string sourcePath, string newName) //classe nova file helper?? mirar quant codi es repeteix etc -> nadal?
         {
             // Obtener el directorio del fichero original
@@ -46,19 +58,13 @@ namespace GRASP_Builder
             File.Copy(sourcePath, newPath, true);
         }
 
-        public static void CopyAndRenameFile_newPath(string sourcePath, string newPath) //classe nova file helper?? mirar quant codi es repeteix etc -> nadal?
+        public static void CopyAndRenameFile_newPath(string sourcePath, string outputPath, string newName) //classe nova file helper?? mirar quant codi es repeteix etc -> nadal?
         {
-            // Mover el fichero (esto efectivamente lo renombra)
-            File.Copy(sourcePath, newPath, true);
+            if (!Directory.Exists(outputPath))
+                Directory.CreateDirectory(outputPath);
+
+            File.Copy(sourcePath, Path.Combine(outputPath, newName), true);
         }
 
-
-        public static async Task<bool> ShowMessage(string message, string title, bool isError = false, bool isWarning = false)
-        {
-            var desktop = App.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
-            var owner = desktop?.MainWindow;
-            var dialog = new MessageWindow(message, title, isError, isWarning);
-            return await dialog.ShowDialog<bool>(owner);
-        }
     }
 }
