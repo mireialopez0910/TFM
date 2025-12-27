@@ -1,5 +1,5 @@
-\section{Data Combination View}
-
+\section{Data Combination}
+{Once all files have been downloaded, the user should the Data Combination tab. In this view, it can be selected a Measure ID from the options available (\Cref{fig:DataCombination}). All measure IDs shown in downloaded files my be not available, since the list of measure IDs is filtered depending on the data contained. Measure IDs containing files with code 007 will not be added to the list, since these  measurements will not contain all the data needed for the analysis.}
 
 \begin{figure}[H]
 \centering
@@ -8,12 +8,8 @@
 \label{fig:DataCombination}
 \end{figure}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=16cm]{img/ExecuteSendData.png}
-\caption[Execute SendFiles script]{\footnotesize{Execute SendFiles script}}
-\label{fig:ExecuteSendData}
-\end{figure}
+{When a Measure ID is selected, the SendFiles script is executed, so the data can be previewed, in order to choose the correct height options. This script can be launched manually using the "Preview" button all the desired times with two different type of data. 
+Default configured data type to show is ELPP (\Cref{fig:SelectMeasureID_ELPP}). The other option is VD (\Cref{fig:SelectMeasureID_VD}).}
 
 \begin{figure}[H]
 \centering
@@ -29,9 +25,22 @@
 \label{fig:SelectMeasureID_VD}
 \end{figure}
 
+{Once the script has been executed, if there are no heights defined, their value will be filled automatically with the maximum and minimum height detected. It is recommended to review the values before starting the data combination process, since NaN values must be avoided in order to run the algorithm successfully.\smallskip\\
+\Cref{fig:SelectMeasureID_VD_heights} shows and example of the preview window with the heights defined and Optical data selected.}
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=16cm]{img/SelectMeasureID_VD_heights.png}
 \caption[Execute preview with VD option]{\footnotesize{Execute preview with VD option}}
 \label{fig:SelectMeasureID_VD_heights}
+\end{figure}
+
+{Every time the script is executed, all buttons will be disabled, and once the plot window is closed, GUI elements will be updated and enabled again.\smallskip\\
+In this particular case, the Script defines which configurations can be selected depending on the retrieved data.\smallskip\\
+When a configuration is selected, by clicking the "Send ata" button, the SendFiles script is executed. If the script is executed successgfully, the corresponding messages will be shown in Ouput and Logging tabs, as it can be seen in the following example in \Cref{fig:ExecuteSendData}.}
+\begin{figure}[H]
+\centering
+\includegraphics[width=16cm]{img/ExecuteSendData.png}
+\caption[Execute SendFiles script]{\footnotesize{Execute SendFiles script}}
+\label{fig:ExecuteSendData}
 \end{figure}

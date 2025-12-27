@@ -58,6 +58,34 @@ Thesis document/*.gls
 Thesis document/*.glo
 Thesis document/*.ist
 
+
+# Archivos de registro y auxiliares
+User Manual/*.aux
+User Manual/*.bbl
+User Manual/*.blg
+User Manual/*.brf
+User Manual/*.idx
+User Manual/*.lof
+User Manual/*.lot
+User Manual/*.out
+User Manual/*.toc
+User Manual/*.log
+User Manual/*.nav
+User Manual/*.snm
+User Manual/*.vrb
+User Manual/*.gz
+User Manual/*.synctex.gz
+User Manual/*.fls
+User Manual/*.fdb_latexmk
+
+# Archivos de índices y glosarios
+User Manual/*.ind
+User Manual/*.ilg
+User Manual/*.gls
+User Manual/*.glo
+User Manual/*.ist
+
+
 # Archivos de la salida final (si no quieres rastrearlos)
 # Si quieres que el PDF final SÍ se rastree, elimina la siguiente línea.
 $Thesis document/*.pdf

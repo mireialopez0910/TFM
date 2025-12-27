@@ -24,7 +24,7 @@
 			</StackPanel>
 			
 			
-			<Button Grid.Column="3" Margin="5" Click="Help_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Transparent" BorderBrush="Transparent" FontStyle="Italic" Foreground="DarkBlue" FontWeight="DemiBold" FontSize="12" Width="60">
+			<Button Grid.Column="3" Margin="5" Click="Help_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Transparent" BorderBrush="Transparent" FontStyle="Italic" Foreground="DarkBlue" FontWeight="DemiBold" FontSize="10" Width="60">
 				<ContentControl>
 					<TextBlock Text="Help" HorizontalAlignment="Center"/>
 				</ContentControl>

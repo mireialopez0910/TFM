@@ -18,7 +18,7 @@ input:
 output:
     segment:
         function: [classic, classic, csv] # csv, plot, none
-        stream: [screen, UPC_NFD1P_L_out.txt, UPC_NFD1P_L_outcsv.txt]
+        stream: [screen, UPC_D1P_L_screen.txt, UPC_D1P_L_out.txt]
     
 retrieval:   
     general:

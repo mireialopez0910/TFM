@@ -57,19 +57,9 @@ namespace GRASP_Builder.ViewModels.ProjectActions
                 string projectRoot = DirectoryPath;
                 if (!File.Exists(candidate))
                 {
-                    // search one level down for a folder that contains project.grasp
-                    var subdirs = Directory.GetDirectories(DirectoryPath);
-                    var found = subdirs.FirstOrDefault(d => File.Exists(Path.Combine(d, "project.grasp")));
-                    if (found != null)
-                    {
-                        projectRoot = found;
-                    }
-                    else
-                    {
-                        await Helpers.ShowMessage($"ERROR:no GRASP project marker (project.grasp) found in {DirectoryPath} or its immediate subfolders.", "Directory does not exist", isError: true);
-                        Logger.Log($"OpenProject: no GRASP project marker (project.grasp) found in {DirectoryPath} or its immediate subfolders.");
-                        return false;
-                    }
+                    await Helpers.ShowMessage($"ERROR:no GRASP project marker (project.grasp) found in {DirectoryPath} or its immediate subfolders.", "Directory does not exist", isError: true);
+                    Logger.Log($"OpenProject: no GRASP project marker (project.grasp) found in {DirectoryPath} or its immediate subfolders.");
+                    return false;
                 }
 
                 ProjectName = Path.GetFileName(projectRoot.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));

@@ -89,8 +89,15 @@
 	  <None Update="config.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
+	  <None Update="Resources\UserManual.pdf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	  <None Update="Views\CreateProjectWindow.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </None>
 	</ItemGroup>
+
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+	  <Exec Command="copy /Y &quot;$(ProjectDir)..\User Manual\main.pdf&quot; &quot;$(ProjectDir)Resources\UserManual.pdf&quot;" />
+	</Target>
 </Project>

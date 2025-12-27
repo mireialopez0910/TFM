@@ -52,8 +52,14 @@ namespace GRASP_Builder.ViewModels.ProjectActions
                 {
                     Directory.CreateDirectory(DirectoryPath);
                 }
-                // optional: create a placeholder file
-                var placeholder = Path.Combine(DirectoryPath, "project.grasp");
+                else
+                {
+                    await Helpers.ShowMessage($"ERROR: Directory already exists: {DirectoryPath}. Project can not be created.", "Directory exists", isError: true);
+                    Logger.Log($"CreateProject: directory already exists: {DirectoryPath}");
+                    return false;
+                }
+
+                var placeholder = Path.Combine(DirectoryPath, "project.grasp"); //will contian project configuration
                 if (!File.Exists(placeholder))
                 {
                     File.WriteAllText(placeholder, $"# GRASP project: {ProjectName}{Environment.NewLine}");

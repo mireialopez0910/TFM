@@ -19,7 +19,7 @@ input:
 output:
     segment:
         function: [classic, classic, csv] # csv, plot, none
-        stream: [screen, UPC_D1_L_2D_20220705T081115Z_out.txt, UPC_D1_L_2D_20220705T081115Z_outcsv.txt]
+        stream: [screen, UPC_D1_L_screen.txt, UPC_D1_L_out.txt]
     
 retrieval:   
     general:

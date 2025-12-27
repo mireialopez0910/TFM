@@ -1,5 +1,0 @@
-\acswitchoff 
-\babel@toc {english}{}\relax 
-\contentsline {section}{\numberline {1}Project management}{3}{section.1}%
-\contentsline {section}{\numberline {2}Download files}{8}{section.2}%
-\contentsline {section}{\numberline {3}Data Combination View}{10}{section.3}%

@@ -176,7 +176,7 @@ namespace GRASP_Builder.ViewModels
             set => SetProperty<bool>(ref _IsOptionELPP, value);
         }
 
-        private bool _isChecked_D1_L = false;
+        private bool _isChecked_D1_L = true;
         public bool isChecked_D1_L
         {
             get => _isChecked_D1_L;
@@ -347,9 +347,11 @@ namespace GRASP_Builder.ViewModels
 
         private void SendData()
         {
-            var projectCfg = (App.Current as App)?.CurrentProjectConfig;
+            if (isChecked_D1_L || isChecked_D1_L_VD || isChecked_D1P_L || isChecked_D1P_L_VD)
+            {
+                var projectCfg = (App.Current as App)?.CurrentProjectConfig;
 
-            var dict = new Dictionary<string, object>
+                var dict = new Dictionary<string, object>
                     {
                         { "preview", "false" },
                         { "sendData", "true"},
@@ -366,13 +368,15 @@ namespace GRASP_Builder.ViewModels
                         {"output_dir",$@"{projectCfg?.GetValue("MatlabOutputDirectory")}" }
                     };
 
-            if (AppConfig.Instance.IsDebugging())
-                Logger.Log($"Send Data Matlab script started with dicctionary: {Helpers.DictionaryToString(dict)}");
+                if (AppConfig.Instance.IsDebugging())
+                    Logger.Log($"Send Data Matlab script started with dicctionary: {Helpers.DictionaryToString(dict)}");
 
-            MatlabController.RunMatlabScript(ScriptType.Preview, dict,"_DC");
+                MatlabController.RunMatlabScript(ScriptType.Preview, dict, "_DC");
+
+                Messenger.Default.Send<object>("ReloadMeasureID", null);
+            }
+            Logger.Log("ERROR: No data option selected to send.");
             IsConfigSelectionEnabled = true;
-
-            Messenger.Default.Send<object>("ReloadMeasureID", null);
         }
 
         private bool CanExecute(object _)
