@@ -97,7 +97,7 @@
 						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
 
-					<CheckBox Content="D1_L" Grid.Row="0" IsChecked="{Binding isChecked_D1_L}" IsEnabled="{Binding isEnabled_D1_L}"/>
+					<RadioButton GroupName="ConfigOptions" Content="D1_L" Grid.Row="0" IsChecked="{Binding isChecked_D1_L}" IsEnabled="{Binding isEnabled_D1_L}"/>
 
 					<TextBlock Text="   Photometre and Lidar" Grid.Row="2"/>
 				</Grid>
@@ -109,8 +109,9 @@
 						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
 
-					<CheckBox Content="D1P_L" Grid.Row="0" IsChecked="{Binding isChecked_D1P_L, Mode=TwoWay}" IsEnabled="{Binding isEnabled_D1P_L}"/>
+					<!--<CheckBox Content="D1P_L" Grid.Row="0" IsChecked="{Binding isChecked_D1P_L, Mode=TwoWay}" IsEnabled="{Binding isEnabled_D1P_L}"/>-->
 
+					<RadioButton GroupName="ConfigOptions" Content="D1P_L" Grid.Row="0" IsChecked="{Binding isChecked_D1P_L, Mode=TwoWay}" IsEnabled="{Binding isEnabled_D1P_L}"/>
 					<TextBlock Text="   Photometre polarized and Lidar" Grid.Row="2"/>
 				</Grid>
 
@@ -121,7 +122,7 @@
 						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
 
-					<CheckBox Content="D1_L_VD" Grid.Row="0" IsChecked="{Binding isChecked_D1_L_VD, Mode=TwoWay}" IsEnabled="{Binding isEnabled_D1_L_VD}"/>
+					<RadioButton GroupName="ConfigOptions" Content="D1_L_VD" Grid.Row="0" IsChecked="{Binding isChecked_D1_L_VD, Mode=TwoWay}" IsEnabled="{Binding isEnabled_D1_L_VD}"/>
 
 					<TextBlock Text="   Photometre and Lidar depolarized" Grid.Row="2"/>
 				</Grid>
@@ -133,7 +134,7 @@
 						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
 
-					<CheckBox Content="D1P_L_VD" Grid.Row="0" IsChecked="{Binding isChecked_D1P_L_VD}" IsEnabled="{Binding isEnabled_D1P_L_VD}"/>
+					<RadioButton GroupName="ConfigOptions" Content="D1P_L_VD" Grid.Row="0" IsChecked="{Binding isChecked_D1P_L_VD}" IsEnabled="{Binding isEnabled_D1P_L_VD}"/>
 
 					<TextBlock Text="   Photometre polarized and Lidar depolarized" Grid.Row="2"/>
 				</Grid>

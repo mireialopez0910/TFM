@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>[ErrorType, ErrorMessage, ID_measure] = download(ID_measure, Auth, idType)</title>
+<meta name="generator" content="MATLAB 24.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-10-16">
+<meta name="DC.source" content="download_doc.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>[ErrorType, ErrorMessage, ID_measure] = download(ID_measure, Auth, idType)</h1>
+<!--introduction-->
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Descripci&oacute;</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Descripci&oacute;</h2>
+<p>La funci&oacute; utilitza les credencials per connectar-se al servidor SCC i descarrega els fitxers ELDA/ELPP segons s'indiquin als par&agrave;metres d'entrada. El fitxer esperat haur&agrave; d'estar en format .zip i una vegada descarregat es descomprimeix al repositori corresponent (LIDAR). Si l'estructura de directoris no est&agrave; creada, la crear&agrave; la mateixa funci&oacute; per poder descomprimir el fitxer.</p>
+<p>
+<b>PAR&Agrave;METRES D'ENTRADA</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>ID_measure: [string]</tt> - Identificador de la mesura</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>Auth: [structure]</tt> - Variable de tipus estructura amb els valors d'autenticaci&oacute; (Auth) en cadascun dels seus camps:</li>
+</ul>
+</div>
+<p>
+<b>Camps de l'estructura:</b>
+</p>
+<p>- <tt>Auth.GenericU:[string]</tt> - Usuari per a la primera autenticaci&oacute;</p>
+<p>- <tt>Auth.GenericP:[string]</tt> - Clau per a la primera autenticaci&oacute;</p>
+<p>- <tt>Auth.PersonalU:[string]</tt> - Usuari per a la segona autenticaci&oacute;</p>
+<p>- <tt>Auth.PersonalP:[string]</tt> - Clau per a la segona autenticaci&oacute;</p>
+<div>
+<ul>
+<li>
+<tt>idType: [double vector]</tt> - Tipus de fitxer que es vol descarregar. Pot ser de tipus 'ELDA' o tipus 'ELPP'.</li>
+</ul>
+</div>
+<p>
+<b>VALORS DE RETORN</b>
+</p>
+<div>
+<ul>
+<li>
+<tt>ErrorType[int]</tt> - Torna 0 si es descarrega el fitxer correctament i -1 en cas de produir-se algun error.</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>ErrorMessage[String]</tt> - Torna una descripci&oacute; amb el resultat de la baixada.</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<tt>ID_measure[String]</tt> - Identificador de la mesura.</li>
+</ul>
+</div>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% [ErrorType, ErrorMessage, ID_measure] = download(ID_measure, Auth, idType)
+%
+%% Descripció
+%
+% La funció utilitza les credencials per connectar-se al servidor SCC i descarrega els
+% fitxers ELDA/ELPP segons s'indiquin als par&agrave;metres d'entrada.
+% El fitxer esperat haur&agrave; d'estar en format .zip i una vegada descarregat es
+% descomprimeix al repositori corresponent (LIDAR).
+% Si l'estructura de directoris no est&agrave; creada, la crear&agrave; la mateixa
+% funció per poder descomprimir el fitxer.
+%
+% *PARÀMETRES D'ENTRADA*
+%
+% * |ID_measure: [string]| -
+%      Identificador de la mesura
+%
+% * |Auth: [structure]| -
+%      Variable de tipus estructura amb els valors d'autenticació (Auth) en cadascun dels seus camps:
+%
+% *Camps de l'estructura:*
+%
+% - |Auth.GenericU:[string]| - Usuari per a la primera autenticació
+%
+% - |Auth.GenericP:[string]| - Clau per a la primera autenticació
+%
+% - |Auth.PersonalU:[string]| - Usuari per a la segona autenticació
+%
+% - |Auth.PersonalP:[string]| - Clau per a la segona autenticació
+%
+% * |idType: [double vector]| -
+%      Tipus de fitxer que es vol descarregar. Pot ser de tipus 'ELDA' o tipus 'ELPP'.
+%
+% *VALORS DE RETORN*
+%
+% * |ErrorType[int]| -
+%      Torna 0 si es descarrega el fitxer correctament i -1 en cas
+%      de produir-se algun error.
+%
+% * |ErrorMessage[String]| -
+%      Torna una descripció amb el resultat de la baixada.
+%
+% * |ID_measure[String]| -
+%       Identificador de la mesura.
+
+##### SOURCE END #####
+-->
+</body>
+</html>

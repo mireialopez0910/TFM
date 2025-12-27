@@ -64,7 +64,7 @@ $Thesis document/*.pdf
 
 ### 4. Carpetas adicionales que quieres ignorar ###
 *.zip
-Scripts/
+_Scripts/
 
 # Directorio de paquetes restaurados
 packages/

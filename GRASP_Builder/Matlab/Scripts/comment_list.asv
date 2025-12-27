@@ -1,0 +1,12 @@
+% ------- Prebuild module ------- 
+% comment_extract_and_publish('sendData_D1_L.m');
+% comment_extract_and_publish('checkSendDataConfigs.m');
+
+% ------- Plot module ------- 
+% comment_extract_and_publish('GRASPoutplotter/findSpecificFolders.m');
+% comment_extract_and_publish('GRASPoutplotter/grasp_plotting_UPC_D1_L.m');
+% comment_extract_and_publish('GRASPoutplotter/grasp_plotting_UPC_D1_L_VD.m');
+% comment_extract_and_publish('GRASPoutplotter/grasp_plotting_UPC_D1P_L.m');
+% comment_extract_and_publish('GRASPoutplotter/grasp_plotting_UPC_D1P_L_VD.m');
+%comment_extract_and_publish('GRASPoutplotter/read_data_error.m');
+comment_extract_and_publish('GRASPoutplotter/GUI_grasp_out_plotter.mlapp');

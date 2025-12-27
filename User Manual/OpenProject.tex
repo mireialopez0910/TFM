@@ -1,0 +1,72 @@
+\section{Project management}
+{
+When the application is launched, the home screen is displayed showing three diferent buttons to manage projects. 
+}
+\begin{figure}[H]
+\centering
+\includegraphics[width=16cm]{img/Home.png}
+\caption[Home screen]{\footnotesize{Home screen}}
+\label{fig:Home}
+\end{figure}
+
+{First button will open a dialog to create a new project (\Cref{fig:CreateNewProject}). Second button will open a dialog that allows the user to open an existing project (\Cref{fig:OpenProject}). Third button will open a dialog that allows the user to import a project from a zip file (\Cref{fig:ImportProject}).\smallskip\\}
+
+{When creating a new project, the user must provide a name for the project and select a location to save it. In the project folder, a new file called "project.grasp" will be created. This file will contain the corresponding project configuration.}
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{img/CreateNewProject.png}
+\caption[Create new project window]{\footnotesize{Create new project window}}
+\label{fig:CreateNewProject}
+\end{figure}
+
+{When opening a project, the user must select a project folder that contains an existing project.}
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{img/OpenProject.png}
+\caption[Open project window]{\footnotesize{Open project window}}
+\label{fig:OpenProject}
+\end{figure}
+
+{All dialogs allow the user to navigate through the file system to select a project folder by using the browser button "..." (\Cref{fig:OpenProjectBrowser}).}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=16cm]{img/OpenProjectBrowser.png}
+\caption[Open project browser]{\footnotesize{Open project browser}}
+\label{fig:OpenProjectBrowser}
+\end{figure}
+
+{In the project folder, it is necessary it exists the file "project.grasp".} Without this file, the application will not be able to load the project and an error message will be displayed (\Cref{fig:ErrorOpen}).
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{img/ErrorOpen.png}
+\caption[Error when opening a project]{\footnotesize{Error when opening a project}}
+\label{fig:ErrorOpen}
+\end{figure}
+
+{When importing a project, the user must select a zip file that contains an existing project. This zip file must also contain the file "project.grasp". Zip file should be located in the directory where the user wants the project to be created. }
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{img/ImportProject.png}
+\caption[Import project window]{\footnotesize{Import project window}}
+\label{fig:ImportProject}
+\end{figure}
+
+{Once a project is initialized, the user can access the File menu to perform different actions, in order to manage the current project (\Cref{fig:Menu}).}
+\begin{figure}[H]
+\centering
+\includegraphics[width=11cm]{img/Menu.png}
+\caption[Menu view]{\footnotesize{Menu options}}
+\label{fig:Menu}
+\end{figure}
+
+{Next to the File menu, it can be located the Settings button. This button opens a dialog that allows the user to configure different options of the application \Cref{fig:Settings}.}
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm]{img/Settings.png}
+\caption[Settings window]{\footnotesize{Settings window}}
+\label{fig:Settings}
+\end{figure}
+
+{The different parameters that can be configured are separated by application configuration parameters and project configuration parameters. The application configuration parameters have the same value for all projects. For now, it only includes the installation directory of GRASP algotithm.\\ 
+Project configuration parameters are specific for each project. For now, it only includes the corresponding respository directories where the downloaded data will be stored for both, EARLIENT and AERONET sites, and the MATLAB output directory, where all the files created after running the corresponding scripts and GRASP algotithm will be created.}

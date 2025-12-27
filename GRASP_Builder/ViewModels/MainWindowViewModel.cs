@@ -115,6 +115,11 @@ namespace GRASP_Builder.ViewModels
         public ICommand AboutCmd => new RelayCommand(AboutExecute, CanExecute);
         private async void AboutExecute(object _)
         {
+            var desktop = App.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
+            var owner = desktop?.MainWindow;
+
+            var dialog = new AboutWindow();
+            var result = await dialog.ShowDialog<bool>(owner);
         }
         #endregion
     }

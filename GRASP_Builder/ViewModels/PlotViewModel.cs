@@ -125,6 +125,7 @@ namespace GRASP_Builder.ViewModels
                     {
                         { "selected_measure_ID", SelectedMeasureID},
                         {"selected_measurement_file_to_show", SelectedFileToShow },
+                        {"output_dir",$@"{projectCfg?.GetValue("MatlabOutputDirectory")}" }
                     };
 
             if (AppConfig.Instance.IsDebugging())
@@ -167,6 +168,7 @@ namespace GRASP_Builder.ViewModels
 
         private void ReloadMeasureID(object _ = null)
         {
+            projectCfg = (App.Current as App)?.CurrentProjectConfig;
             matlabOutputDirectory = projectCfg?.GetValue("MatlabOutputDirectory");
 
             Logger.Log("Loading Measures ID");

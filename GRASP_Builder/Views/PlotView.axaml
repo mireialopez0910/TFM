@@ -13,7 +13,7 @@
 		
 	<StackPanel Margin="0,0,100,0" VerticalAlignment="Center" >
 		
-			<TextBlock FontWeight="Bold" Text="1. Select a lidar measurement ID" Margin="10,50,0,5"/>
+			<TextBlock FontWeight="Bold" Text="1. Select a lidar Measure ID" Margin="10,50,0,5"/>
 
 			<StackPanel Orientation="Horizontal" Width="500" Margin="10,5,0,50">
 				<Button x:Name="Button_2" Grid.Row="0" Grid.Column="0" Margin="2" ToolTip.Tip="Reload" VerticalAlignment="Center" Tag="buttonReload" Command="{Binding ReloadMeasureIDCmd}">
@@ -56,13 +56,12 @@
 
 				</StackPanel>
 
-				<TextBlock TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Margin="0,10,0,0" Text="Use the broom to clear the visor. If any figure is available to show, check your Measure ID and configurations and save figures first."/>
+				<TextBlock TextWrapping="Wrap" VerticalAlignment="Top" FontSize="12" Margin="0,10,0,0" Text="If there is no figure available to show, check selected Measure ID and measurement file to show and make sure to save figures first."/>
 			</StackPanel>
 
 
 		</Border>
 
-		<!-- Row 3: figure selection + plot button + broom -->
 		</StackPanel>
 
 		<TabControl>

@@ -1,0 +1,38 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		Width="500" Height="300" Icon="/Resources/logo.ico"
+		WindowStartupLocation="CenterOwner" CanResize="False"
+		xmlns:vm="using:GRASP_Builder.ViewModels"
+		x:Class="GRASP_Builder.AboutWindow"
+		Title="About">
+	<StackPanel Margin="30" Spacing="10">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			
+			<Image Grid.Column="0" Source="/Resources/logo.ico" Width="80" Height="80"/>
+			
+			<StackPanel	Grid.Column="1" VerticalAlignment="Center" Margin="10">
+				<TextBlock Text="GRASP Builder" FontWeight="DemiBold" FontSize="24" VerticalAlignment="Center"/>
+				<TextBlock Text="Version 1.0.0" FontSize="14" FontWeight="DemiBold"/>
+			</StackPanel>
+			
+			
+			<Button Grid.Column="3" Margin="5" Click="Help_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Transparent" BorderBrush="Transparent" FontStyle="Italic" Foreground="DarkBlue" FontWeight="DemiBold" FontSize="12" Width="60">
+				<ContentControl>
+					<TextBlock Text="Help" HorizontalAlignment="Center"/>
+				</ContentControl>
+			</Button>
+		</Grid>
+		
+		<TextBlock Text="&amp;copy; 2026 Universitat Politecnica de Catalunya. All rights reserved." FontSize="12" FontStyle="Italic" />
+		<AccessText Text="This software has been developed during a Master Final Project with the objective of optimizinf the work-flux for the use of GRASP algorithm in quasi-real-time." TextWrapping="Wrap" FontSize="12"/>
+		<AccessText Text="For more information, read the User Manual linked in Help button." TextWrapping="Wrap" FontSize="12"/>
+	</StackPanel>
+</Window>

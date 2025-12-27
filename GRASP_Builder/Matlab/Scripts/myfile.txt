@@ -1,0 +1,30 @@
+RESOURCES: reading 'AOD' files
+RESOURCES: reading 'ALM' files
+Aeronet Files found; 0
+RESOURCES: reading 'ALL' files
+Aeronet ALL Files found; 0
+RESOURCES: reading 'ALP' files
+Aeronet Files found; 0
+> ELDA: Trying to download files...
+foundFilesNetCDF: 0
+> ERROR: AOD or ALM files can't be found in the repository.
+RESOURCES: reading 'AOD' files
+RESOURCES: reading 'ALM' files
+Aeronet Files found; 0
+RESOURCES: reading 'ALL' files
+Aeronet ALL Files found; 0
+RESOURCES: reading 'ALP' files
+Aeronet Files found; 0
+> ELDA: Trying to download files...
+foundFilesNetCDF: 0
+> ERROR: AOD or ALM files can't be found in the repository.
+RESOURCES: reading 'AOD' files
+RESOURCES: reading 'ALM' files
+Aeronet Files found; 0
+RESOURCES: reading 'ALL' files
+Aeronet ALL Files found; 0
+RESOURCES: reading 'ALP' files
+Aeronet Files found; 0
+> ELDA: Trying to download files...
+foundFilesNetCDF: 0
+> ERROR: AOD or ALM files can't be found in the repository.

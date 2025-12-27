@@ -72,7 +72,7 @@ namespace GRASP_Builder
 
         public bool IsDebugging()
         {
-            return true;
+            return false;
         }
     }
 }

@@ -18,18 +18,11 @@ namespace GRASP_Builder
 {
     public class MatlabController
     {
-        private static string getMatlabProjectPath()
-        {
-            ProjectConfig projectCfg;
-            projectCfg = (App.Current as App)?.CurrentProjectConfig;
-            return projectCfg?.GetValue("MatlabProjectFilePath");
-        }
-
         public static void RunMatlabScript(ScriptType type, Dictionary<string, object> list = null, string suffix_messenger = "")
         {
             IMatlabScript script = MatlabScriptFactory.Create(type, list);
 
-            string scriptPath = Path.Combine(getMatlabProjectPath(), script.Name);
+            string scriptPath = Path.Combine(AppConfig.Instance.GetValue("MatlabProjectFilePath"), script.Name);
 
             Thread t = new Thread(() =>
             {
@@ -96,7 +89,7 @@ namespace GRASP_Builder
 
         public static Dictionary<string, string> ReadOutputFile(string ouputFileName)
         {
-            string filePath = Path.Combine(getMatlabProjectPath(), ouputFileName);
+            string filePath = Path.Combine(AppConfig.Instance.GetValue("MatlabProjectFilePath"), ouputFileName);
 
             var dict = new Dictionary<string, string>();
 
@@ -122,7 +115,7 @@ namespace GRASP_Builder
 
         public static void WriteInputFile(string fileName, Dictionary<string, object> vars)
         {
-            string configname = Path.Combine(getMatlabProjectPath(),fileName);
+            string configname = Path.Combine(AppConfig.Instance.GetValue("MatlabProjectFilePath"),fileName);
             File.Delete(configname);
             foreach (KeyValuePair<string, object> pair in vars)
             {
@@ -132,7 +125,7 @@ namespace GRASP_Builder
 
         public static void SaveValueInConfiguration(string key, string value, string configFileName)
         {
-            string configname = Path.Combine(getMatlabProjectPath(), configFileName);
+            string configname = Path.Combine(AppConfig.Instance.GetValue("MatlabProjectFilePath"), configFileName);
             if (File.Exists(configname))
             {
                 string text = System.IO.File.ReadAllText(configname);
@@ -163,8 +156,8 @@ namespace GRASP_Builder
 
         public static void CleanMatlabFiles(string configName, string outputName)
         {
-            string configMatlabPath = Path.Combine(getMatlabProjectPath(), configName);
-            string outputMatlabPath = Path.Combine(getMatlabProjectPath(), outputName);
+            string configMatlabPath = Path.Combine(AppConfig.Instance.GetValue("MatlabProjectFilePath"), configName);
+            string outputMatlabPath = Path.Combine(AppConfig.Instance.GetValue("MatlabProjectFilePath"), outputName);
 
             if (File.Exists(configMatlabPath))
                 File.Delete(configMatlabPath);

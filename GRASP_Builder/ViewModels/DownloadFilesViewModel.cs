@@ -22,6 +22,7 @@ using System.Security.AccessControl;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.IO;
 using Tmds.DBus.Protocol;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -144,7 +145,7 @@ namespace GRASP_Builder.ViewModels
             var projectCfg = (App.Current as App)?.CurrentProjectConfig;
 
             _workingDirectory = AppConfig.Instance.GetValue("WorkingDirectory");
-            _repositoryDirectory = $@"{AppConfig.Instance.GetValue("ProjectDirectoryPath")}/Data/";
+            _repositoryDirectory = System.IO.Path.Combine(AppConfig.Instance.GetValue("ProjectDirectoryPath"),"Data");
 
             if (System.IO.Directory.Exists(_workingDirectory))
                 System.IO.Directory.Delete(_workingDirectory, true);
@@ -158,14 +159,15 @@ namespace GRASP_Builder.ViewModels
 
             if (string.IsNullOrEmpty(_aeronetRepositoryDirectory))
             {
-                _aeronetRepositoryDirectory = $@"{_repositoryDirectory}AERONET/";
+                _aeronetRepositoryDirectory = System.IO.Path.Combine(_repositoryDirectory,"AERONET");
                 projectCfg.SetValue("AeronetRepositoryDirectory", _aeronetRepositoryDirectory);
             }
             if (string.IsNullOrEmpty(_earlinetRepositoryDirectory))
             {
-                _earlinetRepositoryDirectory = $@"{_repositoryDirectory}LIDAR/";
+                _earlinetRepositoryDirectory = System.IO.Path.Combine(_repositoryDirectory,"LIDAR");
                 projectCfg.SetValue("EarlinetRepositoryDirectory", _earlinetRepositoryDirectory);
             }
+
             projectCfg.Save();
 
             if (!System.IO.Directory.Exists(_aeronetRepositoryDirectory))

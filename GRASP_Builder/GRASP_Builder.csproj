@@ -57,6 +57,9 @@
     <Compile Update="Windows\HomeProjectActionWindow.axaml.cs">
       <DependentUpon>HomeProjectActionWindow.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Windows\AboutWindow.axaml.cs">
+      <DependentUpon>AboutWindow.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 	<ItemGroup>
