@@ -1,2 +1,37 @@
 \section{Plotting}
-{Text}
+{Once GRASP has been executed, the user can plot the result data in the Plotting tab (\Cref{fig:Plotting}).}
+\begin{figure}[H]
+\centering
+\includegraphics[width=16cm]{img/Plotting.png}
+\caption[Plotting Tab]{\footnotesize{Plotting Tab with available Measure IDs}}
+\label{fig:Plotting}
+\end{figure}
+
+{In this tab, the user can see the available Measure IDs and select the ones that desires to plot. If there are no Measure IDs available, click in "Reload" button, it will scan the MatalabOutputDirectory folder again.\smallskip\\
+Once the Measure ID is  selected, the list of available measurement files will be updated automatically. There the user will be able to choose between the different options (\Cref{fig:Plotting_measurementFile}). \smallskip \\
+If this process has already been executed, it will not be needed to execute "Save figures". In the case it is not it is necessary to do it, in order to read all the GRASP output data and save it in the corresponding files.}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=16cm]{img/Plotting_MeasurementFile.png}
+\caption[Plotting Tab]{\footnotesize{Plotting Tab with available measurement files}}
+\label{fig:Plotting_measurementFile}
+\end{figure}
+
+{All available figures will be listed (\Cref{fig:Plotting_Figures}), the user will be able to choose between the different options.}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=16cm]{img/AvailableFigures.png}
+\caption[Plotting Tab]{\footnotesize{Plotting Tab with available figures}}
+\label{fig:Plotting_Figures}
+\end{figure}
+
+{Once a figure is chosen, button "Plot figure" can be clicked in order to start corresponding MATLAB script execution. During the script execution, the corresponding figure will be shown (\Cref{fig:Plotting_plotted}).}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=16cm]{img/plotted.png}
+\caption[Plotted figure]{\footnotesize{Plotted figure example}}
+\label{fig:Plotting_plotted}
+\end{figure}

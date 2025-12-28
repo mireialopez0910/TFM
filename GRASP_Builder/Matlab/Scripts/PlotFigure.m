@@ -140,15 +140,73 @@
 %!
 %! * No torna cap valor
 %!
-configFile = "config_plot_figure.txt";
+% configFile = "config_plot_figure.txt";
+% 
+% run('config_file.m');
+% read_configuration;
+% 
+% path2datafile=path_to_figure_data;
+% 
+% plotdata = load(path2datafile);    
+% colors = plotdata.dataFigureColor;
+% 
+% % Iterar sobre los pares de datos
+% count = 1;
+% for i = 1:2:length(plotdata.dataFigureAxis)
+%     x = plotdata.dataFigureAxis{i};       % Array x
+%     y = plotdata.dataFigureAxis{i + 1};   % Array y
+% 
+%     % Asegurarse de que ambos sean vectores columna
+%     if isrow(x)
+%         x = x';  % Transponer si es fila
+%     end
+%     if isrow(y)
+%         y = y';  % Transponer si es fila
+%     end
+% 
+%     % Graficar el par de datos
+%     hold(app.UIAxes, 'on');  % Mantener la gráfica para agregar más datos
+%     plot(app.UIAxes, x, y, colors{count});
+% 
+%     legend(app.UIAxes, plotdata.dataFigureLegend)
+%     count = count +1;
+% end
+% 
+% ylabel(app.UIAxes, plotdata.dataFigureYLabel);
+% xlabel(app.UIAxes, plotdata.dataFigureXLabel);
+% box(app.UIAxes, 'on');
+% 
+% if ~isempty(plotdata.dataFigureXLim)
+%     xlim(app.UIAxes, [plotdata.dataFigureXLim(1), plotdata.dataFigureXLim(2)]);
+% end
+% 
+% 
+% if ~isempty(plotdata.dataFigureYLim)
+%     ylim(app.UIAxes, [plotdata.dataFigureYLim(1), plotdata.dataFigureYLim(2)]);
+% end
+% 
+% legend(app.UIAxes, 'boxoff');
+% title (app.UIAxes, plotdata.dataFigureTitle);
+% grid(app.UIAxes, 'on');
+% 
+% if ~isempty(plotdata.dataFigureLogScale)
+%     set(app.UIAxes, plotdata.dataFigureLogScale(1), plotdata.dataFigureLogScale(2))
+% end
+% 
+% waitfor(gcf);
 
+configFile = "config_plot_figure.txt";
 run('config_file.m');
 read_configuration;
 
-path2datafile=path_to_figure_data;
-
+path2datafile = path_to_figure_data;
 plotdata = load(path2datafile);    
+logMessage('Plot data loaded');
 colors = plotdata.dataFigureColor;
+
+% Crear una nueva figura
+figure;
+hold on; 
 
 % Iterar sobre los pares de datos
 count = 1;
@@ -157,40 +215,40 @@ for i = 1:2:length(plotdata.dataFigureAxis)
     y = plotdata.dataFigureAxis{i + 1};   % Array y
     
     % Asegurarse de que ambos sean vectores columna
-    if isrow(x)
-        x = x';  % Transponer si es fila
-    end
-    if isrow(y)
-        y = y';  % Transponer si es fila
-    end
+    if isrow(x), x = x'; end
+    if isrow(y), y = y'; end
     
-    % Graficar el par de datos
-    hold(app.UIAxes, 'on');  % Mantener la gráfica para agregar más datos
-    plot(app.UIAxes, x, y, colors{count});
-
-    legend(app.UIAxes, plotdata.dataFigureLegend)
-    count = count +1;
+    % Graficar el par de datos usando los colores definidos
+    plot(x, y, colors{count});
+    logMessage(['Adding data ',num2str(count), ' to figure']);
+    count = count + 1;
 end
 
-ylabel(app.UIAxes, plotdata.dataFigureYLabel);
-xlabel(app.UIAxes, plotdata.dataFigureXLabel);
-box(app.UIAxes, 'on');
+% Configuración de etiquetas y títulos
+ylabel(plotdata.dataFigureYLabel);
+xlabel(plotdata.dataFigureXLabel);
+title(plotdata.dataFigureTitle);
+legend(plotdata.dataFigureLegend, 'Box', 'off');
+logMessage('Labels, titles and legend added');
+% Configuración de ejes y límites
+box on;
+grid on;
 
 if ~isempty(plotdata.dataFigureXLim)
-    xlim(app.UIAxes, [plotdata.dataFigureXLim(1), plotdata.dataFigureXLim(2)]);
+    xlim([plotdata.dataFigureXLim(1), plotdata.dataFigureXLim(2)]);
 end
-
 
 if ~isempty(plotdata.dataFigureYLim)
-    ylim(app.UIAxes, [plotdata.dataFigureYLim(1), plotdata.dataFigureYLim(2)]);
+    ylim([plotdata.dataFigureYLim(1), plotdata.dataFigureYLim(2)]);
 end
 
-legend(app.UIAxes, 'boxoff');
-title (app.UIAxes, plotdata.dataFigureTitle);
-grid(app.UIAxes, 'on');
-
+% Configuración de escala logarítmica
 if ~isempty(plotdata.dataFigureLogScale)
-    set(app.UIAxes, plotdata.dataFigureLogScale(1), plotdata.dataFigureLogScale(2))
+    % plotdata.dataFigureLogScale(1) suele ser 'XScale' o 'YScale'
+    % plotdata.dataFigureLogScale(2) suele ser 'log' o 'linear'
+    set(gca, plotdata.dataFigureLogScale(1), plotdata.dataFigureLogScale(2));
+    logMessage('Logaritmic scale set');
 end
 
+logMessage('Close figure in order to finish script execution');
 waitfor(gcf);
