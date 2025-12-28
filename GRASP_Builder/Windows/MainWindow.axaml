@@ -19,13 +19,28 @@
 	</Design.DataContext>
 	<Border>
 		<StackPanel>
-			<TabControl  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="880" IsVisible="{Binding IsHomeVisible}">
-				<TabItem Header="Home" >
-					<TabItem.Content>
-						<n:HomeView />
-					</TabItem.Content>
-				</TabItem>
-			</TabControl>
+			<Grid IsVisible="{Binding IsHomeVisible}">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="80"/>
+				</Grid.ColumnDefinitions>
+			
+				<TabControl  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="880" IsVisible="{Binding IsHomeVisible}" Grid.ColumnSpan="2">
+					<TabItem Header="Home" >
+						<TabItem.Content>
+							<n:HomeView />
+						</TabItem.Content>
+					</TabItem>
+				</TabControl>
+				
+				<Button Click="Help_Click" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1"  Background="Transparent" BorderBrush="Transparent" FontStyle="Italic" Foreground="DarkBlue" FontWeight="DemiBold" FontSize="10" Width="60">
+					<ContentControl>
+						<TextBlock Text="Help" HorizontalAlignment="Center"/>
+					</ContentControl>
+				</Button>
+
+			</Grid>
+			
 			<Grid IsVisible="{Binding IsProjectLoaded}">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>
