@@ -74,7 +74,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
         % Ext532SSC = Ext532_SCC(n532).*10^6;
         Hmax = Hmax./1000; Hmin = Hmin./1000;
         
-        grasp_data_filename = read_data_error(path2file, 'UPC_D1_L_outcsv.txt', graspPreGARRLiC.name, ubi);
+        grasp_data_filename = read_data_error(path2file, graspOutFile, graspPreGARRLiC.name, ubi);
         load( fullfile(path2file, grasp_data_filename) ); %load grasp_data
         
         %%! Preparació de dades
@@ -93,35 +93,12 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
         AVPF_D1_L_GRASP = zeros(num_layers, 1);
         for j = 1:num_layers
             % j
-            % % AVPF_D1_L_GRASP(j,1) = 10^3*eval(sprintf('VertProfileNormalized%i_1',j))
-            % Error_AVPF_D1_L_GRASP(j,1) = 10^3*eval(sprintf('errest_VertProfileNormalized%i_1',j))
-            % std_AVPF_D1_L_GRASP(j,1) = 10^3*eval(sprintf('std_VertProfileNormalized%i_1',j))
-            % bias_AVPF_D1_L_GRASP(j,1) = 10^3*eval(sprintf('bias_VertProfileNormalized%i_1',j))
-            % for j = 1:num_layers
-                % Get the actual data using 'evalin' or 'eval'
-                sprintf('VertProfileNormalized%i_1',j)
-                % Construct the variable name
-                varName = sprintf('VertProfileNormalized%i_1', j);
-                
-                % Get the data from the workspace
-                raw_data = eval(varName)
-                
-                % If it's a character/string, convert it to a double
-                if ischar(raw_data) || isstring(raw_data)
-                    disp('char')
-                    numeric_val = str2double(raw_data)
-                else
-                    disp('num')
-                    numeric_val = raw_data % It's already numeric
-                end
-                
-                % Now perform the math safely
-                if ~isnan(numeric_val)
-                    AVPF_D1_L_GRASP(j,1) = 10^3 * numeric_val
-                end
-                
-            end
-        % end
+            AVPF_D1_L_GRASP(j,1) = 10^3*eval(sprintf('VertProfileNormalized%i_1',j));
+            Error_AVPF_D1_L_GRASP(j,1) = 10^3*eval(sprintf('errest_VertProfileNormalized%i_1',j));
+            std_AVPF_D1_L_GRASP(j,1) = 10^3*eval(sprintf('std_VertProfileNormalized%i_1',j));
+            bias_AVPF_D1_L_GRASP(j,1) = 10^3*eval(sprintf('bias_VertProfileNormalized%i_1',j));
+            
+        end
         % clearvars VertProfileNormalized*_1 errest_VertProfileNormalized*_1 
         
     

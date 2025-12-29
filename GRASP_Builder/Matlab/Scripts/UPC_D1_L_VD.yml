@@ -23,7 +23,7 @@ output:
     
 retrieval:   
     general:
-        path_to_internal_files: "/usr/local/share/grasp//kernels/" 
+        path_to_internal_files: "/opt/grasp/share/grasp//kernels/" 
         
     mode: inversion
     

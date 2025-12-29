@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Avalonia.Platform.Storage;
+using GRASP_Builder.AppCode;
 
 namespace GRASP_Builder.Matlab
 {
@@ -47,7 +48,10 @@ namespace GRASP_Builder.Matlab
                     if (dic.TryGetValue("selected_config", out string selected_config)) 
                     {
                         if (dic.TryGetValue("output_dir", out string output_dir))
+                        {
                             SaveOutputNameInConfigFile(outputName, selected_config, output_dir);
+                            CmdController.ExecuteGrasp(output_dir, selected_config);
+                        }
                         else
                             Logger.Log("ERROR; No output_dir in list of dicctionaries for send files, can not create configuration file .yml");
                     }

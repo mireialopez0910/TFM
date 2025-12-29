@@ -160,11 +160,15 @@ namespace GRASP_Builder.ViewModels
             if (string.IsNullOrEmpty(_aeronetRepositoryDirectory))
             {
                 _aeronetRepositoryDirectory = System.IO.Path.Combine(_repositoryDirectory,"AERONET");
+                if (!_aeronetRepositoryDirectory.EndsWith(@"/"))
+                    _aeronetRepositoryDirectory = _aeronetRepositoryDirectory + @"/";
                 projectCfg.SetValue("AeronetRepositoryDirectory", _aeronetRepositoryDirectory);
             }
             if (string.IsNullOrEmpty(_earlinetRepositoryDirectory))
             {
                 _earlinetRepositoryDirectory = System.IO.Path.Combine(_repositoryDirectory,"LIDAR");
+                if (!_earlinetRepositoryDirectory.EndsWith(@"/"))
+                    _earlinetRepositoryDirectory = _earlinetRepositoryDirectory + @"/";
                 projectCfg.SetValue("EarlinetRepositoryDirectory", _earlinetRepositoryDirectory);
             }
 
@@ -344,7 +348,7 @@ namespace GRASP_Builder.ViewModels
 
             string url = _aeronetService.BuildUrl(DataType.AerosolInversions, FromDate, ToDate);
 
-            string destinationFile = $@"{_aeronetRepositoryDirectory}{FileType.AeronetInversions.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.all";
+            string destinationFile = System.IO.Path.Combine(_aeronetRepositoryDirectory,$"{FileType.AeronetInversions.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.all");
 
             await _aeronetService.DescargarDatosAsync(destinationFile, url);
             Logger.Log("AERONET Aerosol inversion products data have downloaded and saved in file {destinationFile}");
@@ -353,7 +357,7 @@ namespace GRASP_Builder.ViewModels
 
             url = _aeronetService.BuildUrl(DataType.OpticalDepth, FromDate, ToDate, "AOD15");
 
-            destinationFile = $@"{_aeronetRepositoryDirectory}{FileType.AeronetAOD.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.lev15";
+            destinationFile = System.IO.Path.Combine(_aeronetRepositoryDirectory,$"{FileType.AeronetAOD.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.lev15");
 
             await _aeronetService.DescargarDatosAsync(destinationFile, url); //.lev15
 
@@ -363,7 +367,7 @@ namespace GRASP_Builder.ViewModels
 
             url = _aeronetService.BuildUrl(DataType.OpticalDepth, FromDate, ToDate, "SDA15");
 
-            destinationFile = $@"{_aeronetRepositoryDirectory}{FileType.AeronetSDA.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.ONEILL_lev15";
+            destinationFile = System.IO.Path.Combine(_aeronetRepositoryDirectory,$"{FileType.AeronetSDA.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.ONEILL_lev15");
 
             await _aeronetService.DescargarDatosAsync(destinationFile, url); //.ONEILL_lev15
 
@@ -373,7 +377,7 @@ namespace GRASP_Builder.ViewModels
 
             url = _aeronetService.BuildUrl(DataType.RawProductsOpticalDepth, FromDate, ToDate, RawProductsOpticalDepth.ALM00);
 
-            destinationFile = $@"{_aeronetRepositoryDirectory}{FileType.AeronetRawAlmucantar.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.alm";
+            destinationFile = System.IO.Path.Combine(_aeronetRepositoryDirectory,$"{FileType.AeronetRawAlmucantar.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.alm");
 
             await _aeronetService.DescargarDatosAsync(destinationFile, url); //.alm
             Progress = "80";
@@ -382,7 +386,7 @@ namespace GRASP_Builder.ViewModels
 
             url = _aeronetService.BuildUrl(DataType.RawProductsOpticalDepth, FromDate, ToDate, RawProductsOpticalDepth.ALP00);
 
-            destinationFile = $@"{_aeronetRepositoryDirectory}{FileType.AeronetRawPolarizedAlmucantar.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.alp";
+            destinationFile = System.IO.Path.Combine(_aeronetRepositoryDirectory,$"{FileType.AeronetRawPolarizedAlmucantar.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.alp");
 
             await _aeronetService.DescargarDatosAsync(destinationFile, url); //.alp
             Progress = "90";
@@ -405,10 +409,10 @@ namespace GRASP_Builder.ViewModels
                 return;
             }
 
-            if (Directory.Exists($@"{_workingDirectory}/Data/"))
-                Directory.Delete($@"{_workingDirectory}/Data/", true);
+            if (Directory.Exists($@"{_workingDirectory}"))
+                Directory.Delete($@"{_workingDirectory}", true);
 
-            Directory.CreateDirectory($@"{_workingDirectory}/Data/");
+            Directory.CreateDirectory($@"{_workingDirectory}");
 
             string date = await DownloadEarlinetExecute();
 
@@ -416,7 +420,7 @@ namespace GRASP_Builder.ViewModels
 
             Logger.Log("Unzipping EARLINET files . . .");
 
-            foreach (string file in GetAllFiles($@"{_workingDirectory}"))
+            foreach (string file in GetAllFiles(_workingDirectory))
             {
                 if (file.Contains(date) && file.EndsWith(".zip"))
                 {
@@ -436,7 +440,7 @@ namespace GRASP_Builder.ViewModels
                         {
                             string[] f_splitted = f.Split(System.IO.Path.DirectorySeparatorChar);
 
-                            string dest_folder = @$"{_earlinetRepositoryDirectory}{f_splitted[^1]}";
+                            string dest_folder = System.IO.Path.Combine(_earlinetRepositoryDirectory,f_splitted[^1]);
 
                             if (!Directory.Exists(dest_folder))
                                 Directory.CreateDirectory(dest_folder);
@@ -452,7 +456,7 @@ namespace GRASP_Builder.ViewModels
                                 else
                                     destination = System.IO.Path.Combine(dest_folder, relative);
 
-                                Directory.CreateDirectory(System.IO.Path.GetDirectoryName(destination)!);
+                                Directory.CreateDirectory(System.IO.Path.GetDirectoryName(destination));
                                 File.Copy(ncFile, destination, overwrite: true);
                                 Logger.Log($"File {ncFile} saved in folder: {destination}");
                             }
@@ -557,7 +561,7 @@ namespace GRASP_Builder.ViewModels
             {
                 foreach (var file in notSelected)
                 {
-                    System.IO.File.Delete($@"{_aeronetRepositoryDirectory}{file}");
+                    System.IO.File.Delete(System.IO.Path.Combine(_aeronetRepositoryDirectory,file));
                 }
             }
 
@@ -566,7 +570,7 @@ namespace GRASP_Builder.ViewModels
             {
                 foreach (var file in notSelected)
                 {
-                    System.IO.Directory.Delete($@"{_earlinetRepositoryDirectory}{file}", true);
+                    System.IO.Directory.Delete(System.IO.Path.Combine(_earlinetRepositoryDirectory,file), true);
                 }
 
             }

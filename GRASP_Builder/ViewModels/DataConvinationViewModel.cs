@@ -375,7 +375,8 @@ namespace GRASP_Builder.ViewModels
 
                 Messenger.Default.Send<object>("ReloadMeasureID", null);
             }
-            Logger.Log("ERROR: No data option selected to send.");
+            else
+                Logger.Log("ERROR: No data option selected to send.");
             IsConfigSelectionEnabled = true;
         }
 
