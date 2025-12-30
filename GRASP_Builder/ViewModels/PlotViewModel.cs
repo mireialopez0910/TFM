@@ -259,7 +259,5 @@ namespace GRASP_Builder.ViewModels
         }
 
         #endregion
-
-        
     }
 }

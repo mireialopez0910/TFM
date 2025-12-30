@@ -6,6 +6,7 @@
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <ApplicationIcon>Resources\logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -83,6 +84,10 @@
 	<ItemGroup>
 	  <AvaloniaResource Include="Resources\config_icon.png" />
 	  <AvaloniaResource Include="Resources\warning.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Resources\logo.ico" />
 	</ItemGroup>
 
 	<ItemGroup>

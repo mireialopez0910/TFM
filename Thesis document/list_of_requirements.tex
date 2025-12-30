@@ -29,31 +29,34 @@
       \item {002, 008}
       \item {007}
     \end{enumerate}
-    \item {Execute full GRASP algorithm sequence:}
+    \item {Execute pre-execution:}
     \begin{enumerate}
-      \item {Preprocessing:}
-      \begin{itemize}
-        \item {}
-        \item {}
-        \item {}
-        \item {}
-        \item {}
-      \end{itemize}
-      \item {Retrieve aerosol optical depth}
-      \item {Retrieve aerosol extinction}
-      \item {Retrieve aerosol single scattering albedo}
-      \item {Retrieve aerosol Ångström exponent}
+      \item {Read data of all downloaded files that are used as inputs for grasp algorithm}
+      \item {Preview data in order to choose a correct value for minimum and maximum heights}
+      \item {Obtain available configurations for the selected measure ID depending on available data}
+      \item {Choose a configuration}
+      \item {Generate a .sdat file that stores all data for selected measure ID and heights}
+      \item {Create .yml configuration file containing corresponding .sdat file name and choosen configuration}
     \end{enumerate}
-    \item {Execute the GRASP algorithm}
+    \item {Execute the GRASP algorithm with corresponding configuration .yml file and .sdat file}
     \item {Give the user the possibility to plot the different results after executing the algorithm}
+    \begin{itemize}
+      \item {Detect all available measure IDs folders in output directory}
+      \item {Generate figure data files .mat from GRASP output data in selected measure ID output directory}
+      \item {Plot data from .mat files}
+    \end{itemize}
     \item {Application can work with project/workspaces}
     \begin{enumerate}
       \item {User can create, open and import a project}
       \item {Downloaded data from web services are stored in the project folder}
       \item {Results of the GRASP algorithm are stored in the project folder}
-      \item {Once a project is closed, all the data is deleted}
     \end{enumerate}
-    \item {}
-    \item {}
+    \item {Application can have different configurations}
+    \begin{itemize}
+      \item {Repository directories can be modified for both, earlinet and aeronet downloaded files}
+      \item {Ouput directory can be modified}
+      \item {GRASP installation directory can be modified: this path can be different for each user}
+    \end{itemize}
+
 \end{enumerate}
 \bigskip

@@ -1,7 +1,84 @@
 \section{Architecture}
-\subsection{Tools}
+
+\subsection{MVVM}
+{
+  Design pattern MVVM (Model-View-ViewModel) is a software architecture patter designed with the goal of having a clear separation between the user interface (frontend) and the business logic (backend) \cite{mvvm}. There are different freameworks that use this standard, such as Angular, .NET WPF...\smallskip\\
+  This application needs to be able to execute in CALCULA operating system (Linux), so it is necessary to use a framework that is compatible with this system. Originaly, it was going to be developed using .NET WPF, but it was decided to use Avalonia instead, as it is a cross-platform framework that can be executed in different operating systems. The differences between both frameworks are very low, mainly being the name of the files (.axaml instead of .xaml) and the way to define the user interface. \smallskip\\
+  This architecture is divided in three main components:}
+  \begin{itemize}
+    \item{Model}: It contains the data and most of the app logic. It structures the information (classes and identities), how to retrieve it and how to manage it (services, data bases and controllers).
+    \item{View}: It defines all the elements in the user interface and what the user will see and will interact with. The only responsability of the code defines in this sections is to define the visual structure of the app and to create input elements for the user to interact with.
+    \item{ViewModel}: It is the bridge between the Model and the View. It is the one that controls the flow of data between the Model and the View.
+  \end{itemize}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=11cm]{img/MVVM.png}
+    \caption[Menu view]{\footnotesize{MVVM architecture}}
+    \label{fig:mvvm}
+  \end{figure}
+
+\subsubsection{Observable Object}
+{
+  In order be able to update the user interface automatically when the data changes, it is used Data Binding, a feature of the MVVM pattern. It is implemeted using ObservableObject as base class. }
+  \begin{lstlisting}
+public class User : ObservableObject
+{
+    private string name;
+
+    public string Name
+    {
+        get => name;
+        set => SetProperty(ref name, value);
+    }
+}
+\end{lstlisting}
+{
+In the example, it can be seen how a variable is updated, when it is detected that the new value is different from the old one, SetProperty is called, which implements INotifyPropertyChanged interface, which is the one in charge to notify the corresponding view. \smallskip\\
+In order that the view is updated, it is necessary to call the variable with the same name and to indicate that it is Bindable in the corresponding .axaml file, as it can be seen in the following example:}
+\begin{lstlisting}
+<TextBlock Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+\end{lstlisting}
+{
+In this case, mode option indicate that variable can be updated from the view to the model and viceversa,  and update source trigger option indicate that the update will be done when the property changes. Other options can be used, but these are the ones that are most common and that have been used in this project.
+}
+\subsubsection{Relay Command}
+{
+Relay command is used to implement commands in the MVVM pattern. It is implemeted using ICommand as base class. It can be used in different ways, but in this project it has been implemented using the following pattern for all View Models:}
+\begin{lstlisting}
+public class ViewModel : ObservableObject
+{
+  public ICommand Cmd => new RelayCommand(Execute, CanExecute);
+  private void Execute(object _)
+  {
+      ExecutionActions();
+  }
+
+  private bool CanExecute(object _)
+  {
+      return true;
+  }
+}
+
+\end{lstlisting}
+{In order to execute the command, it is necessary to link an interface element of the .axaml file to the Execute method}
+\begin{lstlisting}
+<Button Content="Execute" Command="{Binding Cmd}" />
+\end{lstlisting}
+
+\subsubsection{Advantages}
+{
+The most important advantages of using this desing pattern  are:
 \begin{itemize}
-  \item{MVVM}
-  \item{SOLID principles}
+  \item{Changes only affect the view or the model, not both}
+  \item{Separated testing for views and models}
+  \item{User interface can be modified without affecting the model}
+  \item {Teams with different developers can work on the same project simultaneously without affecting each other}
 \end{itemize}
+
+}
+\subsection{SOLID principles}
+{
+
+}
 \subsection{Project architecture}
