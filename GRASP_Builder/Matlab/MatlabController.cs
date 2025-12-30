@@ -166,7 +166,6 @@ namespace GRASP_Builder
                 File.Delete(outputMatlabPath);
         }
 
-
         bool IsMatlabRunning()
         {
             return Process.GetProcessesByName("MATLAB").Length > 0;

@@ -25,6 +25,8 @@ using System.Windows.Input;
 using System.IO;
 using Tmds.DBus.Protocol;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using GRASP_Builder.AppCode.DownloadControllers;
+using Microsoft.VisualBasic;
 
 namespace GRASP_Builder.ViewModels
 {
@@ -48,10 +50,9 @@ namespace GRASP_Builder.ViewModels
             DownloadedFiles_EARLINET = new ObservableCollection<CheckItem>();
             DownloadedFiles_AERONET = new ObservableCollection<CheckItem>();
 
-            _earlinetClient = new EarlinetService();
-            _aeronetService = new AeronetService();
-
             Messenger.Default.Register<bool>("UpdateProjectLoaded", UpdateProjectLoaded);
+            Messenger.Default.Register<bool>("UpdateProjectLoaded", UpdateProjectLoaded);
+            Messenger.Default.Register<string>("UpdateProgress", UpdateProgress);
         }
 
         #endregion
@@ -119,6 +120,11 @@ namespace GRASP_Builder.ViewModels
         #endregion
 
         #region Messaging
+
+        private void UpdateProgress(string value)
+        {
+            Progress = value;
+        }
 
         private void UpdateProjectLoaded(bool obj)
         {
@@ -188,6 +194,7 @@ namespace GRASP_Builder.ViewModels
                 Logger.Log($"EarlinetRepositoryDirectory: {_earlinetRepositoryDirectory}");
 
             string _matlabOutputDirectory = projectCfg?.GetValue("MatlabOutputDirectory");
+
             if(string.IsNullOrEmpty(_matlabOutputDirectory))
                 projectCfg?.SetValue("MatlabOutputDirectory", $"{AppConfig.Instance.GetValue("ProjectDirectoryPath")}/Output/");
         }
@@ -263,7 +270,7 @@ namespace GRASP_Builder.ViewModels
 
         private bool AddToMeasureIDList(string folder)
         {
-            List<string> files = GetAllFiles(folder);
+            List<string> files = FileHelpers.GetAllFiles(folder);
             foreach (string file in files)
             {
                 if (!file.EndsWith("_elda.nc") && file.Contains("_007_"))
@@ -283,12 +290,12 @@ namespace GRASP_Builder.ViewModels
             {
                 if (type != FileType.ELPP && type != FileType.Optical)
                 {
-                    List<string> list = GetAllFiles(_aeronetRepositoryDirectory);
+                    List<string> list = FileHelpers.GetAllFiles(_aeronetRepositoryDirectory);
                     UpdateFiles(list, type);
                 }
                 else
                 {
-                    List<string> list = GetAllFolders(_earlinetRepositoryDirectory);
+                    List<string> list = FileHelpers.GetAllFolders(_earlinetRepositoryDirectory);
                     UpdateFiles(list, type);
                 }
             }
@@ -301,98 +308,6 @@ namespace GRASP_Builder.ViewModels
         #region Download files
 
         public ICommand DownloadCmd => new RelayCommand(async _ => await DownloadExecute(), CanDownload);
-
-        private async Task<string> DownloadEarlinetExecute()
-        {
-            try
-            {
-
-                Directory.Delete(_earlinetRepositoryDirectory, true);
-                Directory.CreateDirectory(_earlinetRepositoryDirectory);
-
-                string date = DateTime.Now.ToString("dd_MM_yyyy__hh_mm");
-
-                Logger.Log($"Downloading EARLINET-OPTICAL data");
-                
-                bool res_elda = await _earlinetClient.DownloadProductByDateRangeAsync("OPTICAL", FromDate.ToString("yyyy-MM-dd"), ToDate.ToString("yyyy-MM-dd"), $"{_workingDirectory}EARLINET_ELDA_{date}.zip");
-                if (res_elda)
-                    Logger.Log($"Data downloaded correctly and saved in file {_workingDirectory}EARLINET_ELDA_{{date}}.zip");
-                else
-                    Logger.Log($"ELDA Data was not downloaded correctly");
-
-                Progress = "15";
-                Logger.Log($"Downloading EARLINET-ELPP data");
-                
-                bool res_elpp = await _earlinetClient.DownloadProductByDateRangeAsync("ELPP", FromDate.ToString("yyyy-MM-dd"), ToDate.ToString("yyyy-MM-dd"), $"{_workingDirectory}EARLINET_ELPP_{date}.zip");
-                if (res_elpp)
-                    Logger.Log($"Data downloaded correctly and saved in file {_workingDirectory}EARLINET_ELPP_{date}.zip");
-                else
-                    Logger.Log($"ELPP Data was not downloaded correctly");
-                
-                return date;
-            }
-            catch (Exception ex)
-            {
-                Logger.Log($"Exception: {ex.Message}");
-            }
-
-            return null;
-        }
-
-        private async Task DownloadAeronetExecute()
-        {
-            Directory.Delete(_aeronetRepositoryDirectory, true);
-            Directory.CreateDirectory(_aeronetRepositoryDirectory);
-
-            Logger.Log($"Downloading Aeronet files from date {FromDate.ToString("dd-MM-yyyy")}");
-
-            string url = _aeronetService.BuildUrl(DataType.AerosolInversions, FromDate, ToDate);
-
-            string destinationFile = System.IO.Path.Combine(_aeronetRepositoryDirectory,$"{FileType.AeronetInversions.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.all");
-
-            await _aeronetService.DescargarDatosAsync(destinationFile, url);
-            Logger.Log("AERONET Aerosol inversion products data have downloaded and saved in file {destinationFile}");
-
-            Progress = "50";
-
-            url = _aeronetService.BuildUrl(DataType.OpticalDepth, FromDate, ToDate, "AOD15");
-
-            destinationFile = System.IO.Path.Combine(_aeronetRepositoryDirectory,$"{FileType.AeronetAOD.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.lev15");
-
-            await _aeronetService.DescargarDatosAsync(destinationFile, url); //.lev15
-
-            Logger.Log("AERONET AOD data have been downloaded and saved in file {destinationFile}");
-
-            Progress = "60";
-
-            url = _aeronetService.BuildUrl(DataType.OpticalDepth, FromDate, ToDate, "SDA15");
-
-            destinationFile = System.IO.Path.Combine(_aeronetRepositoryDirectory,$"{FileType.AeronetSDA.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.ONEILL_lev15");
-
-            await _aeronetService.DescargarDatosAsync(destinationFile, url); //.ONEILL_lev15
-
-            Logger.Log("AERONET Spectral deconvolution algortihm file downloaded & saved in file: " + destinationFile);
-
-            Progress = "70";
-
-            url = _aeronetService.BuildUrl(DataType.RawProductsOpticalDepth, FromDate, ToDate, RawProductsOpticalDepth.ALM00);
-
-            destinationFile = System.IO.Path.Combine(_aeronetRepositoryDirectory,$"{FileType.AeronetRawAlmucantar.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.alm");
-
-            await _aeronetService.DescargarDatosAsync(destinationFile, url); //.alm
-            Progress = "80";
-
-            Logger.Log("AERONET Raw Almucantar data have been downloaded and saved in file {destinationFile}");
-
-            url = _aeronetService.BuildUrl(DataType.RawProductsOpticalDepth, FromDate, ToDate, RawProductsOpticalDepth.ALP00);
-
-            destinationFile = System.IO.Path.Combine(_aeronetRepositoryDirectory,$"{FileType.AeronetRawPolarizedAlmucantar.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.alp");
-
-            await _aeronetService.DescargarDatosAsync(destinationFile, url); //.alp
-            Progress = "90";
-
-            Logger.Log("AERONET Raw polarized almucantar has been downloaded and saved in file {destinationFile}");
-        }
 
         private async Task DownloadExecute()
         {
@@ -414,62 +329,12 @@ namespace GRASP_Builder.ViewModels
 
             Directory.CreateDirectory($@"{_workingDirectory}");
 
-            string date = await DownloadEarlinetExecute();
-
-            Progress = "30";
-
-            Logger.Log("Unzipping EARLINET files . . .");
-
-            foreach (string file in GetAllFiles(_workingDirectory))
-            {
-                if (file.Contains(date) && file.EndsWith(".zip"))
-                {
-                    //extract earlinet files
-                    string folder = file.Replace(".zip", "");
-                    UnzipFile(file, folder);
-
-                    List<string> downloadedFolders = GetAllNestedFolders(folder);
-                    string nestedFolder = downloadedFolders.FirstOrDefault();
-
-                    List<string> folders = GetAllNestedFolders(nestedFolder);
+            IDownloadController downloadController = DownloadControllerFactory.Create(DownloadType.Earlinet, _earlinetRepositoryDirectory, _workingDirectory);
+            await downloadController.Download(FromDate, ToDate,"BRC");
 
 
-                    foreach (string f in folders)
-                    {
-                        if (!f.EndsWith("elpp") && !f.EndsWith("opticalproducts") && !f.EndsWith("optical_products"))
-                        {
-                            string[] f_splitted = f.Split(System.IO.Path.DirectorySeparatorChar);
-
-                            string dest_folder = System.IO.Path.Combine(_earlinetRepositoryDirectory,f_splitted[^1]);
-
-                            if (!Directory.Exists(dest_folder))
-                                Directory.CreateDirectory(dest_folder);
-
-                            foreach (var ncFile in Directory.GetFiles(f, "*.*", System.IO.SearchOption.AllDirectories))
-                            {
-                                string[] pathSplited = ncFile.Replace(@"\", @"/").Split(@"/");
-                                string relative = pathSplited[pathSplited.Length - 1];
-                                string destination = string.Empty;
-                                
-                                if (!file.Contains("ELPP"))
-                                    destination = System.IO.Path.Combine(dest_folder, relative.Split(".")[0] + "_elda.nc");
-                                else
-                                    destination = System.IO.Path.Combine(dest_folder, relative);
-
-                                Directory.CreateDirectory(System.IO.Path.GetDirectoryName(destination));
-                                File.Copy(ncFile, destination, overwrite: true);
-                                Logger.Log($"File {ncFile} saved in folder: {destination}");
-                            }
-
-                        }
-                    }
-
-                }
-            }
-
-            Progress = "40";
-
-            await DownloadAeronetExecute();
+            downloadController = DownloadControllerFactory.Create(DownloadType.Aeronet, _aeronetRepositoryDirectory, _workingDirectory);
+            await downloadController.Download(FromDate, ToDate, "Barcelona");
 
             Logger.Log("Updating dowloaded files list . . .");
 
@@ -481,64 +346,6 @@ namespace GRASP_Builder.ViewModels
 
             IsSelectDateEnabled = true;
             IsDownloadedFilesVisible = true;
-        }
-        public static List<string> GetAllNestedFolders(string rootDir)
-        {
-            var result = new List<string>();
-            if (Directory.Exists(rootDir))
-            {
-                foreach (var dir in Directory.GetDirectories(rootDir))
-                {
-                    result.Add(dir);
-
-                    foreach (var subDir in Directory.GetDirectories(dir))
-                    {
-                        result.Add(subDir);
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        private static void UnzipFile(string zipPath, string extractPath)
-        {
-            if (AppConfig.Instance.IsDebugging())
-                Logger.Log($"Unziping file: {zipPath} to {extractPath}");
-
-            try
-            {
-                if (File.Exists(zipPath))
-                    ZipFile.ExtractToDirectory(zipPath, extractPath);
-            }
-            catch (InvalidDataException ex)
-            {
-                using (StreamWriter sw = new StreamWriter("log.txt", true))
-                    Logger.Log("no files where downloaded for selected dates range");
-            }
-            catch (Exception ex)
-            {
-                using (StreamWriter sw = new StreamWriter("log.txt", true))
-                    Logger.Log($"Exception: {ex.Message}");
-            }
-        }
-
-        private static List<string> GetAllFiles(string directoryPath)
-        {
-            if (!Directory.Exists(directoryPath))
-                System.IO.Directory.CreateDirectory(directoryPath);
-
-            var files = Directory.GetFiles(directoryPath, "*", System.IO.SearchOption.AllDirectories);
-            return new List<string>(files);
-        }
-
-        private static List<string> GetAllFolders(string directoryPath)
-        {
-            if (!Directory.Exists(directoryPath))
-                System.IO.Directory.CreateDirectory(directoryPath);
-
-            var directories = Directory.GetDirectories(directoryPath, "*", System.IO.SearchOption.AllDirectories);
-            return new List<string>(directories);
         }
 
         private bool CanDownload(object parameter)

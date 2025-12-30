@@ -66,5 +66,22 @@ namespace GRASP_Builder
             File.Copy(sourcePath, Path.Combine(outputPath, newName), true);
         }
 
+        public static List<string> GetAllFiles(string directoryPath)
+        {
+            if (!Directory.Exists(directoryPath))
+                System.IO.Directory.CreateDirectory(directoryPath);
+
+            var files = Directory.GetFiles(directoryPath, "*", System.IO.SearchOption.AllDirectories);
+            return new List<string>(files);
+        }
+
+        public static List<string> GetAllFolders(string directoryPath)
+        {
+            if (!Directory.Exists(directoryPath))
+                System.IO.Directory.CreateDirectory(directoryPath);
+
+            var directories = Directory.GetDirectories(directoryPath, "*", System.IO.SearchOption.AllDirectories);
+            return new List<string>(directories);
+        }
     }
 }
