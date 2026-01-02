@@ -10,14 +10,19 @@
     \item{View}: It defines all the elements in the user interface and what the user will see and will interact with. The only responsability of the code defines in this sections is to define the visual structure of the app and to create input elements for the user to interact with.
     \item{ViewModel}: It is the bridge between the Model and the View. It is the one that controls the flow of data between the Model and the View.
   \end{itemize}
-
   \begin{figure}[H]
     \centering
-    \includegraphics[width=11cm]{img/MVVM.png}
-    \caption[Menu view]{\footnotesize{MVVM architecture}}
+    \includegraphics[width=12.5cm]{img/MVVM.png}
+    \caption[mvvm]{\footnotesize{MVVM design pattern}}
     \label{fig:mvvm}
   \end{figure}
-
+The most important advantages of using this desing pattern  are:
+\begin{itemize}
+  \item{Changes only affect the view or the model, not both}
+  \item{Separated testing for views and models}
+  \item{User interface can be modified without affecting the model}
+  \item {Teams with different developers can work on the same project simultaneously without affecting each other}
+\end{itemize}
 \subsubsection{Observable Object}
 {
   In order be able to update the user interface automatically when the data changes, it is used Data Binding, a feature of the MVVM pattern. It is implemeted using ObservableObject as base class. }
@@ -66,19 +71,49 @@ public class ViewModel : ObservableObject
 <Button Content="Execute" Command="{Binding Cmd}" />
 \end{lstlisting}
 
-\subsubsection{Advantages}
-{
-The most important advantages of using this desing pattern  are:
-\begin{itemize}
-  \item{Changes only affect the view or the model, not both}
-  \item{Separated testing for views and models}
-  \item{User interface can be modified without affecting the model}
-  \item {Teams with different developers can work on the same project simultaneously without affecting each other}
-\end{itemize}
-
-}
 \subsection{SOLID principles}
 {
+SOLID principles are a set of five principles that are used to design software with the obejective of making it easy to maintain and modify, making a project more maintainable ands scalable \cite{solid}. It lowers the dependency between classes, minimizing the impact of changes and making the code more reusable, mantainable, flexible and stable. \smallskip\\
+They also support growth in development, making it easier to add new features without the need of modifying already implemented code. \smallskip\\
+These principles are:}
+  \begin{itemize}
+    \item{Single Responsibility Principle (SRP)}
+    \item{Open/Closed Principle (OCP)}
+    \item{Liskov Substitution Principle (LSP)}
+    \item{Interface Segregation Principle (ISP)}
+    \item{Dependency Inversion Principle (DIP)}
+  \end{itemize}
 
-}
+  \subsubsection{Single Responsibility Principle}
+  {
+    Statets that \textit{a class should have only one reason to change}, meaning that it should have only one responsibility, job or purpose within the softwar project.\smallskip\\
+    In order to apply this principle, it is necessary to divide the code into different classes, each one with a specific responsibility. It is important to note that this principle is not always possible to apply, but it is a good practice to try to do so.
+  }
+  \subsubsection{Open/Closed Principle}
+  {States that \textit{an entity should be open for extension, but closed for modification}, meaninig that it should be easy to extend the functionality of the entity without modifying its existing code. \smallskip\\
+  In order to apply this principle it can be used abstraction by implementing Interfaces and Abstract classes and by using different design patterns like Strategy or Decorator.
+  }
+  \subsubsection{Liskov Substitution Principle}
+  { Introduced in 1987 by Barbara Liskov, it states that \textit{derived or child classes must be substitutable for their base or parent classes}, ensuring that any class can be used in place of its parent class without any loss of functionality. \smallskip\\
+  In order to apply this principle, it is important to ensure that subclasses can be used anywhere where the base class is used without changing  the expected behaviour, avoiding overriding methods and making sure to not thow NotImplementedException. This can be done by using Interfaces and Abstract classes.
+  }
+  \subsubsection{Interface Segregation Principle}
+  {This principle applies directly to interfaces, and it states that \textit{do not force any client to implement an interface which is irrelevant to them}. The main objective of this principle is to not implement too big interfaces and to implement instead smaller and more specific interfaces.\smallskip\\
+  If this principle is used in a project, the corresponding software architecture should have many interfaces implementations with specific purposes.}
+  \subsubsection{Dependency Inversion Principle}
+  {
+  States that \textit{high-level modules should not depend on low-level modules, but both should depend on abstractions}, ensuring that the dependencies are inverted and that the high-level modules are not dependent on the low-level modules. \smallskip\\
+  In order to apply this principle, it is suggested to use abstractions and interfaces to define the dependencies between modules.
+  }
 \subsection{Project architecture}
+{Applying the MVVM design pattern and the SOLID principles, the project architecutre can be summed up as follows:}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=16cm]{img/architecture_mvvm.png}
+    \caption[mvvm]{\footnotesize{MVVM design pattern applied to the project architecure}}
+    \label{fig:architecture}
+\end{figure}
+
+{In \Cref{fig:architecture} it can be seen how the Views are divided into different folders. The Windows folder contains all the files containing the definitions of the different windows and dialogs of the application, while the Views folder contains all the files containing the definitions of different UserControls. UserControls are used as Content in the MainWindow, in this case, as Contents of the different tab items.\smallskip\\
+The ViewModel section contains all the files containing the definitions of the different ViewModels of the application. Most of them are located in the ViewModels folder, but it can also be appreciated that there is a folder named UIElement, where the models for CheckItems and TabItems are located. With this classes, adding these items to Views and ViewModels is easier to mantain and update.\smallskip\\
+Finally, the Model component is composed by all the internal classes of the application. It has been divided by AppCode, where is located all the implementations related to app Logic, and by Matlab, where all the MATLAB scripts are located aswell as the necessary implementations for the app to execute them. }
