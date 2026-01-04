@@ -7,12 +7,12 @@ using System.Collections.ObjectModel;
 
 namespace GRASP_Builder;
 
-public partial class DataConvinationView : UserControl
+public partial class DataCombinationView : UserControl
 {
-    public DataConvinationView()
+    public DataCombinationView()
     {
         InitializeComponent();
-        DataContext = new DataConvinationViewModel();
+        DataContext = new DataCombinationViewModel();
 
         Messenger.Default.Register<string>("WriteMatlabOutput_DC", WriteMatlabOutput);
         Messenger.Default.Register<string>("WriteMatlabErrors_DC", WriteMatlabErrors);

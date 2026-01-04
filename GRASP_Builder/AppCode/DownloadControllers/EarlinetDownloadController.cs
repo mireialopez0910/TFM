@@ -129,7 +129,7 @@ namespace GRASP_Builder.AppCode.DownloadControllers
             catch (InvalidDataException ex)
             {
                 using (StreamWriter sw = new StreamWriter("log.txt", true))
-                    Logger.Log("no files where downloaded for selected dates range");
+                    Logger.Log("No files were downloaded for selected dates range");
             }
             catch (Exception ex)
             {

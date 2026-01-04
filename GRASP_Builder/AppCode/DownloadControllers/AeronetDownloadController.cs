@@ -36,7 +36,7 @@ namespace GRASP_Builder.AppCode.DownloadControllers
             string destinationFile = System.IO.Path.Combine(_repositoryDirectory, $"{FileType.AeronetInversions.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.all");
 
             await _aeronetService.DescargarDatosAsync(destinationFile, url);
-            Logger.Log("AERONET Aerosol inversion products data have downloaded and saved in file {destinationFile}");
+            Logger.Log($"AERONET Aerosol inversion products data have downloaded and saved in file {destinationFile}");
 
             Messenger.Default.Send<string>("UpdateProgress", "50");
 
@@ -46,7 +46,7 @@ namespace GRASP_Builder.AppCode.DownloadControllers
 
             await _aeronetService.DescargarDatosAsync(destinationFile, url); //.lev15
 
-            Logger.Log("AERONET AOD data have been downloaded and saved in file {destinationFile}");
+            Logger.Log($"AERONET AOD data have been downloaded and saved in file {destinationFile}");
 
             Messenger.Default.Send<string>("UpdateProgress", "60");
 
@@ -56,7 +56,7 @@ namespace GRASP_Builder.AppCode.DownloadControllers
 
             await _aeronetService.DescargarDatosAsync(destinationFile, url); //.ONEILL_lev15
 
-            Logger.Log("AERONET Spectral deconvolution algortihm file downloaded & saved in file: " + destinationFile);
+            Logger.Log($"AERONET Spectral deconvolution algortihm file downloaded & saved in file: " + destinationFile);
 
             Messenger.Default.Send<string>("UpdateProgress", "70");
 
@@ -68,7 +68,7 @@ namespace GRASP_Builder.AppCode.DownloadControllers
 
             Messenger.Default.Send<string>("UpdateProgress", "80");
 
-            Logger.Log("AERONET Raw Almucantar data have been downloaded and saved in file {destinationFile}");
+            Logger.Log($"AERONET Raw Almucantar data have been downloaded and saved in file {destinationFile}");
 
             url = _aeronetService.BuildUrl(DataType.RawProductsOpticalDepth, FromDate, ToDate, RawProductsOpticalDepth.ALP00);
 
@@ -78,7 +78,7 @@ namespace GRASP_Builder.AppCode.DownloadControllers
 
             Messenger.Default.Send<string>("UpdateProgress", "90");
 
-            Logger.Log("AERONET Raw polarized almucantar has been downloaded and saved in file {destinationFile}");
+            Logger.Log($"AERONET Raw polarized almucantar has been downloaded and saved in file {destinationFile}");
         }
 
     }

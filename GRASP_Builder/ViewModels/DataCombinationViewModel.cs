@@ -14,11 +14,11 @@ using System.Windows.Input;
 
 namespace GRASP_Builder.ViewModels
 {
-    public class DataConvinationViewModel : ViewModelBase
+    public class DataCombinationViewModel : ViewModelBase
     {
         #region Constructor
 
-        public DataConvinationViewModel()
+        public DataCombinationViewModel()
         {
             Messenger.Default.Register<ObservableCollection<string>>("UpdateMeasureIDList", UpdateMeasureIDList);
             Messenger.Default.Register<Dictionary<string, string>>("UpdateUI", UpdateUI);

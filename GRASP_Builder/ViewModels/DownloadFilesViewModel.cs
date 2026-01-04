@@ -261,7 +261,7 @@ namespace GRASP_Builder.ViewModels
                 }
             }
 
-            //Share list of folders containing the list of available measureID to DataConvinationViewModel
+            //Share list of folders containing the list of available measureID to DataCombinationViewModel
             if (fileType == FileType.ELPP)
                 Messenger.Default.Send<ObservableCollection<string>>("UpdateMeasureIDList", _measureIDList);
 

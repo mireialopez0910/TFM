@@ -4,12 +4,12 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="700" HorizontalAlignment="Center"
 			 xmlns:vm="using:GRASP_Builder.ViewModels"
-			 x:DataType="vm:DataConvinationViewModel"
-			 x:Class="GRASP_Builder.DataConvinationView">
+			 x:DataType="vm:DataCombinationViewModel"
+			 x:Class="GRASP_Builder.DataCombinationView">
 	<Design.DataContext>
 		<!-- This only sets the DataContext for the previewer in an IDE,
 		to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-		<vm:DataConvinationViewModel/>
+		<vm:DataCombinationViewModel/>
 	</Design.DataContext>
 	<StackPanel Orientation="Horizontal">
 		<StackPanel Orientation="Vertical" Margin="20" HorizontalAlignment="Center">

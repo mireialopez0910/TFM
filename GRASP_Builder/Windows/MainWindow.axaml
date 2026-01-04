@@ -56,7 +56,7 @@
 
 					<TabItem Header="Data combination">
 						<TabItem.Content>
-							<n:DataConvinationView />
+							<n:DataCombinationView />
 						</TabItem.Content>
 					</TabItem>
 
