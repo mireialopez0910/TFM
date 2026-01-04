@@ -1,1 +1,46 @@
 \section{Graphic User Interface (GUI) design}
+{For the user interface different decisions were taken. In order to give to the user only the essential information, it was chosen to divide the different main actions that the application should perform into different views. In order to accomplish that, different UI implementations can be used. In this case, it was decided to implement a TabMenu, with three different views for each action: Download data files, Combine Data for GRASP algorithm execution and Plot GRASP results.\smallskip
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{img/UI_tabmenu_mw.png}
+    \caption[mvvm]{\footnotesize{TabMenu design}}
+    \label{fig:tabmenu}
+\end{figure} }
+\subsection{Download data files}
+{In the requirements list, it was specified that the user should be able to download the data files within a selected date range and a selected station. After that, user should be able to see a list of the downloaded files from each website.\smallskip
+In order to implement this functionality, the first desing  uses two calendar selectors in order to choose "From date" and "To date". A text selector is used in order to select the station and a Download Button in order start the execution.\smallskip
+To finish, a list of the downloaded files is shown in a text block. All these features can be seen in the \Cref{fig:download}.\smallskip
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{img/UI_download.png}
+    \caption[mvvm]{\footnotesize{Download tab design}}
+    \label{fig:download}
+\end{figure} }
+\subsection{Data combination}
+{For the data combination step, the user needs to select with wich of the available measure IDs it is going to be executed the GRASP algorithm. It is necessary also two options in order to select the minimum and maximum height for the data combination.\smallskip\\
+Once the data is previewed, it is necessary to notify the user the different configurations that are available in order that the user chooses one of them depending on the available data for selected date and time.\smallskip\\
+Two buttons are used in order to start the different scripts execution: one for the data preview and the other one for generating the combination .sdat and .yml files and executing the GRASP algorithm execution.\smallskip\\
+All these features can be seen in \Cref{fig:data_comb}. In addition, a text section should be added in order to see the Ouput and Errors obtained from executing the different Matlab scripts used for pre-processing the data. Thanks to that element, the user will be able to see the process during the execution and the errors that may occur during it.\smallskip\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{img/UI_data_comb.png}
+    \caption[mvvm]{\footnotesize{Data combination tab design}}
+    \label{fig:data_comb}
+\end{figure} }
+\subsection{Plot GRASP results}
+{For the last tab, the plotting tab, it is necessary to understand how the project folders are organized in order to know all the necessary elements that are going to be needed in order that the user can introduce all the necessary information.\smallskip
+As it can be appreciated in \Cref{fig:folders}, the project folder is organized in different subfolders, each one with a specific purpose. Data folder will contain all the downloaded data and Output data will contain the results of both, the data combination script and the GRASP algorithm execution.\smallskip
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm]{img/UI_folders.png}
+    \caption[mvvm]{\footnotesize{Project folders organization}}
+    \label{fig:folders}
+\end{figure} 
+GRASP execution output is saved in a file named UPC\_\{config\}\_out.txt. This file will be the one used in order to create and save all the different files for each figure. Therefore, it is necessary first to specify the measure ID, then the measurement file and to finish, the figure name that is desired to be seen.\smallskip\\
+This actions can be implemented with the different buttons and text inputs shown in \Cref{fig:plot}. Additionally, since this tab will also be executing Matlab scripts, it will be helpfull for the user to see the progress and possible errors that can appear.\smallskip\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{img/UI_plotting.png}
+    \caption[mvvm]{\footnotesize{Plot tab design}}
+    \label{fig:plot}
+\end{figure}}
