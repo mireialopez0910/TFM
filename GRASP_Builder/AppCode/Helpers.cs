@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace GRASP_Builder
 {
-    public class Helpers
+    public class FormatHelpers
     {
         public static string DictionaryToString(Dictionary<string, object> dict)
         {
@@ -22,14 +22,10 @@ namespace GRASP_Builder
 
             return text.Substring(0, text.Length - 3);
         }
+    }
 
-        public static async Task<bool> ShowMessage(string message, string title, bool isError = false, bool isWarning = false)
-        {
-            var desktop = App.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
-            var owner = desktop?.MainWindow;
-            var dialog = new MessageWindow(message, title, isError, isWarning);
-            return await dialog.ShowDialog<bool>(owner);
-        }
+    public class WindowHelpers
+    {
     }
 
     public class FileHelpers

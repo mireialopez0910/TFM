@@ -90,7 +90,7 @@ namespace GRASP_Builder.ViewModels.ProjectActions
 
                 if (Directory.Exists(DirectoryPath))
                 {
-                    bool result = await Helpers.ShowMessage($"ERROR: target folder already exists: {DirectoryPath}. Folder will be overwritten, do you want to continue?", "Folder already exists", isWarning: true);
+                    bool result = MessagesController.Show($"ERROR: target folder already exists: {DirectoryPath}. Folder will be overwritten, do you want to continue?", "Folder already exists", isWarning: true);
                     Logger.Log($"ImportProject: target folder already exists: {DirectoryPath}");
                     if (!result)
                     {
@@ -116,14 +116,14 @@ namespace GRASP_Builder.ViewModels.ProjectActions
             }
             catch (InvalidDataException)
             {
-                await Helpers.ShowMessage("ImportProject: invalid or corrupted zip file.", "ImportProject failed", isError: true);
+                MessagesController.Show("ImportProject: invalid or corrupted zip file.", "ImportProject failed", isError: true);
                 Logger.Log("ImportProject: invalid or corrupted zip file.");
                 Messenger.Default.Send<bool>("CloseProjectActionWindow", false);
                 return false;
             }
             catch (Exception ex)
             {
-                await Helpers.ShowMessage($"ERROR: ImportProject failed: {ex.Message}", "ImportProject failed", isError: true);
+                MessagesController.Show($"ERROR: ImportProject failed: {ex.Message}", "ImportProject failed", isError: true);
                 Logger.Log($"ImportProject failed: {ex.Message}");
                 Messenger.Default.Send<bool>("CloseProjectActionWindow", false);
                 return false;

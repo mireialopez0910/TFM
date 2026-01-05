@@ -54,7 +54,7 @@ namespace GRASP_Builder.ViewModels.ProjectActions
                 }
                 else
                 {
-                    await Helpers.ShowMessage($"ERROR: Directory already exists: {DirectoryPath}. Project can not be created.", "Directory exists", isError: true);
+                    MessagesController.Show($"ERROR: Directory already exists: {DirectoryPath}. Project can not be created.", "Directory exists", isError: true);
                     Logger.Log($"CreateProject: directory already exists: {DirectoryPath}");
                     return false;
                 }
@@ -70,7 +70,7 @@ namespace GRASP_Builder.ViewModels.ProjectActions
             }
             catch (Exception ex)
             {
-                await Helpers.ShowMessage($"ERROR: Failed to create project: {ex.Message}.", "Failed to create project", isError: true);
+                MessagesController.Show($"ERROR: Failed to create project: {ex.Message}.", "Failed to create project", isError: true);
                 Logger.Log($"Failed to create project: {ex.Message}");
                 return false;
             }

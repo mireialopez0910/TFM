@@ -3,15 +3,15 @@ using Avalonia.Threading;
 using System;
 using System.Threading.Tasks;
 
-namespace GRASP_Builder.AppCode
+namespace GRASP_Builder
 {
-    public static class MessageService
+    public static class MessagesController
     {
         /// <summary>
         /// Shows the message window asynchronously on the UI thread and returns the dialog result.
         /// Safe to call from any thread.
         /// </summary>
-        public static Task<bool> ShowAsync(string message, string title, bool isError = false, bool isWarning = false)
+        public static Task<bool> ShowMessage(string message, string title, bool isError = false, bool isWarning = false)
         {
             var desktop = App.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
             var owner = desktop?.MainWindow;
@@ -19,6 +19,7 @@ namespace GRASP_Builder.AppCode
             // Return the task produced by the window so callers can await it.
             return dialog.ShowDialog<bool>(owner);
         }
+
 
         /// <summary>
         /// Synchronous wrapper safe to call from background threads without freezing the UI.
@@ -32,7 +33,7 @@ namespace GRASP_Builder.AppCode
             // If already on UI thread, do not block: show async and return immediately.
             if (Dispatcher.UIThread.CheckAccess())
             {
-                _ = ShowAsync(message, title, isError, isWarning);
+                _ = ShowMessage(message, title, isError, isWarning);
                 return true;
             }
 
@@ -44,13 +45,13 @@ namespace GRASP_Builder.AppCode
             {
                 try
                 {
-                    var result = await ShowAsync(message, title, isError, isWarning).ConfigureAwait(false);
+                    var result = await ShowMessage(message, title, isError, isWarning).ConfigureAwait(false);
                     tcs.TrySetResult(result);
                 }
                 catch (Exception ex)
                 {
                     // Log and return false to caller instead of throwing from this helper.
-                    Logger.Log($"MessageService.Show (UI) failed: {ex.Message}");
+                    Logger.Log($"MessagesController.Show (UI) failed: {ex.Message}");
                     tcs.TrySetResult(false);
                 }
             });
@@ -63,7 +64,7 @@ namespace GRASP_Builder.AppCode
             catch (Exception ex)
             {
                 // Do not throw from UI helpers; log and return false as fallback.
-                Logger.Log($"MessageService.Show failed: {ex.Message}");
+                Logger.Log($"MessagesController.Show failed: {ex.Message}");
                 return false;
             }
         }

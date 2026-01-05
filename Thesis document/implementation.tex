@@ -1,2 +1,168 @@
 \section{Implementation}
+The code implmeneted for this project can be found in the GitHub repository\cite{github}. Some implementations have been explained previously in other sections of this document like the Matlab Controller or the Aeronet Download Service, but this section aims to explain the purpose of the different classes and the different design patterns that have been used in order to follow the SOLID principles as much as possible.\smallskip
 \subsection{Set up development enviroment}
+In order to create this project, it is necessary to meet several requirements to have a correct develpment enviroment. First of all, it is necessary to choose a correct IDE. There are different options, including JetBrains Rider and Visual Studio Code, but for this project, it has been decided to use Visual Studio Community \cite{Download_vscommunity}.\smallskip\\
+The application will be run using .NET, which is a free and open-source application platform supported by Microsoft used for developing different type of applications using C\# \cite{dotnet} and which is usally already installed in the system\cite{Download_dotnet}.\smallskip\\
+In order to use Avalonia, it is necessary to install the corresponding extension for Visual Studio. It can be done by accessing to Extensions>ManageExtensions:\smallskip
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=16cm]{img/extensions.png}
+    \caption[extensions]{\footnotesize{Extensions installed in Visual Studio}}
+    \label{fig:extensions}
+\end{figure}
+Since the app will be executing Matlab scripts, it is also necessary to have Matlab installed. In this case it has been used Matlab R2024a\cite{Download_matlab}.\smallskip\\
+In order to run the GRASP algorithm it is necessary to acces to CALCULA, where it is already installed and running in Ubuntu that will only be used for testing.
+\subsection{Views and ViewModels}
+In order to not overload the content of the different files for the User Interface implementation (Views and Windows) and management (View Models) it has been created a different View class for each Tab and for each Window, that can be resumed in the following list:
+\begin{itemize}
+    \item About Window: Window that shows general information about the app and containg button "Help" which opens User Manual
+    \item Data Combination View: Tab where the user can select Measure ID to combine data, showing available configurations for selected date and time and executing GRASP.
+    \item Data Download View: Tab where the user can select dates and station and downloading corresponding data form Earlinet and Aeronet websites.
+    \item Home View: Shows the following action options: to create, open or import a project.
+    \item Home Project Action Window: Window that appears when the user clicks on a project action option in Home View and in charge of performing it.
+    \item Main Window: Window that contains all the tabs and shows them when necessary. It can show the Home View when no project is loaded or a combination of the other tabs with an additional Log and a Menu in order to manage the app Settings or the current project.
+    \item Message Window: Window that shows a message to the user that can be an Error, a Warning or just informatiom.
+    \item Log View: Tab that shows the Log content of the app.
+    \item Plot View: Tab where the user can select and create the desired figures after executing GRASP algorithm.
+    \item Settings View: Window where the user is able to modify the app configuration parameters.
+\end{itemize}
+All this classes for both Views and ViewModels are implemented using the MVVM pattern using ObservableObject and RelayCommand classes from the .NET community toolkit. In addition, all ViewModels classes have been structured by regions in order to homogeneously group the different properties, commands and methods.\smallskip\\
+In order to stablish communication between different classes to notify modifications, it has been used the Messenger class from the .NET community toolkit. It consists on defining a Send Action, that can include some parameter or variable and a Receive Action, that will be executed when the Send Action is called, executing the linked method.\smallskip\\ 
+In the following example it can be seen how the DataCombinationViewModel class has been implemented using the Messenger class to receive modifications in the buttons enabled state:\smallskip
+\begin{lstlisting}
+public DataCombinationViewModel()
+{
+    Messenger.Default.Register<bool>("UpdateButtonsEnabled", UpdateButtonsEnabled);
+}   
+
+private void UpdateButtonsEnabled(bool status)
+{
+    AreButtonsEnabled = status;
+    if (!status)
+    {
+        isEnabled_D1_L = false;
+        isEnabled_D1P_L = false;
+        isEnabled_D1_L_VD = false;
+        isEnabled_D1P_L_VD = false;
+    }
+}
+\end{lstlisting}
+In the corresponding controller, in order to send the modification in order to enable the buttons, for exemple, it is necessary to execute the following line:
+\begin{lstlisting}
+Messenger.Default.Send<bool>("UpdateButtonsEnabled", true);
+\end{lstlisting}
+Using Messenger allows to notify modifications in the App between classes that exist simultaneously, in this case between the different Tabs and between ViewModels and Controllers. In the case of creating new Windows like the Settings one, it is not necessary, since the needed information can be passed as parameters to the Constructor when it is initialized.
+\subsection{Controllers}
+In the backend of the app, different classes and controllers have been implemented following the Single Responsability Principle (SRP). Each one has its own responsability and purpose:
+\begin{itemize}
+    \item Download Controllers: Different controllers have been developed for each different web site. They both implement the IDownloadController Interface. Each controller is responsible of the different actions that need to be executed when downloading the respective data by managing their respective web services. 
+    \item CmdController: This controller is responsible of the different actions needed to execute commands, in this case, necessary to execute the GRASP algorithm via the command line. Since this application have been designed to work with CALCULA, command line for executing GRASP only is executed with Ubuntu sintaxis.
+    \item AppConfig: This class manages the application configuration, obtaining and saving the different configuration parameters from the configuration file (config.json), located in the execution directory.
+    \item Helpers: Different helper classes have been developed to perform different actions. FormatHelpers are used for changing the format of variables, for exemple: Converting a dictionary to a string variable. FileHelpers are used for managing the files and directories renaming, copying, etc.
+    \item Logger: This class is responsible of managing the logging actions.
+    \item MessagesController: This controller is responsible of managing the different messages that can be shown to the user: Errors, warnings and information messages.
+    \item ProjectConfig: This class manages the project configuration, obtaining and saving the different configuration parameters from the project file (project.grasp), located in the project directory.
+    \item MatlabScriptController: This controller is responsible of managing the different actions needed to execute any MatlabScript.
+\end{itemize}
+\subsection{Polymorphism through interfaces}
+With the objective of applying the Open/Closed Principle (OCP) and the Interface Segregation Principle (ISP), different interfaces have been implemented in order to be used in different points of the project. Using polymorphism, enables the possibility of using objects of a derived class as objects of a base class\cite{polymorphism}.\smallskip\\
+Polymorphism can be implemented with a parent or base class, which defines the common properties and implements virtual methods. Derived classes can use the already implemented methods of the parent class, or override them.\smallskip\\
+Another possible implementation of polymorphism is through the use of abstract classes or interfaces, which is the one used in this project. Interfaces are contracts that define a set of methods that a class must implement. This enables the possibiltiy to work with different classes, where each class implements the interface in a different way but all classes and actions are used uniformly by calling the interface methods.
+\subsubsection{Factory pattern}
+Factory pattern is a creational design pattern that provides an interface for creating objects of a parent class, but deciding which subclass to instantiate\cite{factory_pattern}. This allows to resume all the different conditions in one single method, instead of using multiple if-else conditions during the development of the code.\smallskip\\
+An exemple of this pattern can be seen in the following example, showing the implementation of the DownloadControllerFactory Create method:\smallskip   
+\begin{lstlisting}
+public static IDownloadController Create(DownloadType type, string _repositoryDirectory, string _workingDirectory)
+{
+    switch (type)
+    {
+        case DownloadType.Earlinet:
+            return new EarlinetDownloadController(_repositoryDirectory, _workingDirectory);
+        case DownloadType.Aeronet:
+            return new AeronetDownloadController(_repositoryDirectory, _workingDirectory);
+        default:
+            throw new NotSupportedException($"Download type {type.ToString()} is not supported");
+    }
+}
+\end{lstlisting}
+\subsubsection{Project Actions}
+The first usage of this coding strategy can be found in IProjectAction interface. This interface is used when initializing a project when the application is opened, where the user can choose between the different actions that can be executed: Create, Open or Import from .zip file. Export action has also been implemented, but it is also accessible through the File Menu, once a project is loaded.\smallskip
+\begin{lstlisting}
+public interface IProjectAction
+{
+    public string Title { get; set; }
+    public string ProjectName { get; set; }
+    public string DirectoryPath { get; set; }
+    public bool IsProjectNameVisible { get; set; }
+    public bool IsDirectoryPathVisible { get; set; }
+    public Task<bool> Execute();
+    public Task Browse();
+}
+\end{lstlisting}
+This interface defines five different properties, that are used for initializing the View and ViewModel before showing the new window, and two methods, that correspond to the different actions that can be executed in this window: Browse a directory and Execute.\smallskip\\
+With this implementation, IProjectAction object is used in HomeProjectActionViewModel. Only in the constructor the type of action needs to be specified. In the rest of the class, all the Bindings and Commands are executed using this object equally for all the types. A simple example is the implementation of Execute command.\smallskip\\
+\begin{lstlisting}
+public ICommand BrowseCmd => new RelayCommand(async _ => await BrowseExecute(), CanBrowse);
+
+private bool CanBrowse(object _)
+{
+    return true;
+}
+
+private async Task BrowseExecute()
+{
+    _projectAction.DirectoryPath = DirectoryPath;
+    _projectAction.ProjectName = ProjectName;
+
+    await _projectAction.Browse();
+    
+    DirectoryPath = _projectAction.DirectoryPath;
+    ProjectName = _projectAction.ProjectName;
+}
+\end{lstlisting} 
+In this Command, it can be appreciated the simplicity of the code and the lack of if-else conditions and knowledge of the type of action that is being executed.
+\subsubsection{Download Controllers}
+Another class that can take advantage of the use of polymorphism is the DownloadController, which needs a simpler interface.
+\begin{lstlisting}
+public interface IDownloadController
+{
+    public string RepositoryDirectory { get; set; }
+    public string WorkingDirectory { get; set; }
+    public Task Download(DateTime FromDate, DateTime ToDate,  string station);
+}
+\end{lstlisting}
+With this implementation, the only method that needs to be called is Download, but in each implementation, this method execute different actions.\smallskip\\
+For the moment, only two classes are implemented using this interface, but in the future, if it was desired to add any other data source, it would be possible to implement a new class that implements this interface and used it in the ViewModel as it is done now with the IDownloadController object.\smallskip
+\begin{lstlisting}
+IDownloadController downloadController = DownloadControllerFactory.Create(DownloadType.Earlinet, _earlinetRepositoryDirectory, _workingDirectory);
+await downloadController.Download(FromDate, ToDate,"BRC");
+\end{lstlisting}
+\subsubsection{Matlab Scripts Implementations}
+The last interface that has been implemented is IMatlabScript. Running Matlab scripts using C\# is not a complicated task, since the use of the library ProcessStartInfo agilizes all the process, needed only the name of the script to be executed. But for this project it was requiered to execute more actions.\smallskip\\
+\begin{lstlisting}
+public interface IMatlabScript
+{
+    public string Name { get; }
+    public Dictionary<string, object> vars { get; set; }
+    public void PreExecutionActions();
+    public void PostExecutionActions(bool resultOK = true);
+}
+\end{lstlisting}
+It was needed not only to run a script but to have communication between the Matlab scripts and the application. In order to solve this problem, it was decided to create different files:
+\begin{itemize}
+    \item Configuration files: Parameters are saved from C\# application and read in Matlab before running the corresponding script.
+    \item Ouput files: Results are saved from Matlab and read in C\# application after running the corresponding script, in order to actualize the UI or execute further actions.
+\end{itemize}
+This is very useful, since it allows to have a clear separation between the different tasks and to make the code more maintainable. If it is desired to add a new script, it is only necessary to create a new class using this same interface and call the method for running a Matlab script as in the following exemple:
+\begin{lstlisting}
+MatlabController.RunMatlabScript(ScriptType.Preview, dict,"_DC");
+\end{lstlisting}
+This is possible because this interface is only used for running Matlab Scripts. The MatlabController class is responsible of executing all the sequence for running a script, which consists on:
+\begin{enumerate}
+    \item Execute pre-execution actions
+    \item Run the script (start matlab process)
+    \item Receive output from Matlab
+    \item Receive results from Matlab
+    \item Execute post-execution actions
+\end{enumerate}
+Each Script implmentation will be the responsible of defining the different actions to be executed in each step, having into account if the script finished with error or was executed successfully.

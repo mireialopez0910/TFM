@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models/" />
     <AvaloniaResource Include="Assets/**" />
   </ItemGroup>
 
@@ -68,6 +67,14 @@
 			<!--/**/*/  includes all files and subfolders recursively-->
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AvaloniaXaml Remove="Models\**" />
+	  <Compile Remove="Models\**" />
+	  <Content Remove="Models\**" />
+	  <EmbeddedResource Remove="Models\**" />
+	  <None Remove="Models\**" />
 	</ItemGroup>
 
 	<ItemGroup>

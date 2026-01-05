@@ -30,10 +30,6 @@ namespace GRASP_Builder.ViewModels
             LoadSettings();
         }
 
-        #endregion
-
-        #region Messenger
-
         private void LoadSettings()
         {
             AeronetRepositoryPath = projectCfg?.GetValue("AeronetRepositoryDirectory");

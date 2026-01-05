@@ -47,7 +47,7 @@ namespace GRASP_Builder.ViewModels.ProjectActions
             {
                 if (string.IsNullOrWhiteSpace(DirectoryPath) || !Directory.Exists(DirectoryPath))
                 {
-                    await Helpers.ShowMessage($"ERROR: Directory does not exist: {DirectoryPath}. Project can not be opened.", "No GRASP project marker", isError: true);
+                    MessagesController.Show($"ERROR: Directory does not exist: {DirectoryPath}. Project can not be opened.", "No GRASP project marker", isError: true);
                     Logger.Log($"OpenProject: directory does not exist: {DirectoryPath}");
                     return false;
                 }
@@ -57,7 +57,7 @@ namespace GRASP_Builder.ViewModels.ProjectActions
                 string projectRoot = DirectoryPath;
                 if (!File.Exists(candidate))
                 {
-                    await Helpers.ShowMessage($"ERROR:no GRASP project marker (project.grasp) found in {DirectoryPath} or its immediate subfolders.", "Directory does not exist", isError: true);
+                    MessagesController.Show($"ERROR:no GRASP project marker (project.grasp) found in {DirectoryPath} or its immediate subfolders.", "Directory does not exist", isError: true);
                     Logger.Log($"OpenProject: no GRASP project marker (project.grasp) found in {DirectoryPath} or its immediate subfolders.");
                     return false;
                 }

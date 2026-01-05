@@ -331,7 +331,7 @@ namespace GRASP_Builder.ViewModels
 
 
             if (AppConfig.Instance.IsDebugging())
-                Logger.Log($"Preview Matlab script started with dicctionary: {Helpers.DictionaryToString(dict)}");
+                Logger.Log($"Preview Matlab script started with dicctionary: {FormatHelpers.DictionaryToString(dict)}");
 
             MatlabController.RunMatlabScript(ScriptType.Preview, dict,"_DC");
 
@@ -369,7 +369,7 @@ namespace GRASP_Builder.ViewModels
                     };
 
                 if (AppConfig.Instance.IsDebugging())
-                    Logger.Log($"Send Data Matlab script started with dicctionary: {Helpers.DictionaryToString(dict)}");
+                    Logger.Log($"Send Data Matlab script started with dicctionary: {FormatHelpers.DictionaryToString(dict)}");
 
                 MatlabController.RunMatlabScript(ScriptType.Preview, dict, "_DC");
 

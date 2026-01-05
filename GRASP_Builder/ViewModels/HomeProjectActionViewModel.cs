@@ -49,8 +49,8 @@ namespace GRASP_Builder.ViewModels
         #endregion
 
         #region Members
-        private 
-            IProjectAction _projectAction;
+        
+        private IProjectAction _projectAction;
 
         #endregion
 

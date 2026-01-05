@@ -129,7 +129,7 @@ namespace GRASP_Builder.ViewModels
                     };
 
             if (AppConfig.Instance.IsDebugging())
-                Logger.Log($"SaveFigures Matlab script started with dicctionary: {Helpers.DictionaryToString(dict)}");
+                Logger.Log($"SaveFigures Matlab script started with dicctionary: {FormatHelpers.DictionaryToString(dict)}");
 
             MatlabController.RunMatlabScript(ScriptType.SaveFigures, dict, "_Plot");
         }
@@ -152,7 +152,7 @@ namespace GRASP_Builder.ViewModels
                     };
 
             if (AppConfig.Instance.IsDebugging())
-                Logger.Log($"PlotFigures Matlab script started with dicctionary: {Helpers.DictionaryToString(dict)}");
+                Logger.Log($"PlotFigures Matlab script started with dicctionary: {FormatHelpers.DictionaryToString(dict)}");
 
             MatlabController.RunMatlabScript(ScriptType.PlotFigure, dict, "_Plot");
         }
