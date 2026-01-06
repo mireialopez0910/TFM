@@ -20,7 +20,7 @@
 			<Image Source="avares://GRASP_Builder/Resources/open_folder.png"/>
 		</Button>
 		
-		<Button Margin="30" Command="{Binding ImportFromZipCmd}"  Width="370" Height="270" Background="Transparent" ToolTip.Tip="Import project from .zip file">
+		<Button Margin="30" Command="{Binding ImportFromZipCmd}"  Width="270" Height="270" Background="Transparent" ToolTip.Tip="Import project from .zip file">
 			<Image Source="avares://GRASP_Builder/Resources/import_zip.png"/>
 		</Button>
 	</StackPanel>

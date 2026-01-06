@@ -19,31 +19,17 @@ namespace GRASP_Builder.ViewModels
 
         public HomeProjectActionViewModel(string type)
         {
-            switch (type)
-            {
-                case "Create":
-                    _projectAction = new CreateProjectAction();
-                    break;
-                case "Open":
-                    _projectAction = new OpenProjectAction();
-                    break;
-                case "Import":
-                    _projectAction = new ImportProjectAction();
-                    break;
-                case "Export":
-                    _projectAction = new ExportProjectAction();
-
-                    DirectoryPath = AppConfig.Instance.GetValue("ProjectDirectoryPath");
-                    _projectAction.DirectoryPath = DirectoryPath;
-                    
-                    ProjectName = new System.IO.DirectoryInfo(_projectAction.DirectoryPath).Name;
-                    _projectAction.ProjectName = ProjectName;
-                    break;
-            }
+            _projectAction = ProjectActionFactory.Create(type);
 
             Title = _projectAction.Title;
             IsProjectNameVisible = _projectAction.IsProjectNameVisible;
             IsDirectoryPathVisible= _projectAction.IsDirectoryPathVisible;
+
+            if (!string.IsNullOrEmpty(_projectAction.DirectoryPath))
+                DirectoryPath = _projectAction.DirectoryPath;
+            
+            if(!string.IsNullOrEmpty(_projectAction.ProjectName))
+                ProjectName = _projectAction.ProjectName;
         }
 
         #endregion
