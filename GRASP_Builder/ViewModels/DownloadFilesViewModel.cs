@@ -135,13 +135,9 @@ namespace GRASP_Builder.ViewModels
             {
                 SetProperty<string>(ref _selectedStation, value);
                 string [] stationNames = value.Split(" - ");
-                _selectedEarlinetStation = stationNames[0];
-                _selectedAeronetStation = stationNames[1];
             }
         }
 
-        private string _selectedAeronetStation = "Barcelona";
-        private string _selectedEarlinetStation = "BRC";
         #endregion
 
         #region Messaging
@@ -240,52 +236,56 @@ namespace GRASP_Builder.ViewModels
             bool anyFile = false;
             foreach (string file in fileNames)
             {
+                string fileName = System.IO.Path.GetFileName(file);
                 anyFile = true;
                 switch (fileType)
                 {
                     case FileType.ELPP:
 
-                        if (!file.EndsWith(@"/elpp/") && !file.EndsWith(@"/elpp") && !file.EndsWith("_elda.nc"))
+                        if (!file.EndsWith(@"/elpp/") && !file.EndsWith(@"/elpp") && !file.EndsWith("_elda.nc") )
                         {
-                            DownloadedFiles_EARLINET.Add(new CheckItem { Name = System.IO.Path.GetFileName(file), IsChecked = true });
-                            if (AddToMeasureIDList(file))
-                                _measureIDList.Add(System.IO.Path.GetFileName(file));
+                            if (fileName.Any(char.IsDigit) &&!DownloadedFiles_EARLINET.Contains(new CheckItem { Name = fileName, FileName = file, IsChecked = true }))
+                            {
+                                DownloadedFiles_EARLINET.Add(new CheckItem { Name = fileName, FileName = file, IsChecked = true });
+                                if (AddToMeasureIDList(file))
+                                    _measureIDList.Add(fileName);
+                            }
                         }
                         break;
                     case FileType.Optical:
-                        if ((!file.EndsWith(@"/optical_products/") && !file.EndsWith(@"/optical_products")) &&
-                            (!file.EndsWith(@"/opticalproducts/") && !file.EndsWith(@"/opticalproducts")) && file.EndsWith("_elda.nc"))
-                            DownloadedFiles_EARLINET.Add(new CheckItem { Name = System.IO.Path.GetFileName(file), IsChecked = true });
+                        //if ((!file.EndsWith(@"/optical_products/") && !file.EndsWith(@"/optical_products")) &&
+                        //    (!file.EndsWith(@"/opticalproducts/") && !file.EndsWith(@"/opticalproducts")))
+                        //    DownloadedFiles_EARLINET.Add(new CheckItem { Name = fileName, FileName = file, IsChecked = true });
                         break;
                     case FileType.AeronetInversions:
                         if (file.EndsWith(".all"))
                         {
-                            DownloadedFiles_AERONET.Add(new CheckItem { Name = System.IO.Path.GetFileName(file), IsChecked = true });
+                            DownloadedFiles_AERONET.Add(new CheckItem { Name = fileName, FileName = file, IsChecked = true });
                         }
                         break;
                     case FileType.AeronetAOD:
                         if (file.EndsWith(".lev15"))
                         {
-                            DownloadedFiles_AERONET.Add(new CheckItem { Name = System.IO.Path.GetFileName(file), IsChecked = true });
+                            DownloadedFiles_AERONET.Add(new CheckItem { Name = fileName, FileName = file, IsChecked = true });
                         }
                         break;
                     case FileType.AeronetSDA:
                         if (file.EndsWith(".ONEILL_lev15"))
                         {
-                            DownloadedFiles_AERONET.Add(new CheckItem { Name = System.IO.Path.GetFileName(file), IsChecked = true });
+                            DownloadedFiles_AERONET.Add(new CheckItem { Name = fileName, FileName = file, IsChecked = true });
                         }
                         break;
                     case FileType.AeronetRawAlmucantar:
                         if (file.EndsWith(".alm"))
                         {
-                            DownloadedFiles_AERONET.Add(new CheckItem { Name = System.IO.Path.GetFileName(file), IsChecked = true });
+                            DownloadedFiles_AERONET.Add(new CheckItem { Name = fileName, FileName = file, IsChecked = true });
                         }
                         break;
 
                     case FileType.AeronetRawPolarizedAlmucantar:
                         if (file.EndsWith(".alp"))
                         {
-                            DownloadedFiles_AERONET.Add(new CheckItem { Name = System.IO.Path.GetFileName(file), IsChecked = true });
+                            DownloadedFiles_AERONET.Add(new CheckItem { Name = fileName, FileName = file, IsChecked = true });
                         }
                         break;
                 }
@@ -301,13 +301,16 @@ namespace GRASP_Builder.ViewModels
         private bool AddToMeasureIDList(string folder)
         {
             List<string> files = FileHelpers.GetAllFiles(folder);
+            int count = 0;
+
             foreach (string file in files)
             {
-                if (!file.EndsWith("_elda.nc") && file.Contains("_007_"))
-                    return false;
+                if (!file.EndsWith("_elda.nc") && file.Contains("_008_")&& (file.Contains("_0532") || file.Contains("_0354")))
+                    count++;
             }
+            if (count >= 2) return true;
 
-            return true;
+            return false;
         }
         private void UpdateListOfFiles()
         {
@@ -360,11 +363,11 @@ namespace GRASP_Builder.ViewModels
             Directory.CreateDirectory($@"{_workingDirectory}");
 
             IDownloadController downloadController = DownloadControllerFactory.Create(DownloadType.Earlinet, _earlinetRepositoryDirectory, _workingDirectory);
-            await downloadController.Download(FromDate, ToDate,_selectedEarlinetStation);
+            await downloadController.Download(FromDate, ToDate,_selectedStation);
 
 
             downloadController = DownloadControllerFactory.Create(DownloadType.Aeronet, _aeronetRepositoryDirectory, _workingDirectory);
-            await downloadController.Download(FromDate, ToDate, _selectedAeronetStation);
+            await downloadController.Download(FromDate, ToDate, _selectedStation);
 
             Logger.Log("Updating dowloaded files list . . .");
 
@@ -393,21 +396,21 @@ namespace GRASP_Builder.ViewModels
         {
             if (AppConfig.Instance.IsDebugging())
                 Logger.Log($"Executing: Keep selected files");
-            var notSelected = DownloadedFiles_AERONET.Where(o => !o.IsChecked).Select(o => o.Name);
+            var notSelected = DownloadedFiles_AERONET.Where(o => !o.IsChecked).Select(o => o.FileName);
             if (notSelected.Any())
             {
                 foreach (var file in notSelected)
                 {
-                    System.IO.File.Delete(System.IO.Path.Combine(_aeronetRepositoryDirectory,file));
+                    System.IO.File.Delete(file);
                 }
             }
 
-            notSelected = DownloadedFiles_EARLINET.Where(o => !o.IsChecked).Select(o => o.Name);
+            notSelected = DownloadedFiles_EARLINET.Where(o => !o.IsChecked).Select(o => o.FileName);
             if (notSelected.Any())
             {
                 foreach (var file in notSelected)
                 {
-                    System.IO.Directory.Delete(System.IO.Path.Combine(_earlinetRepositoryDirectory,file), true);
+                    System.IO.Directory.Delete(file, true);
                 }
 
             }

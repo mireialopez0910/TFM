@@ -11,6 +11,7 @@ using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GRASP_Builder.ViewModels
 {
@@ -319,8 +320,8 @@ namespace GRASP_Builder.ViewModels
                         { "sendData", "false"},
                         { "selected_measure_ID", SelectedMeasureID},
                         {"plot_ELPP", IsOptionELPP.ToString().ToLower() },
-                        {"Folder_AERONET", _aeronetRepositoryDirectory },
-                        {"Folder_LIDAR", _earlinetRepositoryDirectory },
+                        {"Folder_AERONET", Path.Combine(_aeronetRepositoryDirectory, new string(SelectedMeasureID.Where(c => !char.IsDigit(c)).ToArray()).ToUpper())},
+                        {"Folder_LIDAR",$@"{Path.Combine(_earlinetRepositoryDirectory, new string(SelectedMeasureID.Where(c => !char.IsDigit(c)).ToArray()).ToUpper())}\"},
                     };
 
             if (!measureIDModified)
@@ -333,7 +334,7 @@ namespace GRASP_Builder.ViewModels
             if (AppConfig.Instance.IsDebugging())
                 Logger.Log($"Preview Matlab script started with dicctionary: {FormatHelpers.DictionaryToString(dict)}");
 
-            MatlabController.RunMatlabScript(ScriptType.Preview, dict,"_DC");
+            MatlabController.RunMatlabScript(ScriptType.Preview, dict, "_DC");
 
             IsConfigSelectionEnabled = true;
         }
@@ -359,8 +360,8 @@ namespace GRASP_Builder.ViewModels
                         {"plot_ELPP", IsOptionELPP },
                         {"heightLimitMax",hMax  },
                         {"heightLimitMin",hMin  },
-                        {"Folder_AERONET", _aeronetRepositoryDirectory },
-                        {"Folder_LIDAR", _earlinetRepositoryDirectory },
+                        {"Folder_AERONET", Path.Combine(_aeronetRepositoryDirectory,new string(SelectedMeasureID.Where(c => !char.IsDigit(c)).ToArray()).ToUpper())},
+                        {"Folder_LIDAR", $@"{Path.Combine(_earlinetRepositoryDirectory, new string(SelectedMeasureID.Where(c => !char.IsDigit(c)).ToArray()).ToUpper())}\"},
                         {"is_D1_L_checked",isChecked_D1_L },
                         {"is_D1P_L_checked",isChecked_D1P_L },
                         {"is_D1P_L_VD_checked",isChecked_D1P_L_VD },

@@ -18,16 +18,16 @@ namespace GRASP_Builder
     public class EarlinetService
     {
         string baseUrl = "https://api.actris-ares.eu/api/services/restapi/";
-        public virtual System.Threading.Tasks.Task<bool> DownloadProductByDateRangeAsync(string type, string FromDate, string ToDate, string outputFolder)
+        public virtual System.Threading.Tasks.Task<bool> DownloadProductByDateRangeAsync(string type, string FromDate, string ToDate,string station, string outputFolder)
         {
-            return DownloadProductByDateRangeAsync(type, FromDate, ToDate, outputFolder, System.Threading.CancellationToken.None);
+            return DownloadProductByDateRangeAsync(type, FromDate, ToDate, station, outputFolder, System.Threading.CancellationToken.None);
         }
 
-        public async Task<bool> DownloadProductByDateRangeAsync(string type, string FromDate, string ToDate, string outputFilePath, System.Threading.CancellationToken cancellationToken = default)
+        public async Task<bool> DownloadProductByDateRangeAsync(string type, string FromDate, string ToDate, string station, string outputFilePath, System.Threading.CancellationToken cancellationToken = default)
         {
             try
             {
-                string url = $"{baseUrl}products/downloads?kind={type}&fromDate={FromDate}&toDate={ToDate}&stations=brc";
+                string url = $"{baseUrl}products/downloads?kind={type}&fromDate={FromDate}&toDate={ToDate}&stations={station}";
                 using (HttpClient client = new HttpClient())
                 {
                     HttpResponseMessage response = await client.GetAsync(url);

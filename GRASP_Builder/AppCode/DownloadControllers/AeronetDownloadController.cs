@@ -25,24 +25,27 @@ namespace GRASP_Builder.AppCode.DownloadControllers
         public async Task Download(DateTime FromDate, DateTime ToDate, string station)
         {
             AeronetService _aeronetService = new AeronetService();
+            string repositoryDirectory = Path.Combine(_repositoryDirectory, station.Split(" - ")[0]);
+            string site = station.Split(" - ")[1];
+            if(Directory.Exists(repositoryDirectory))
+                Directory.Delete(repositoryDirectory, true);
 
-            Directory.Delete(_repositoryDirectory, true);
-            Directory.CreateDirectory(_repositoryDirectory);
+            Directory.CreateDirectory(repositoryDirectory);
 
             Logger.Log($"Downloading Aeronet files from date {FromDate.ToString("dd-MM-yyyy")}");
 
-            string url = _aeronetService.BuildUrl(DataType.AerosolInversions, FromDate, ToDate);
+            string url = _aeronetService.BuildUrl(DataType.AerosolInversions, FromDate, ToDate, "ALM15", site);
 
-            string destinationFile = System.IO.Path.Combine(_repositoryDirectory, $"{FileType.AeronetInversions.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.all");
+            string destinationFile = System.IO.Path.Combine(repositoryDirectory, $"{FileType.AeronetInversions.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}_{site}.all");
 
             await _aeronetService.DescargarDatosAsync(destinationFile, url);
             Logger.Log($"AERONET Aerosol inversion products data have downloaded and saved in file {destinationFile}");
 
             Messenger.Default.Send<string>("UpdateProgress", "50");
 
-            url = _aeronetService.BuildUrl(DataType.OpticalDepth, FromDate, ToDate, "AOD15");
+            url = _aeronetService.BuildUrl(DataType.OpticalDepth, FromDate, ToDate, "AOD15", site);
 
-            destinationFile = System.IO.Path.Combine(_repositoryDirectory, $"{FileType.AeronetAOD.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.lev15");
+            destinationFile = System.IO.Path.Combine(repositoryDirectory, $"{FileType.AeronetAOD.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}_{site}.lev15");
 
             await _aeronetService.DescargarDatosAsync(destinationFile, url); //.lev15
 
@@ -50,9 +53,9 @@ namespace GRASP_Builder.AppCode.DownloadControllers
 
             Messenger.Default.Send<string>("UpdateProgress", "60");
 
-            url = _aeronetService.BuildUrl(DataType.OpticalDepth, FromDate, ToDate, "SDA15");
+            url = _aeronetService.BuildUrl(DataType.OpticalDepth, FromDate, ToDate, "SDA15", site);
 
-            destinationFile = System.IO.Path.Combine(_repositoryDirectory, $"{FileType.AeronetSDA.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.ONEILL_lev15");
+            destinationFile = System.IO.Path.Combine(repositoryDirectory, $"{FileType.AeronetSDA.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}_{site}.ONEILL_lev15");
 
             await _aeronetService.DescargarDatosAsync(destinationFile, url); //.ONEILL_lev15
 
@@ -60,9 +63,9 @@ namespace GRASP_Builder.AppCode.DownloadControllers
 
             Messenger.Default.Send<string>("UpdateProgress", "70");
 
-            url = _aeronetService.BuildUrl(DataType.RawProductsOpticalDepth, FromDate, ToDate, RawProductsOpticalDepth.ALM00);
+            url = _aeronetService.BuildUrl(DataType.RawProductsOpticalDepth, FromDate, ToDate, RawProductsOpticalDepth.ALM00, site);
 
-            destinationFile = System.IO.Path.Combine(_repositoryDirectory, $"{FileType.AeronetRawAlmucantar.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.alm");
+            destinationFile = System.IO.Path.Combine(repositoryDirectory, $"{FileType.AeronetRawAlmucantar.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}_{site}.alm");
 
             await _aeronetService.DescargarDatosAsync(destinationFile, url); //.alm
 
@@ -70,9 +73,9 @@ namespace GRASP_Builder.AppCode.DownloadControllers
 
             Logger.Log($"AERONET Raw Almucantar data have been downloaded and saved in file {destinationFile}");
 
-            url = _aeronetService.BuildUrl(DataType.RawProductsOpticalDepth, FromDate, ToDate, RawProductsOpticalDepth.ALP00);
+            url = _aeronetService.BuildUrl(DataType.RawProductsOpticalDepth, FromDate, ToDate, RawProductsOpticalDepth.ALP00, site);
 
-            destinationFile = System.IO.Path.Combine(_repositoryDirectory, $"{FileType.AeronetRawPolarizedAlmucantar.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}.alp");
+            destinationFile = System.IO.Path.Combine(repositoryDirectory, $"{FileType.AeronetRawPolarizedAlmucantar.ToString()}_{FromDate.ToString("ddMMyyyy")}_{ToDate.ToString("ddMMyyyy")}_{site}.alp");
 
             await _aeronetService.DescargarDatosAsync(destinationFile, url); //.alp
 

@@ -26,18 +26,20 @@ namespace GRASP_Builder.AppCode.DownloadControllers
         {
             try
             {
+                string _station = station.ToLower().Split(" - ")[0];
+
                 EarlinetService _earlinetClient = new EarlinetService();
 
-                Directory.Delete(_repositoryDirectory, true);
-                Directory.CreateDirectory(_repositoryDirectory);
+                Directory.Delete(_workingDirectory, true);
+                Directory.CreateDirectory(_workingDirectory);
 
                 string date = DateTime.Now.ToString("dd_MM_yyyy__hh_mm");
 
                 Logger.Log($"Downloading EARLINET-OPTICAL data");
 
-                bool res_elda = await _earlinetClient.DownloadProductByDateRangeAsync("OPTICAL", FromDate.ToString("yyyy-MM-dd"), ToDate.ToString("yyyy-MM-dd"), $"{_workingDirectory}EARLINET_ELDA_{date}.zip");
+                bool res_elda = await _earlinetClient.DownloadProductByDateRangeAsync("OPTICAL", FromDate.ToString("yyyy-MM-dd"), ToDate.ToString("yyyy-MM-dd"), _station, $"{_workingDirectory}EARLINET_ELDA_{date}.zip");
                 if (res_elda)
-                    Logger.Log($"Data downloaded correctly and saved in file {_workingDirectory}EARLINET_ELDA_{{date}}.zip");
+                    Logger.Log($"Data downloaded correctly and saved in file {_workingDirectory}EARLINET_ELDA_{date}.zip");
                 else
                     Logger.Log($"ELDA Data was not downloaded correctly");
 
@@ -45,13 +47,13 @@ namespace GRASP_Builder.AppCode.DownloadControllers
                 
                 Logger.Log($"Downloading EARLINET-ELPP data");
 
-                bool res_elpp = await _earlinetClient.DownloadProductByDateRangeAsync("ELPP", FromDate.ToString("yyyy-MM-dd"), ToDate.ToString("yyyy-MM-dd"), $"{_workingDirectory}EARLINET_ELPP_{date}.zip");
+                bool res_elpp = await _earlinetClient.DownloadProductByDateRangeAsync("ELPP", FromDate.ToString("yyyy-MM-dd"), ToDate.ToString("yyyy-MM-dd"),_station, $"{_workingDirectory}EARLINET_ELPP_{date}.zip");
                 if (res_elpp)
                     Logger.Log($"Data downloaded correctly and saved in file {_workingDirectory}EARLINET_ELPP_{date}.zip");
                 else
                     Logger.Log($"ELPP Data was not downloaded correctly");
 
-                unzipDownloadedFiles(date);
+                unzipDownloadedFiles(date, station);
             }
             catch (Exception ex)
             {
@@ -59,7 +61,7 @@ namespace GRASP_Builder.AppCode.DownloadControllers
             }
         }
 
-        private void unzipDownloadedFiles(string date)
+        private void unzipDownloadedFiles(string date,string station)
         {
 
             Messenger.Default.Send<string>("UpdateProgress", "30");
@@ -86,7 +88,7 @@ namespace GRASP_Builder.AppCode.DownloadControllers
                         {
                             string[] f_splitted = f.Split(System.IO.Path.DirectorySeparatorChar);
 
-                            string dest_folder = System.IO.Path.Combine(_repositoryDirectory, f_splitted[^1]);
+                            string dest_folder = System.IO.Path.Combine(_repositoryDirectory, station.Split(" - ")[0], f_splitted[^1]);
 
                             if (!Directory.Exists(dest_folder))
                                 Directory.CreateDirectory(dest_folder);

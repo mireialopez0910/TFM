@@ -39,19 +39,19 @@ namespace GRASP_Builder
                     if (isEnabled)
                         return BuildUrlAerosolInversions(startDate, endDate, productType, site, product, AVG);
                     else
-                        return BuildUrlAerosolInversions(startDate, endDate);
+                        return BuildUrlAerosolInversions(startDate, endDate, productType, site);
 
                 case DataType.OpticalDepth:
                     if (isEnabled)
                         return BuildUrlOpticalDepth(startDate, endDate, productType, site, AVG);
                     else
-                        return BuildUrlOpticalDepth(startDate, endDate, productType);
+                        return BuildUrlOpticalDepth(startDate, endDate, productType, site);
 
                 case DataType.RawProductsOpticalDepth:
                     if (isEnabled)
                         return BuildUrlRawProductsOpticalDepth(startDate, endDate, productType, site, AVG);
                     else
-                        return BuildUrlRawProductsOpticalDepth(startDate, endDate, productType);
+                        return BuildUrlRawProductsOpticalDepth(startDate, endDate, productType, site);
             }
 
             return "";
