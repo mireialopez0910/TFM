@@ -1,26 +1,17 @@
 \clearpage
 \newpage
 \section{Introduction}
-
-{An Introduction that clearly states the rationale of the thesis that includes:}
-
+Recently, the need to analyze and monitor atmospheric aerosols has grown significantly, as their negative impact has grown significantly in different sectors: human health, climatology and air transport. GRASP (Generalized Retrieval of Atmosphere and Surface Properties), which was introduced by Dubovik, is the first unified algorithm used for obtaining atmospheric properties from different remote sensing observations including satellite, ground-based and airborne measurements, both passive and active, of atmospheric radiation and their combinations\cite{grasp}.\smallskip\\
+The main objective of this work is to develop a software that automates the full GRASP execution process, which includes:
 \begin{enumerate}
-\item {Statement of purpose (objectives).}
-\item {Requirements and specifications.}
-\item {Methods and procedures, citing if this work is a continuation of another project or it uses applications, algorithms,
-software or hardware previously developed by other authors.}
-\item {Work plan with tasks, milestones and a Gantt diagram.}
-\item {Description of the deviations from the initial plan and incidences that may have occurred. }
+    \item Download photometer data from the Aeronet web site
+    \item Download Lidar (Light Detection and Ranging) data from the ACTRIS-EARLINET web site
+    \item Combine the data downloaded from both web sites
+    \item Run GRASP
+    \item Plot the obtained results
 \end{enumerate}
-
-\bigskip
-
-{The minimum chapters that this thesis document should have are described below, nevertheless they can have different
-names and more chapters can be added.}
-
-\bigskip
-
 \subsection{Gantt Diagram}
+The time organization of the project is shown in the Gantt diagram of \Cref{fig:gantt} representing a time lapse of one semester. It is important to note that even there are different groups of tasks for implementation and testing, tests have been executed during the implementation phase to ensure the correct functionality of the different steps.
 \label{ssec:gantt}
 \begin{figure}[H]
     \centering
@@ -28,9 +19,6 @@ names and more chapters can be added.}
     \input{gantt_diagrama.tex}
     \caption[Project's Gantt diagram]{\footnotesize{Gantt diagram of the project}}
     \label{fig:gantt}
-    For more information read the manual \cite{skalagantt} of Skala.
 \end{figure}
-
+\subsection{Deviation from the initial plan}
 \bigskip
-
-\subsection{Topic}

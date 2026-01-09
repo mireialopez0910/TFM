@@ -7,7 +7,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Policy;
 using System.Text;
+using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GRASP_Builder
 {
@@ -46,7 +50,41 @@ namespace GRASP_Builder
                 return false;
             }
         }
+
+        public virtual System.Threading.Tasks.Task<Dictionary<string,string>> GetStationsAsync()
+        {
+            return GetStations(System.Threading.CancellationToken.None);
+        }
+        private static readonly HttpClient client = new HttpClient();
+
+        public async Task<Dictionary<string, string>> GetStations(System.Threading.CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                string url = $"{baseUrl}stations";
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+
+                    using (var fs = new FileStream("./EarlinetStations.txt", FileMode.Create, FileAccess.Write, FileShare.None))
+                    {
+                        await response.Content.CopyToAsync(fs);
+                    }
+
+                    System.IO.FileInfo f = new FileInfo("./EarlinetStations.txt");
+                    
+                    return new Dictionary<string, string>();
+                }
+            }
+            catch (Exception ex)
+            {
+                return new Dictionary<string, string>();
+            }
+        }
     }
+
+    public class Station { public string ID { get; set; } public string Location { get; set; } }
 }
 
 #pragma warning restore 1591

@@ -1,4 +1,6 @@
 ﻿using GRASP_Builder.AppCode;
+using GRASP_Builder.AppCode.DownloadControllers;
+using GRASP_Builder.WebServices;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -119,6 +121,13 @@ namespace GRASP_Builder.ViewModels
             
             projectCfg.Save();
             settingsToSave.Clear();
+        }
+
+        public ICommand ReloadStationsCmd=> new RelayCommand(ReloadStationsExecute, CanExecute);
+        private void ReloadStationsExecute(object _)
+        {
+            ObservableCollection<string> stations = StationsService.GetStations();
+            Messenger.Default.Send<ObservableCollection<string>>("UpdateStations", stations);
         }
 
         private bool CanExecute(object _)

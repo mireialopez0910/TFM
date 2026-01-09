@@ -12,15 +12,15 @@
 	</Design.DataContext>
 	
 	<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-		<Button Margin="30" Command="{Binding CreateProjectCmd}" Width="270" Height="270" Background="Transparent" ToolTip.Tip="Create a new project">
+		<Button Margin="30" Command="{Binding CreateProjectCmd}" Width="300" Height="300" Background="Transparent" ToolTip.Tip="Create a new project">
 			<Image Source="avares://GRASP_Builder/Resources/create_new_folder.png"/>
 		</Button>
 		
-		<Button Margin="30" Command="{Binding OpenProjectCmd}" Width="270" Height="270" Background="Transparent" ToolTip.Tip="Open project from folder">
+		<Button Margin="30" Command="{Binding OpenProjectCmd}" Width="300" Height="300" Background="Transparent" ToolTip.Tip="Open project from folder">
 			<Image Source="avares://GRASP_Builder/Resources/open_folder.png"/>
 		</Button>
 		
-		<Button Margin="30" Command="{Binding ImportFromZipCmd}"  Width="270" Height="270" Background="Transparent" ToolTip.Tip="Import project from .zip file">
+		<Button Margin="30" Command="{Binding ImportFromZipCmd}"  Width="300" Height="300" Background="Transparent" ToolTip.Tip="Import project from .zip file">
 			<Image Source="avares://GRASP_Builder/Resources/import_zip.png"/>
 		</Button>
 	</StackPanel>

@@ -3,7 +3,10 @@ using Avalonia.Logging;
 using Avalonia.Styling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using GRASP_Builder.AppCode.DownloadControllers;
 using GRASP_Builder.UIElement;
+using GRASP_Builder.WebServices;
+using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json.Linq;
 using System;
@@ -12,6 +15,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -22,11 +26,8 @@ using System.Security.AccessControl;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using System.IO;
 using Tmds.DBus.Protocol;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-using GRASP_Builder.AppCode.DownloadControllers;
-using Microsoft.VisualBasic;
 
 namespace GRASP_Builder.ViewModels
 {
@@ -53,6 +54,8 @@ namespace GRASP_Builder.ViewModels
             Messenger.Default.Register<bool>("UpdateProjectLoaded", UpdateProjectLoaded);
             Messenger.Default.Register<bool>("UpdateProjectLoaded", UpdateProjectLoaded);
             Messenger.Default.Register<string>("UpdateProgress", UpdateProgress);
+            Messenger.Default.Register<ObservableCollection<string>>("UpdateStations", UpdateStation);
+            StationsOptions=StationsService.GetStations();
         }
 
         #endregion
@@ -117,6 +120,28 @@ namespace GRASP_Builder.ViewModels
             set => SetProperty<bool>(ref _isSelectDateEnabled, value);
         }
 
+        private ObservableCollection<string> _stationsOptions = new ObservableCollection<string>();
+        public ObservableCollection<string> StationsOptions
+        {
+            get => _stationsOptions;
+            set => SetProperty<ObservableCollection<string>>(ref _stationsOptions, value);
+        }
+
+        private string _selectedStation = "BRC - Barcelona";
+        public string SelectedStation
+        {
+            get => _selectedStation;
+            set
+            {
+                SetProperty<string>(ref _selectedStation, value);
+                string [] stationNames = value.Split(" - ");
+                _selectedEarlinetStation = stationNames[0];
+                _selectedAeronetStation = stationNames[1];
+            }
+        }
+
+        private string _selectedAeronetStation = "Barcelona";
+        private string _selectedEarlinetStation = "BRC";
         #endregion
 
         #region Messaging
@@ -124,6 +149,11 @@ namespace GRASP_Builder.ViewModels
         private void UpdateProgress(string value)
         {
             Progress = value;
+        }
+
+        private void UpdateStation(ObservableCollection<string> value)
+        {
+            StationsOptions = value;
         }
 
         private void UpdateProjectLoaded(bool obj)
@@ -330,11 +360,11 @@ namespace GRASP_Builder.ViewModels
             Directory.CreateDirectory($@"{_workingDirectory}");
 
             IDownloadController downloadController = DownloadControllerFactory.Create(DownloadType.Earlinet, _earlinetRepositoryDirectory, _workingDirectory);
-            await downloadController.Download(FromDate, ToDate,"BRC");
+            await downloadController.Download(FromDate, ToDate,_selectedEarlinetStation);
 
 
             downloadController = DownloadControllerFactory.Create(DownloadType.Aeronet, _aeronetRepositoryDirectory, _workingDirectory);
-            await downloadController.Download(FromDate, ToDate, "Barcelona");
+            await downloadController.Download(FromDate, ToDate, _selectedAeronetStation);
 
             Logger.Log("Updating dowloaded files list . . .");
 

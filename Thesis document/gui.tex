@@ -1,11 +1,19 @@
 \section{Graphic User Interface (GUI) design}
-{For the user interface different decisions were taken. In order to give to the user only the essential information, it was chosen to divide the different main actions that the application should perform into different views. In order to accomplish that, different UI implementations can be used. In this case, it was decided to implement a TabMenu, with three different views for each action: Download data files, Combine Data for GRASP algorithm execution and Plot GRASP results.\smallskip
+{In order to give to the user only the essential information, it was chosen to divide the different main actions that the application should perform into different views. In order to accomplish that, different UI implementations can be used. In this case, it was decided to implement a TabMenu, with three different views for each action: Download data files, Combine Data for GRASP algorithm execution and Plot GRASP results.\smallskip
 \begin{figure}[H]
     \centering
     \includegraphics[width=15cm]{img/UI_tabmenu_mw.png}
-    \caption[mvvm]{\footnotesize{TabMenu design}}
+    \caption[TabMenu design]{\footnotesize{TabMenu design}}
     \label{fig:tabmenu}
 \end{figure} }
+{Other necessary Windows where for Configuration, About and Message Windows. The conentet of these windows should be as simple as possible, since they are complementary windows and they do not contain a lot of information. For the Configurations window, it is only necessary to have one input element in order to introduce the value for each configuration parameter. Design can be modified having into account the necessity of the current application.\smallskip\\
+When the application is first initialized, it is needed a Home View, with different buttons, where the user can choose which type of action it wants to perform: Create, Open or Import project.}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=15cm]{img/UI_home.png}
+    \caption[Home design]{\footnotesize{Home design}}
+    \label{fig:home}
+\end{figure}
 \subsection{Download data files}
 {In the requirements list, it was specified that the user should be able to download the data files within a selected date range and a selected station. After that, user should be able to see a list of the downloaded files from each website.\smallskip
 In order to implement this functionality, the first desing  uses two calendar selectors in order to choose "From date" and "To date". A text selector is used in order to select the station and a Download Button in order start the execution.\smallskip
@@ -13,7 +21,7 @@ To finish, a list of the downloaded files is shown in a text block. All these fe
 \begin{figure}[H]
     \centering
     \includegraphics[width=15cm]{img/UI_download.png}
-    \caption[mvvm]{\footnotesize{Download tab design}}
+    \caption[Download tab design]{\footnotesize{Download tab design}}
     \label{fig:download}
 \end{figure} }
 \subsection{Data combination}
@@ -24,7 +32,7 @@ All these features can be seen in \Cref{fig:data_comb}. In addition, a text sect
 \begin{figure}[H]
     \centering
     \includegraphics[width=15cm]{img/UI_data_comb.png}
-    \caption[mvvm]{\footnotesize{Data combination tab design}}
+    \caption[Data combination tab design]{\footnotesize{Data combination tab design}}
     \label{fig:data_comb}
 \end{figure} }
 \subsection{Plot GRASP results}
@@ -33,7 +41,7 @@ As it can be appreciated in \Cref{fig:folders}, the project folder is organized 
 \begin{figure}[H]
     \centering
     \includegraphics[width=9cm]{img/UI_folders.png}
-    \caption[mvvm]{\footnotesize{Project folders organization}}
+    \caption[Project folders organization]{\footnotesize{Project folders organization}}
     \label{fig:folders}
 \end{figure} 
 GRASP execution output is saved in a file named UPC\_\{config\}\_out.txt. This file will be the one used in order to create and save all the different files for each figure. Therefore, it is necessary first to specify the measure ID, then the measurement file and to finish, the figure name that is desired to be seen.\smallskip\\
@@ -41,6 +49,6 @@ This actions can be implemented with the different buttons and text inputs shown
 \begin{figure}[H]
     \centering
     \includegraphics[width=15cm]{img/UI_plotting.png}
-    \caption[mvvm]{\footnotesize{Plot tab design}}
+    \caption[Plot tab design]{\footnotesize{Plot tab design}}
     \label{fig:plot}
 \end{figure}}

@@ -30,6 +30,21 @@ GRASP_Builder/*.log
 GRASP_Builder/*.bak
 GRASP_Builder/*.orig
 
+# Carpetas de resultados de compilación (.NET / C#)
+UnitTests/[Bb]in/
+UnitTests/[Oo]bj/
+UnitTests/[Dd]ebug/
+UnitTests/[Rr]elease/
+# Archivos de empaquetado de NuGet
+UnitTests/*.nupkg
+
+# Directorios de pruebas y entorno local de VS
+UnitTests/TestResults/
+UnitTests/.vs/
+UnitTests/*.log
+UnitTests/*.bak
+UnitTests/*.orig
+
 ### 3. Archivos Generados por LaTeX (dentro de Thesis document/) ###
 
 # Archivos de registro y auxiliares

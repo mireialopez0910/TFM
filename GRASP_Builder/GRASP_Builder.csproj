@@ -26,6 +26,8 @@
     <None Remove="Resources\open_folder.png" />
     <None Remove="Resources\SplashScreen.png" />
     <None Remove="Resources\warning.png" />
+    <None Remove="WebServices\aeronet_locations_v3.txt" />
+    <None Remove="WebServices\earlinet_stations.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -95,6 +97,11 @@
 
 	<ItemGroup>
 	  <Content Include="Resources\logo.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="WebServices\aeronet_locations_v3.txt" />
+	  <EmbeddedResource Include="WebServices\earlinet_stations.json" />
 	</ItemGroup>
 
 	<ItemGroup>
