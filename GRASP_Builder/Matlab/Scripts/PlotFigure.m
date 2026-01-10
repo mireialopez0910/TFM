@@ -140,7 +140,7 @@
 %!
 %! * No torna cap valor
 %!
-% configFile = "config_plot_figure.txt";
+% configFile = "config_scripts.txt";
 % 
 % run('config_file.m');
 % read_configuration;
@@ -195,7 +195,7 @@
 % 
 % waitfor(gcf);
 
-configFile = "config_plot_figure.txt";
+configFile = "config_scripts.txt";
 run('config_file.m');
 read_configuration;
 

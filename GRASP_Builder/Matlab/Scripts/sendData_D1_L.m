@@ -507,7 +507,7 @@ function [GARRLiC_file_name] = sendData_D1_L( measureID, heightMin, heightMax, i
         logMessage(ME.cause);
     end
 
-    fid = fopen('sendFiles_output.txt','a');
+    fid = fopen('scripts_output.txt','a');
     fprintf(fid, 'output_dir = %s\n', char(URL_output));
     fclose(fid);
 end

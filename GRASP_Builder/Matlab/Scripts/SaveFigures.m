@@ -50,7 +50,7 @@ size_binsC = [0.33472,0.43917,0.57623,0.75605,0.99199,1.3016,1.7078,2.2407,2.94,
 % AVCF = input('Aerosol volupme concentration - Fine mode: ');
 % AVCC = input('Aerosol volume concentration - Coarse mode: ');
 
-configFile = 'config_savefigures.txt';
+configFile = 'config_scripts.txt';
 read_configuration;
 currentFolder = fileparts(mfilename('fullpath'));
 run('config_file.m');

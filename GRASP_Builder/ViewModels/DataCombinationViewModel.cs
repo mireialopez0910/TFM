@@ -128,7 +128,7 @@ namespace GRASP_Builder.ViewModels
                 if (AppConfig.Instance.IsDebugging())
                     Logger.Log($"Selected date value modified to {value}");
 
-                PreviewMatlab();
+                GetHeightsMatlab();
             }
         }
 
@@ -188,9 +188,15 @@ namespace GRASP_Builder.ViewModels
                 if (AppConfig.Instance.IsDebugging())
                 {
                     if (value)
-                        Logger.Log($"D1_L option checked");
+                    {
+                        if (AppConfig.Instance.IsDebugging())
+                            Logger.Log($"D1_L option checked");
+                    }
                     else
-                        Logger.Log($"D1_L option unchecked");
+                    {
+                        if (AppConfig.Instance.IsDebugging())
+                            Logger.Log($"D1_L option unchecked");
+                    }
                 }
             }
         }
@@ -206,9 +212,15 @@ namespace GRASP_Builder.ViewModels
                 if (AppConfig.Instance.IsDebugging())
                 {
                     if (value)
-                        Logger.Log($"D1P_L option checked");
+                    {
+                        if (AppConfig.Instance.IsDebugging())
+                            Logger.Log($"D1P_L option checked");
+                    }
                     else
-                        Logger.Log($"D1P_L option unchecked");
+                    {
+                        if (AppConfig.Instance.IsDebugging())
+                            Logger.Log($"D1P_L option unchecked");
+                    }
                 }
             }
         }
@@ -223,9 +235,15 @@ namespace GRASP_Builder.ViewModels
                 if (AppConfig.Instance.IsDebugging())
                 {
                     if (value)
-                        Logger.Log($"D1_L_VD option checked");
+                    {
+                        if (AppConfig.Instance.IsDebugging())
+                            Logger.Log($"D1_L_VD option checked");
+                    }
                     else
-                        Logger.Log($"D1_L_VD option unchecked");
+                    {
+                        if (AppConfig.Instance.IsDebugging())
+                            Logger.Log($"D1_L_VD option unchecked");
+                    }
                 }
             }
         }
@@ -240,9 +258,15 @@ namespace GRASP_Builder.ViewModels
                 if (AppConfig.Instance.IsDebugging())
                 {
                     if (value)
-                        Logger.Log($"D1P_L_VD option checked");
+                    {
+                        if (AppConfig.Instance.IsDebugging())
+                            Logger.Log($"D1P_L_VD option checked");
+                    }
                     else
-                        Logger.Log($"D1P_L_VD option unchecked");
+                    {
+                        if (AppConfig.Instance.IsDebugging())
+                            Logger.Log($"D1P_L_VD option unchecked");
+                    }
                 }
             }
         }
@@ -335,6 +359,32 @@ namespace GRASP_Builder.ViewModels
                 Logger.Log($"Preview Matlab script started with dicctionary: {FormatHelpers.DictionaryToString(dict)}");
 
             MatlabController.RunMatlabScript(ScriptType.Preview, dict, "_DC");
+
+            IsConfigSelectionEnabled = true;
+        }
+
+        private void GetHeightsMatlab(bool measureIDModified = false)
+        {
+            var dict = new Dictionary<string, object>
+                    {
+                        {"preview", "false" },
+                        {"sendData", "false"},
+                        {"selected_measure_ID", SelectedMeasureID},
+                        {"Folder_AERONET", Path.Combine(_aeronetRepositoryDirectory, new string(SelectedMeasureID.Where(c => !char.IsDigit(c)).ToArray()).ToUpper())},
+                        {"Folder_LIDAR",$@"{Path.Combine(_earlinetRepositoryDirectory, new string(SelectedMeasureID.Where(c => !char.IsDigit(c)).ToArray()).ToUpper())}\"},
+                    };
+
+            if (!measureIDModified)
+            {
+                dict.Add("heightLimitMax", hMax);
+                dict.Add("heightLimitMin", hMin);
+            }
+
+
+            if (AppConfig.Instance.IsDebugging())
+                Logger.Log($"GetHeights Matlab script started with dicctionary: {FormatHelpers.DictionaryToString(dict)}");
+
+            MatlabController.RunMatlabScript(ScriptType.GetHeights, dict, "_DC");
 
             IsConfigSelectionEnabled = true;
         }

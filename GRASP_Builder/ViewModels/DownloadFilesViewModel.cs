@@ -301,16 +301,25 @@ namespace GRASP_Builder.ViewModels
         private bool AddToMeasureIDList(string folder)
         {
             List<string> files = FileHelpers.GetAllFiles(folder);
-            int count = 0;
+            
+            bool found532 = false;
+            bool found1064 = false;
+            bool found355= false;
 
             foreach (string file in files)
             {
-                if (!file.EndsWith("_elda.nc") && file.Contains("_008_")&& (file.Contains("_0532") || file.Contains("_0354")))
-                    count++;
+                if (!file.EndsWith("_elda.nc"))
+                {
+                    if (file.Contains("_0532_") && (file.Contains("_008_") || file.Contains("_003_")))
+                        found532 = true;
+                    if ((file.Contains("_0355_") || file.Contains("_0354_")) && (file.Contains("_008_") || file.Contains("_003_")))
+                        found355 = true;
+                    if (file.Contains("_1064_") && file.Contains("_003_"))
+                        found1064 = true;
+                } 
             }
-            if (count >= 2) return true;
-
-            return false;
+            
+            return found1064 && found355 && found532;
         }
         private void UpdateListOfFiles()
         {

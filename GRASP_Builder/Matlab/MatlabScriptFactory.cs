@@ -14,11 +14,12 @@ namespace GRASP_Builder.Matlab
         {
             switch (type)
             {
+                case ScriptType.GetHeights:
+                    return new GetHeights(dic);
                 case ScriptType.Preview:
+                    return new Preview(dic);
                 case ScriptType.SendFiles:
-                    if (dic.Count>0)
                         return new SendFiles(dic);
-                    else throw new NotSupportedException($"Script {type.ToString()} is not supported");
                 case ScriptType.PlotFigure:
                     return new PlotFigure(dic);
                 case ScriptType.SaveFigures:
@@ -36,6 +37,7 @@ namespace GRASP_Builder
 {
     public enum ScriptType
     {
+        GetHeights,
         Preview,
         SendFiles,
         PlotFigure,

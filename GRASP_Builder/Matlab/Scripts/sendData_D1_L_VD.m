@@ -665,7 +665,7 @@ function [GARRLiC_file_name, errorVolumePolarization] = sendData_D1_L_VD( measur
         end
     end
 
-    fid = fopen('sendFiles_output.txt','a');
+    fid = fopen('scripts_output.txt','a');
     fprintf(fid, 'output_dir = %s\n', char(URL_output));
     fclose(fid);
 end

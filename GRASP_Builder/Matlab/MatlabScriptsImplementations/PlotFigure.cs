@@ -22,18 +22,6 @@ namespace GRASP_Builder.Matlab.MatlabScriptsImplementations
         public string Name { get; set; } = "PlotFigure.m";
         public Dictionary<string, object> vars { get; set; }
 
-        public void PostExecutionActions(bool resultOK = true)
-        {
-            Messenger.Default.Send<bool>("UpdateButtonsEnabled", true);
-        }
-
-        public void PreExecutionActions()
-        {
-            Messenger.Default.Send<bool>("UpdateButtonsEnabled", false);
-
-            MatlabController.WriteInputFile("config_plot_figure.txt", vars);
-        }
-
         #endregion
     }
 }

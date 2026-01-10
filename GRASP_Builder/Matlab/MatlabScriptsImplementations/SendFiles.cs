@@ -12,7 +12,7 @@ namespace GRASP_Builder.Matlab
 {
     public class SendFiles : IMatlabScript
     {
-        #region Construction
+        #region Constructor
 
         public SendFiles(Dictionary<string, object> dic)
         {
@@ -23,7 +23,6 @@ namespace GRASP_Builder.Matlab
        
         #region Members
 
-        private bool _preview = false;
         
         #endregion
 
@@ -33,19 +32,19 @@ namespace GRASP_Builder.Matlab
 
         public Dictionary<string, object> vars { get; set; }
 
-        public void PostExecutionActions(bool resultOK = true)
+        public virtual void PostExecutionActions(bool resultOK = true)
         {
             if (resultOK)
             {
 
-                Dictionary<string, string> dic = MatlabController.ReadOutputFile("sendFiles_output.txt");
+                Dictionary<string, string> dic = MatlabController.ReadOutputFile("scripts_output.txt");
 
                 Messenger.Default.Send<Dictionary<string, string>>("UpdateUI", dic);
 
                 // corrected TryGetValue usage and call to save output name into config file
                 if (dic.TryGetValue("GARRLiC_file_name", out string outputName))
                 {
-                    if (dic.TryGetValue("selected_config", out string selected_config)) 
+                    if (dic.TryGetValue("selected_config", out string selected_config))
                     {
                         if (dic.TryGetValue("output_dir", out string output_dir))
                         {
@@ -56,27 +55,8 @@ namespace GRASP_Builder.Matlab
                             Logger.Log("ERROR; No output_dir in list of dicctionaries for send files, can not create configuration file .yml");
                     }
                 }
-
             }
             Messenger.Default.Send<bool>("UpdateButtonsEnabled", true);
-        }
-
-        public void PreExecutionActions()
-        {
-            MatlabController.CleanMatlabFiles("config_preview.txt", "sendFiles_output.txt");
-
-            Messenger.Default.Send<bool>("UpdateButtonsEnabled", false);
-
-            MatlabController.WriteInputFile("config_preview.txt", vars);
-
-            if (vars.TryGetValue("preview", out object preview))
-            {
-                if (preview == "true")
-                    _preview = true;
-                else _preview = false;
-            }
-            else
-                _preview = false;
         }
 
         private void SaveOutputNameInConfigFile(string outputName, string config, string output_dir)

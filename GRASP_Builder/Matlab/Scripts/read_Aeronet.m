@@ -18,7 +18,7 @@ function foundFiles = read_Aeronet(subfolderName)
 %!      Nombre de fitxers trobats que s'han processat
 %!
 
-    files = dir( fullfile(subfolderName, '*.lev15'))
+    files = dir( fullfile(subfolderName, '*.lev15'));
     foundFiles = length(files);
     
     logMessage(['Aeronet lev15 Files found; ', num2str(length(files))]);

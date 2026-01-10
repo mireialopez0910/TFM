@@ -12,7 +12,17 @@ namespace GRASP_Builder.Matlab
     {
         public string Name { get; }
         public Dictionary<string, object> vars { get; set; }
-        public void PreExecutionActions();
-        public void PostExecutionActions(bool resultOK = true);
+        public void PreExecutionActions()
+        {
+            MatlabController.CleanMatlabFiles("config_scripts.txt", "scripts_output.txt");
+
+            Messenger.Default.Send<bool>("UpdateButtonsEnabled", false);
+
+            MatlabController.WriteInputFile("config_scripts.txt", vars);
+        }
+        public virtual void PostExecutionActions(bool resultOK = true)
+        {
+            Messenger.Default.Send<bool>("UpdateButtonsEnabled", true);
+        }
     }
 }

@@ -18,8 +18,8 @@ function [tFiltered, numItems] = getFilteredTable( type, idx)
 
     numItems=(num2str(height(tFiltered)));
     
-    date_ini = tEldaElpp.elda_measurement_start_datetime;
-    date_end = tEldaElpp.elda_measurement_stop_datetime;
+    date_ini = tEldaElpp.elpp_measurement_start_datetime;
+    date_end = tEldaElpp.elpp_measurement_stop_datetime;
 
     %date_ini = datetime(tEldaElpp.elda_measurement_start_datetime, "InputFormat",'yyyy-MM-dd HH:mm:ss');
     %date_end = datetime(tEldaElpp.elda_measurement_stop_datetime, "InputFormat",'yyyy-MM-dd HH:mm:ss');

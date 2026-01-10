@@ -56,19 +56,19 @@ function [isValid, message] = getALPData()
             end      
 
             if(isValid)
-                message = {'[ALP] Nominal_Wavelength(nm) in ALP table, found correctly'};
+                message = '[ALP] Nominal_Wavelength(nm) in ALP table, found correctly';
             end
     
-            disp(message );
         else
             isValid = false;
             message = {'ERROR: [ALP] Data not found for ALP'};
         end
 
     catch ME
-        disp(['Error: ', ME.message])
+        isValid=false;
+        message= ['Error: ', ME.message];
     end
-
-
+    
+    % logMessage(message);
 end
 

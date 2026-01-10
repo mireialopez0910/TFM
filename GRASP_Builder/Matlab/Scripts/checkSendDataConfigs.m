@@ -88,6 +88,7 @@ function [is_D1_L, is_D1P_L, is_D1_L_VD, is_D1P_L_VD, message] = checkSendDataCo
     T3 = evalin('base','tfAll');
     
     [isALMData, message_ALM]= getALMData();
+    logMessage(message_ALM);
 
     if height(T1) == 0 || ~isALMData || height(T3) == 0
         is_D1_L = "false";
@@ -96,23 +97,18 @@ function [is_D1_L, is_D1P_L, is_D1_L_VD, is_D1P_L_VD, message] = checkSendDataCo
         is_D1P_L_VD = "false";
     end
 
-
-
-
     %%! Taula 'ALP'
     %! Comprova les dades de polarització del fotòmetre.
     %! si la taula 'ALP' no està disponible, les configuracions D1P_L i D1P_L_VD es desactivaran
     %!
 
     [isALPData, message_ALP]= getALPData();
+    logMessage(message_ALP);
 
     if ~isALPData
         is_D1P_L = "false";
         is_D1P_L_VD = "false";
     end
-
-
-    
 
     %%! Taula 'ELDA/ELPP'
     %! Comprova les dades de la despolarització de volum LIDAR (configuració VD).
@@ -121,12 +117,13 @@ function [is_D1_L, is_D1P_L, is_D1_L_VD, is_D1P_L_VD, message] = checkSendDataCo
     elda_name = getWSTNByType('elda').table_name{1};
     tEldaElpp = evalin('base', elda_name);
         
-    count_1064 = height(tEldaElpp( contains(tEldaElpp.fileName, '_b1064_'), :));
-    count_0532 = height(tEldaElpp( contains(tEldaElpp.fileName, '_b0532_'), :));
-    count_0355 = height(tEldaElpp( contains(tEldaElpp.fileName, '_b0355_'), :));
+    count_1064 = height(tEldaElpp( contains(tEldaElpp.fileName, '_1064_'), :));
+    count_0532 = height(tEldaElpp( contains(tEldaElpp.fileName, '_0532_'), :));
+    count_0355 = height(tEldaElpp( contains(tEldaElpp.fileName, '_0355_'), :));
 
     if count_1064 > 0
-        VD_1064_ELPP = tEldaElpp( contains(tEldaElpp.fileName, '_b1064_'), :).volumedepolarization;
+        try
+        VD_1064_ELPP = tEldaElpp( contains(tEldaElpp.fileName, '_1064_'), :).volumedepolarization;
     
         if isnan(cell2mat(VD_1064_ELPP))
             status_1064 = 1;
@@ -138,51 +135,69 @@ function [is_D1_L, is_D1P_L, is_D1_L_VD, is_D1P_L_VD, message] = checkSendDataCo
             status_1064 = 2;
             message_1064 = 'VD found in wavelength 1064';
         end
-    
+        catch
+            status_1064 = 1;
+            message_1064 = 'VD not found in wavelength 1064 (no values found)';
+        end
     else
         status_1064 = 0;
         message_1064 = 'Not found wavelength 1064';
     end
 
-    logMessage(['Status 0532: ',num2str(status_1064)]);
+    logMessage(['Status 1064: ',num2str(status_1064)]);
     logMessage(message_1064);
 
-
-
-
     if count_0532 > 0
-        VD_0532_ELPP = tEldaElpp( contains(tEldaElpp.fileName, '_b0532_'), :).volumedepolarization;
+        try
+        VD_0532_ELPP = tEldaElpp( contains(tEldaElpp.fileName, '_0532_'), :).volumedepolarization;
     
         if isnan(cell2mat(VD_0532_ELPP))
             status_0532 = 1;
+            message_0532 = 'VD not found in wavelength 532 (no values found)';
         elseif all(isnan(cell2mat(VD_0532_ELPP)))
             status_0532 = 1;
+            message_0532 = 'VD not found in wavelength 532 (nan values found only)';
         else
             status_0532 = 2;
+            message_0532 = 'VD found in wavelength 532';
+        end
+        catch
+            status_0532 = 1;
+            message_0532 = 'VD not found in wavelength 532 (no values found)';
         end
     else
         status_0532 = 0;
+        message_0532= 'Not found wavelength 532';
     end
 
     logMessage(['Status 0532: ',num2str(status_0532)]);
-
+    logMessage(message_0532);
 
     if count_0355 > 0
-        VD_0355_ELPP = tEldaElpp( contains(tEldaElpp.fileName, '_b0355_'), :).volumedepolarization;
+        try
+        VD_0355_ELPP = tEldaElpp( contains(tEldaElpp.fileName, '_0355_'), :).volumedepolarization;
     
         if isnan(cell2mat(VD_0355_ELPP))
             status_0355 = 1;
+            message_0355 = 'VD not found in wavelength 355 (no values found)';
         elseif all(isnan(cell2mat(VD_0355_ELPP)))
             status_0355 = 1;
+            message_0355 = 'VD not found in wavelength 355 (nan values found only)';
         else
             status_0355 = 2;
+            message_0355 = 'VD found in wavelength 355';
         end
-    
+        catch
+            status_0355 = 1;
+            message_0355 = 'VD not found in wavelength 355 (no values found)';
+        end
     else
         status_0355 = 0;
+        message_0355= 'Not found wavelength 355';
     end
 
     logMessage(['Status 0355: ',num2str(status_0355)]);
+    logMessage(message_0355);
 
     if(status_0532 < 2 || status_0355 < 2)
         is_D1_L_VD = "false";

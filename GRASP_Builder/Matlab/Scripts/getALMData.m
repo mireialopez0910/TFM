@@ -62,19 +62,20 @@ function [isValid, message] = getALMData()
             end      
 
             if(isValid)
-                message = {'[ALM] Nominal_Wavelength(nm) in ALM table, found correctly'};
+                message = '[ALM] Nominal_Wavelength(nm) in ALM table, found correctly';
             end
-    
-            disp(message );
+
         else
             isValid = false;
-            message = {'ERROR: [ALM] Data not found for ALM'};
+            message ='ERROR: [ALM] Data not found for ALM';
         end
 
     catch ME
-        disp(['Error: ', ME.message])
+        isValid = false;
+        message = ['Error: ', ME.message];
+        
     end
 
-
+    % logMessage(message)
 end
 
