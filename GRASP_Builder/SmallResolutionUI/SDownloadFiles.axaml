@@ -98,7 +98,7 @@
 								<ItemsControl ItemsSource="{Binding DownloadedFiles_EARLINET}">
 									<ItemsControl.ItemTemplate>
 										<DataTemplate>
-											<CheckBox Content="{Binding Name, UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" Margin="5" FontStyle="Normal"/>
+											<CheckBox Content="{Binding Name, UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" Margin="5" FontStyle="Normal" FontSize="10"/>
 										</DataTemplate>
 									</ItemsControl.ItemTemplate>
 								</ItemsControl>
@@ -112,7 +112,7 @@
 								<ItemsControl ItemsSource="{Binding DownloadedFiles_AERONET}">
 									<ItemsControl.ItemTemplate>
 										<DataTemplate>
-											<CheckBox Content="{Binding Name, UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" Margin="5" FontStyle="Normal"/>
+											<CheckBox Content="{Binding Name, UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" Margin="5" FontStyle="Normal" FontSize="10"/>
 										</DataTemplate>
 									</ItemsControl.ItemTemplate>
 								</ItemsControl>

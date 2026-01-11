@@ -1,12 +1,71 @@
-\clearpage\section{State of the art of the technology used or applied in this thesis:}
-
- {A background, comprehensive review of the literature is required. This is known as the Review of Literature and should
-  include relevant, recent research that has been done on the subject matter.}
-
-\subsection{Topic}
-
-Here you have a couple of references about LaTeX ~\cite{latexcompanion} and electrodynamics \cite{einstein}.
-
-\bigskip
-
-\subsection{Topic}
+\clearpage\section{State of the art}
+Universitat Polit\`ecnica de Catalunya (UPC) research department for Remote Sensing has been using the GRASP algorithm to process and obtain information from data measured by a lidar and a photometer, in order to study the presence of aerosols in the atmosphere. In order to do that, different steps need to be executed manually, without a graphical interface or centralized application, which increases the risk of errors, reduces reproducibility, and demands significant user intervention.\smallskip\\
+Other students have previously developed Matlab scripts in order to automate the pre-processing stage of the workflow used by the department. However, this solution is not optimal as it requires the user to have a basic knowledge of Matlab and all the different web sites and files used. \smallskip\\
+Every time someone wants to use the GRASP algorithm, it need to follow the steps described in the different points of this section.
+\subsection {Download data}
+First website to download data is Actris-Earlinet. This interface is used to download the data measured by the Lidar, and can be easily downloaded by configuring different parameters like start and finish date, and selecting the desired station, as it can be seen in \Cref{fig:ealinet_download}. The different files that can be downloaded will appear listed under the configuration parameters list.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=11cm]{img/Earlinet_website.png}
+  \caption[Earlinet website for downloading data]{\footnotesize{Earlinet website for downloading data}}
+  \label{fig:ealinet_download}
+\end{figure}
+Aeronet website offers more information and options to download data, so it needs to be done in different steps. First, the user needs to locate the Aeronet Data Access page, as it can be seen in \Cref{fig:aeronet_download}, and select a data option. 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=11cm]{img/aeronet_website.png}
+  \caption[Aeronet website for downloading data]{\footnotesize{Aeronet website for downloading data}}
+  \label{fig:aeronet_download}
+\end{figure}
+For each type of data, the user needs to select the desired site from the shown list, as it can be seen in \Cref{fig:aeronet_sites}. 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=11cm]{img/sites_aeronet.png}
+  \caption[Aeronet site selection]{\footnotesize{Aeronet site selection}}
+  \label{fig:aeronet_sites}
+\end{figure}
+Once the site is selected, the user needs to choose the different data optinons to be downloaded for both, AOD and Inversions, as it can be seen in \Cref{fig:aod_download} and \Cref{fig:inversions_download}, respectively. 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=11cm]{img/AOD_download.png}
+  \caption[Aerosol Optical Depth download UI]{\footnotesize{Aerosol Optical Depth download UI}}
+  \label{fig:aod_download}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=11cm]{img/inversions_download.png}
+  \caption[Aerosol Inversions download UI]{\footnotesize{Aerosol Inversions download UI}}
+  \label{fig:inversions_download}
+\end{figure}
+Once all data has been downloaded, it needs to be located in a file accessible for the Matlab scripts. 
+\subsection{Select configuration and execute Matlab scripts}
+It exists different configurations, depending ont the available data downloaded:
+\begin{itemize}
+  \item D1L: Only photometer and Lidar data are available
+  \item D1P\_L: It is also available polarization data in photometer measurements
+  \item D1L\_VD: It is also available depolarization data in Lidar measurements
+  \item D1P\_L\_VD: All data is available
+\end{itemize}
+Knowing the available files and the selected dates, in order to run the Matlab Scripts succesfully, user should choose manually the configuration and execute the corresponding script, since it exists one script per each configuration possibility.
+\subsection{Modify manually configuration file for GRASP algorithm}
+After executing the Matlab scripts, a data file is created named <measureID>\_GARRLIC\_<configuration>.sdat, which will be used as input for the GRASP algorithm. But it is also needed a configuration file, that indicates different parameters to the algorithm, being one of them the name of the data file to be used. This file is names UPC\_<configuration>.yml.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=11cm]{img/yml_example.png}
+  \caption[GRASP configuration file]{\footnotesize{Example of GRASP configuration file}}
+  \label{fig:grasp_config}
+\end{figure}  
+In \Cref{fig:grasp_config}, it can be seen the example of a configuration file when the configuration chosen is D1L\_VD and the MeasureID is 20250203103355, corresponding to the 3rd of February at 10:33:55. 
+\subsection{Execute GRASP algorithm in CALCULA}
+When all required files have been created and correctly configured, the GRASP algorithm can be executed in CALCULA. The user should upload the files to the virtual enviroment and execute the following command lines in the command prompt:
+\begin{verbatim}
+cd <directory to files>
+/opt/bin/grasp-1.1.5/grasp UPC<config>.yml
+\end{verbatim}
+Once the algorithm has been executed correctly, files named UPC\_<configuration>\_screen.txt and UPC\_<configuration>\_out.txt will be created in same directory.
+\subsection{Execute Matlab script for postprocessing and results analysis}
+After the execution, the user needs to download the output files from CALCULA and execute the Matlab post processing script in order to obtain the results and the corresponding figures to analyze.
+\subsection{Need of optimization}
+After analyzing the process, it can be seen that it is not optimal as it requires the user to access different websites in order to download the needed files, analyze the available data in order to select the correct configuration and execute scripts manually, without a graphical interface or centralized application, which increases the risk of errors, reduces reproducibility, and demands significant user intervention.\smallskip\\ 
+Working with different Operative Systems (mostly Windows and CALCULA) also increases the time needed to execute the process. \smallskip\\
+The main objective of this project is to optimize all of the steps of this sequence so it is redueced the time consumption and the error introduction possibilities by the user. 

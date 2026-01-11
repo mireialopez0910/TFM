@@ -18,22 +18,27 @@
 		<vm:MainWindowViewModel/>
 	</Design.DataContext>
 	<Border>
+		<Border.ContextMenu>
+			<ContextMenu> 
+				<MenuItem Header="Change to full resolution UI" Command="{Binding ChangeToFullUI}" />
+			</ContextMenu>
+		</Border.ContextMenu>
+
 		<StackPanel>
-			<!--Grid IsVisible="{Binding IsHomeVisible}">-->
-			<Grid IsVisible="False">
+			<Grid IsVisible="{Binding IsHomeVisible}">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>
 					<ColumnDefinition Width="80"/>
 				</Grid.ColumnDefinitions>
-			
+
 				<TabControl  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="475" IsVisible="{Binding IsHomeVisible}" Grid.ColumnSpan="2">
 					<TabItem Header="Home" FontSize="17">
 						<TabItem.Content>
-							<n:HomeView />
+							<n:SHome />
 						</TabItem.Content>
 					</TabItem>
 				</TabControl>
-				
+
 				<Button Click="Help_Click" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1"  Background="Transparent" BorderBrush="Transparent" FontStyle="Italic" Foreground="DarkBlue" FontWeight="DemiBold" FontSize="10" Width="60">
 					<ContentControl>
 						<TextBlock Text="Help" HorizontalAlignment="Center"/>
@@ -41,9 +46,8 @@
 				</Button>
 
 			</Grid>
-			
-			<Grid IsVisible="True">
-			<!--<Grid IsVisible="{Binding IsProjectLoaded}"-->
+
+			<Grid IsVisible="{Binding IsProjectLoaded}">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>
 					<ColumnDefinition Width="Auto"/>
@@ -64,7 +68,7 @@
 
 					<TabItem Header="Plotting" FontSize="17">
 						<TabItem.Content>
-							<n:PlotView />
+							<n:SPlotting/>
 						</TabItem.Content>
 					</TabItem>
 				</TabControl>
@@ -77,15 +81,14 @@
 						<MenuItem Header="Export project" Command="{Binding ExportCmd}"/>
 						<MenuItem Header="Close project"  Command="{Binding CloseCmd}"/>
 					</MenuItem>
-					
+
 					<MenuItem Header="Settings"  Command="{Binding SettingsCmd}" FontSize="11"/>
-										
+
 					<MenuItem Header="About"  Command="{Binding AboutCmd}" FontSize="11"/>
 				</Menu>
 			</Grid>
 
-			<TabControl IsVisible="True">
-			<!--TabControl IsVisible="{Binding IsProjectLoaded}">-->
+			<TabControl IsVisible="{Binding IsProjectLoaded}">
 				<TabItem Header="Log" FontSize="13">
 					<TabItem.Content >
 						<n:SLogView Margin="0,5"/>

@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:GRASP_Builder.ViewModels"
+			 x:DataType="vm:HomeViewModel"
+			 x:Class="GRASP_Builder.SHome">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+		to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:HomeViewModel/>
+	</Design.DataContext>
+	
+	<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+		<Button Margin="30" Command="{Binding CreateProjectCmd}" Width="170" Height="170" Background="Transparent" ToolTip.Tip="Create a new project">
+			<Image Source="avares://GRASP_Builder/Resources/create_new_folder.png"/>
+		</Button>
+		
+		<Button Margin="30" Command="{Binding OpenProjectCmd}" Width="170" Height="170" Background="Transparent" ToolTip.Tip="Open project from folder">
+			<Image Source="avares://GRASP_Builder/Resources/open_folder.png"/>
+		</Button>
+		
+		<Button Margin="30" Command="{Binding ImportFromZipCmd}"  Width="170" Height="170" Background="Transparent" ToolTip.Tip="Import project from .zip file">
+			<Image Source="avares://GRASP_Builder/Resources/import_zip.png"/>
+		</Button>
+	</StackPanel>
+</UserControl>

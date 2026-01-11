@@ -1,45 +1,24 @@
 \section{Testing}
-\begin{table}[H]
-\centering
-\caption[]{ \footnotesize 1st round testing - Project workspace management}
-\label{tab:testing}
-\footnotesize{
-\begin{tabular}{@{}l m{5cm} m{5cm} c m{2cm}@{}}
-\toprule
-\textbf{\#}         &{\textbf{Test}} & {\textbf{Expected result}} & {\textbf{OK/KO}} & {\textbf{Comments}} \\ \midrule
-\midrule
-1 & {1. Click icon for creating new project 2. Choose a directory 3. Choose a name 4. Click create} & {Project is created with defined name and directory, home view is closed and "download files", "Data convination" and "Plotting" views are available. } & {OK}  & {None}  \\\midrule
-2 & {} & {} & {OK}  & {None}  \\\midrule
-3 & {} & {} & {OK}  & {None}  \\\midrule
-4 & {} & {} & {OK}  & {None}  \\\midrule
-5 & {} & {} & {OK}  & {None}  \\\midrule
-6 & {} & {} & {OK}  & {None}  \\\midrule
-7 & {} & {} & {OK}  & {None}  \\\midrule
-8 & {} & {} & {OK}  & {None}  \\\midrule
-9 & {} & {} & {OK}  & {None}  \\\midrule
-10 & {} & {} & {OK}  & {None}  \\\midrule
-11 & {} & {} & {OK}  & {None}  \\\midrule
-12 & {} & {} & {OK}  & {None}  \\\midrule
-13 & {} & {} & {OK}  & {None}  \\\midrule
-14 & {} & {} & {OK}  & {None}  \\\midrule
-15 & {} & {} & {OK}  & {None}  \\\midrule
-16 & {} & {} & {OK}  & {None}  \\\midrule
-17 & {} & {} & {OK}  & {None}  \\\midrule
-18 & {} & {} & {OK}  & {None}  \\\midrule
-19 & {} & {} & {OK}  & {None}  \\\midrule
-20 & {} & {} & {OK}  & {None}  \\\midrule
-21 & {} & {} & {OK}  & {None}  \\\midrule
-22 & {} & {} & {OK}  & {None}  \\\midrule
-23 & {} & {} & {OK}  & {None}  \\\midrule
-24 & {} & {} & {OK}  & {None}  \\\midrule
-25 & {} & {} & {OK}  & {None}  \\\midrule
-26 & {} & {} & {OK}  & {None}  \\\midrule
-27 & {} & {} & {OK}  & {None}  \\\midrule
-28 & {} & {} & {OK}  & {None}  \\\midrule
-29 & {} & {} & {OK}  & {None}  \\\midrule
-30 & {} & {} & {OK}  & {None}  \\
-
-\bottomrule
-\end{tabular}
-}
-\end{table}
+During the development of the application, different tests have been performed to ensure that the application works as expected:
+\begin{enumerate}
+    \item First contact:\\
+    In order to know how the initial implementation was working and optimize the process it was needed to know how the different steps where being executed and the expected results
+    \begin{itemize}
+        \item Download files
+        \item Execute Matlab scripts with old data
+        \item Execute GRASP with old data
+    \end{itemize}
+    \item Test downloaded data: After automatizing the download process, it was needed to test the different matlab scripts with the new data. During this tests, it was detected that some data was being downloaded with a new file format. This was a problem, since the old scripts were not compatible with this new format and they had to be modified. 
+    \item Test GRASP with generated data: After modifying the scripts, it was needed to test the obtained data with the GRASP algorithm. It was detected that the data was not being processed correctly since the configuration file did not mathc the correct values. This was an issue with file versions that was solved by updating the configuration file to the correct version. 
+    \item Test full UI execution: After defining the application as configurable and workspace independent, it was needed to test the full execution of the application. During this round of tests, it was checked that the project folders were working as expected, improving the project management process.
+    \item Test full UI execution in CALCULA: Since CALCULA works with LINUX different aspects of the application had to be tested. Some changes were needed for the folders and files management, since some routing was only working in Windows. During this tests the full execution of the application was performed successfully, since it was the only test where the GRASP algorithm could be executed.
+\end{enumerate}
+Unit testing has also been performed to ensure that the application is working as expected. Unit testing consists in testing the separated components of the application, in this case the Model classes, to ensure that they are working as expected\cite{unit_test}.\smallskip\\
+Implementing this type of testing in a project allows to detect and fix some issues that were not detected during the integration tests and reduces the time consumption of some testing process.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{img/UnitTests.png}
+    \caption[Implemented Unit Tests]{\footnotesize{Implemented Unit Tests}}
+    \label{fig:unit_test}
+\end{figure}
+In \ref{fig:unit_test} it can be seen the implemented unit tests for this project, where different classes have been tested: application configuration, project configuration and Matlab script management. The main advantages of this type of testing are that they can be perform efficiently, in this case they have been executed within seconds, and can be performed during development. This, helps the developer to check that the new code is still working as expected. 

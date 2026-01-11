@@ -1,35 +1,81 @@
 \clearpage\section{Results}
-
-{This should include your data analysis and findings}
-
+In this section it is described the released version of the application and the final execution sequence, even a more detailed explanation can be found in the User Manual, in the Annex.\smallskip\\
+\subsection{Final User Interface}
+During the development of the application, the user interface has been modified to be more user-friendly and to add more features that were not contemplated during the design phase.
 \begin{figure}[H]
-\label{fig:prototype1}
-\centering
-\includegraphics[width=10cm]{img/Chapter4/prototype1_edited.jpg}
-\caption[Prototype setup]{\footnotesize{Prototype setup.}}
+    \centering
+    \includegraphics[width=12cm]{img/Home.png}
+    \caption[Home view]{\footnotesize{Home view}}
+    \label{fig:home_view}
 \end{figure}
-
-\begin{table}[H]
-\centering
-\caption[This is the caption]{ \footnotesize This is the other caption. Since the trial size of the experiments showed is one second, the number of \textit{Target} and \textit{Impostor} data corresponds to number of trials or seconds}
-\label{tab:data_partition}
-\footnotesize{
-\begin{tabular}{@{}llcccc@{}}
-\toprule
-\textbf{Dataset}         & \multicolumn{1}{c}{\textbf{Label}} & \textbf{Train} & \textbf{Validation} & \textbf{Develop} & \textbf{Test} \\ \midrule
-\midrule
-\multirow{3}{*}{First} & Target   & $135$ & $45$  & $30$  & $30$  \\
-                         & Impostor & $5,220$    & $1,740$ & $1,890$   & $2,880$    \\
-\cmidrule(lr){3-5} \cmidrule(l){6-6}
-                         & \#Subjects          & \multicolumn{3}{c}{$31$} & $12$ \\
-\midrule
-\multirow{3}{*}{Second}  & Target   & $144$ & $80$  & $48$  & $48$  \\
-                         & Impostor & $2,014$    & $1,119$    & $1,343$    & $1,545$ \\
-\cmidrule(lr){3-5} \cmidrule(l){6-6}
-                         & \#Subjects   & \multicolumn{3}{c}{$15$} & $5$ \\ 
-\bottomrule
-\end{tabular}
-}
-\end{table}
-
-\include{codi_tempdistrib}
+The Home view, which is shown when the application is initialized, allows the user to select the different options available in the application: Create, Open or Import project. This can be seen in \Cref{fig:home_view}. It has also been added the help button, which opens the User Manual in .pdf format.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{img/Download.png}
+    \caption[Download view]{\footnotesize{Download view}}
+    \label{fig:download_view}
+\end{figure}
+The Download View mantains mostly the initial design. Since the process of downloading files can depend on the user's internet connection, it has been added a progress bar to show the progress of the download.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{img/Results_DataComb.png}
+    \caption[Data Combination view]{\footnotesize{Data Combination view}}
+    \label{fig:data_combination_view}
+\end{figure}
+Data Combination has not been modified from the initial design, since it allows the user to select the different files to be combined and the different parameters to be used for the combination. This can be seen in \Cref{fig:data_combination_view}. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{img/plotting.png}
+    \caption[Plotting view]{\footnotesize{Plotting view}}
+    \label{fig:plotting_view}
+\end{figure}
+Plotting view has not been modified from the initial design neither, since it allows the user to select the different files to be plotted and the different parameters to be used for the plotting, shown in \Cref{fig:plotting_view}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{img/Settings.png}
+    \caption[Settings window]{\footnotesize{Settings window}}
+    \label{fig:settings_window}
+\end{figure}
+Settings window has been created in order to allow the user to configure both the application and project settings, shown in \Cref{fig:settings_window}. This type of configuration has been clearly separated, in order to let the user know which modifications will affect only the project and which ones will affect all executions of the application, independently of the project loaded.
+\subsection{Work-flux}
+The final work-flux for working with GRASP algorithm can be resumed in the following steps, all included in the developed application and executed in CALCULA environment:
+\begin{enumerate}
+    \item Download files: Select date range and station and download the corresponding files. Available files will be shown in same View
+    \item Combine data: Select the desired MeasureID, choosing the data and time range to be used. Heights can be configured and available configurations will be automatically shown. 
+    \item Execute GRASP: Send data will create the input files automatically for GRASP algorithm and will execute it. 
+    \item Plot results: Available results will be automatically detected. If possible, list of figures will be created and saved in Output directory. The user will be able to choose which figure to show.
+\end{enumerate}
+\subsection{Low resolution User Interface}
+Using Avalonia provokes the inability to resize the application window, since it does not mantain the correct format for the moment. In some tests, it has been detected that all actions can not be executed in a low resolution system. Then, it has been created the option of a low resolution UI, which can be selected by right clicking the application window and selecting the option "Change to Low resolution UI", shown in \Cref{fig:low_resolution_ui}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{img/low_resolution.png}
+    \caption[Low resolution UI]{\footnotesize{Low resolution UI}}
+    \label{fig:low_resolution_ui}
+\end{figure}
+This option allows the user to execute the application in a low resolution system, having a slightly modified UI, which can be seen in the following figures: \Cref{fig:low_resolution_ui}\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{img/plotting.png}
+    \caption[Plotting view]{\footnotesize{Plotting view}}
+    \label{fig:plotting_view}
+\end{figure}
+Plotting view has not been modified from the initial design neither, since it allows the user to select the different files to be plotted and the different parameters to be used for the plotting, shown in \Cref{fig:plotting_view}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{img/download_low_res.png}
+    \caption[Download view for low resolution UI]{\footnotesize{Download view for low resolution UI}}
+    \label{fig:download_view}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{img/DataComb_low_res.png}
+    \caption[Data Combination view for low resolution UI]{\footnotesize{Data Combination view for low resolution UI}}
+    \label{fig:data_combination_view}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{img/plotting_low_res.png}
+    \caption[Plotting view for low resolution UI]{\footnotesize{Plotting view for low resolution UI}}
+    \label{fig:plotting_view}
+\end{figure}
+This option allows the user to execute the application in a low resolution system, since this User Interface is smaller than the lowest resolution option.

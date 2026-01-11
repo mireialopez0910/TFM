@@ -121,6 +121,37 @@ namespace GRASP_Builder.ViewModels
             var dialog = new AboutWindow();
             var result = await dialog.ShowDialog<bool>(owner);
         }
+        public ICommand ChangeToSmallUI => new RelayCommand(ChangeToSmallUIExecute, CanExecute);
+        private async void ChangeToSmallUIExecute(object _)
+        {
+            var desktop = App.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
+
+            var newMainWindow = new SMainWindow();
+
+            // Mostrarla
+            newMainWindow.Show();
+
+            // Cerrar la ventana actual
+            desktop.MainWindow.Close();
+
+            // Establecer la nueva ventana como principal
+            desktop.MainWindow = newMainWindow;
+        }
+        public ICommand ChangeToFullUI => new RelayCommand(ChangeToFullUIExecute, CanExecute);
+        private async void ChangeToFullUIExecute(object _)
+        {
+            var desktop = App.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
+
+            var newMainWindow = new MainWindow();
+
+            // Mostrarla
+            newMainWindow.Show();
+            // Cerrar la ventana actual
+            desktop.MainWindow.Close();
+
+            // Establecer la nueva ventana como principal
+            desktop.MainWindow = newMainWindow;
+        }
         #endregion
     }
 }

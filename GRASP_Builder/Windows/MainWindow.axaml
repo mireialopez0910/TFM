@@ -18,6 +18,12 @@
 		<vm:MainWindowViewModel/>
 	</Design.DataContext>
 	<Border>
+		<Border.ContextMenu>
+			<ContextMenu> 
+				<MenuItem Header="Change to small resolution UI" Command="{Binding ChangeToSmallUI}" />
+			</ContextMenu>
+		</Border.ContextMenu>
+
 		<StackPanel>
 			<Grid IsVisible="{Binding IsHomeVisible}">
 				<Grid.ColumnDefinitions>
