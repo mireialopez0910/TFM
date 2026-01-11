@@ -1,16 +1,13 @@
-
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
-using GRASP_Builder.ViewModels;
-using System.Collections.ObjectModel;
 
 namespace GRASP_Builder;
 
-public partial class LogView : UserControl
+public partial class SLogView : UserControl
 {
-    public LogView()
+    public SLogView()
     {
         InitializeComponent();
 

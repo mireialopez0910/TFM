@@ -43,6 +43,9 @@ function foundFiles = read_All(subfolderName)
             fclose(fid);
     
             headerLine1 = 'ALL Almucantar';
+            if(headerLine2 ==-1)
+                logMessage('No data polarized found in ALL file')
+            else
             headerLine3 = extractBefore(headerLine3,';');
         
             dataWorkSpaceLabel = strrep([headerLine1, '_', headerLine2, '_', headerLine3], ' ', '_');
@@ -113,7 +116,7 @@ function foundFiles = read_All(subfolderName)
     
     % Mostrar la tabla
     % logMessage(datos);
-    
+            end
         end
     end
 end

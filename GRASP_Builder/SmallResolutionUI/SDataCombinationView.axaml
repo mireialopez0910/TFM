@@ -1,0 +1,154 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="590" d:DesignHeight="325"
+             x:Class="GRASP_Builder.SDataCombinationView"
+             xmlns:vm="using:GRASP_Builder.ViewModels"
+			 x:DataType="vm:DataCombinationViewModel">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+		to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:DataCombinationViewModel/>
+	</Design.DataContext>
+	<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+		<StackPanel Orientation="Vertical" Margin="5" HorizontalAlignment="Center" Width="250">
+			<StackPanel IsEnabled="{Binding AreButtonsEnabled}" Spacing="10">
+				<StackPanel Orientation="Horizontal" Margin="2" HorizontalAlignment="Center">
+					<TextBlock Text="Measure ID: " VerticalAlignment="Center" Margin="0,5" FontSize="10" FontWeight="SemiBold"/>
+
+					<ComboBox ItemsSource="{Binding MeasureIDOptions, Mode=TwoWay}" SelectedItem="{Binding SelectedMeasureID, Mode=TwoWay}" Width="120" Margin="0" FontSize="10"/>
+				</StackPanel>
+				
+				<StackPanel Orientation="Horizontal" Height="12" HorizontalAlignment="Center" Spacing="5">
+
+					<StackPanel Orientation="Horizontal" >
+					<TextBlock Text="hmax (m): " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="2" FontSize="11"/>
+
+					<TextBox Grid.Column="3" Grid.Row="2"  Text="{Binding hMax, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="11"/>
+						</StackPanel>
+					<StackPanel Orientation="Horizontal" >
+						
+					<TextBlock Text="hmin (m): " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="5" Grid.Row="2" FontSize="11"/>
+
+					<TextBox Grid.Column="7" Grid.Row="2" Grid.ColumnSpan="3" Text="{Binding hMin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="11"/>
+						</StackPanel>
+					
+					
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+						<ToggleSwitch
+						IsChecked="{Binding IsOptionELPP}" FontSize="10"
+						OnContent="ELPP"
+						OffContent="Optical"  HorizontalAlignment="Center"/>
+
+						<Button Content="Preview" Command="{Binding PlotPreviewCmd}" IsEnabled="{Binding AreButtonsEnabled}" FontSize="10"
+								Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="5" HorizontalAlignment="Center" Margin="10"/>
+					</StackPanel>
+			</StackPanel>
+
+			<Grid Margin="0" HorizontalAlignment="Center">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="20"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="1"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="1"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="1"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="1"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="1"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="1"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="1"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+
+				<TextBlock Text="Available data convination: " Grid.ColumnSpan="2" Margin="15,0" FontSize="11" FontWeight="SemiBold"/>
+
+				<Grid Grid.Column="1" Grid.Row="2">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="02"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+
+					<RadioButton GroupName="ConfigOptions" Content="D1_L" Grid.Column="0" IsChecked="{Binding isChecked_D1_L}" IsEnabled="{Binding isEnabled_D1_L}" FontSize="11"/>
+
+					<TextBlock Text="Photometre and Lidar" Grid.Column="2" FontSize="10" VerticalAlignment="Center" Margin="5,0"/>
+				</Grid>
+
+				<Grid Grid.Column="1" Grid.Row="4">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="2"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+
+					<!--<CheckBox Content="D1P_L" Grid.Column="0" IsChecked="{Binding isChecked_D1P_L, Mode=TwoWay}" IsEnabled="{Binding isEnabled_D1P_L}"/>-->
+
+					<RadioButton GroupName="ConfigOptions" Content="D1P_L" Grid.Column="0" IsChecked="{Binding isChecked_D1P_L, Mode=TwoWay}" IsEnabled="{Binding isEnabled_D1P_L}" FontSize="11"/>
+					<TextBlock Text="Photometre polarized and Lidar" Grid.Column="2" FontSize="10" VerticalAlignment="Center" Margin="5,0"/>
+				</Grid>
+
+				<Grid Grid.Column="1" Grid.Row="6">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="2"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+
+					<RadioButton GroupName="ConfigOptions" Content="D1_L_VD" Grid.Column="0" IsChecked="{Binding isChecked_D1_L_VD, Mode=TwoWay}" IsEnabled="{Binding isEnabled_D1_L_VD}" FontSize="11"/>
+
+					<TextBlock Text="Photometre and Lidar depolarized" Grid.Column="2" FontSize="10" VerticalAlignment="Center" Margin="5,0"/>
+				</Grid>
+
+				<Grid Grid.Column="1" Grid.Row="8">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="2"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+
+					<RadioButton GroupName="ConfigOptions" Content="D1P_L_VD" Grid.Column="0" IsChecked="{Binding isChecked_D1P_L_VD}" IsEnabled="{Binding isEnabled_D1P_L_VD}" FontSize="11"/>
+
+					<TextBlock Text="Photometre polarized and Lidar depolarized" Grid.Column="2" FontSize="10" VerticalAlignment="Center" Width="200"  TextWrapping="WrapWithOverflow" Margin="5,0"/>
+				</Grid>
+				 
+				<Button Content="Send data" Command="{Binding SendDataCmd}" IsEnabled="{Binding AreButtonsEnabled}" FontSize="10"
+						Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="5" HorizontalAlignment="Center" Margin="1"/>
+			</Grid>
+		</StackPanel>
+
+		<StackPanel Margin="0">
+			<TabControl>
+				<TabItem Header="Output" FontSize="12">
+					<ScrollViewer VerticalScrollBarVisibility="Auto">
+						<TextBox x:Name="OutputWindow"
+								 IsReadOnly="True"
+								 AcceptsReturn="True"
+								 TextWrapping="Wrap"
+								 Width="350" Height="245" FontSize="10"/>
+					</ScrollViewer>
+				</TabItem>
+
+				<TabItem Header="Errors" FontSize="12">
+					<ScrollViewer VerticalScrollBarVisibility="Auto">
+						<TextBox x:Name="ErrorsWindow"
+								 IsReadOnly="True"
+								 AcceptsReturn="True"
+								 TextWrapping="Wrap"
+								 Width="350" Height="245" FontSize="10"/>
+					</ScrollViewer>
+				</TabItem>
+			</TabControl>
+		</StackPanel>
+	</StackPanel>
+</UserControl>

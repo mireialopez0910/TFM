@@ -1,0 +1,110 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:uielement="using:GRASPBuilder.UIElement"
+		mc:Ignorable="d" Width="700" Height="500"
+		CanResize="False" WindowStartupLocation="CenterScreen"
+		x:Class="GRASP_Builder.Views.SMainWindow"
+		xmlns:vm="using:GRASP_Builder.ViewModels"
+		xmlns:n="using:GRASP_Builder"
+		x:DataType="vm:MainWindowViewModel"
+		Icon="/Resources/logo.ico"
+		Title="{Binding Title}">
+
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+		to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+	<Border>
+		<StackPanel>
+			<!--Grid IsVisible="{Binding IsHomeVisible}">-->
+			<Grid IsVisible="False">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="80"/>
+				</Grid.ColumnDefinitions>
+			
+				<TabControl  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="475" IsVisible="{Binding IsHomeVisible}" Grid.ColumnSpan="2">
+					<TabItem Header="Home" FontSize="17">
+						<TabItem.Content>
+							<n:HomeView />
+						</TabItem.Content>
+					</TabItem>
+				</TabControl>
+				
+				<Button Click="Help_Click" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1"  Background="Transparent" BorderBrush="Transparent" FontStyle="Italic" Foreground="DarkBlue" FontWeight="DemiBold" FontSize="10" Width="60">
+					<ContentControl>
+						<TextBlock Text="Help" HorizontalAlignment="Center"/>
+					</ContentControl>
+				</Button>
+
+			</Grid>
+			
+			<Grid IsVisible="True">
+			<!--<Grid IsVisible="{Binding IsProjectLoaded}"-->
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+
+				<TabControl  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="350" Grid.ColumnSpan="2" Background="Transparent">
+					<TabItem Header="Download" FontSize="17">
+						<TabItem.Content>
+							<n:SDownloadFiles/>
+						</TabItem.Content>
+					</TabItem>
+
+					<TabItem Header="Data combination" FontSize="17">
+						<TabItem.Content>
+							<n:SDataCombinationView />
+						</TabItem.Content>
+					</TabItem>
+
+					<TabItem Header="Plotting" FontSize="17">
+						<TabItem.Content>
+							<n:PlotView />
+						</TabItem.Content>
+					</TabItem>
+				</TabControl>
+
+				<Menu HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1" Margin ="0,5">
+					<MenuItem Header="File" FontSize="11">
+						<MenuItem Header="Create a new project" Command="{Binding CreateCmd}"/>
+						<MenuItem Header="Open an other project" Command="{Binding OpenCmd}"/>
+						<MenuItem Header="Import an other project" Command="{Binding ImportCmd}"/>
+						<MenuItem Header="Export project" Command="{Binding ExportCmd}"/>
+						<MenuItem Header="Close project"  Command="{Binding CloseCmd}"/>
+					</MenuItem>
+					
+					<MenuItem Header="Settings"  Command="{Binding SettingsCmd}" FontSize="11"/>
+										
+					<MenuItem Header="About"  Command="{Binding AboutCmd}" FontSize="11"/>
+				</Menu>
+			</Grid>
+
+			<TabControl IsVisible="True">
+			<!--TabControl IsVisible="{Binding IsProjectLoaded}">-->
+				<TabItem Header="Log" FontSize="13">
+					<TabItem.Content >
+						<n:SLogView Margin="0,5"/>
+					</TabItem.Content>
+				</TabItem>
+			</TabControl>
+
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<Image Source="avares://GRASP_Builder/Resources/logo.png" Stretch="Fill" Opacity="1" Margin="1,1,5,-5" Height="10" Width="10"
+					   HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="1" />
+
+				<Image Source="avares://GRASP_Builder/Resources/logo_UPC.png" Stretch="Fill" Opacity="1" Height="10" Width="80" Margin="5,1,1,-3"
+					   HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" />
+			</Grid>
+		</StackPanel>
+	</Border>
+</Window>

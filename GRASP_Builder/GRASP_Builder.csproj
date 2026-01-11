@@ -53,6 +53,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="SmallResolutionUI\SDataCombinationView.axaml.cs">
+      <DependentUpon>SDataCombinationView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="SmallResolutionUI\SMainWindow.axaml.cs">
+      <DependentUpon>SMainWindow.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\DataCombinationView.axaml.cs">
       <DependentUpon>DataCombinationView.axaml</DependentUpon>
     </Compile>

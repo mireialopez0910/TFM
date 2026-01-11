@@ -47,6 +47,9 @@ function foundFiles = read_Aeronet(subfolderName)
             %build DataName using file-info
     
             headerLine1 = 'Aeronet';
+            if(headerLine2 ==-1)
+                logMessage('No data polarized found in AOD file')
+            else
             headerLine3 = extractBefore(headerLine3,';');
     
             dataWorkSpaceLabel = strrep([headerLine1, '_', headerLine2, '_', headerLine3], ' ', '_');
@@ -104,6 +107,7 @@ function foundFiles = read_Aeronet(subfolderName)
         
             assignin('base', 'WSTNames', tNames);
             assignin('base', part_name, tmp_table)
+            end
         end
     end
 end

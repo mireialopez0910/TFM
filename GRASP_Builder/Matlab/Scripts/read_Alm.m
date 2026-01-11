@@ -53,6 +53,9 @@ function foundFiles = read_Alm(subfolderName)
             fclose(fid);
     
             headerLine1 = 'Almucantar';
+            if(headerLine1 ==-1)
+                logMessage('No data polarized found in ALM file')
+            else
             headerLine3 = extractBefore(headerLine3,';');
         
             dataWorkSpaceLabel = strrep([headerLine1, '_', headerLine2, '_', headerLine3], ' ', '_');
@@ -135,7 +138,7 @@ function foundFiles = read_Alm(subfolderName)
     
     % Mostrar la tabla
     % logMessage(datos);
-    
+            end
         end
     end
 end
