@@ -76,6 +76,15 @@ namespace GRASP_Builder.ViewModels
                 isEnabled_D1_L_VD = false;
                 isEnabled_D1P_L_VD = false;
             }
+            else
+            {
+                if (!isEnabled_D1_L_VD && !isEnabled_D1P_L_VD)
+                {
+                    isOptionVDEnabled = false;
+                    IsOptionELPP = true;
+                }
+                else isOptionVDEnabled = true;
+            }
         }
 
         private bool isEnabled(string v) { return v == "enabled"; }
@@ -170,6 +179,13 @@ namespace GRASP_Builder.ViewModels
             set => SetProperty<bool>(ref _IsConfigSelectionEnabled, value);
         }
 
+        private bool _isOptionVDEnabled = false;
+        public bool isOptionVDEnabled
+        {
+            get => _isOptionVDEnabled;
+            set => SetProperty<bool>(ref _isOptionVDEnabled, value);
+        }
+
         private bool _IsOptionELPP = true;
         public bool IsOptionELPP
         {
@@ -177,7 +193,7 @@ namespace GRASP_Builder.ViewModels
             set => SetProperty<bool>(ref _IsOptionELPP, value);
         }
 
-        private bool _isChecked_D1_L = true;
+        private bool _isChecked_D1_L = false;
         public bool isChecked_D1_L
         {
             get => _isChecked_D1_L;
@@ -345,7 +361,7 @@ namespace GRASP_Builder.ViewModels
                         { "selected_measure_ID", SelectedMeasureID},
                         {"plot_ELPP", IsOptionELPP.ToString().ToLower() },
                         {"Folder_AERONET", Path.Combine(_aeronetRepositoryDirectory, new string(SelectedMeasureID.Where(c => !char.IsDigit(c)).ToArray()).ToUpper())},
-                        {"Folder_LIDAR",$@"{Path.Combine(_earlinetRepositoryDirectory, new string(SelectedMeasureID.Where(c => !char.IsDigit(c)).ToArray()).ToUpper())}\"},
+                        {"Folder_LIDAR",$@"{Path.Combine(_earlinetRepositoryDirectory, new string(SelectedMeasureID.Where(c => !char.IsDigit(c)).ToArray()).ToUpper())}/"},
                     };
 
             if (!measureIDModified)
@@ -371,7 +387,7 @@ namespace GRASP_Builder.ViewModels
                         {"sendData", "false"},
                         {"selected_measure_ID", SelectedMeasureID},
                         {"Folder_AERONET", Path.Combine(_aeronetRepositoryDirectory, new string(SelectedMeasureID.Where(c => !char.IsDigit(c)).ToArray()).ToUpper())},
-                        {"Folder_LIDAR",$@"{Path.Combine(_earlinetRepositoryDirectory, new string(SelectedMeasureID.Where(c => !char.IsDigit(c)).ToArray()).ToUpper())}\"},
+                        {"Folder_LIDAR",$@"{Path.Combine(_earlinetRepositoryDirectory, new string(SelectedMeasureID.Where(c => !char.IsDigit(c)).ToArray()).ToUpper())}/"},
                     };
 
             if (!measureIDModified)
@@ -411,7 +427,7 @@ namespace GRASP_Builder.ViewModels
                         {"heightLimitMax",hMax  },
                         {"heightLimitMin",hMin  },
                         {"Folder_AERONET", Path.Combine(_aeronetRepositoryDirectory,new string(SelectedMeasureID.Where(c => !char.IsDigit(c)).ToArray()).ToUpper())},
-                        {"Folder_LIDAR", $@"{Path.Combine(_earlinetRepositoryDirectory, new string(SelectedMeasureID.Where(c => !char.IsDigit(c)).ToArray()).ToUpper())}\"},
+                        {"Folder_LIDAR", $@"{Path.Combine(_earlinetRepositoryDirectory, new string(SelectedMeasureID.Where(c => !char.IsDigit(c)).ToArray()).ToUpper())}/"},
                         {"is_D1_L_checked",isChecked_D1_L },
                         {"is_D1P_L_checked",isChecked_D1P_L },
                         {"is_D1P_L_VD_checked",isChecked_D1P_L_VD },
@@ -422,7 +438,7 @@ namespace GRASP_Builder.ViewModels
                 if (AppConfig.Instance.IsDebugging())
                     Logger.Log($"Send Data Matlab script started with dicctionary: {FormatHelpers.DictionaryToString(dict)}");
 
-                MatlabController.RunMatlabScript(ScriptType.Preview, dict, "_DC");
+                MatlabController.RunMatlabScript(ScriptType.SendFiles, dict, "_DC");
 
                 Messenger.Default.Send<object>("ReloadMeasureID", null);
             }

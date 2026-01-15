@@ -54,12 +54,20 @@ namespace GRASP_Builder.AppCode
 
             using (var process = Process.Start(processInfo))
             {
+                Messenger.Default.Send<string>("WriteMatlabOutput_DC", "Starting GRASP execution, please wait");
                 string output = process.StandardOutput.ReadToEnd();
                 string error = process.StandardError.ReadToEnd();
                 process.WaitForExit();
 
-                Logger.Log("Output: " + output);
-                if (!string.IsNullOrEmpty(error)) { Logger.Log("Error: " + error); return false; }
+                Messenger.Default.Send<string>("WriteMatlabOutput_DC", output);
+
+                if (!string.IsNullOrEmpty(error))
+                {
+                    Logger.Log("Error: " + error);
+                    Messenger.Default.Send<string>("WriteMatlabOutput_DC", "ERROR: " + error);
+                    return false;
+                }
+                Messenger.Default.Send<string>("WriteMatlabOutput_DC", "Execution ended successfully");
                 return true;
             }
         }

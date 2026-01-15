@@ -39,7 +39,7 @@
 				<StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" HorizontalAlignment="Center">
 						<ToggleSwitch
 						IsChecked="{Binding IsOptionELPP}" FontSize="10"
-						OnContent="ELPP"
+						OnContent="ELPP" IsEnabled="{Binding isOptionVDEnabled}"
 						OffContent="Optical"  HorizontalAlignment="Center"/>
 
 						<Button Content="Preview" Command="{Binding PlotPreviewCmd}" IsEnabled="{Binding AreButtonsEnabled}" FontSize="10"

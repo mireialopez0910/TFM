@@ -15,6 +15,17 @@ public partial class PlotView : UserControl
 
         Messenger.Default.Register<string>("WriteMatlabOutput_Plot", WriteMatlabOutput);
         Messenger.Default.Register<string>("WriteMatlabErrors_Plot", WriteMatlabErrors);
+        Messenger.Default.Register<bool>("UpdateProjectLoaded", UpdateProjectLoaded);
+    }
+
+    private void UpdateProjectLoaded(bool obj)
+    {
+        Dispatcher.UIThread.Post(() =>
+        {
+            OutputWindow.Text = string.Empty;
+
+            ErrorsWindow.Text = string.Empty;
+        });
     }
 
     private void WriteMatlabOutput(string message)

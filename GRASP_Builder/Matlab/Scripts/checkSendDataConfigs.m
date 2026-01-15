@@ -119,7 +119,7 @@ function [is_D1_L, is_D1P_L, is_D1_L_VD, is_D1P_L_VD, message] = checkSendDataCo
         
     count_1064 = height(tEldaElpp( contains(tEldaElpp.fileName, '_1064_'), :));
     count_0532 = height(tEldaElpp( contains(tEldaElpp.fileName, '_0532_'), :));
-    count_0355 = height(tEldaElpp( contains(tEldaElpp.fileName, '_0355_'), :));
+    count_0355 = height(tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :));
 
     if count_1064 > 0
         try
@@ -175,12 +175,12 @@ function [is_D1_L, is_D1P_L, is_D1_L_VD, is_D1P_L_VD, message] = checkSendDataCo
 
     if count_0355 > 0
         try
-        VD_0355_ELPP = tEldaElpp( contains(tEldaElpp.fileName, '_0355_'), :).volumedepolarization;
+        VD_0354_ELPP = tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :).volumedepolarization;
     
-        if isnan(cell2mat(VD_0355_ELPP))
+        if isnan(cell2mat(VD_0354_ELPP))
             status_0355 = 1;
             message_0355 = 'VD not found in wavelength 355 (no values found)';
-        elseif all(isnan(cell2mat(VD_0355_ELPP)))
+        elseif all(isnan(cell2mat(VD_0354_ELPP)))
             status_0355 = 1;
             message_0355 = 'VD not found in wavelength 355 (nan values found only)';
         else

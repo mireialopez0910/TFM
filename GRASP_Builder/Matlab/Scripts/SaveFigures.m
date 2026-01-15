@@ -61,25 +61,25 @@ fullPath = fullfile(measureIDFolder, selected_measure_ID, selected_measurement_f
 
 if startsWith(selected_measurement_file_to_show, 'D1_L-', 'IgnoreCase', true)
     GRASP_Plot_Correctly = grasp_plotting_UPC(fullPath, 'D1_L', Lambda,Waves_AERONET2,size_binsF,size_binsC);
-    logMessage(['OUT or GRASP data file not found for D1_L configuration in measure ', selected_measure_ID]);
+    logMessage(['GRASP data converted into figures for D1_L configuration in measure ', selected_measure_ID]);
 
 elseif startsWith(selected_measurement_file_to_show, 'D1_L_VD-', 'IgnoreCase', true)
     GRASP_Plot_Correctly = grasp_plotting_UPC(fullPath, 'D1_L_VD', Lambda,Waves_AERONET2,size_binsF,size_binsC);
-    logMessage(['OUT or GRASP data file not found for D1_L_VD configuration in measure ', selected_measure_ID]);
+    logMessage(['GRASP data converted into figures for D1_L_VD configuration in measure ', selected_measure_ID]);
 
 elseif startsWith(selected_measurement_file_to_show, 'D1P_L-', 'IgnoreCase', true)
     GRASP_Plot_Correctly = grasp_plotting_UPC(fullPath, 'D1P_L', Lambda,Waves_AERONET2,size_binsF,size_binsC);
-    logMessage(['OUT or GRASP data file not found for D1P_L configuratio in measure ', selected_measure_ID]);
+    logMessage(['GRASP data converted into figures for D1P_L configuratio in measure ', selected_measure_ID]);
 
 elseif startsWith(selected_measurement_file_to_show, 'D1P_L_VD-', 'IgnoreCase', true)
     GRASP_Plot_Correctly = grasp_plotting_UPC(fullPath, 'D1P_L_VD', Lambda,Waves_AERONET2,size_binsF,size_binsC);
-    logMessage(['OUT or GRASP data file not found for D1P_L_VD configuration in measure ', selected_measure_ID]);
+    logMessage(['GRASP data converted into figures for D1P_L_VD configuration in measure ', selected_measure_ID]);
 
 else
     logMessage('Unknown configuration ');
     disp('Unknown configuration ');
 end
 
-if(GRASP_Plot_Correctly)
+if(~GRASP_Plot_Correctly)
     logMessage(['OUT or GRASP data file not found for your configuration in measure ', selected_measure_ID]);
 end

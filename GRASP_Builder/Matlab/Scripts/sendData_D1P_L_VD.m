@@ -106,17 +106,17 @@ function [GARRLiC_file_name, errorVolumePolarization] = sendData_D1P_L_VD( measu
         end
     
         try
-            Range355 = tEldaElpp( contains(tEldaElpp.fileName, '_b0355_'), :).elpp_altitude{1};
-            RCS355 = tEldaElpp( contains(tEldaElpp.fileName, '_b0355_'), :).total_power_channel{1};
-            RangeVD355 = tEldaElpp( contains(tEldaElpp.fileName, '_b0355_'), :).elda_altitude{1};
-            VD355 = tEldaElpp( contains(tEldaElpp.fileName, '_b0355_'), :).volumedepolarization{1};
+            Range355 = tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :).elpp_altitude{1};
+            RCS355 = tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :).total_power_channel{1};
+            RangeVD355 = tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :).elda_altitude{1};
+            VD355 = tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :).volumedepolarization{1};
             location = getLocationFromEldaFileName(tEldaElpp.fileName{1});
 
-            start_datetime = tEldaElpp( contains(tEldaElpp.fileName, '_b0355_'), :).elda_measurement_start_datetime;
-            stop_datetime  = tEldaElpp( contains(tEldaElpp.fileName, '_b0355_'), :).elda_measurement_stop_datetime;
+            start_datetime = tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :).elda_measurement_start_datetime;
+            stop_datetime  = tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :).elda_measurement_stop_datetime;
     
         catch ME
-            logMessage(['_b0355_', ME.message])
+            logMessage(['_0354_', ME.message])
             if isnan(VD355)
                 errorVolumePolarization = true;
             end
@@ -272,11 +272,11 @@ function [GARRLiC_file_name, errorVolumePolarization] = sendData_D1P_L_VD( measu
     end
 
     try
-        Rangebeta355_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_b0355_'), :).elda_altitude{1};
-        Beta355_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_b0355_'), :).backscatter{1};
+        Rangebeta355_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :).elda_altitude{1};
+        Beta355_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :).backscatter{1};
         save(fullFileName,'-append','Rangebeta355_SCC','Beta355_SCC');
     catch ME
-        logMessage(['ERROR Creating ELDA Profile for _b0355_', ME.message]);
+        logMessage(['ERROR Creating ELDA Profile for _0354_', ME.message]);
     end
 
     % END of ELDA Profile

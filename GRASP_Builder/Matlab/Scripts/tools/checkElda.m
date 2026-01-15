@@ -5,7 +5,7 @@ function [statusWaveLength, message_waveLength , status_1064, message_1064, stat
         
     count_1064 = height(tEldaElpp( contains(tEldaElpp.fileName, '_1064_'), :));
     count_0532 = height(tEldaElpp( contains(tEldaElpp.fileName, '_0532_'), :));
-    count_0355 = height(tEldaElpp( contains(tEldaElpp.fileName, '_0355_'), :));
+    count_0355 = height(tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :));
     count_0354 = height(tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :));
 
     %%% Check Elda & Elpp wavelength avaliability
@@ -53,7 +53,7 @@ function [statusWaveLength, message_waveLength , status_1064, message_1064, stat
     end
 
     if count_0355 > 0
-        count_ELPP_altitude = height(tEldaElpp( contains(tEldaElpp.fileName, '_0355_'), :).elpp_altitude);
+        count_ELPP_altitude = height(tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :).elpp_altitude);
         if count_ELPP_altitude > 0
             status_0355 = 1;
             message_0355 = 'Wavelength 355: verified correctly';

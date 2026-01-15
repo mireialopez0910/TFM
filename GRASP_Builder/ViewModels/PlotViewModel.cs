@@ -20,6 +20,12 @@ namespace GRASP_Builder.ViewModels
         {
             projectCfg = (App.Current as App)?.CurrentProjectConfig;
             Messenger.Default.Register<object>("ReloadMeasureID", ReloadMeasureID);
+            Messenger.Default.Register<object>("ReloadFigureFiles", ReloadFigureFiles);
+        }
+
+        private void ReloadFigureFiles(object obj)
+        {
+            ReloadFigureFiles();
         }
         #endregion
 
@@ -198,6 +204,7 @@ namespace GRASP_Builder.ViewModels
 
         private void FindSpecificFolders()
         {
+            FileToShowOptions.Clear();
             string measureIDFolder = Path.Combine(matlabOutputDirectory, SelectedMeasureID);
 
             Logger.Log($"Analizing {measureIDFolder} folder . . .");

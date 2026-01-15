@@ -33,21 +33,23 @@ function [tFiltered, numItems] = getFilteredTable( type, idx)
     if strcmpi(type,'elda')
         logMessage([type, ':', numItems]);
     else
+        try
+            %Busca el nombre de la tabla Elda para cargarla
+            tName = getWSTNByType(type).table_name{idx};
+                    
+            %Carga la tabla ELDA
+            tData = evalin('base', tName);
+            
+            
+            filter = tData.FullDate >= date_ini(1) & tData.FullDate <= date_end(1);
+            tFiltered = tData(filter, :);
         
-        %Busca el nombre de la tabla Elda para cargarla
-        tName = getWSTNByType(type).table_name{idx};
-                
-        %Carga la tabla ELDA
-        tData = evalin('base', tName);
-        
-        
-        filter = tData.FullDate >= date_ini(1) & tData.FullDate <= date_end(1);
-        tFiltered = tData(filter, :);
-
-        numItems = (num2str(height(tFiltered)));
-        logMessage([type, ':', numItems]);
-        % logMessage(tData)
-       
+            numItems = (num2str(height(tFiltered)));
+            logMessage([type, ':', numItems]);
+            % logMessage(tData)
+        catch
+            logMessage(['Table with ',idx, ' not found'])
+        end
     end
 
 end

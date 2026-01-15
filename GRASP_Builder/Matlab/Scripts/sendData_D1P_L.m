@@ -83,39 +83,39 @@ function [GARRLiC_file_name] = sendData_D1P_L( measureID, heightMin, heightMax, 
         %! * |'start_*datetime'| data i hora de l'inici de la mesura
         %! * |'stop_datetime'| data i hora de finalització de la mesura
         try
-            Range532 = tEldaElpp( contains(tEldaElpp.fileName, '_b0532_'), :).elpp_altitude{1};
-            RCS532 = tEldaElpp( contains(tEldaElpp.fileName, '_b0532_'), :).total_power_channel{1};
+            Range532 = tEldaElpp( contains(tEldaElpp.fileName, '_0532_'), :).elpp_altitude{1};
+            RCS532 = tEldaElpp( contains(tEldaElpp.fileName, '_0532_'), :).total_power_channel{1};
             location = getLocationFromEldaFileName(tEldaElpp.fileName{1});
 
-            start_datetime = tEldaElpp( contains(tEldaElpp.fileName, '_b0532_'), :).elda_measurement_start_datetime;
-            stop_datetime  = tEldaElpp( contains(tEldaElpp.fileName, '_b0532_'), :).elda_measurement_stop_datetime;
+            start_datetime = tEldaElpp( contains(tEldaElpp.fileName, '_0532_'), :).elda_measurement_start_datetime;
+            stop_datetime  = tEldaElpp( contains(tEldaElpp.fileName, '_0532_'), :).elda_measurement_stop_datetime;
             
         catch ME
             logMessage(['_0532_', ME.message])
         end
     
         try
-            Range355 = tEldaElpp( contains(tEldaElpp.fileName, '_b0355_'), :).elpp_altitude{1};
-            RCS355 = tEldaElpp( contains(tEldaElpp.fileName, '_b0355_'), :).total_power_channel{1};    
+            Range355 = tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :).elpp_altitude{1};
+            RCS355 = tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :).total_power_channel{1};    
             location = getLocationFromEldaFileName(tEldaElpp.fileName{1});
 
-            start_datetime = tEldaElpp( contains(tEldaElpp.fileName, '_b0355_'), :).elda_measurement_start_datetime;
-            stop_datetime  = tEldaElpp( contains(tEldaElpp.fileName, '_b0355_'), :).elda_measurement_stop_datetime;
+            start_datetime = tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :).elda_measurement_start_datetime;
+            stop_datetime  = tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :).elda_measurement_stop_datetime;
     
         catch ME
-            logMessage(['_0355_', ME.message])
+            logMessage(['_0354_', ME.message])
         end
     
         try
-            Range1064 = tEldaElpp( contains(tEldaElpp.fileName, '_b1064_'), :).elpp_altitude{1};
-            RCS1064 = tEldaElpp( contains(tEldaElpp.fileName, '_b1064_'), :).range_corrected_signal{1};
+            Range1064 = tEldaElpp( contains(tEldaElpp.fileName, '_1064_'), :).elpp_altitude{1};
+            RCS1064 = tEldaElpp( contains(tEldaElpp.fileName, '_1064_'), :).range_corrected_signal{1};
             location = getLocationFromEldaFileName(tEldaElpp.fileName{1});
 
-            start_datetime = tEldaElpp( contains(tEldaElpp.fileName, '_b1064_'), :).elda_measurement_start_datetime;
-            stop_datetime  = tEldaElpp( contains(tEldaElpp.fileName, '_b1064_'), :).elda_measurement_stop_datetime;
+            start_datetime = tEldaElpp( contains(tEldaElpp.fileName, '_1064_'), :).elda_measurement_start_datetime;
+            stop_datetime  = tEldaElpp( contains(tEldaElpp.fileName, '_1064_'), :).elda_measurement_stop_datetime;
         
         catch ME
-            logMessage(['_b1064_', ME.message])
+            logMessage(['_1064_', ME.message])
         end   
     
     
@@ -169,37 +169,37 @@ function [GARRLiC_file_name] = sendData_D1P_L( measureID, heightMin, heightMax, 
         
         %%! Perfil ELDA
         %! Afegeix les dades referents al perfil Elda per a les diferents longituds d'ona disponibles:
-        %! 1064 / 532 / 355 (altitude, backscatter) i es guarden en el fitxer GRASP_BRC.
+        %! 1064 / 532 / 355 (altitude, backscatter) i es guarden en el fitxer GRASP_RC.
         %!
         %! Nota: Aquesta part s'ha mogut des de 'elda_profile.m per motius de
-        %! unificació de dades en el fitxer GRASP_BRC
+        %! unificació de dades en el fitxer GRASP_RC
         %!
         %! *Dades a recuperar:*
         %!
         %! * |elda_altitude| - dades d'altitud del fitxer Elda.
         %! * |backscatter| - dades de backscatter del fitxer Elda
         try
-            Rangebeta1064_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_b1064_'), :).elda_altitude{1};
-            Beta1064_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_b1064_'), :).backscatter{1};        
+            Rangebeta1064_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_1064_'), :).elda_altitude{1};
+            Beta1064_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_1064_'), :).backscatter{1};        
             save(fullFileName,'-append','Rangebeta1064_SCC','Beta1064_SCC');
         catch ME
-            logMessage(['ERROR Creating ELDA Profile for _b1064_', ME.message]);
+            logMessage(['ERROR Creating ELDA Profile for _1064_', ME.message]);
         end
      
         try
-            Rangebeta532_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_b0532_'), :).elda_altitude{1};
-            Beta532_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_b0532_'), :).backscatter{1};
+            Rangebeta532_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_0532_'), :).elda_altitude{1};
+            Beta532_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_0532_'), :).backscatter{1};
             save(fullFileName,'-append','Rangebeta532_SCC','Beta532_SCC')
         catch ME
             logMessage(['ERROR Creating ELDA Profile for _0532_', ME.message]);
         end
 
         try
-            Rangebeta355_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_b0355_'), :).elda_altitude{1};
-            Beta355_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_b0355_'), :).backscatter{1};
+            Rangebeta355_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :).elda_altitude{1};
+            Beta355_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_0354_'), :).backscatter{1};
             save(fullFileName,'-append','Rangebeta355_SCC','Beta355_SCC')
         catch ME
-            logMessage(['ERROR Creating ELDA Profile for _0355_', ME.message]);
+            logMessage(['ERROR Creating ELDA Profile for _0354_', ME.message]);
         end
 
         % END of ELDA Profile

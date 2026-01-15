@@ -28,7 +28,7 @@ function foundFiles = read_NetCDF_(measureID, Folder_LIDAR)
                 fileName = files(k).name;
                 fileInputPath = fullfile(URL_LIDAR, fileName);
              
-                if (contains(fileInputPath, '_1064_') || contains(fileInputPath, '_0532_') || contains(fileInputPath, '_0355_') || contains(fileInputPath, '_0354_'))
+                if (contains(fileInputPath, '_1064_') || contains(fileInputPath, '_0532_') || contains(fileInputPath, '_0354_') || contains(fileInputPath, '_0354_'))
                     
                     if(contains(fileInputPath, '_0532_'))
                         wavelength="0532";
@@ -36,7 +36,7 @@ function foundFiles = read_NetCDF_(measureID, Folder_LIDAR)
                     if(contains(fileInputPath, '_1064_'))
                         wavelength="1064";
                     end
-                    if(contains(fileInputPath, '_0355_') || contains(fileInputPath, '_0354_'))
+                    if(contains(fileInputPath, '_0354_') || contains(fileInputPath, '_0354_'))
                         wavelength="0355";
                     end
                     
@@ -87,7 +87,7 @@ function foundFiles = read_NetCDF_(measureID, Folder_LIDAR)
                         dataStruct(countEligibleFiles).attr_color = "green";
                     end
         
-                    if contains(fileName, '_0355_') || contains(fileName, '_0354_') 
+                    if contains(fileName, '_0354_') 
                         dataStruct(countEligibleFiles).attr_color = "blue";
                     end
 

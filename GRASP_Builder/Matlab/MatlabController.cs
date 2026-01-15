@@ -82,6 +82,7 @@ namespace GRASP_Builder
                     Logger.Log($"Exception occurred while running MATLAB script: {ex.Message}");
                     Messenger.Default.Send<string>("WriteMatlabErrors" + suffix_messenger, "Exception occurred while running MATLAB script: " + ex.Message);
                     Messenger.Default.Send<string>("WriteMatlabOutput" + suffix_messenger, $"Exception occured. Check error tab in order to know further information.");
+                    script.PostExecutionActions(false);
                 }
             });
             t.Start();

@@ -26,6 +26,11 @@ namespace GRASP_Builder.Matlab.MatlabScriptsImplementations
         public string Name { get; set; } = "SaveFigures.m";
         public Dictionary<string, object> vars { get; set; }
 
+        public virtual void PostExecutionActions(bool resultOK = true)
+        {
+            Messenger.Default.Send<bool>("UpdateButtonsEnabled", true);
+            Messenger.Default.Send<string>("ReloadFigureFiles", null);
+        }
         #endregion
     }
 }

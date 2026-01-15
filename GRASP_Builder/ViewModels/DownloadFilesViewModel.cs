@@ -52,7 +52,6 @@ namespace GRASP_Builder.ViewModels
             DownloadedFiles_AERONET = new ObservableCollection<CheckItem>();
 
             Messenger.Default.Register<bool>("UpdateProjectLoaded", UpdateProjectLoaded);
-            Messenger.Default.Register<bool>("UpdateProjectLoaded", UpdateProjectLoaded);
             Messenger.Default.Register<string>("UpdateProgress", UpdateProgress);
             Messenger.Default.Register<ObservableCollection<string>>("UpdateStations", UpdateStation);
             StationsOptions=StationsService.GetStations();
@@ -312,7 +311,7 @@ namespace GRASP_Builder.ViewModels
                 {
                     if (file.Contains("_0532_") && (file.Contains("_008_") || file.Contains("_003_")))
                         found532 = true;
-                    if ((file.Contains("_0355_") || file.Contains("_0354_")) && (file.Contains("_008_") || file.Contains("_003_")))
+                    if ((file.Contains("_0354_") || file.Contains("_0354_")) && (file.Contains("_008_") || file.Contains("_003_")))
                         found355 = true;
                     if (file.Contains("_1064_") && file.Contains("_003_"))
                         found1064 = true;
