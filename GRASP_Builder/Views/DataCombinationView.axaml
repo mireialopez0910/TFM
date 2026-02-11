@@ -64,7 +64,7 @@
 				</Grid>
 			</StackPanel>
 
-			<Grid Margin="5">
+			<Grid Margin="5" IsEnabled="{Binding AreButtonsEnabled}">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="20"/>
 					<ColumnDefinition Width="*"/>
@@ -88,7 +88,7 @@
 					<RowDefinition Height="Auto"/>
 				</Grid.RowDefinitions>
 
-				<TextBlock Text="Available data convination: " Grid.ColumnSpan="2" Margin="5"/>
+				<TextBlock Text="Available data combination: " Grid.ColumnSpan="2" Margin="5"/>
 
 				<Grid Grid.Column="1" Grid.Row="2">
 					<Grid.RowDefinitions>
@@ -139,7 +139,7 @@
 					<TextBlock Text="   Photometre polarized and Lidar depolarized" Grid.Row="2"/>
 				</Grid>
 
-				<Button Content="Send data" Command="{Binding SendDataCmd}" IsEnabled="{Binding AreButtonsEnabled}"
+				<Button Content="Send data to GRASP" Command="{Binding SendDataCmd}" IsEnabled="{Binding AreButtonsEnabled}"
 						Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="5" HorizontalAlignment="Center" Margin="10"/>
 			</Grid>
 		</StackPanel>

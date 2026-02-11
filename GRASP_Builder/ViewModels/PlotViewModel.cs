@@ -1,13 +1,8 @@
-﻿using Avalonia.Controls;
-using GRASP_Builder.AppCode;
+﻿using GRASP_Builder.AppCode;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace GRASP_Builder.ViewModels
@@ -21,12 +16,18 @@ namespace GRASP_Builder.ViewModels
             projectCfg = (App.Current as App)?.CurrentProjectConfig;
             Messenger.Default.Register<object>("ReloadMeasureID", ReloadMeasureID);
             Messenger.Default.Register<object>("ReloadFigureFiles", ReloadFigureFiles);
+            Messenger.Default.Register<bool>("UpdateButtonsEnabled", UpdateButtonsEnabled);
         }
 
         private void ReloadFigureFiles(object obj)
         {
             ReloadFigureFiles();
         }
+        private void UpdateButtonsEnabled(bool status)
+        {
+            AreButtonsEnabled = status;
+        }
+
         #endregion
 
         #region Members
@@ -100,6 +101,13 @@ namespace GRASP_Builder.ViewModels
             }
         }
 
+        private bool _areButtonsEnabled = true;
+        public bool AreButtonsEnabled
+        {
+            get => _areButtonsEnabled;
+            set => SetProperty<bool>(ref _areButtonsEnabled, value);
+        }
+
         #endregion
 
         #region Commands
@@ -109,7 +117,7 @@ namespace GRASP_Builder.ViewModels
         {
             ReloadMeasureID();
 
-            SelectedMeasureID=string.Empty;
+            SelectedMeasureID = string.Empty;
             SelectedFileToShow = string.Empty;
             SelectedFigureToShow = string.Empty;
         }
@@ -183,9 +191,11 @@ namespace GRASP_Builder.ViewModels
             {
                 // Obtain all subfolders in matlabOutputDirectory
                 var measureIDSubFolders = Directory.GetDirectories(matlabOutputDirectory);
-
-                Logger.Log("Subcarpetas en la carpeta measureID:");
-                Logger.Log("Measure ID found: " + measureIDSubFolders.Length);
+                if (AppConfig.Instance.IsDebugging())
+                {
+                    Logger.Log("Subcarpetas en la carpeta measureID:");
+                    Logger.Log("Measure ID found: " + measureIDSubFolders.Length);
+                }
 
                 //update MeasureIDOptions combobox
                 MeasureIDOptions.Clear();
@@ -193,7 +203,8 @@ namespace GRASP_Builder.ViewModels
                 {
                     string folderName = Path.GetFileName(folder);
                     MeasureIDOptions.Add(folderName);
-                    Logger.Log("Measure ID: " + folderName);
+                    if (AppConfig.Instance.IsDebugging())
+                        Logger.Log("Measure ID: " + folderName);
                 }
             }
             else
@@ -207,7 +218,8 @@ namespace GRASP_Builder.ViewModels
             FileToShowOptions.Clear();
             string measureIDFolder = Path.Combine(matlabOutputDirectory, SelectedMeasureID);
 
-            Logger.Log($"Analizing {measureIDFolder} folder . . .");
+            if (AppConfig.Instance.IsDebugging())
+                Logger.Log($"Analizing {measureIDFolder} folder . . .");
 
             // Obtener subcarpetas
             string[] subFolders = Directory.GetDirectories(measureIDFolder);
@@ -225,7 +237,8 @@ namespace GRASP_Builder.ViewModels
                     if (folderName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
                     {
                         FileToShowOptions.Add(folderName);
-                        Logger.Log($"Folder {folderName} found");
+                        if (AppConfig.Instance.IsDebugging())
+                            Logger.Log($"Folder {folderName} found");
                         break;
                     }
                 }
@@ -257,7 +270,8 @@ namespace GRASP_Builder.ViewModels
                 {
                     message += file + "; ";
                 }
-                Logger.Log(message);
+                if (AppConfig.Instance.IsDebugging())
+                    Logger.Log(message);
             }
             else
             {

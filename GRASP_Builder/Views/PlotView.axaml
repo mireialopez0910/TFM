@@ -11,7 +11,7 @@
 	</Design.DataContext>
 	<StackPanel Orientation="Horizontal">
 		
-	<StackPanel Margin="0,0,100,0" VerticalAlignment="Center" >
+	<StackPanel Margin="0,0,100,0" VerticalAlignment="Center" IsEnabled="{Binding AreButtonsEnabled}">
 		
 			<TextBlock FontWeight="Bold" Text="1. Select a lidar Measure ID" Margin="10,50,0,5"/>
 

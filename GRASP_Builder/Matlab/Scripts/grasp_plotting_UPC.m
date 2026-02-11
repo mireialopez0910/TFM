@@ -1101,9 +1101,14 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
         close all
         GRASP_Plot_Correctly = 1;
     else
-        disp('Ficheros OUT o GRASP no encontrados');
-        GRASP_Plot_Correctly = 0;
-        errordlg('OUT or GRASP files not found');
+        if (exist( fullfile(graspPreGARRLiC.folder, graspOutFile), 'file') == 2)
+            logMessage("GRASP output file not found");
+        end
 
+        if(exist( fullfile(graspPreGARRLiC.folder, graspPreGARRLiC.name), 'file' ) == 2)
+            logMessage("pre-GRASP data file not found");
+        end
+        
+        GRASP_Plot_Correctly = 0;
     end
 end

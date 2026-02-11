@@ -15,6 +15,7 @@ namespace GRASP_Builder.ViewModels
         private string _title;
         private bool _isError;
         private bool _isWarning;
+        private bool _isInfo;   
 
         #endregion
 
@@ -26,6 +27,7 @@ namespace GRASP_Builder.ViewModels
             _title = title;
             _isError = isError;
             _isWarning = isWarning;
+            _isInfo = !isError && !isWarning;
         }
 
         #endregion
@@ -53,6 +55,12 @@ namespace GRASP_Builder.ViewModels
         {
             get => _isWarning;
             set => SetProperty<bool>(ref _isWarning, value);
+        }
+
+        public bool IsInfo
+        {
+            get => _isInfo;
+            set => SetProperty<bool>(ref _isInfo, value);
         }
 
         #endregion

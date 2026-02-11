@@ -20,6 +20,7 @@
     <None Remove="Resources\create_new_folder.png" />
     <None Remove="Resources\error.png" />
     <None Remove="Resources\import_zip.png" />
+    <None Remove="Resources\info.png" />
     <None Remove="Resources\logo.ico" />
     <None Remove="Resources\logo.png" />
     <None Remove="Resources\logo_UPC.png" />
@@ -89,6 +90,7 @@
 	  <AvaloniaResource Include="Resources\create_new_folder.png" />
 	  <AvaloniaResource Include="Resources\error.png" />
 	  <AvaloniaResource Include="Resources\import_zip.png" />
+	  <AvaloniaResource Include="Resources\info.png" />
 	  <AvaloniaResource Include="Resources\logo.ico" />
 	  <AvaloniaResource Include="Resources\logo.png" />
 	  <AvaloniaResource Include="Resources\logo_UPC.png" />

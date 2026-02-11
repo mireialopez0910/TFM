@@ -44,19 +44,38 @@ namespace GRASP_Builder.Matlab
                 // corrected TryGetValue usage and call to save output name into config file
                 if (dic.TryGetValue("GARRLiC_file_name", out string outputName))
                 {
+
                     if (dic.TryGetValue("selected_config", out string selected_config))
                     {
                         if (dic.TryGetValue("output_dir", out string output_dir))
                         {
-                            SaveOutputNameInConfigFile(outputName, selected_config, output_dir);
-                            CmdController.ExecuteGrasp(output_dir, selected_config);
+                            if (!FileHelpers.FileContains(Path.Combine(output_dir, outputName), "NaN"))
+                            {
+                                SaveOutputNameInConfigFile(outputName, selected_config, output_dir);
+                                CmdController.ExecuteGrasp(output_dir, selected_config);
+                            }
+                            else
+                            {
+                                Logger.Log("ERROR; .sdat created file contains NaN values.\n Check minimum and maximum selected heights.");
+                                MessagesController.Show($".sdat created file contains NaN values.\n Check minimum and maximum selected heights.", $"ERROR", isError: true);
+                                Messenger.Default.Send<bool>("UpdateButtonsEnabled", true);
+                                
+                            }
                         }
                         else
+                        {
                             Logger.Log("ERROR; No output_dir in list of dicctionaries for send files, can not create configuration file .yml");
+                            Messenger.Default.Send<bool>("UpdateButtonsEnabled", true);
+                        }
+
                     }
+
                 }
             }
-            Messenger.Default.Send<bool>("UpdateButtonsEnabled", true);
+            else
+            {
+                Messenger.Default.Send<bool>("UpdateButtonsEnabled", true);
+            }
         }
 
         private void SaveOutputNameInConfigFile(string outputName, string config, string output_dir)

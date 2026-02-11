@@ -71,7 +71,7 @@
 					<RowDefinition Height="Auto"/>
 				</Grid.RowDefinitions>
 
-				<TextBlock Text="Available data convination: " Grid.ColumnSpan="2" Margin="15,0" FontSize="11" FontWeight="SemiBold"/>
+				<TextBlock Text="Available data combination: " Grid.ColumnSpan="2" Margin="15,0" FontSize="11" FontWeight="SemiBold"/>
 
 				<Grid Grid.Column="1" Grid.Row="2">
 					<Grid.ColumnDefinitions>

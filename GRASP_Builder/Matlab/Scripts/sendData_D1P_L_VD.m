@@ -61,7 +61,7 @@ function [GARRLiC_file_name, errorVolumePolarization] = sendData_D1P_L_VD( measu
         logMessage('Output directory already exists, it has not been overwritten.');
     end
 
-    try
+    % try
 
         %!
         %! Identifica el nom de la taula ELDA-ELPP per a carregar-la des del workspace
@@ -89,17 +89,17 @@ function [GARRLiC_file_name, errorVolumePolarization] = sendData_D1P_L_VD( measu
         %! * |'start_*datetime'| data i hora de l'inici de la mesura
         %! * |'stop_datetime'| data i hora de finalització de la mesura
         try
-            Range532 = tEldaElpp( contains(tEldaElpp.fileName, '_b0532_'), :).elpp_altitude{1};
-            RCS532 = tEldaElpp( contains(tEldaElpp.fileName, '_b0532_'), :).total_power_channel{1};
-            RangeVD532 = tEldaElpp( contains(tEldaElpp.fileName, '_b0532_'), :).elda_altitude{1};
-            VD532 = tEldaElpp( contains(tEldaElpp.fileName, '_b0532_'), :).volumedepolarization{1};
+            Range532 = tEldaElpp( contains(tEldaElpp.fileName, '_0532_'), :).elpp_altitude{1};
+            RCS532 = tEldaElpp( contains(tEldaElpp.fileName, '_0532_'), :).total_power_channel{1};
+            RangeVD532 = tEldaElpp( contains(tEldaElpp.fileName, '_0532_'), :).elda_altitude{1};
+            VD532 = tEldaElpp( contains(tEldaElpp.fileName, '_0532_'), :).volumedepolarization{1};
             location = getLocationFromEldaFileName(tEldaElpp.fileName{1});
 
-            start_datetime = tEldaElpp( contains(tEldaElpp.fileName, '_b0532_'), :).elda_measurement_start_datetime;
-            stop_datetime  = tEldaElpp( contains(tEldaElpp.fileName, '_b0532_'), :).elda_measurement_stop_datetime;
+            start_datetime = tEldaElpp( contains(tEldaElpp.fileName, '_0532_'), :).elda_measurement_start_datetime;
+            stop_datetime  = tEldaElpp( contains(tEldaElpp.fileName, '_0532_'), :).elda_measurement_stop_datetime;
         
         catch ME
-            logMessage(['_b0532_', ME.message])
+            logMessage(['_0532_', ME.message])
             if isnan(VD532)
                 errorVolumePolarization = true;
             end
@@ -123,15 +123,15 @@ function [GARRLiC_file_name, errorVolumePolarization] = sendData_D1P_L_VD( measu
         end
     
         try
-            Range1064 = tEldaElpp( contains(tEldaElpp.fileName, '_b1064_'), :).elpp_altitude{1};
-            RCS1064 = tEldaElpp( contains(tEldaElpp.fileName, '_b1064_'), :).range_corrected_signal{1};
+            Range1064 = tEldaElpp( contains(tEldaElpp.fileName, '_1064_'), :).elpp_altitude{1};
+            RCS1064 = tEldaElpp( contains(tEldaElpp.fileName, '_1064_'), :).range_corrected_signal{1};
             location = getLocationFromEldaFileName(tEldaElpp.fileName{1});
 
-            start_datetime = tEldaElpp( contains(tEldaElpp.fileName, '_b1064_'), :).elda_measurement_start_datetime;
-            stop_datetime  = tEldaElpp( contains(tEldaElpp.fileName, '_b1064_'), :).elda_measurement_stop_datetime;
+            start_datetime = tEldaElpp( contains(tEldaElpp.fileName, '_1064_'), :).elda_measurement_start_datetime;
+            stop_datetime  = tEldaElpp( contains(tEldaElpp.fileName, '_1064_'), :).elda_measurement_stop_datetime;
         
         catch ME
-            logMessage(['_b1064_', ME.message])
+            logMessage(['_1064_', ME.message])
         end
     
         
@@ -256,16 +256,16 @@ function [GARRLiC_file_name, errorVolumePolarization] = sendData_D1P_L_VD( measu
     %! * |elda_altitude| - dades d'altitud del fitxer Elda.
     %! * |backscatter| - dades de backscatter del fitxer Elda
     try
-        Rangebeta1064_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_b1064_'), :).elda_altitude{1};
-        Beta1064_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_b1064_'), :).backscatter{1};        
+        Rangebeta1064_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_1064_'), :).elda_altitude{1};
+        Beta1064_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_1064_'), :).backscatter{1};        
         save(fullFileName,'-append','Rangebeta1064_SCC','Beta1064_SCC');
     catch ME
         logMessage(['ERROR Creating ELDA Profile for _b1064_', ME.message]);
     end
  
     try
-        Rangebeta532_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_b0532_'), :).elda_altitude{1};
-        Beta532_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_b0532_'), :).backscatter{1};
+        Rangebeta532_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_0532_'), :).elda_altitude{1};
+        Beta532_SCC = tEldaElpp( contains(tEldaElpp.fileName, '_0532_'), :).backscatter{1};
         save(fullFileName,'-append','Rangebeta532_SCC','Beta532_SCC');
     catch ME
         logMessage(['ERROR Creating ELDA Profile for _b0532_', ME.message]);
@@ -790,13 +790,13 @@ function [GARRLiC_file_name, errorVolumePolarization] = sendData_D1P_L_VD( measu
 
         % clear all
 
-    catch ME
-        logMessage(ME.identifier);
-        logMessage(ME.message);
-        if errorVolumePolarization 
-            logMessage('ERROR: Volume Polarization missing data || Please check LIDAR Volume Polarization avaliability in ''008'' files || Affected fields: VD355, VD532, RangeVD355, RangeVD532');
-        end
-    end
+    % catch ME
+    %     logMessage(ME.identifier);
+    %     logMessage(ME.message);
+    %     if errorVolumePolarization 
+    %         logMessage('ERROR: Volume Polarization missing data || Please check LIDAR Volume Polarization avaliability in ''008'' files || Affected fields: VD355, VD532, RangeVD355, RangeVD532');
+    %     end
+    % end
 
     fid = fopen('scripts_output.txt','a');
     fprintf(fid, 'output_dir = %s\n', char(URL_output));

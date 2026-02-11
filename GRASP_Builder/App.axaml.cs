@@ -35,12 +35,12 @@ namespace GRASP_Builder
 
                 await Task.Delay(3000);
 
+                //var main = new SMainWindow();
                 var main = new MainWindow();
                 desktop.MainWindow = main;
                 main.Show();
 
-                splash.Close();
-                
+                splash.Close();                
             }
 
             base.OnFrameworkInitializationCompleted();

@@ -55,7 +55,7 @@ read_configuration;
 currentFolder = fileparts(mfilename('fullpath'));
 run('config_file.m');
 % parentFolder = fileparts(currentFolder);
-measureIDFolder = CONFIG_output
+measureIDFolder = CONFIG_output;
 
 fullPath = fullfile(measureIDFolder, selected_measure_ID, selected_measurement_file_to_show);
 

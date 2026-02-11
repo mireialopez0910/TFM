@@ -9,11 +9,19 @@
 
 	<Border Background="#F3F3F3" BorderThickness="2" BorderBrush="#F3F3F3" CornerRadius="2">
 		<ScrollViewer VerticalScrollBarVisibility="Auto">
+			
 			<TextBox x:Name="LogWindow"
 					 IsReadOnly="True"
 					 AcceptsReturn="True"
 					 BorderThickness="0"
-					 TextWrapping="Wrap"/>
+					 TextWrapping="Wrap">
+				<TextBox.ContextMenu>
+			<ContextMenu> 
+				<MenuItem Header="Save" Click="SaveInFile" />
+				<MenuItem Header="Clear" Click="ClearLog" />
+			</ContextMenu>
+		</TextBox.ContextMenu>
+			</TextBox>
 		</ScrollViewer>
 	</Border>
 </UserControl>

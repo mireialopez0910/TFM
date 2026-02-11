@@ -17,6 +17,7 @@
 	<StackPanel Margin="10" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
 		<Image Source="avares://GRASP_Builder/Resources/error.png" IsVisible="{Binding IsError}" Height="100" Width="100" VerticalAlignment="Center"/>
 		<Image Source="avares://GRASP_Builder/Resources/warning.png" IsVisible="{Binding IsWarning}" Height="100" Width="100"  VerticalAlignment="Center"/>
+		<Image Source="avares://GRASP_Builder/Resources/info.png" IsVisible="{Binding IsInfo}" Height="100" Width="100"  VerticalAlignment="Center"/>
 
 		<StackPanel VerticalAlignment="Center">
 			<TextBlock Text="{Binding Message}" Margin="10,0,0,0" TextWrapping="Wrap" Width="400" HorizontalAlignment="Center"/>

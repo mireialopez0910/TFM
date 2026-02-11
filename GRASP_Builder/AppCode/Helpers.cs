@@ -79,5 +79,29 @@ namespace GRASP_Builder
             var directories = Directory.GetDirectories(directoryPath, "*", System.IO.SearchOption.AllDirectories);
             return new List<string>(directories);
         }
+
+        public static bool FileContains(string filePath, string search, StringComparison comparison = StringComparison.OrdinalIgnoreCase)
+        {
+            if (string.IsNullOrWhiteSpace(filePath) || string.IsNullOrEmpty(search))
+                return false;
+
+            try
+            {
+                if (!File.Exists(filePath))
+                    return false;
+
+                foreach (var line in File.ReadLines(filePath))
+                {
+                    if (line.IndexOf(search, comparison) >= 0)
+                        return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"FileContains failed for '{filePath}': {ex.Message}");
+            }
+
+            return false;
+        }
     }
 }

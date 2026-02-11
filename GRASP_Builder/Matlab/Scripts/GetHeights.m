@@ -63,7 +63,7 @@ if foundFilesELDA > 0
     [statusWaveLength, message_wavelength, status_1064, message_1064, status_0532, message_0532, status_0355, message_0355] = checkElda(); 
 end
 
-if (foundFilesAOD > 2) || (foundFilesAlm > 1) || (foundFilesAll > 1)
+if (foundFilesAOD > 1) || (foundFilesAlm > 1) || (foundFilesAll > 1)
     logMessage('ERROR: Use one AOD and ALM. If you are using optional ALP or ALL files, ensure that you are using one only in your repository.');
     logMessage('ERROR: Use one AOD and ALM. If you are using optional ALP or ALL files, ensure that you are using one only in your repository.');
 
@@ -88,8 +88,8 @@ else
     [heightELPPLimitMin, heightELPPLimitMax, heightVDLimitMin, heightVDLimitMax] = getValidEldaAltitude();
     
 
-    heightLimitMin = min(cell2mat( tEldaElpp(1,:).elpp_altitude));
-    heightLimitMax = max(cell2mat( tEldaElpp(1,:).elpp_altitude));
+    heightLimitMax = min([heightELPPLimitMax, heightVDLimitMax]);
+    heightLimitMin = max([heightELPPLimitMin, heightVDLimitMin]);
     
     if hMin ~= 0
         heightLimitMin = hMin;
@@ -107,6 +107,4 @@ else
     logMessage("heightLimitMin: "+ num2str(heightLimitMin));
     logMessage("heightLimitMax: "+ num2str(heightLimitMax));
     noError = true;
-
-
 end

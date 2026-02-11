@@ -1,17 +1,9 @@
-﻿using Avalonia.Input;
-using Avalonia.Platform;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.Intrinsics.X86;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GRASP_Builder.ViewModels
 {
@@ -62,8 +54,6 @@ namespace GRASP_Builder.ViewModels
                         break;
                 }
             }
-
-            UpdateButtonsEnabled(true);
         }
 
         private void UpdateButtonsEnabled(bool status)
@@ -97,7 +87,15 @@ namespace GRASP_Builder.ViewModels
             _aeronetRepositoryDirectory = projectCfg?.GetValue("AeronetRepositoryDirectory");
             _earlinetRepositoryDirectory = projectCfg?.GetValue("EarlinetRepositoryDirectory");
 
+            //restore default values when loading a project
             SelectedMeasureID = string.Empty;
+            hMin = "0";
+            hMax = "0";
+            IsConfigSelectionEnabled = false;
+            isChecked_D1P_L = false;
+            isChecked_D1_L = false;
+            isChecked_D1_L_VD = false;
+            isChecked_D1P_L_VD = false;
         }
 
         #endregion

@@ -10,6 +10,8 @@ function [minELPPAltitude, maxELPPAltitude, minVDAltitude, maxVDAltitude] = getV
     minELPPAltitude = [min(cell2mat( tfElda(1,:).elpp_altitude))];
     maxELPPAltitude = [max(cell2mat( tfElda(1,:).elpp_altitude))];
 
+    logMessage(['Min. height for ELPP is ', num2str(minELPPAltitude)]);
+    logMessage(['Max. height for ELPP is ', num2str(maxELPPAltitude)]);
     minAltitudeCandidates = minELPPAltitude;
     maxAltitudeCandidates = maxELPPAltitude;
 
@@ -18,7 +20,7 @@ function [minELPPAltitude, maxELPPAltitude, minVDAltitude, maxVDAltitude] = getV
             VolDep = tfElda.volumedepolarization{k};
           
             if isnan(VolDep)
-                logMessage('Volume Depolarizaton not found... Ignoring Elda altitude')
+                logMessage(['Volume Depolarizaton not found... Ignoring Elda altitude for ', num2str(tfElda.wavelength(k,1))])
             else
                 numericArray = cell2mat(cellfun(@(x) x(:), tfElda.elda_altitude(k,1), 'UniformOutput', false));
         
