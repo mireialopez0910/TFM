@@ -1,13 +1,21 @@
 \section{Graphic User Interface (GUI) design}
-{In order to give to the user only the essential information, it was chosen to divide the different main actions that the application should perform into different views. In order to accomplish that, different UI implementations can be used. In this case, it was decided to implement a TabMenu, with three different views for each action: Download data files, Combine Data for GRASP algorithm execution and Plot GRASP results.\smallskip
+{In order to give to the user only the essential information, it was chosen to divide the different main actions that the application should perform into different views. In order to accomplish that, different UI implementations can be used. In this case, it was decided to implement a TabMenu, with three different views for each action: Download data files, Combine Data for GRASP algorithm execution and Plot GRASP results.
+\smallskip\\In this section, the design of the GUI will be described. A prototype of each view will be shown. In \Cref{fig:tabmenu}, the corresponding view for the MainWindow can be seen.\smallskip
 \begin{figure}[H]
     \centering
     \includegraphics[width=15cm]{img/UI_tabmenu_mw.png}
     \caption[TabMenu design]{\footnotesize{TabMenu design}}
     \label{fig:tabmenu}
-\end{figure} }
-{Other necessary Windows where for Configuration, About and Message Windows. The conentet of these windows should be as simple as possible, since they are complementary windows and they do not contain a lot of information. For the Configurations window, it is only necessary to have one input element in order to introduce the value for each configuration parameter. Design can be modified having into account the necessity of the current application.\smallskip\\
-When the application is first initialized, it is needed a Home View, with different buttons, where the user can choose which type of action it wants to perform: Create, Open or Import project.}
+\end{figure}
+With this window, the user will be able to access all the different functionalities of the application, which should be executed in the following order: 
+\begin{enumerate} 
+    \item Download data files
+    \item Combine Data for GRASP algorithm execution
+    \item Plot GRASP results
+\end{enumerate}
+}
+{Other necessary Windows were for Configuration, About and Message Windows. The content of these windows should be as simple as possible, since they are complementary windows and they do not contain a lot of information. For the Configurations window, it is only necessary to have one input element in order to introduce the value for each configuration parameter. Design can be modified taking into account the necessity of the current application.\smallskip\\
+When the application is first initialised, a Home View is needed, with different buttons, where the user can choose which type of action they want to perform: Create, Open or Import project.}
 \begin{figure}[H]
     \centering
     \includegraphics[width=15cm]{img/UI_home.png}
@@ -15,8 +23,8 @@ When the application is first initialized, it is needed a Home View, with differ
     \label{fig:home}
 \end{figure}
 \subsection{Download data files}
-{In the requirements list, it was specified that the user should be able to download the data files within a selected date range and a selected station. After that, user should be able to see a list of the downloaded files from each website.\smallskip
-In order to implement this functionality, the first desing  uses two calendar selectors in order to choose "From date" and "To date". A text selector is used in order to select the station and a Download Button in order start the execution.\smallskip
+{In the requirements list, it was specified that the user should be able to download the data files within a selected date range and a selected station. After that, the user should be able to see a list of the downloaded files from each website.\smallskip
+In order to implement this functionality, the first design uses two calendar selectors in order to choose "From date" and "To date". A text selector is used in order to select the station and a Download Button in order to start the execution.\smallskip
 To finish, a list of the downloaded files is shown in a text block. All these features can be seen in the \Cref{fig:download}.\smallskip
 \begin{figure}[H]
     \centering
@@ -25,10 +33,10 @@ To finish, a list of the downloaded files is shown in a text block. All these fe
     \label{fig:download}
 \end{figure} }
 \subsection{Data combination}
-{For the data combination step, the user needs to select with wich of the available measure IDs it is going to be executed the GRASP algorithm. It is necessary also two options in order to select the minimum and maximum height for the data combination.\smallskip\\
-Once the data is previewed, it is necessary to notify the user the different configurations that are available in order that the user chooses one of them depending on the available data for selected date and time.\smallskip\\
+{For the data combination step, the user needs to select with which of the available measure IDs the GRASP algorithm is going to be executed. It is also necessary to have two options in order to select the minimum and maximum height for the data combination.\smallskip\\
+Once the data is previewed, it is necessary to notify the user of the different configurations that are available so that the user can choose one of them depending on the available data for the selected date and time.\smallskip\\
 Two buttons are used in order to start the different scripts execution: one for the data preview and the other one for generating the combination .sdat and .yml files and executing the GRASP algorithm execution.\smallskip\\
-All these features can be seen in \Cref{fig:data_comb}. In addition, a text section should be added in order to see the Ouput and Errors obtained from executing the different Matlab scripts used for pre-processing the data. Thanks to that element, the user will be able to see the process during the execution and the errors that may occur during it.\smallskip\\
+All these features can be seen in \Cref{fig:data_comb}. In addition, a text section should be added in order to see the Output and Errors obtained from executing the different Matlab scripts used for pre-processing the data. Thanks to that element, the user will be able to see the process during the execution and the errors that may occur during it.\smallskip\\
 \begin{figure}[H]
     \centering
     \includegraphics[width=15cm]{img/UI_data_comb.png}
@@ -36,16 +44,16 @@ All these features can be seen in \Cref{fig:data_comb}. In addition, a text sect
     \label{fig:data_comb}
 \end{figure} }
 \subsection{Plot GRASP results}
-{For the last tab, the plotting tab, it is necessary to understand how the project folders are organized in order to know all the necessary elements that are going to be needed in order that the user can introduce all the necessary information.\smallskip
-As it can be appreciated in \Cref{fig:folders}, the project folder is organized in different subfolders, each one with a specific purpose. Data folder will contain all the downloaded data and Output data will contain the results of both, the data combination script and the GRASP algorithm execution.\smallskip
+{For the last tab, the plotting tab, it is necessary to understand how the project folders are organised in order to know all the necessary elements that are going to be needed so that the user can introduce all the necessary information.\smallskip
+As it can be appreciated in \Cref{fig:folders}, the project folder is organised in different subfolders, each one with a specific purpose. Data folder will contain all the downloaded data and Output data will contain the results of both, the data combination script and the GRASP algorithm execution.\smallskip
 \begin{figure}[H]
     \centering
     \includegraphics[width=9cm]{img/UI_folders.png}
-    \caption[Project folders organization]{\footnotesize{Project folders organization}}
+    \caption[Project folders organisation]{\footnotesize{Project folders organisation}}
     \label{fig:folders}
 \end{figure} 
-GRASP execution output is saved in a file named UPC\_\{config\}\_out.txt. This file will be the one used in order to create and save all the different files for each figure. Therefore, it is necessary first to specify the measure ID, then the measurement file and to finish, the figure name that is desired to be seen.\smallskip\\
-This actions can be implemented with the different buttons and text inputs shown in \Cref{fig:plot}. Additionally, since this tab will also be executing Matlab scripts, it will be helpfull for the user to see the progress and possible errors that can appear.\smallskip\\
+GRASP execution output is saved in a file named UPC\_\{config\}\_out.txt. This file will be the one used in order to create and save all the different files for each figure. Therefore, it is necessary first to specify the measure ID, then the measurement file and finally, the figure name that is desired to be seen.\smallskip\\
+These actions can be implemented with the different buttons and text inputs shown in \Cref{fig:plot}. Additionally, since this tab will also be executing Matlab scripts, it will be helpful for the user to see the progress and possible errors that can appear.\smallskip\\
 \begin{figure}[H]
     \centering
     \includegraphics[width=15cm]{img/UI_plotting.png}

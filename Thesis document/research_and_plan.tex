@@ -1,11 +1,11 @@
 \section{Research, plan and adapt}
-{This step helps optimize both time and resources by preventing unnecessary work. Since this project builds upon a previous one, it is not required to develop new code for certain application requirements, but to adapt it to the new needs. Furthermore, the availability of APIs for downloading measurements from the ACTRIS–EARLINET Data Portal \cite{earlinet_web} and AERONET web application \cite{aeronet_web} provides a convenient and efficient solution that can significantly reduce development effort.}
+{This step helps optimise both time and resources by preventing unnecessary work. Since this project builds upon a previous one, it is not required to develop new code for certain application requirements, but to adapt it to the new needs. Furthermore, the availability of APIs for downloading measurements from the ACTRIS–EARLINET Data Portal \cite{earlinet_web} and AERONET web application \cite{aeronet_web} provides a convenient and efficient solution that can significantly reduce development effort.}
 \smallskip
 \subsection{Web services development}
 \subsubsection{ACTRIS–EARLINET service} 
 \smallskip
-{The ACTRIS-EARLINET Data Portal provides a REST API for downloading measurements \cite{rest_api_earlinet}. This web, shows all the different requests that are supported by the API, gives examples of how to use them and the expected response.\smallskip\\
-Having all this information available is really helpful, since it allows to localize the requests that are needed for the project requirements.\smallskip\\
+{The ACTRIS-EARLINET Data Portal provides a REST API for downloading measurements \cite{rest_api_earlinet}. This website shows all the different requests that are supported by the API, gives examples of how to use them and the expected response.\smallskip\\
+Having all this information available is really helpful, since it allows to localise the requests that are needed for the project requirements.\smallskip\\
 After testing and comparing the different options and the obtained responses, it becomes clear that the best option is to use the "/products/downloads" endpoint, which allows to download the measurements in a compressed format, filtering the data by type, date and station name.\smallskip\\
 Even if other configuration parameters are available (measurementID, wavelength and opticaltype), it is not necessary to use them for the project requirements.\smallskip\\
 Once the behaviour is understood, a class is created to handle the requests and responses of the API.\smallskip\\
@@ -39,10 +39,10 @@ public class EarlinetService{
 }
 \end{lstlisting}
 \smallskip
-{For the creation of this class it has been taken into account the fact that the DownlaodProductByDateRangeAsync method can be used in different points of the program with different configurations.It has also been implemented in such a way that adding new functionalities is easy using the same design pattern.}
+{For the creation of this class it has been taken into account the fact that the DownloadProductByDateRangeAsync method can be used in different points of the program with different configurations. It has also been implemented in such a way that adding new functionalities is easy using the same design pattern.}
 \subsubsection{AERONET service}\smallskip
-{The AERONET web does not provide a REST API portlet, but it includes web servicie documentation that helps the implementation of a costume service.\smallskip\\
-The amount of files to be downloaded in this website is larger thant the one in Earlinet, and its documentation can be found in three different sections of the web:}
+{The AERONET web does not provide a REST API portlet, but it includes web service documentation that helps the implementation of a custom service.\smallskip\\
+The amount of files to be downloaded in this website is larger than the one in Earlinet, and its documentation can be found in three different sections of the web:}
 \begin{table}[htbp]
     \centering
     \caption{AERONET Data Products and Extensions}
@@ -62,7 +62,7 @@ The amount of files to be downloaded in this website is larger thant the one in 
     \end{tabularx}
 \end{table}
 \smallskip
-{For the creation of this class it has been taken into account the fact that the DownlaodProductByDateRangeAsync method can be used in different points of the program with different configurations.It has also been implemented in such a way that adding new functionalities is easy using the same design pattern. For clarity and organization, it has been created the DataType Enum, since the different data types need different Url content in order to be downloaded.\smallskip\\}
+{For the creation of this class it has been taken into account the fact that the DownloadProductByDateRangeAsync method can be used in different points of the program with different configurations. It has also been implemented in such a way that adding new functionalities is easy using the same design pattern. For clarity and organisation, the DataType Enum has been created, since the different data types need different Url content in order to be downloaded.\smallskip\\}
 \begin{lstlisting}
 public class AeronetService{
     private string baseUrl = "https://aeronet.gsfc.nasa.gov/cgi-bin/";
@@ -109,13 +109,13 @@ public class AeronetService{
 \end{lstlisting}
 {In this application, this class is only used to download the data files listed above, but other types could be downloaded by calling only the DownloadDataAsync and BuildUrl methods in a line.}
 \subsection{Matlab controller development}
-{As it was mentioned in the introduction, this project aims to automatize an execution process of a set of scripts in MATLAB. \smallskip\\
+{As it was mentioned in the introduction, this project aims to automate an execution process of a set of scripts in MATLAB. \smallskip\\
 The previously developed code has been adapted to the new hybrid system in order to be executed with C\#. In order to do that, different actions have been taken.}
 \subsubsection{Create script configuration files and output files}
-{Since the project is hybrid, it is necessary to create a configuration file for the script that will be executed in C\#. This file will contain the parameters needed to execute the script. In the previous approach, this files were not needed, since GUI introduced parameters were being stores in the MATLAB workspace. The use of these files, allow the communication between the two different languages. Configuration files allow the  different scripts to obtain the information and parameters that the user introduced, while the output files allow the application to know the corresponding results and notify the user about it.}
-\subsubsection{Automatize MATLAB repository for needed data files   }
-{Previously, it was necessary to download manually all the data files needed, then, when Matlab Scripts where executed, a dialog window would appear asking for the location of each file. For different data, a different amount of files where needed, having a maximum of five files to select. In order to automatize this process, a script has been created that downloads the data files from the AERONET website and stores them in a local repository.\smallskip\\
-In order to be able to automatize the process of downloading and giving the application the capacity of work with different workspaces, the repository location has been modified and automatized inside the application. The corresponding file is saved as configuration parameter in both, application and script.}
+{Since the project is hybrid, it is necessary to create a configuration file for the script that will be executed in C\#. This file will contain the parameters needed to execute the script. In the previous approach, these files were not needed, since GUI introduced parameters were being stored in the MATLAB workspace. The use of these files allows the communication between the two different languages. Configuration files allow the different scripts to obtain the information and parameters that the user introduced, while the output files allow the application to know the corresponding results and notify the user about it.}
+\subsubsection{Automate MATLAB repository for needed data files}
+{Previously, it was necessary to download manually all the data files needed, then, when Matlab Scripts were executed, a dialog window would appear asking for the location of each file. For different data, a different amount of files were needed, having a maximum of five files to select. In order to automate this process, a script has been created that downloads the data files from the AERONET website and stores them in a local repository.\smallskip\\
+In order to be able to automate the process of downloading and giving the application the capacity to work with different workspaces, the repository location has been modified and automated inside the application. The corresponding file is saved as configuration parameter in both, application and script.}
 \subsubsection{Adapt old scripts to new file formats}
 {}
 \subsubsection{Execute MATLAB scripts from C\#}

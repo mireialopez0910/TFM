@@ -166,3 +166,18 @@ This is possible because this interface is only used for running Matlab Scripts.
     \item Execute post-execution actions
 \end{enumerate}
 Each Script implmentation will be the responsible of defining the different actions to be executed in each step, having into account if the script finished with error or was executed successfully.
+\subsection{Interactions with other applications}
+The main goal of this application is to create a user-friendly interface for executing all the sequence of actions needed to download data from different web services, combine it and create plots from the results. In order to do that, the application needs to interact with different external applications and web services:
+\begin{enumerate}
+    \item Web services: in order to download all the necessary data files from the different sources, Aeronet and Earlinet sites
+    \item Matlab: in order to execute the different scripts needed for data combination and plotting
+    \item GRASP algorithm: in order to execute the algorithm and obtain the results
+\end{enumerate}
+With the use of the different interfaces and classes explained in this section, it is possible obtain the desired behaviour, which can be summarized in the following diagram:
+\begin{figure}[H]
+\centering
+\includegraphics[width=15cm]{img/GRASPBuilder_interactions.png}
+\caption[Application interactions diagram]{\footnotesize{Application interactions diagram}}
+\label{fig:app_interactinons}
+\end{figure}
+In \Cref{fig:app_interactinons} it can be appreciated all the different actions that are taking place during the execution of the application and the communication between the application and the external applications and web services. All these interactions are not noticed from the user point of view, giving the impression of a easier user experience.
