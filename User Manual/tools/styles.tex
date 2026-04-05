@@ -54,3 +54,33 @@
 %\color{upcorange}\leaders\hrule height \headrulewidth\hfill}}
 \color{gray!80}\leaders\hrule height \headrulewidth\hfill}}
 %\renewcommand*\ShowFrameColor{\color{red}}
+
+% Configuración para C#
+\lstdefinelanguage{CSharp}{
+  morekeywords={abstract,event,new,struct,as,explicit,null,switch,
+    base,extern,object,this,bool,false,operator,throw,
+    break,finally,out,true,byte,fixed,override,try,
+    case,float,params,typeof,catch,for,private,uint,
+    char,foreach,protected,ulong,checked,goto,public,unchecked,
+    class,if,readonly,unsafe,const,implicit,ref,ushort,
+    continue,in,return,using,decimal,int,sbyte,virtual,
+    default,interface,sealed,volatile,delegate,internal,short,void,
+    do,is,sizeof,while,double,lock,stackalloc,
+    else,long,static,enum,namespace,string},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+}
+
+\lstset{
+  language=CSharp,
+  basicstyle=\ttfamily\footnotesize,       % Fuente monoespaciada
+  keywordstyle=\color{blue},        % Color para palabras clave
+  stringstyle=\color{red!50!black},          % Color para cadenas
+  commentstyle=\color{green!50!black}, % Color para comentarios
+  numbers=left,                     % Números de línea a la izquierda
+  numberstyle=\tiny,                % Estilo de los números
+  breaklines=true,                  % Romper líneas largas
+  frame=single,                     % Marco alrededor del código
+}

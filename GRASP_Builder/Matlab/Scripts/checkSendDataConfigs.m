@@ -89,6 +89,15 @@ function [is_D1_L, is_D1P_L, is_D1_L_VD, is_D1P_L_VD, message] = checkSendDataCo
     
     [isALMData, message_ALM]= getALMData();
     logMessage(message_ALM);
+    if height(T1) == 0
+        logMessage('There is no AOD data, NO option will be enabled');
+    end
+    if(~isALMData)
+        logMessage('There is no ALM data, NO optin will be enabled');
+    end
+    if height(T3) == 0
+        logMessage('There is no ALL data, NO option will be enabled');
+    end
 
     if height(T1) == 0 || ~isALMData || height(T3) == 0
         is_D1_L = "false";

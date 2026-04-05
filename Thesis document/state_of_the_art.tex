@@ -1,8 +1,53 @@
 \clearpage\section{State of the art}
+\subsection{GRASP algorithm}
+
+GRASP (Generalized Retrieval of Aerosol and Surface Properties) is a unified and highly accurate algorithm used to study the atmosphere. It retrieves many different aerosol and surface characteristics from remote‑sensing observations. According to the GRASP‑OPEN website, the algorithm can estimate **nearly 50 parameters**, such as particle‑size distribution, refractive index, sphericity, and absorption. It is designed to work with **spectral, multi‑angle, and polarimetric** measurements, and it performs well even over **bright surfaces** like deserts, where the ground reflectance usually hides the aerosol signal.\smallskip\\
+It combines information from different instruments—both satellite and ground‑based—to produce a detailed description of aerosols and surface reflectance. Its main features include:
+\begin{itemize}
+  \item Processing reflectance data from aerosols and land surfaces to infer physical and optical properties.  
+  \item Using multi‑angle and polarimetric observations, which provide more information than simple intensity measurements.  
+  \item Integrating diverse data sources, making it adaptable to many observation systems.  
+  \item Applying a unified inversion approach, meaning it uses the same mathematical framework for all types of input data. This helps ensure consistency and accuracy across different instruments \cite{grasp}.
+\end{itemize}
+This algorithm is valuable because it offers a comprehensive and consistent way to analyze atmospheric aerosols. These particles affect climate, air quality, and visibility, so understanding them is essential. GRASP’s ability to work with many types of measurements makes it suitable for:
+\begin{itemize}
+  \item Climate and environmental studies  
+  \item Air‑quality monitoring  
+  \item Satellite‑data validation  
+  \item Research on aerosol–surface interactions
+\end{itemize}
+\subsubsection{Input data}
+GRASP algorirthm aims to analyze different types of measurements in order to 
+The UPC lidar data used in GRASP come from the Single Calculus Chain (SCC), an online system for processing and storing lidar measurements.
+The lidar information includes:
+\begin{itemize}
+  \item Elastic backscatter at 355, 532, and 1064 nm: these channels record the total backscattered signal at each wavelength. Although the laser emits linearly polarized light, these channels do not separate polarization. The signals are taken from the SCC’s ELPP module and pre‑processed by:
+    \begin{itemize}
+      \item applying distance correction,
+      \item resampling to 60 logarithmic points,
+      \item normalizing the profile.
+    \end{itemize}
+    This data is mandatory in order to run the GRASP algorithm.
+  \item Depolarized backscatter at 355 and 532 nm: these channels detect only the component of the signal perpendicular to the transmitted polarization. GRASP cannot use these signals directly, so the volume depolarization must be calculated. This is done in the SCC’s ELDA module.
+\end{itemize}
+The application developed in this project automatically checks which lidar measurements are available for each date and identifies whether total‑power and/or depolarization data exist at the required wavelengths.
+\paragraph{Photometer data}\\
+The CIMEL CE318 photometer collects different types of measurements, organized in “scenarios,” which are automatically sent to the AERONET server and later used as input for GRASP. The main scenarios include:
+\begin{itemize}
+  \item Aerosol Optical Depth (AOD): a direct measurement from sunlight or moonlight, available both during the day and on moonlit nights. The result is adjusted to represent a vertical atmospheric column.  
+  \item Almucantar scans: the instrument measures diffuse irradiance while rotating in azimuth at a fixed solar elevation.  
+  \item Polarized almucantar scans: similar to the previous case, but measuring the degree of linear polarization (DoLP) introduced by aerosols.  
+  \item Main‑plane scans: measurements taken by sweeping in elevation while keeping the solar azimuth fixed, for both total irradiance and DoLP.  
+  \item Hybrid scenarios: combinations of the above.
+\end{itemize}
+GRASP can currently combine AOD, total‑irradiance almucantar data, DoLP, and lidar measurements. Only a limited number of photometers worldwide provide polarized almucantar data, so the system must check whether these measurements are available for each date.\smallskip\\
+During calibration periods, the replacement photometer may not record DoLP, which affects the available inputs.
+\subsection{Current execution flow}
 Universitat Polit\`ecnica de Catalunya (UPC) research department for Remote Sensing has been using the GRASP algorithm to process and obtain information from data measured by a lidar and a photometer, in order to study the presence of aerosols in the atmosphere. In order to do that, different steps need to be executed manually, without a graphical interface or centralized application, which increases the risk of errors, reduces reproducibility, and demands significant user intervention.\smallskip\\
 Other students have previously developed Matlab scripts in order to automate the pre-processing stage of the workflow used by the department. However, this solution is not optimal as it requires the user to have a basic knowledge of Matlab and all the different web sites and files used. \smallskip\\
 Every time someone wants to use the GRASP algorithm, it need to follow the steps described in the different points of this section.
-\subsection {Download data}
+\subsubsection {Download data}
+\paragraph{Ealrinet}\\
 First website to download data is Actris-Earlinet. This interface is used to download the data measured by the Lidar, and can be easily downloaded by configuring different parameters like start and finish date, and selecting the desired station, as it can be seen in \Cref{fig:ealinet_download}. The different files that can be downloaded will appear listed under the configuration parameters list.
 \begin{figure}[H]
   \centering
@@ -10,6 +55,9 @@ First website to download data is Actris-Earlinet. This interface is used to dow
   \caption[Earlinet website for downloading data]{\footnotesize{Earlinet website for downloading data}}
   \label{fig:ealinet_download}
 \end{figure}
+From this website, it is always downloaded Range Cross Signal in wavelengths 355, 532 and 1064 nm. There is an exception peridos, where 1064 nm signal is not downloaded. In this case, GRASP can not be executed.
+\smallskip\\Volume Depolarization can be also downloaded, but it is not always present in the downloaded measurements in some periods of time. Even if this data is missing, GRASP can still be executed without problem by using the correct configuration.
+\paragraph{Aeronet}\\
 Aeronet website offers more information and options to download data, so it needs to be done in different steps. First, the user needs to locate the Aeronet Data Access page, as it can be seen in \Cref{fig:aeronet_download}, and select a data option. 
 \begin{figure}[H]
   \centering
@@ -38,7 +86,7 @@ Once the site is selected, the user needs to choose the different data optinons 
   \label{fig:inversions_download}
 \end{figure}
 Once all data has been downloaded, it needs to be located in a file accessible for the Matlab scripts. 
-\subsection{Select configuration and execute Matlab scripts}
+\subsubsection{Select configuration and execute Matlab scripts}
 It exists different configurations, depending ont the available data downloaded:
 \begin{itemize}
   \item D1L: Only photometer and Lidar data are available
@@ -47,7 +95,7 @@ It exists different configurations, depending ont the available data downloaded:
   \item D1P\_L\_VD: All data is available
 \end{itemize}
 Knowing the available files and the selected dates, in order to run the Matlab Scripts succesfully, user should choose manually the configuration and execute the corresponding script, since it exists one script per each configuration possibility.
-\subsection{Modify manually configuration file for GRASP algorithm}
+\subsubsection{Modify manually configuration file for GRASP algorithm}
 After executing the Matlab scripts, a data file is created named <measureID>\_GARRLIC\_<configuration>.sdat, which will be used as input for the GRASP algorithm. But it is also needed a configuration file, that indicates different parameters to the algorithm, being one of them the name of the data file to be used. This file is names UPC\_<configuration>.yml.
 \begin{figure}[H]
   \centering
@@ -56,16 +104,16 @@ After executing the Matlab scripts, a data file is created named <measureID>\_GA
   \label{fig:grasp_config}
 \end{figure}  
 In \Cref{fig:grasp_config}, it can be seen the example of a configuration file when the configuration chosen is D1L\_VD and the MeasureID is 20250203103355, corresponding to the 3rd of February at 10:33:55. 
-\subsection{Execute GRASP algorithm in CALCULA}
+\subsubsection{Execute GRASP algorithm in CALCULA}
 When all required files have been created and correctly configured, the GRASP algorithm can be executed in CALCULA. The user should upload the files to the virtual enviroment and execute the following command lines in the command prompt:
 \begin{verbatim}
 cd <directory to files>
 /opt/bin/grasp-1.1.5/grasp UPC<config>.yml
 \end{verbatim}
 Once the algorithm has been executed correctly, files named UPC\_<configuration>\_screen.txt and UPC\_<configuration>\_out.txt will be created in same directory.
-\subsection{Execute Matlab script for postprocessing and results analysis}
+\subsubsection{Execute Matlab script for postprocessing and results analysis}
 After the execution, the user needs to download the output files from CALCULA and execute the Matlab post processing script in order to obtain the results and the corresponding figures to analyze.
-\subsection{Need of optimization}
+\subsubsection{Need of optimization}
 After analyzing the process, it can be seen that it is not optimal as it requires the user to access different websites in order to download the needed files, analyze the available data in order to select the correct configuration and execute scripts manually, without a graphical interface or centralized application, which increases the risk of errors, reduces reproducibility, and demands significant user intervention.\smallskip\\ 
 Working with different Operative Systems (mostly Windows and CALCULA) also increases the time needed to execute the process. \smallskip\\
 The main objective of this project is to optimize all of the steps of this sequence so it is redueced the time consumption and the error introduction possibilities by the user. 

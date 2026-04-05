@@ -58,24 +58,18 @@ namespace GRASP_Builder.Matlab
                             {
                                 Logger.Log("ERROR; .sdat created file contains NaN values.\n Check minimum and maximum selected heights.");
                                 MessagesController.Show($".sdat created file contains NaN values.\n Check minimum and maximum selected heights.", $"ERROR", isError: true);
-                                Messenger.Default.Send<bool>("UpdateButtonsEnabled", true);
-                                
                             }
                         }
                         else
                         {
                             Logger.Log("ERROR; No output_dir in list of dicctionaries for send files, can not create configuration file .yml");
-                            Messenger.Default.Send<bool>("UpdateButtonsEnabled", true);
                         }
 
                     }
 
                 }
             }
-            else
-            {
-                Messenger.Default.Send<bool>("UpdateButtonsEnabled", true);
-            }
+            Messenger.Default.Send<bool>("UpdateButtonsEnabled", true);
         }
 
         private void SaveOutputNameInConfigFile(string outputName, string config, string output_dir)
