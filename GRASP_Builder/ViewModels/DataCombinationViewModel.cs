@@ -26,6 +26,7 @@ namespace GRASP_Builder.ViewModels
         private void UpdateMeasureIDList(ObservableCollection<string> list)
         {
             MeasureIDOptions = list;
+            SelectedMeasureID = string.Empty;
         }
 
         private void UpdateUI(Dictionary<string, string> dic)

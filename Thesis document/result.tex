@@ -1,5 +1,5 @@
 \clearpage\section{Results}
-In this section it is described the released version of the application and the final execution sequence, even a more detailed explanation can be found in the User Manual, in the Annex.\smallskip\\
+This section describes the released version of the application and the final execution sequence, although a more detailed explanation can be found in the User Manual, in the Annex.\smallskip\\
 \subsection{Final User Interface}
 During the development of the application, the user interface has been modified to be more user-friendly and to add more features that were not contemplated during the design phase.
 \begin{figure}[H]
@@ -8,14 +8,14 @@ During the development of the application, the user interface has been modified 
     \caption[Home view]{\footnotesize{Home view}}
     \label{fig:home_view}
 \end{figure}
-The Home view, which is shown when the application is initialized, allows the user to select the different options available in the application: Create, Open or Import project. This can be seen in \Cref{fig:home_view}. It has also been added the help button, which opens the User Manual in .pdf format.
+The Home view, which is shown when the application is initialised, allows the user to select the different options available in the application: Create, Open or Import project. This can be seen in \Cref{fig:home_view}. It has also been added the help button, which opens the User Manual in .pdf format.
 \begin{figure}[H]
     \centering
     \includegraphics[width=12cm]{img/Download.png}
     \caption[Download view]{\footnotesize{Download view}}
     \label{fig:download_view}
 \end{figure}
-The Download View mantains mostly the initial design. Since the process of downloading files can depend on the user's internet connection, it has been added a progress bar to show the progress of the download.
+The Download View maintains mostly the initial design. Since the process of downloading files can depend on the user's internet connection, it has been added a progress bar to show the progress of the download.
 \begin{figure}[H]
     \centering
     \includegraphics[width=12cm]{img/Results_DataComb.png}
@@ -29,7 +29,7 @@ Data Combination has not been modified from the initial design, since it allows 
     \caption[Plotting view]{\footnotesize{Plotting view}}
     \label{fig:plotting_view}
 \end{figure}
-Plotting view has not been modified from the initial design neither, since it allows the user to select the different files to be plotted and the different parameters to be used for the plotting, shown in \Cref{fig:plotting_view}.
+Plotting view has not been modified from the initial design either, since it allows the user to select the different files to be plotted and the different parameters to be used for the plotting, shown in \Cref{fig:plotting_view}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=12cm]{img/Settings.png}
@@ -38,7 +38,7 @@ Plotting view has not been modified from the initial design neither, since it al
 \end{figure}
 Settings window has been created in order to allow the user to configure both the application and project settings, shown in \Cref{fig:settings_window}. This type of configuration has been clearly separated, in order to let the user know which modifications will affect only the project and which ones will affect all executions of the application, independently of the project loaded.
 \subsection{Work-flux}
-The final work-flux for working with GRASP algorithm can be resumed in the following steps, all included in the developed application and executed in CALCULA environment:
+The final work-flux for working with GRASP algorithm can be summarised in the following steps, all included in the developed application and executed in CALCULA environment:
 \begin{enumerate}
     \item Download files: Select date range and station and download the corresponding files. Available files will be shown in same View
     \item Combine data: Select the desired MeasureID, choosing the data and time range to be used. Heights can be configured and available configurations will be automatically shown. 
@@ -46,7 +46,7 @@ The final work-flux for working with GRASP algorithm can be resumed in the follo
     \item Plot results: Available results will be automatically detected. If possible, list of figures will be created and saved in Output directory. The user will be able to choose which figure to show.
 \end{enumerate}
 \subsection{Low resolution User Interface}
-Using Avalonia provokes the inability to resize the application window, since it does not mantain the correct format for the moment. In some tests, it has been detected that all actions can not be executed in a low resolution system. Then, it has been created the option of a low resolution UI, which can be selected by right clicking the application window and selecting the option "Change to Low resolution UI", shown in \Cref{fig:low_resolution_ui}.
+Using Avalonia provokes the inability to resize the application window, since it does not maintain the correct format for the moment. In some tests, it has been detected that all actions cannot be executed in a low resolution system. Then, it has been created the option of a low resolution UI, which can be selected by right clicking the application window and selecting the option "Change to Low resolution UI", shown in \Cref{fig:low_resolution_ui}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=12cm]{img/low_resolution.png}
@@ -59,7 +59,7 @@ This option allows the user to execute the application in a low resolution syste
     \caption[Plotting view]{\footnotesize{Plotting view}}
     \label{fig:plotting_view}
 \end{figure}
-Plotting view has not been modified from the initial design neither, since it allows the user to select the different files to be plotted and the different parameters to be used for the plotting, shown in \Cref{fig:plotting_view}.
+Plotting view has not been modified from the initial design either, since it allows the user to select the different files to be plotted and the different parameters to be used for the plotting, shown in \Cref{fig:plotting_view}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=12cm]{img/download_low_res.png}

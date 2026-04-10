@@ -2,12 +2,12 @@
 
 \subsection{MVVM}
 {
-  Design pattern MVVM (Model-View-ViewModel) is a software architecture patter designed with the goal of having a clear separation between the user interface (frontend) and the business logic (backend) \cite{mvvm}. There are different freameworks that use this standard, such as Angular, .NET WPF...\smallskip\\
-  This application needs to be able to execute in CALCULA operating system (Linux), so it is necessary to use a framework that is compatible with this system. Originaly, it was going to be developed using .NET WPF, but it was decided to use Avalonia instead, as it is a cross-platform framework that can be executed in different operating systems. The differences between both frameworks are very low, mainly being the name of the files (.axaml instead of .xaml) and the way to define the user interface. \smallskip\\
+  Design pattern MVVM (Model-View-ViewModel) is a software architecture pattern designed with the goal of having a clear separation between the user interface (frontend) and the business logic (backend) \cite{mvvm}. There are different frameworks that use this standard, such as Angular, .NET WPF...\smallskip\\
+  This application needs to be able to execute in CALCULA operating system (Linux), so it is necessary to use a framework that is compatible with this system. Originally, it was going to be developed using .NET WPF, but it was decided to use Avalonia instead, as it is a cross-platform framework that can be executed in different operating systems. The differences between both frameworks are very low, mainly being the name of the files (.axaml instead of .xaml) and the way to define the user interface. \smallskip\\
   This architecture is divided in three main components:}
   \begin{itemize}
     \item{Model}: It contains the data and most of the app logic. It structures the information (classes and identities), how to retrieve it and how to manage it (services, data bases and controllers).
-    \item{View}: It defines all the elements in the user interface and what the user will see and will interact with. The only responsability of the code defines in this sections is to define the visual structure of the app and to create input elements for the user to interact with.
+    \item{View}: It defines all the elements in the user interface and what the user will see and will interact with. The only responsibility of the code defined in this section is to define the visual structure of the app and to create input elements for the user to interact with.
     \item{ViewModel}: It is the bridge between the Model and the View. It is the one that controls the flow of data between the Model and the View.
   \end{itemize}
   \begin{figure}[H]
@@ -16,7 +16,7 @@
     \caption[MMV design pattern]{\footnotesize{MVVM design pattern}}
     \label{fig:mvvm}
   \end{figure}
-The most important advantages of using this desing pattern  are:
+The most important advantages of using this design pattern are:
 \begin{itemize}
   \item{Changes only affect the view or the model, not both}
   \item{Separated testing for views and models}
@@ -25,7 +25,7 @@ The most important advantages of using this desing pattern  are:
 \end{itemize}
 \subsubsection{Observable Object}
 {
-  In order be able to update the user interface automatically when the data changes, it is used Data Binding, a feature of the MVVM pattern. It is implemeted using ObservableObject as base class. }
+  In order to be able to update the user interface automatically when the data changes, Data Binding is used, which is a feature of the MVVM pattern. It is implemented using ObservableObject as a base class. }
   \begin{lstlisting}
 public class User : ObservableObject
 {
@@ -45,11 +45,11 @@ In order that the view is updated, it is necessary to call the variable with the
 <TextBlock Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 \end{lstlisting}
 {
-In this case, mode option indicate that variable can be updated from the view to the model and viceversa,  and update source trigger option indicate that the update will be done when the property changes. Other options can be used, but these are the ones that are most common and that have been used in this project.
+In this case, the mode option indicates that the variable can be updated from the view to the model and vice versa, and the update source trigger option indicates that the update will be done when the property changes. Other options can be used, but these are the ones that are most common and that have been used in this project.
 }
 \subsubsection{Relay Command}
 {
-Relay command is used to implement commands in the MVVM pattern. It is implemeted using ICommand as base class. It can be used in different ways, but in this project it has been implemented using the following pattern for all View Models:}
+Relay command is used to implement commands in the MVVM pattern. It is implemented using ICommand as a base class. It can be used in different ways, but in this project it has been implemented using the following pattern for all View Models:}
 \begin{lstlisting}
 public class ViewModel : ObservableObject
 {
@@ -72,7 +72,7 @@ public class ViewModel : ObservableObject
 \end{lstlisting}
 
 \subsection{SOLID principles}
-{SOLID principles are a set of five principles that are used to design software with the obejective of making it easy to maintain and modify, making a project more maintainable ands scalable \cite{solid}. It lowers the dependency between classes, minimizing the impact of changes and making the code more reusable, mantainable, flexible and stable. \smallskip\\
+{SOLID principles are a set of five principles that are used to design software with the objective of making it easy to maintain and modify, making a project more maintainable and scalable \cite{solid}. It lowers the dependency between classes, minimising the impact of changes and making the code more reusable, maintainable, flexible and stable. \smallskip\\
 They also support growth in development, making it easier to add new features without the need of modifying already implemented code. \smallskip\\
 These principles are:}
   \begin{itemize}
@@ -84,14 +84,14 @@ These principles are:}
   \end{itemize}
 
   \subsubsection{Single Responsibility Principle}
-  {States that \textit{a class should have only one reason to change}, meaning that it should have only one responsibility, job or purpose within the softwar project.\smallskip\\
+  {States that \textit{a class should have only one reason to change}, meaning that it should have only one responsibility, job or purpose within the software project.\smallskip\\
     In order to apply this principle, it is necessary to divide the code into different classes, each one with a specific responsibility. It is important to note that this principle is not always possible to apply, but it is a good practice to try to do so.}
   \subsubsection{Open/Closed Principle}
-  {States that \textit{an entity should be open for extension, but closed for modification}, meaninig that it should be easy to extend the functionality of the entity without modifying its existing code. \smallskip\\
+  {States that \textit{an entity should be open for extension, but closed for modification}, meaning that it should be easy to extend the functionality of the entity without modifying its existing code. \smallskip\\
   In order to apply this principle it can be used abstraction by implementing Interfaces and Abstract classes and by using different design patterns like Strategy or Decorator.}
   \subsubsection{Liskov Substitution Principle}
   { Introduced in 1987 by Barbara Liskov, it states that \textit{derived or child classes must be substitutable for their base or parent classes}, ensuring that any class can be used in place of its parent class without any loss of functionality. \smallskip\\
-  In order to apply this principle, it is important to ensure that subclasses can be used anywhere where the base class is used without changing  the expected behaviour, avoiding overriding methods and making sure to not thow NotImplementedException. This can be done by using Interfaces and Abstract classes.}
+  In order to apply this principle, it is important to ensure that subclasses can be used anywhere where the base class is used without changing the expected behaviour, avoiding overriding methods and making sure to not throw NotImplementedException. This can be done by using Interfaces and Abstract classes.}
   \subsubsection{Interface Segregation Principle}
   {This principle applies directly to interfaces, and it states that \textit{do not force any client to implement an interface which is irrelevant to them}. The main objective of this principle is to not implement too big interfaces and to implement instead smaller and more specific interfaces.\smallskip\\
   If this principle is used in a project, the corresponding software architecture should have many interfaces implementations with specific purposes.}
@@ -99,14 +99,14 @@ These principles are:}
   {States that \textit{high-level modules should not depend on low-level modules, but both should depend on abstractions}, ensuring that the dependencies are inverted and that the high-level modules are not dependent on the low-level modules. \smallskip\\
   In order to apply this principle, it is suggested to use abstractions and interfaces to define the dependencies between modules.}
 \subsection{Project architecture}
-{Applying the MVVM design pattern and the SOLID principles, the project architecutre can be summed up as follows:}
+{Applying the MVVM design pattern and the SOLID principles, the project architecture can be summed up as follows:}
 \begin{figure}[H]
     \centering
     \includegraphics[width=16cm]{img/architecture_mvvm.png}
-    \caption[MVVM design pattern applied to the project architecure]{\footnotesize{MVVM design pattern applied to the project architecure}}
+    \caption[MVVM design pattern applied to the project architecture]{\footnotesize{MVVM design pattern applied to the project architecture}}
     \label{fig:architecture}
 \end{figure}
 
 {In \Cref{fig:architecture} it can be seen how the Views are divided into different folders. The Windows folder contains all the files containing the definitions of the different windows and dialogs of the application, while the Views folder contains all the files containing the definitions of different UserControls. UserControls are used as Content in the MainWindow, in this case, as Contents of the different tab items.\smallskip\\
-The ViewModel section contains all the files containing the definitions of the different ViewModels of the application. Most of them are located in the ViewModels folder, but it can also be appreciated that there is a folder named UIElement, where the models for CheckItems and TabItems are located. With this classes, adding these items to Views and ViewModels is easier to mantain and update.\smallskip\\
-Finally, the Model component is composed by all the internal classes of the application. It has been divided by AppCode, where is located all the implementations related to app Logic, and by Matlab, where all the MATLAB scripts are located aswell as the necessary implementations for the app to execute them.}
+The ViewModel section contains all the files containing the definitions of the different ViewModels of the application. Most of them are located in the ViewModels folder, but it can also be appreciated that there is a folder named UIElement, where the models for CheckItems and TabItems are located. With these classes, adding these items to Views and ViewModels is easier to maintain and update.\smallskip\\
+Finally, the Model component is composed of all the internal classes of the application. It has been divided into AppCode, where all the implementations related to app logic are located, and Matlab, where all the MATLAB scripts are located as well as the necessary implementations for the app to execute them.}
