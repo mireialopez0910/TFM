@@ -28,7 +28,7 @@ In order to not overload the content of the different files for the User Interfa
 \end{itemize}
 All these classes for both Views and ViewModels are implemented using the MVVM pattern using ObservableObject and RelayCommand classes from the .NET community toolkit. In addition, all ViewModels classes have been structured by regions in order to homogeneously group the different properties, commands and methods.\smallskip\\
 In order to establish communication between different classes to notify modifications, it has been used the Messenger class from the .NET community toolkit. It consists on defining a Send Action, that can include some parameter or variable and a Receive Action, that will be executed when the Send Action is called, executing the linked method.\smallskip\\ 
-In the following example it can be seen how the DataCombinationViewModel class has been implemented using the Messenger class to receive modifications in the buttons enabled state:\smallskip
+In the following example it can be seen an example of how the DataCombinationViewModel is using the Messenger class to receive modifications in the buttons enabled state:\smallskip
 \begin{lstlisting}
 public DataCombinationViewModel()
 {
@@ -53,6 +53,7 @@ Messenger.Default.Send<bool>("UpdateButtonsEnabled", true);
 \end{lstlisting}
 Using Messenger allows to notify modifications in the App between classes that exist simultaneously, in this case between the different Tabs and between ViewModels and Controllers. In the case of creating new Windows like the Settings one, it is not necessary, since the needed information can be passed as parameters to the Constructor when it is initialized.
 \subsection{Controllers}
+{With the objective of dividing the different actions and separating the different responsabilities, the following list of Controllers have been developed. }
 \begin{itemize}
     \item Download Controllers: Different controllers have been developed for each different web site. They both implement the IDownloadController Interface. Each controller is responsible for the different actions that need to be executed when downloading the respective data by managing their respective web services. 
     \item CmdController: This controller is responsible for the different actions needed to execute commands, in this case, necessary to execute the GRASP algorithm via the command line. Since this application have been designed to work with CALCULA, command line for executing GRASP only is executed with Ubuntu syntax.
@@ -184,7 +185,7 @@ In \Cref{fig:app_interactinons} it can be appreciated all the different actions 
 {Since this projects has been developed for the CommonSense department, all classes have been organized in different regions in order that the code is easy to understand and maintain for a new developer.}
 \begin{figure}[H]
 \centering
-\includegraphics[width=12cm]{img/code_organization.png}
+\includegraphics[width=9cm]{img/code_organization.png}
 \caption[Code organization example]{\footnotesize{Code organization example}}
 \label{fig:code_organization}
 \end{figure}

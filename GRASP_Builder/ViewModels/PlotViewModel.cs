@@ -251,13 +251,16 @@ namespace GRASP_Builder.ViewModels
 
             figureFolder = Path.Combine(currentFolder, matlabOutputDirectory, SelectedMeasureID, SelectedFileToShow, "figures");
 
+            FigureToShowOptions.Clear();
+            SelectedFigureToShow = string.Empty;
+
             if (Directory.Exists(figureFolder))
             {
 
                 var figureFileList = Directory.GetFiles(figureFolder, "*.mat");
 
                 //add available figures in combobox list options
-                FigureToShowOptions.Clear();
+                
                 foreach (var file in figureFileList)
                 {
                     string nameWithoutExt = Path.GetFileNameWithoutExtension(file);

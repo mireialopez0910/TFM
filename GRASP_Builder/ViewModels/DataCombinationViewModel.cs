@@ -120,6 +120,8 @@ namespace GRASP_Builder.ViewModels
                 if (AppConfig.Instance.IsDebugging())
                     Logger.Log($"Selected measure ID value modified to: {value}");
                 SetProperty<string>(ref _selectedMeasureID, value);
+                hMin = "0";
+                hMax = "0";
                 if (!string.IsNullOrEmpty(value))
                     SelectedDate = new DateTime(year: Convert.ToInt32(_selectedMeasureID.Substring(0, 4)), month: Convert.ToInt32(_selectedMeasureID.Substring(4, 2)), day: Convert.ToInt32(_selectedMeasureID.Substring(6, 2)));
             }

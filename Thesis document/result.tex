@@ -1,5 +1,5 @@
 \clearpage\section{Results}
-This section describes the released version of the application and the final execution sequence, although a more detailed explanation can be found in the User Manual, in the Annex.\smallskip\\
+This section describes the released version of the application and the final execution sequence, although a more detailed explanation can be found in the User Manual, in Appendix \ref{ap:user_manual}. The application executables can be found in \url{https://drive.google.com/drive/folders/1-ah8Bmy-WjuZU2IpYdQzZkzaAbUyykzX?usp=sharing} inside GRASP\_Builder\_v200\_Linux.zip\smallskip\\
 \subsection{Final User Interface}
 During the development of the application, the user interface has been modified to be more user-friendly and to add more features that were not contemplated during the design phase.
 \begin{figure}[H]
@@ -46,20 +46,7 @@ The final work-flux for working with GRASP algorithm can be summarised in the fo
     \item Plot results: Available results will be automatically detected. If possible, list of figures will be created and saved in Output directory. The user will be able to choose which figure to show.
 \end{enumerate}
 \subsection{Low resolution User Interface}
-Using Avalonia provokes the inability to resize the application window, since it does not maintain the correct format for the moment. In some tests, it has been detected that all actions cannot be executed in a low resolution system. Then, it has been created the option of a low resolution UI, which can be selected by right clicking the application window and selecting the option "Change to Low resolution UI", shown in \Cref{fig:low_resolution_ui}.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=12cm]{img/low_resolution.png}
-    \caption[Low resolution UI]{\footnotesize{Low resolution UI}}
-    \label{fig:low_resolution_ui}
-\end{figure}
-This option allows the user to execute the application in a low resolution system, having a slightly modified UI, which can be seen in the following figures: \Cref{fig:low_resolution_ui}\begin{figure}[H]
-    \centering
-    \includegraphics[width=12cm]{img/plotting.png}
-    \caption[Plotting view]{\footnotesize{Plotting view}}
-    \label{fig:plotting_view}
-\end{figure}
-Plotting view has not been modified from the initial design either, since it allows the user to select the different files to be plotted and the different parameters to be used for the plotting, shown in \Cref{fig:plotting_view}.
+Using Avalonia Nuget package provokes the inability to resize the application window, since it does not maintain the correct format for the moment. In some tests, it has been detected that all actions cannot be executed in a low resolution system. Then, it has been created the option of a low resolution UI, which can be downloaded from the same link with name GRASP\_Builder\_v200\_Linux\_Small.zip in \url{https://drive.google.com/drive/folders/1-ah8Bmy-WjuZU2IpYdQzZkzaAbUyykzX?usp=sharing}. This option allows the user to execute the application in a low resolution system, having a slightly modified UI, which can be seen in the following figures: \Cref{fig:low_resolution_ui}
 \begin{figure}[H]
     \centering
     \includegraphics[width=12cm]{img/download_low_res.png}
@@ -78,4 +65,4 @@ Plotting view has not been modified from the initial design either, since it all
     \caption[Plotting view for low resolution UI]{\footnotesize{Plotting view for low resolution UI}}
     \label{fig:plotting_view}
 \end{figure}
-This option allows the user to execute the application in a low resolution system, since this User Interface is smaller than the lowest resolution option.
+This option allows the user to execute the application in a low resolution system, since this User Interface is smaller than the lowest screen resolution option in Windows operative system.

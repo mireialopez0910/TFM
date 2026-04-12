@@ -48,7 +48,7 @@ function [tFiltered, numItems] = getFilteredTable( type, idx)
             logMessage([type, ':', numItems]);
             % logMessage(tData)
         catch
-            logMessage(['Table with ',idx, ' not found'])
+            logMessage(['Table with type ',type, ' not found'])
         end
     end
 

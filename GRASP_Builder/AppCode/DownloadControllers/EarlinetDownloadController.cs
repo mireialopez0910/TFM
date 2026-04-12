@@ -90,8 +90,10 @@ namespace GRASP_Builder.AppCode.DownloadControllers
 
                             string dest_folder = System.IO.Path.Combine(_repositoryDirectory, station.Split(" - ")[0], f_splitted[^1]);
 
-                            if (!Directory.Exists(dest_folder))
-                                Directory.CreateDirectory(dest_folder);
+                            if (Directory.Exists(dest_folder))
+                                Directory.Delete(dest_folder, true);
+
+                            Directory.CreateDirectory(dest_folder);
 
                             foreach (var ncFile in Directory.GetFiles(f, "*.*", System.IO.SearchOption.AllDirectories))
                             {

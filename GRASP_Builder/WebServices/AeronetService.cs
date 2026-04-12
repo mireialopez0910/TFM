@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Tmds.DBus.Protocol;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GRASP_Builder
@@ -23,11 +24,13 @@ namespace GRASP_Builder
 
                     var content = await response.Content.ReadAsByteArrayAsync();
                     await File.WriteAllBytesAsync(destinationFile, content);
+
+                    Logger.Log($"Data downloaded and saved in file: {destinationFile}");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error downloading data: {ex.Message}");
+                Logger.Log($"Error downloading {destinationFile} data: {ex.Message}" + (ex.Message.ToUpper().Contains("TIMEOUT") ? " Check connexion or try a smaller range of dates." : string.Empty));
             }
         }
 

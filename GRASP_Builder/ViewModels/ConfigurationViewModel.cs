@@ -73,7 +73,7 @@ namespace GRASP_Builder.ViewModels
             set
             {
                 SetProperty<string>(ref _AeronetRepositoryPath, value);
-                AddParamToDictionary("AeronetRepositoryPath", value);
+                AddParamToDictionary("AeronetRepositoryDirectory", value);
             }
         }
 
@@ -95,7 +95,7 @@ namespace GRASP_Builder.ViewModels
             set
             {
                 SetProperty<string>(ref _EarlinetRepositoryPath, value);
-                AddParamToDictionary("EarlinetRepositoryPath", value);
+                AddParamToDictionary("EarlinetRepositoryDirectory", value);
             }
         }
 
@@ -118,9 +118,21 @@ namespace GRASP_Builder.ViewModels
             {
                 projectCfg.SetValue(kvp.Key, kvp.Value);
             }
-            
-            projectCfg.Save();
-            settingsToSave.Clear();
+
+            bool saved = projectCfg.Save();
+
+            if (saved)
+            {
+                // Update the global/current project config so the rest of the app sees the saved values.
+                if (App.Current is App app)
+                {
+                    app.CurrentProjectConfig = projectCfg;
+                    // Optionally reload to ensure the in-memory instance is consistent with disk:
+                    // app.CurrentProjectConfig.Reload();
+                }
+
+                settingsToSave.Clear();
+            }
         }
 
         public ICommand ReloadStationsCmd=> new RelayCommand(ReloadStationsExecute, CanExecute);
