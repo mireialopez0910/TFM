@@ -1,13 +1,15 @@
-﻿using Avalonia.Controls.ApplicationLifetimes;
+﻿using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Threading;
 using GRASP_Builder.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
 using System.Text;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace GRASP_Builder
@@ -102,6 +104,19 @@ namespace GRASP_Builder
             }
 
             return false;
+        }
+
+        public static async Task<string?> SelectFolderAsync(Window parent, string title = "Select a folder")
+        {
+            var dialog = new OpenFolderDialog
+            {
+                Title = title
+            };
+
+            // ShowAsync works on Windows, Linux, macOS
+            string? result = await dialog.ShowAsync(parent);
+
+            return string.IsNullOrWhiteSpace(result) ? null : result;
         }
     }
 }

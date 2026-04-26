@@ -388,24 +388,24 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
 
         %! * Perfils de relació Lidar
         %!
-        LR355_D1_L_GRASP = Alfa355_D1_L_GRASP./Beta355_D1_L_GRASP;       
-        LR532_D1_L_GRASP = Alfa532_D1_L_GRASP./Beta532_D1_L_GRASP;       
-        LR1064_D1_L_GRASP = Alfa1064_D1_L_GRASP./Beta1064_D1_L_GRASP;
-        % LR355SCC = Alfa355./Beta355;       
-        % LR532SCC = Alfa532./Beta532;       
+        LR355_D1_L_GRASP = Alfa355_D1_L_GRASP.\beta355_D1_L_GRASP;       
+        LR532_D1_L_GRASP = Alfa532_D1_L_GRASP.\beta532_D1_L_GRASP;       
+        LR1064_D1_L_GRASP = Alfa1064_D1_L_GRASP.\beta1064_D1_L_GRASP;
+        % LR355SCC = Alfa355.\beta355;       
+        % LR532SCC = Alfa532.\beta532;       
         
         save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','LR355_D1_L_GRASP','LR532_D1_L_GRASP','LR1064_D1_L_GRASP')%,'LR355SCC','LR532SCC');
     
 
         %! * Perfils Angstrom
         %!
-        AE355_532_D1_L_GRASP = (-log(Beta355_D1_L_GRASP./Beta532_D1_L_GRASP))./(log(355/532));       
-        AE355_1064_D1_L_GRASP = (-log(Beta355_D1_L_GRASP./Beta1064_D1_L_GRASP))./(log(355/1064));        
-        AE532_1064_D1_L_GRASP = (-log(Beta532_D1_L_GRASP./Beta1064_D1_L_GRASP))./(log(532/1064));
+        AE355_532_D1_L_GRASP = (-log(Beta355_D1_L_GRASP.\beta532_D1_L_GRASP))./(log(355/532));       
+        AE355_1064_D1_L_GRASP = (-log(Beta355_D1_L_GRASP.\beta1064_D1_L_GRASP))./(log(355/1064));        
+        AE532_1064_D1_L_GRASP = (-log(Beta532_D1_L_GRASP.\beta1064_D1_L_GRASP))./(log(532/1064));
         AE_D1_L_GRASP = eval(sprintf('AExp'));
-        % AE355_532SCC = (-log(Beta355./Beta532))./(log(355/532));       
-        % AE355_1064SCC = (-log(Beta355./Beta1064))./(log(355/1064));        
-        % AE532_1064SCC = (-log(Beta532./Beta1064))./(log(532/1064));
+        % AE355_532SCC = (-log(Beta355.\beta532))./(log(355/532));       
+        % AE355_1064SCC = (-log(Beta355.\beta1064))./(log(355/1064));        
+        % AE532_1064SCC = (-log(Beta532.\beta1064))./(log(532/1064));
         
         save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','AE355_532_D1_L_GRASP','AE355_1064_D1_L_GRASP','AE532_1064_D1_L_GRASP','AE_D1_L_GRASP');%,'AE355_532SCC','AE355_1064SCC','AE532_1064SCC');       
         
@@ -473,8 +473,8 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     h2 = figure('Visible', 'on');    
     plot(size_binsF,VSDF_D1_L_GRASP,'b',size_binsC,VSDC_D1_L_GRASP,'r'),hold on
     plot(radius_AERONET,VSD_AERONET,'k'),hold off
-    ylabel('VSD, (/mum^3//mum^2)')
-    xlabel('Radius, (/mum)')
+    ylabel('VSD, (\mum^3/\mum^2)')
+    xlabel('Radius, (\mum)')
     xlim([0.01,100])
     box on
     legend('GRASP-Fine','GRASP-Coarse','AERONET')
@@ -487,8 +487,8 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureName = fullfile(path2file, ['figures/VSD_' config '_GRASPxAERONET_' station '_' datestr(dateproc,'yymmddHHMM') '.mat']);
     dataFigureAxis = {size_binsF, VSDF_D1_L_GRASP, size_binsC, VSDC_D1_L_GRASP, radius_AERONET, VSD_AERONET};
     dataFigureColor = {'b','r', 'k'};
-    dataFigureYLabel = 'VSD, (/mum^3//mum^2)';
-    dataFigureXLabel = 'Radius, (/mum)';
+    dataFigureYLabel = 'VSD, (\mum^3/\mum^2)';
+    dataFigureXLabel = 'Radius, (\mum)';
     dataFigureXLim = [0.01, 100];
     dataFigureYLim = [];
     dataFigureLegend = {'GRASP-Fine','GRASP-Coarse','AERONET'};
@@ -503,7 +503,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     plot(Lambda,RIIF_D1_L_GRASP,'-ob',Lambda,RIIC_D1_L_GRASP,'-or'), hold on
     plot(Waves_AERONET,IRI_AERONET,':*k'),hold off
     ylabel('IRI')
-    xlabel('/lambda, (nm)')
+    xlabel('\lambda, (nm)')
     legend('GRASP-Fine','GRASP-Coarse','AERONET')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')]) 
@@ -515,7 +515,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureAxis = {Lambda,RIIF_D1_L_GRASP, Lambda,RIIC_D1_L_GRASP, Waves_AERONET,IRI_AERONET};
     dataFigureColor = {'-ob','-or', ':*k'};
     dataFigureYLabel = 'IRI';
-    dataFigureXLabel = '/lambda, (nm)';
+    dataFigureXLabel = '\lambda, (nm)';
     dataFigureXLim = [];
     dataFigureYLim = [];
     dataFigureLegend = {'GRASP-Fine','GRASP-Coarse','AERONET'};
@@ -531,7 +531,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     plot(Lambda,RIRF_D1_L_GRASP,'-ob',Lambda,RIRC_D1_L_GRASP,'-or'),hold on
     plot(Waves_AERONET,RRI_AERONET,':*k'),hold off
     ylabel('RRI')
-    xlabel('/lambda, (nm)')    
+    xlabel('\lambda, (nm)')    
     legend('GRASP-Fine','GRASP-Coarse','AERONET')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')]) 
@@ -543,7 +543,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureAxis = {Lambda,RIRF_D1_L_GRASP, Lambda,RIRC_D1_L_GRASP, Waves_AERONET,RRI_AERONET};
     dataFigureColor = {'-ob','-or', ':*k'};
     dataFigureYLabel = 'RRI';
-    dataFigureXLabel = '/lambda, (nm)';
+    dataFigureXLabel = '\lambda, (nm)';
     dataFigureXLim = [];
     dataFigureYLim = [];
     dataFigureLegend = {'GRASP-Fine','GRASP-Coarse','AERONET'};
@@ -559,7 +559,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     plot(Lambda,aaodF_D1_L_GRASP,'-ob',Lambda,aaodC_D1_L_GRASP,'-or',Lambda,aaod_D1_L_GRASP,'-ok'),hold on
     plot(Waves_AERONET,AAOD_AERONET,':*k'),hold off
     ylabel('AAOD')
-    xlabel('/lambda, (nm)')
+    xlabel('\lambda, (nm)')
     legend('GRASP-Fine','GRASP-Coarse','GRASP-Total','AERONET')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])  
@@ -571,7 +571,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureAxis = {Lambda,aaodF_D1_L_GRASP, Lambda,aaodC_D1_L_GRASP, Lambda,aaod_D1_L_GRASP, Waves_AERONET,AAOD_AERONET};
     dataFigureColor = {'-ob','-or', '-ok', ':*k'};
     dataFigureYLabel = 'AAOD';
-    dataFigureXLabel = '/lambda, (nm)';
+    dataFigureXLabel = '\lambda, (nm)';
     dataFigureXLim = [];
     dataFigureYLim = [];
     dataFigureLegend = {'GRASP-Fine','GRASP-Coarse','GRASP-Total','AERONET'};
@@ -587,7 +587,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     plot(Lambda,ssaF_D1_L_GRASP,'-ob',Lambda,ssaC_D1_L_GRASP,'-or',Lambda,ssa_D1_L_GRASP,'-ok'),hold on
     plot(Waves_AERONET,SSA_AERONET,':*k'),hold off
     ylabel('SSA')
-    xlabel('/lambda, (nm)')
+    xlabel('\lambda, (nm)')
     legend('GRASP-Fine','GRASP-Coarse','GRASP-Total','AERONET')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')]) 
@@ -599,7 +599,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureAxis = {Lambda,ssaF_D1_L_GRASP, Lambda,ssaC_D1_L_GRASP, Lambda,ssa_D1_L_GRASP, Waves_AERONET,SSA_AERONET};
     dataFigureColor = {'-ob', '-or', '-ok', ':*k'};
     dataFigureYLabel = 'SSA';
-    dataFigureXLabel = '/lambda, (nm)';
+    dataFigureXLabel = '\lambda, (nm)';
     dataFigureXLim = [];
     dataFigureYLim = [];
     dataFigureLegend = {'GRASP-Fine','GRASP-Coarse','GRASP-Total','AERONET'};
@@ -615,7 +615,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     plot(Lambda,AODF_D1_L_GRASP,'-ob',Lambda,AODC_D1_L_GRASP,'-or',Lambda,aod_D1_L_GRASP,'-ok'),hold on
     plot(Waves_AERONET2,AOD_AERONET,':*k'),hold off
     ylabel('AOD')
-    xlabel('/lambda, (nm)')
+    xlabel('\lambda, (nm)')
     legend('GRASP-Fine','GRASP-Coarse','GRASP-Total','AERONET')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')]) 
@@ -627,7 +627,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureAxis = {Lambda,AODF_D1_L_GRASP, Lambda,AODC_D1_L_GRASP, Lambda,aod_D1_L_GRASP, Waves_AERONET2,AOD_AERONET};
     dataFigureColor = {'-ob', '-or', '-ok', ':*k'};
     dataFigureYLabel = 'AOD';
-    dataFigureXLabel = '/lambda, (nm)';
+    dataFigureXLabel = '\lambda, (nm)';
     dataFigureXLim = [];
     dataFigureYLim = [];
     dataFigureLegend = {'GRASP-Fine','GRASP-Coarse','GRASP-Total','AERONET'};
@@ -644,7 +644,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     plot(Lambda,LRF_D1_L_GRASP,'-ob',Lambda,LRC_D1_L_GRASP,'-or',Lambda,LR_D1_L_GRASP,'-ok'),hold on
     plot(Waves_AERONET,LR_AERONET,':*k'),hold off
     ylabel('LR, (sr)')
-    xlabel('/lambda, (nm)')
+    xlabel('\lambda, (nm)')
     box on
     legend('GRASP-Fine','GRASP-Coarse','GRASP-Total','AERONET')
     legend('boxoff')
@@ -657,7 +657,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureAxis = {Lambda,LRF_D1_L_GRASP, Lambda,LRC_D1_L_GRASP, Lambda,LR_D1_L_GRASP, Waves_AERONET,LR_AERONET};
     dataFigureColor = {'-ob', '-or', '-ok', ':*k'};
     dataFigureYLabel = 'LR, (sr)';
-    dataFigureXLabel = '/lambda, (nm)';
+    dataFigureXLabel = '\lambda, (nm)';
     dataFigureXLim = [];
     dataFigureYLim = [];
     dataFigureLegend = {'GRASP-Fine','GRASP-Coarse','GRASP-Total','AERONET'};
@@ -676,7 +676,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     xlabel('Extinction (Mm^{-1})')
     box on
     ylim([Hmin, Hmax])
-    legend('/alpha 355 nm','/alpha 532 nm','/alpha 1064 nm')
+    legend('\alpha 355 nm','\alpha 532 nm','\alpha 1064 nm')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])    
     grid on
@@ -690,7 +690,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureXLabel = 'Extinction (Mm^{-1})';
     dataFigureXLim = [];
     dataFigureYLim = [Hmin, Hmax];
-    dataFigureLegend = {'/alpha 355 nm','/alpha 532 nm','/alpha 1064 nm'};
+    dataFigureLegend = {'\alpha 355 nm','\alpha 532 nm','\alpha 1064 nm'};
     dataFigureTitle = [station ', ' datestr(dateproc,'yyyymmdd HH:MM')];
     dataFigureLogScale = {};
     save(dataFigureName, 'dataFigureAxis', 'dataFigureColor', 'dataFigureYLabel', 'dataFigureXLabel', 'dataFigureYLim', 'dataFigureXLim', 'dataFigureLegend', 'dataFigureTitle', 'dataFigureLogScale');
@@ -706,7 +706,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     xlabel('Backscatter, (Mm^{-1}sr^{-1})')
     box on
     ylim([Hmin, Hmax])
-    legend('/beta 355 nm','/beta 532 nm','/beta 1064 nm')
+    legend('\beta 355 nm','\beta 532 nm','\beta 1064 nm')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])  
     grid on
@@ -720,7 +720,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureXLabel = 'Backscatter, (Mm^{-1}sr^{-1})';
     dataFigureXLim = [];
     dataFigureYLim = [Hmin, Hmax];
-    dataFigureLegend = {'/beta 355 nm','/beta 532 nm','/beta 1064 nm'};
+    dataFigureLegend = {'\beta 355 nm','\beta 532 nm','\beta 1064 nm'};
     dataFigureTitle = [station ', ' datestr(dateproc,'yyyymmdd HH:MM')];
     dataFigureLogScale = {};
     save(dataFigureName, 'dataFigureAxis', 'dataFigureColor', 'dataFigureYLabel', 'dataFigureXLabel', 'dataFigureYLim', 'dataFigureXLim', 'dataFigureLegend', 'dataFigureTitle', 'dataFigureLogScale');
@@ -736,7 +736,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     xlabel('Absorption, (Mm^{-1})')
     box on
     ylim([Hmin, Hmax])
-    legend('/alpha_{abs} 355 nm','/alpha_{abs} 532 nm','/alpha_{abs} 1064 nm')
+    legend('\alpha_{abs} 355 nm','\alpha_{abs} 532 nm','\alpha_{abs} 1064 nm')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])     
     grid on
@@ -751,7 +751,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureXLabel = 'Absorption, (Mm^{-1})';
     dataFigureXLim = [];
     dataFigureYLim = [Hmin, Hmax];
-    dataFigureLegend = {'/alpha_{abs} 355 nm', '/alpha_{abs} 532 nm','/alpha_{abs} 1064 nm'};
+    dataFigureLegend = {'\alpha_{abs} 355 nm', '\alpha_{abs} 532 nm','\alpha_{abs} 1064 nm'};
     dataFigureTitle = [station ', ' datestr(dateproc,'yyyymmdd HH:MM')];
     dataFigureLogScale = {};
     save(dataFigureName, 'dataFigureAxis', 'dataFigureColor', 'dataFigureYLabel', 'dataFigureXLabel', 'dataFigureYLim', 'dataFigureXLim', 'dataFigureLegend', 'dataFigureTitle', 'dataFigureLogScale');
@@ -861,10 +861,10 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])      
     grid on
-    savefig(h15, fullfile(path2file, ['figures/Beta_' config '_SCCxGRASP_' station '_' datestr(dateproc,'yymmddHHMM') '.fig']));
+    savefig(h15, fullfile(path2file, ['figures\beta_' config '_SCCxGRASP_' station '_' datestr(dateproc,'yymmddHHMM') '.fig']));
 
     % Figure Data model
-    dataFigureName = fullfile(path2file, ['figures/Beta_' config '_SCCxGRASP_' station '_' datestr(dateproc,'yymmddHHMM') '.mat']);
+    dataFigureName = fullfile(path2file, ['figures\beta_' config '_SCCxGRASP_' station '_' datestr(dateproc,'yymmddHHMM') '.mat']);
     dataFigureAxis = {Beta355SSC, range355SSC, Beta532SSC, range532SSC, Beta1064SSC, range1064SCC, Beta355_D1_L_GRASP, altitude, Beta532_D1_L_GRASP, altitude, Beta1064_D1_L_GRASP, altitude};
     dataFigureColor = {'b', 'g', 'r','--b', '--g','--r'};
     dataFigureYLabel = 'Height asl, (km)';
@@ -883,8 +883,8 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     h16 = figure('Visible', 'on');    
     hold on
     plot(size_binsF,VSDF_D1_L_GRASP,'b',size_binsC,VSDC_D1_L_GRASP,'r')
-    ylabel('VSD, (/mum^3//mum^2)')
-    xlabel('Radius, (/mum)')
+    ylabel('VSD, (\mum^3/\mum^2)')
+    xlabel('Radius, (\mum)')
     box on
     legend('GRASP-Fine','GRASP-Coarse')
     legend('boxoff')
@@ -898,8 +898,8 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureName = fullfile(path2file, ['figures/VSD_' config '_GRASP_' station '_' datestr(dateproc,'yymmddHHMM') '.mat']);
     dataFigureAxis = {size_binsF,VSDF_D1_L_GRASP, size_binsC, VSDC_D1_L_GRASP};
     dataFigureColor = {'b', 'r'};
-    dataFigureYLabel = 'VSD, (/mum^3//mum^2)';
-    dataFigureXLabel = 'Radius, (/mum)';
+    dataFigureYLabel = 'VSD, (\mum^3/\mum^2)';
+    dataFigureXLabel = 'Radius, (\mum)';
     dataFigureXLim = [0.01,100];
     dataFigureYLim = [];
     dataFigureLegend = {'GRASP-Fine','GRASP-Coarse'};
@@ -914,7 +914,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     h17 = figure('Visible', 'on');
     plot(Lambda,RIIF_D1_L_GRASP,'-ob',Lambda,RIIC_D1_L_GRASP,'-or')
     ylabel('IRI')
-    xlabel('/lambda, (nm)')
+    xlabel('\lambda, (nm)')
     legend('GRASP-Fine','GRASP-Coarse')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])  
@@ -926,7 +926,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureAxis = {Lambda,RIIF_D1_L_GRASP, Lambda, RIIC_D1_L_GRASP};
     dataFigureColor = {'-ob', '-or'};
     dataFigureYLabel = 'IRI';
-    dataFigureXLabel = '/lambda, (nm)';
+    dataFigureXLabel = '\lambda, (nm)';
     dataFigureXLim = [];
     dataFigureYLim = [];
     dataFigureLegend = {'GRASP-Fine','GRASP-Coarse'};
@@ -941,7 +941,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     h18 = figure('Visible', 'on');
     plot(Lambda,RIRF_D1_L_GRASP,'-ob',Lambda,RIRC_D1_L_GRASP,'-or')
     ylabel('RRI')
-    xlabel('/lambda, (nm)')    
+    xlabel('\lambda, (nm)')    
     legend('GRASP-Fine','GRASP-Coarse')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])  
@@ -953,7 +953,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureAxis = {Lambda,RIRF_D1_L_GRASP, Lambda,RIRC_D1_L_GRASP};
     dataFigureColor = {'-ob', '-or'};
     dataFigureYLabel = 'RRI';
-    dataFigureXLabel = '/lambda, (nm)';
+    dataFigureXLabel = '\lambda, (nm)';
     dataFigureXLim = [];
     dataFigureYLim = [];
     dataFigureLegend = {'GRASP-Fine','GRASP-Coarse'};
@@ -967,7 +967,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     h19 = figure('Visible', 'on');
     plot(Lambda,aaodF_D1_L_GRASP,'-ob',Lambda,aaodC_D1_L_GRASP,'-or',Lambda,aaod_D1_L_GRASP,'-ok')
     ylabel('AAOD')
-    xlabel('/lambda, (nm)')
+    xlabel('\lambda, (nm)')
     legend('GRASP-Fine','GRASP-Coarse','GRASP-Total')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])  
@@ -979,7 +979,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureAxis = {Lambda,aaodF_D1_L_GRASP, Lambda,aaodC_D1_L_GRASP, Lambda,aaod_D1_L_GRASP};
     dataFigureColor = {'-ob', '-or', '-ok'};
     dataFigureYLabel = 'AAOD';
-    dataFigureXLabel = '/lambda, (nm)';
+    dataFigureXLabel = '\lambda, (nm)';
     dataFigureXLim = [];
     dataFigureYLim = [];
     dataFigureLegend = {'GRASP-Fine','GRASP-Coarse','GRASP-Total'};
@@ -994,7 +994,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     h20 = figure('Visible', 'on');
     plot(Lambda,ssaF_D1_L_GRASP,'-ob',Lambda,ssaC_D1_L_GRASP,'-or',Lambda,ssa_D1_L_GRASP,'-ok')
     ylabel('SSA')
-    xlabel('/lambda, (nm)')
+    xlabel('\lambda, (nm)')
     legend('GRASP-Fine','GRASP-Coarse','GRASP-Total')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])  
@@ -1006,7 +1006,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureAxis = {Lambda,ssaF_D1_L_GRASP, Lambda,ssaC_D1_L_GRASP, Lambda,ssa_D1_L_GRASP};
     dataFigureColor = {'-ob', '-or', '-ok'};
     dataFigureYLabel = 'SSA';
-    dataFigureXLabel = '/lambda, (nm)';
+    dataFigureXLabel = '\lambda, (nm)';
     dataFigureXLim = [];
     dataFigureYLim = [];
     dataFigureLegend = {'GRASP-Fine','GRASP-Coarse','GRASP-Total'};
@@ -1022,7 +1022,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     h21 = figure('Visible', 'on');
     plot(Lambda,AODF_D1_L_GRASP,'-ob',Lambda,AODC_D1_L_GRASP,'-or',Lambda,aod_D1_L_GRASP,'-ok')
     ylabel('AOD')
-    xlabel('/lambda, (nm)')
+    xlabel('\lambda, (nm)')
     legend('GRASP-Fine','GRASP-Coarse','GRASP-Total')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])  
@@ -1034,7 +1034,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureAxis = {Lambda,AODF_D1_L_GRASP, Lambda,AODC_D1_L_GRASP, Lambda,aod_D1_L_GRASP};
     dataFigureColor = {'-ob', '-or', '-ok'};
     dataFigureYLabel = 'AOD';
-    dataFigureXLabel = '/lambda, (nm)';
+    dataFigureXLabel = '\lambda, (nm)';
     dataFigureXLim = [];
     dataFigureYLim = [];
     dataFigureLegend = {'GRASP-Fine','GRASP-Coarse','GRASP-Total'};
@@ -1060,7 +1060,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     %     legend('boxoff')
     %     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])   
     %     grid on
-    %     hgsave(h22,['figures/Alpha_SCCxGRASP_' station '_' datestr(dateproc,'yymmddHHMM') '.fig']);    
+    %     hgsave(h22,['figures\alpha_SCCxGRASP_' station '_' datestr(dateproc,'yymmddHHMM') '.fig']);    
     
     %%%% LR profiles (GRASP x SCC)
     %

@@ -63,6 +63,8 @@ namespace GRASP_Builder.AppCode.DownloadControllers
 
         private void unzipDownloadedFiles(string date,string station)
         {
+            if (Directory.Exists(_repositoryDirectory))
+                Directory.Delete(_repositoryDirectory, true);
 
             Messenger.Default.Send<string>("UpdateProgress", "30");
 
@@ -89,9 +91,6 @@ namespace GRASP_Builder.AppCode.DownloadControllers
                             string[] f_splitted = f.Split(System.IO.Path.DirectorySeparatorChar);
 
                             string dest_folder = System.IO.Path.Combine(_repositoryDirectory, station.Split(" - ")[0], f_splitted[^1]);
-
-                            if (Directory.Exists(dest_folder))
-                                Directory.Delete(dest_folder, true);
 
                             Directory.CreateDirectory(dest_folder);
 

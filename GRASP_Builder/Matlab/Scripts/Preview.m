@@ -43,7 +43,7 @@ if noError == true
 
 
     % Devuelve las configuraciones disponibles
-    [is_D1_L, is_D1P_L, is_D1_L_VD, is_D1P_L_VD, messageFromCheckSendData] = checkSendDataConfigs();
+    [is_D1_L, is_D1P_L, is_D1_L_VD, is_D1P_L_VD, messageFromCheckSendData] = f();
 
     if strcmpi(strtrim(is_D1_L), "true")
         logMessage('D1_L enabled');
@@ -174,7 +174,8 @@ function results = plotter(heightLimitMin,heightLimitMax,plot_ELPP)
         
 	            cVDEldaAltitude = cell2mat(tfElda(k,:).elda_altitude);
 	            cVDEldaValue    = cell2mat(tfElda(k,:).volumedepolarization);
-        
+                cVDEldaValue = cell2mat(tfElda(k,:).volumedepolarization);
+
 	            % Range filter
 	            idx = cVDEldaAltitude > heightLimitMin & cVDEldaAltitude < heightLimitMax;
 	            cVDEldaAltitude = cVDEldaAltitude(idx);

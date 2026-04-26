@@ -48,10 +48,10 @@
 
 				<TextBox Grid.Column="3" Grid.Row="3" Text="{Binding GraspInstallPath, Mode=TwoWay}"/>
 
-				<Button Content="..." Grid.Column="5" Grid.Row="3"/>
+				<Button Content="..." Grid.Column="5" Grid.Row="3" Command="{Binding SearchGRASPInstallDirCmd}"/>
 			</Grid>
 
-			<Grid>
+			<!--<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="5"/>
 					<ColumnDefinition Width="Auto"/>
@@ -68,7 +68,7 @@
 				<TextBlock Text="Update" HorizontalAlignment="Center"/>
 			</ContentControl>
 					</Button>
-			</Grid>
+			</Grid>-->
 		</StackPanel>
 
 		<StackPanel Spacing="10">
@@ -87,7 +87,7 @@
 
 				<TextBox Grid.Column="3" Grid.Row="3" Text="{Binding AeronetRepositoryPath, Mode=TwoWay}"/>
 
-				<Button Content="..." Grid.Column="5" Grid.Row="3"/>
+				<Button Content="..." Grid.Column="5" Grid.Row="3"  Command="{Binding SearchAeronetDirCmd}"/>
 			</Grid>
 
 			<Grid>
@@ -104,7 +104,7 @@
 
 				<TextBox Grid.Column="3" Grid.Row="3" Text="{Binding EarlinetRepositoryPath, Mode=TwoWay}"/>
 
-				<Button Content="..." Grid.Column="5" Grid.Row="3"/>
+				<Button Content="..." Grid.Column="5" Grid.Row="3"  Command="{Binding SearchEarlinetDirCmd}"/>
 			</Grid>
 
 			<Grid>
@@ -121,7 +121,7 @@
 
 				<TextBox Grid.Column="3" Grid.Row="3" Text="{Binding MatlabOutputDirectory, Mode=TwoWay}"/>
 
-				<Button Content="..." Grid.Column="5" Grid.Row="3"/>
+				<Button Content="..." Grid.Column="5" Grid.Row="3"  Command="{Binding SearchMatlabOutputDirCmd}"/>
 			</Grid>
 		</StackPanel>
 

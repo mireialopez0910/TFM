@@ -124,7 +124,15 @@ function foundFiles = read_NetCDF_(measureID, Folder_LIDAR)
                         try error_extinction=ncread(filePath, 'error_extinction'); catch error_extinction = NaN; end
             
                         % Procesar campos en archivo tipo brc_008
-                        try volumedepolarization = ncread(filePath, 'volumedepolarization'); catch volumedepolarization = NaN; end
+                        try volumedepolarization = ncread(filePath, 'volumedepolarization'); 
+                        
+                                v = volumedepolarization;
+                                x = 1:numel(v);
+                                idx = ~isnan(v);
+                
+                                volumedepolarization = interp1(x(idx), v(idx), x, 'linear', 'extrap');
+                        catch volumedepolarization = NaN; 
+                        end
             
                         dataStruct(countEligibleFiles).elda_measurement_start_datetime = ZuluToDate( elda_measurement_start_datetime);
                         dataStruct(countEligibleFiles).elda_measurement_stop_datetime = ZuluToDate( elda_measurement_stop_datetime);

@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml.Serialization;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 
 namespace GRASP_Builder.ViewModels
 {
@@ -140,6 +142,91 @@ namespace GRASP_Builder.ViewModels
         {
             ObservableCollection<string> stations = StationsService.GetStations();
             Messenger.Default.Send<ObservableCollection<string>>("UpdateStations", stations);
+        }
+
+        public ICommand SearchEarlinetDirCmd => new RelayCommand(async _ => await Task.Run(() => SearchEarlinetDirExecute(_)), CanExecute);
+        private async void SearchEarlinetDirExecute(object _)
+        {
+            var window = (App.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow as Window;
+
+            string? folder = null;
+            try
+            {
+                folder = await FileHelpers.SelectFolderAsync(window, "Select Earlinet repository directory");
+            }
+            catch
+            {
+                folder = null;
+            }
+
+            if (!string.IsNullOrWhiteSpace(folder))
+            {
+                EarlinetRepositoryPath = folder;
+            }
+
+        }
+
+        public ICommand SearchAeronetDirCmd=> new RelayCommand(async _ => await Task.Run(() => SearchAeronetDirExecute(_)), CanExecute);
+        private async void SearchAeronetDirExecute(object _)
+        {
+            var window = (App.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow as Window;
+
+            string? folder = null;
+            try
+            {
+                folder = await FileHelpers.SelectFolderAsync(window, "Select Aeronet repository directory");
+            }
+            catch
+            {
+                folder = null;
+            }
+
+            if (!string.IsNullOrWhiteSpace(folder))
+            {
+                AeronetRepositoryPath = folder;
+            }
+        }
+
+        public ICommand SearchGRASPInstallDirCmd=> new RelayCommand(async _ => await Task.Run(() => SearchGRASPInstallDirExecute(_)), CanExecute);
+        private async void SearchGRASPInstallDirExecute(object _)
+        {
+            var window = (App.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow as Window;
+
+            string? folder = null;
+            try
+            {
+                folder = await FileHelpers.SelectFolderAsync(window, "Select GRASP installation folder");
+            }
+            catch
+            {
+                folder = null;
+            }
+
+            if (!string.IsNullOrWhiteSpace(folder))
+            {
+                MatlabOutputDirectory = folder;
+            }
+        }
+
+        public ICommand SearchMatlabOutputDirCmd=> new RelayCommand(async _ => await Task.Run(() => SearchMatlabOutputDirExecute(_)), CanExecute);
+        private async void SearchMatlabOutputDirExecute(object _)
+        {
+            var window = (App.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow as Window;
+
+            string? folder = null;
+            try
+            {
+                folder = await FileHelpers.SelectFolderAsync(window, "Select Matlab output folder");
+            }
+            catch
+            {
+                folder = null;
+            }
+
+            if (!string.IsNullOrWhiteSpace(folder))
+            {
+                MatlabOutputDirectory = folder;
+            }
         }
 
         private bool CanExecute(object _)
