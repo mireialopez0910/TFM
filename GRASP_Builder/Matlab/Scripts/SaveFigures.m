@@ -60,19 +60,19 @@ measureIDFolder = CONFIG_output;
 fullPath = fullfile(measureIDFolder, selected_measure_ID, selected_measurement_file_to_show);
 
 if startsWith(selected_measurement_file_to_show, 'D1_L-', 'IgnoreCase', true)
-    GRASP_Plot_Correctly = grasp_plotting_UPC(fullPath, 'D1_L', Lambda,Waves_AERONET2,size_binsF,size_binsC);
+    GRASP_Plot_Correctly = grasp_plotting_UPC(fullPath, 'D1_L', Lambda,Waves_AERONET2,size_binsF,size_binsC,station);
     logMessage(['GRASP data converted into figures for D1_L configuration in measure ', selected_measure_ID]);
 
 elseif startsWith(selected_measurement_file_to_show, 'D1_L_VD-', 'IgnoreCase', true)
-    GRASP_Plot_Correctly = grasp_plotting_UPC(fullPath, 'D1_L_VD', Lambda,Waves_AERONET2,size_binsF,size_binsC);
+    GRASP_Plot_Correctly = grasp_plotting_UPC(fullPath, 'D1_L_VD', Lambda,Waves_AERONET2,size_binsF,size_binsC,station);
     logMessage(['GRASP data converted into figures for D1_L_VD configuration in measure ', selected_measure_ID]);
 
 elseif startsWith(selected_measurement_file_to_show, 'D1P_L-', 'IgnoreCase', true)
-    GRASP_Plot_Correctly = grasp_plotting_UPC(fullPath, 'D1P_L', Lambda,Waves_AERONET2,size_binsF,size_binsC);
+    GRASP_Plot_Correctly = grasp_plotting_UPC(fullPath, 'D1P_L', Lambda,Waves_AERONET2,size_binsF,size_binsC,station);
     logMessage(['GRASP data converted into figures for D1P_L configuratio in measure ', selected_measure_ID]);
 
 elseif startsWith(selected_measurement_file_to_show, 'D1P_L_VD-', 'IgnoreCase', true)
-    GRASP_Plot_Correctly = grasp_plotting_UPC(fullPath, 'D1P_L_VD', Lambda,Waves_AERONET2,size_binsF,size_binsC);
+    GRASP_Plot_Correctly = grasp_plotting_UPC(fullPath, 'D1P_L_VD', Lambda,Waves_AERONET2,size_binsF,size_binsC,station);
     logMessage(['GRASP data converted into figures for D1P_L_VD configuration in measure ', selected_measure_ID]);
 
 else

@@ -1,4 +1,4 @@
-function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Waves_AERONET2,size_binsF,size_binsC)
+function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Waves_AERONET2,size_binsF,size_binsC,s_station)
 %%! [GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, Lambda,Waves_AERONET2,size_binsF,size_binsC)
 %!
 %%! Descripció
@@ -50,7 +50,8 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     
         underscores = strfind(graspFileName, '_');
         result = graspFileName(underscores(1)+1 : underscores(2)-1);
-        ubi = upper(result);
+        ubi = char(s_station);
+        station = ubi;
     catch e
        disp(e.message);
     end
@@ -82,14 +83,14 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
         dateproc = datenum(fecha{2},'yyyy-mm-ddTHH:MM:SSZ');
         %station = 'Barcelona';
         %altitude = eval(['range_' station]);
-        station = ubi;
+        %station = ubi;
         altitude = range_location;
         altitude = altitude./1000;
        
    
         %! * Perfils verticals d'aerosol. Es van multiplicar per 1000.
         %!
-        num_layers = length(who('VertProfileNormalized*_1'))
+        num_layers = length(who('VertProfileNormalized*_1'));
         AVPF_D1_L_GRASP = zeros(num_layers, 1);
         for j = 1:num_layers
             % j
@@ -102,7 +103,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
         % clearvars VertProfileNormalized*_1 errest_VertProfileNormalized*_1 
         
     
-        save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','AVPF_D1_L_GRASP','Error_AVPF_D1_L_GRASP','std_AVPF_D1_L_GRASP','bias_AVPF_D1_L_GRASP');
+        save([fullfile(path2file, ['GRASP_', 'EARLINET', '_', NombreEntrada2, '_', config])],'-append','AVPF_D1_L_GRASP','Error_AVPF_D1_L_GRASP','std_AVPF_D1_L_GRASP','bias_AVPF_D1_L_GRASP');
         
         for j = 1:length(who('VertProfileNormalized*_2'))
             AVPC_D1_L_GRASP(j,1) = 10^3*eval(sprintf('VertProfileNormalized%i_2',j));
@@ -111,7 +112,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
             bias_AVPC_D1_L_GRASP(j,1) = 10^3*eval(sprintf('bias_VertProfileNormalized%i_2',j));
         end
         % clearvars VertProfileNormalized*_2 errest_VertProfileNormalized*_2 
-        save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','AVPC_D1_L_GRASP','Error_AVPC_D1_L_GRASP','std_AVPC_D1_L_GRASP','bias_AVPC_D1_L_GRASP');
+        save([fullfile(path2file, ['GRASP_', 'EARLINET', '_', NombreEntrada2, '_', config])],'-append','AVPC_D1_L_GRASP','Error_AVPC_D1_L_GRASP','std_AVPC_D1_L_GRASP','bias_AVPC_D1_L_GRASP');
          
 
         %! * Distribució de la mida del volum
@@ -124,7 +125,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
         end
     
         % clearvars SizeDistrTriangBin*_1 errest_SizeDistrTriangBin*_1
-        save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','VSDF_D1_L_GRASP','Error_VSDF_D1_L_GRASP','std_VSDF_D1_L_GRASP','bias_VSDF_D1_L_GRASP','bias_VSDF_D1_L_GRASP');
+        save([fullfile(path2file, ['GRASP_', 'EARLINET', '_', NombreEntrada2, '_', config])],'-append','VSDF_D1_L_GRASP','Error_VSDF_D1_L_GRASP','std_VSDF_D1_L_GRASP','bias_VSDF_D1_L_GRASP','bias_VSDF_D1_L_GRASP');
     
         for j = 1:length(who('SizeDistrTriangBin*_2'))
             VSDC_D1_L_GRASP(j,1) = eval(sprintf('SizeDistrTriangBin%i_2',j));
@@ -134,7 +135,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
         end
     
         % clearvars SizeDistrTriangBin*_2 errest_SizeDistrTriangBin*_2 
-        save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','VSDC_D1_L_GRASP','Error_VSDC_D1_L_GRASP','std_VSDC_D1_L_GRASP','bias_VSDC_D1_L_GRASP');
+        save([fullfile(path2file, ['GRASP_', 'EARLINET', '_', NombreEntrada2, '_', config])],'-append','VSDC_D1_L_GRASP','Error_VSDC_D1_L_GRASP','std_VSDC_D1_L_GRASP','bias_VSDC_D1_L_GRASP');
     
         
         %! * AAOD
@@ -160,7 +161,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
         end
 
         % clearvars aaod* -except aaod0 aaod1 aaod          
-        save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','aaod_D1_L_GRASP','aaodC_D1_L_GRASP','aaodF_D1_L_GRASP');
+        save([fullfile(path2file, ['GRASP_', 'EARLINET', '_', NombreEntrada2, '_', config])],'-append','aaod_D1_L_GRASP','aaodC_D1_L_GRASP','aaodF_D1_L_GRASP');
         
 
         %! * SSA
@@ -194,7 +195,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
             clear ld
         end
         % clearvars ssa* errest_ssa* -except ssa0 ssa1 ssa      
-        save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','ssa_D1_L_GRASP','ssaC_D1_L_GRASP','ssaF_D1_L_GRASP','Error_ssa_D1_L_GRASP','std_ssa_D1_L_GRASP','bias_ssa_D1_L_GRASP','Error_ssaC_D1_L_GRASP','std_ssaC_D1_L_GRASP','bias_ssaC_D1_L_GRASP','Error_ssaF_D1_L_GRASP','std_ssaF_D1_L_GRASP','bias_ssaF_D1_L_GRASP');
+        save([fullfile(path2file, ['GRASP_', 'EARLINET', '_', NombreEntrada2, '_', config])],'-append','ssa_D1_L_GRASP','ssaC_D1_L_GRASP','ssaF_D1_L_GRASP','Error_ssa_D1_L_GRASP','std_ssa_D1_L_GRASP','bias_ssa_D1_L_GRASP','Error_ssaC_D1_L_GRASP','std_ssaC_D1_L_GRASP','bias_ssaC_D1_L_GRASP','Error_ssaF_D1_L_GRASP','std_ssaF_D1_L_GRASP','bias_ssaF_D1_L_GRASP');
         
 
         %! * AOD
@@ -228,7 +229,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
             clear ld
         end
         % clearvars tau* -except tau0 tau1 tau      
-        save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','aod_D1_L_GRASP','Error_aod_D1_L_GRASP','std_aod_D1_L_GRASP','bias_aod_D1_L_GRASP','AODC_D1_L_GRASP','AODF_D1_L_GRASP','Error_AODF_D1_L_GRASP','bias_AODC_D1_L_GRASP','std_AODC_D1_L_GRASP','Error_AODC_D1_L_GRASP','std_AODF_D1_L_GRASP','bias_AODF_D1_L_GRASP');
+        save([fullfile(path2file, ['GRASP_', 'EARLINET', '_', NombreEntrada2, '_', config])],'-append','aod_D1_L_GRASP','Error_aod_D1_L_GRASP','std_aod_D1_L_GRASP','bias_aod_D1_L_GRASP','AODC_D1_L_GRASP','AODF_D1_L_GRASP','Error_AODF_D1_L_GRASP','bias_AODC_D1_L_GRASP','std_AODC_D1_L_GRASP','Error_AODC_D1_L_GRASP','std_AODF_D1_L_GRASP','bias_AODF_D1_L_GRASP');
     
         
         %! * Relació Lidar
@@ -262,7 +263,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
             clear ld
         end
         % clearvars lidar_ratio* errest_lr* -except LR0 LR1 LR       
-        save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','LR_D1_L_GRASP','LRC_D1_L_GRASP','LRF_D1_L_GRASP','Error_LR_D1_L_GRASP','std_LR_D1_L_GRASP','bias_LR_D1_L_GRASP','std_LRC_D1_L_GRASP','bias_LRC_D1_L_GRASP','std_LRF_D1_L_GRASP','bias_LRF_D1_L_GRASP');
+        save([fullfile(path2file, ['GRASP_', 'EARLINET', '_', NombreEntrada2, '_', config])],'-append','LR_D1_L_GRASP','LRC_D1_L_GRASP','LRF_D1_L_GRASP','Error_LR_D1_L_GRASP','std_LR_D1_L_GRASP','bias_LR_D1_L_GRASP','std_LRC_D1_L_GRASP','bias_LRC_D1_L_GRASP','std_LRF_D1_L_GRASP','bias_LRF_D1_L_GRASP');
     
         
         %! * Índex de refracció imaginària (reff_index_imag)
@@ -292,7 +293,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
         %! 
 
         % estIRI_D1_L3B = ((RIIF.*AVCF) + (RIIC.*AVCC))./(AVCF+AVCC);
-        save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','RIIF_D1_L_GRASP','RIIC_D1_L_GRASP','Error_RIIF_D1_L_GRASP','Error_RIIC_D1_L_GRASP','std_RIIC_D1_L_GRASP','std_RIIF_D1_L_GRASP','bias_RIIC_D1_L_GRASP','bias_RIIF_D1_L_GRASP');
+        save([fullfile(path2file, ['GRASP_', 'EARLINET', '_', NombreEntrada2, '_', config])],'-append','RIIF_D1_L_GRASP','RIIC_D1_L_GRASP','Error_RIIF_D1_L_GRASP','Error_RIIC_D1_L_GRASP','std_RIIC_D1_L_GRASP','std_RIIF_D1_L_GRASP','bias_RIIC_D1_L_GRASP','bias_RIIF_D1_L_GRASP');
         
         %! * Índex de refracció real
         %!
@@ -321,7 +322,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
         %!
 
         % estRIR_D1_L3B = ((RIRF.*AVCF) + (RIRC.*AVCC))./(AVCF+AVCC);
-        save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','RIRC_D1_L_GRASP','RIRF_D1_L_GRASP','Error_RIRF_D1_L_GRASP','Error_RIRC_D1_L_GRASP','std_RIRC_D1_L_GRASP','std_RIRF_D1_L_GRASP','bias_RIRC_D1_L_GRASP','bias_RIRF_D1_L_GRASP');
+        save([fullfile(path2file, ['GRASP_', 'EARLINET', '_', NombreEntrada2, '_', config])],'-append','RIRC_D1_L_GRASP','RIRF_D1_L_GRASP','Error_RIRF_D1_L_GRASP','Error_RIRC_D1_L_GRASP','std_RIRC_D1_L_GRASP','std_RIRF_D1_L_GRASP','bias_RIRC_D1_L_GRASP','bias_RIRF_D1_L_GRASP');
     
 
         %! * Soroll residual, relatiu i absolut.
@@ -332,7 +333,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
         end
         % clearvars residual*_noise* 
         
-        save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','Noise_abs_D1_L_GRASP','Noise_rel_D1_L_GRASP')        
+        save([fullfile(path2file, ['GRASP_', 'EARLINET', '_', NombreEntrada2, '_', config])],'-append','Noise_abs_D1_L_GRASP','Noise_rel_D1_L_GRASP')        
     
 
         %! * Perfils d'extinció i retrodispersió a 355 nm, 532 nm i 1064 nm, respectivament.
@@ -358,7 +359,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
         Beta1064_D1_L_GRASP = (BetaF_D1_L_GRASP + BetaC_D1_L_GRASP);
         % ErrBeta1064_D1_L_GRASP = (sqrt((((tau1064_0/lidar_ratio1064_0).*Error_AVPF_D1_L_GRASP).^2)+(((AVPF_D1_L_GRASP./lidar_ratio1064_0).*errest_tau1064_0).^2)+(((((tau1064_0.*AVPF_D1_L_GRASP))./(lidar_ratio1064_0^2)).*errest_lr1064_0).^2)+(((tau1064_1/lidar_ratio1064_1).*Error_AVPC_D1_L_GRASP).^2)+(((AVPC_D1_L_GRASP/lidar_ratio1064_1).*errest_tau1064_1).^2)+(((((tau1064_1.*AVPC_D1_L_GRASP)./(lidar_ratio1064_1^2))).*errest_lr1064_1).^2))).*10^6;
         
-        save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','Alfa355_D1_L_GRASP','Beta355_D1_L_GRASP','Alfa532_D1_L_GRASP','Beta532_D1_L_GRASP','Alfa1064_D1_L_GRASP','Beta1064_D1_L_GRASP');        
+        save([fullfile(path2file, ['GRASP_', 'EARLINET', '_', NombreEntrada2, '_', config])],'-append','Alfa355_D1_L_GRASP','Beta355_D1_L_GRASP','Alfa532_D1_L_GRASP','Beta532_D1_L_GRASP','Alfa1064_D1_L_GRASP','Beta1064_D1_L_GRASP');        
         
 
         %! * Perfil d'absorció d'aerosols a 355 nm, 532 nm i 1064 nm, respectivament.
@@ -375,7 +376,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
         Alfaabs1064_D1_L_GRASP = (AlfaabsF_D1_L_GRASP + AlfaabsC_D1_L_GRASP);
         %ErrAlfa1064 = (sqrt(((Error_VC1.*tau1064_0).^2)+((VC1.*errest_tau1064_0).^2)+((Error_VC2.*tau1064_1).^2)+((VC2.*errest_tau1064_1).^2))).*10^6; 
         
-        save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','Alfaabs355_D1_L_GRASP','Alfaabs532_D1_L_GRASP','Alfaabs1064_D1_L_GRASP');        
+        save([fullfile(path2file, ['GRASP_', 'EARLINET', '_', NombreEntrada2, '_', config])],'-append','Alfaabs355_D1_L_GRASP','Alfaabs532_D1_L_GRASP','Alfaabs1064_D1_L_GRASP');        
     
 
         %! * Perfils SSA
@@ -383,31 +384,31 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
         SSA355_D1_L_GRASP = (Alfa355_D1_L_GRASP-Alfaabs355_D1_L_GRASP)./Alfa355_D1_L_GRASP;     
         SSA532_D1_L_GRASP = (Alfa532_D1_L_GRASP-Alfaabs532_D1_L_GRASP)./Alfa532_D1_L_GRASP;
         SSA1064_D1_L_GRASP = (Alfa1064_D1_L_GRASP-Alfaabs1064_D1_L_GRASP)./Alfa1064_D1_L_GRASP;
-        save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','SSA355_D1_L_GRASP','SSA532_D1_L_GRASP','SSA1064_D1_L_GRASP');        
+        save([fullfile(path2file, ['GRASP_', 'EARLINET', '_', NombreEntrada2, '_', config])],'-append','SSA355_D1_L_GRASP','SSA532_D1_L_GRASP','SSA1064_D1_L_GRASP');        
     
 
         %! * Perfils de relació Lidar
         %!
-        LR355_D1_L_GRASP = Alfa355_D1_L_GRASP.\beta355_D1_L_GRASP;       
-        LR532_D1_L_GRASP = Alfa532_D1_L_GRASP.\beta532_D1_L_GRASP;       
-        LR1064_D1_L_GRASP = Alfa1064_D1_L_GRASP.\beta1064_D1_L_GRASP;
-        % LR355SCC = Alfa355.\beta355;       
-        % LR532SCC = Alfa532.\beta532;       
+        LR355_D1_L_GRASP = Alfa355_D1_L_GRASP./Beta355_D1_L_GRASP;       
+        LR532_D1_L_GRASP = Alfa532_D1_L_GRASP./Beta532_D1_L_GRASP;       
+        LR1064_D1_L_GRASP = Alfa1064_D1_L_GRASP./Beta1064_D1_L_GRASP;
+        % LR355SCC = Alfa355./Beta355;       
+        % LR532SCC = Alfa532./Beta532;       
         
-        save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','LR355_D1_L_GRASP','LR532_D1_L_GRASP','LR1064_D1_L_GRASP')%,'LR355SCC','LR532SCC');
+        save([fullfile(path2file, ['GRASP_', 'EARLINET', '_', NombreEntrada2, '_', config])],'-append','LR355_D1_L_GRASP','LR532_D1_L_GRASP','LR1064_D1_L_GRASP')%,'LR355SCC','LR532SCC');
     
 
         %! * Perfils Angstrom
         %!
-        AE355_532_D1_L_GRASP = (-log(Beta355_D1_L_GRASP.\beta532_D1_L_GRASP))./(log(355/532));       
-        AE355_1064_D1_L_GRASP = (-log(Beta355_D1_L_GRASP.\beta1064_D1_L_GRASP))./(log(355/1064));        
-        AE532_1064_D1_L_GRASP = (-log(Beta532_D1_L_GRASP.\beta1064_D1_L_GRASP))./(log(532/1064));
+        AE355_532_D1_L_GRASP = (-log(Beta355_D1_L_GRASP./Beta532_D1_L_GRASP))./(log(355/532));       
+        AE355_1064_D1_L_GRASP = (-log(Beta355_D1_L_GRASP./Beta1064_D1_L_GRASP))./(log(355/1064));        
+        AE532_1064_D1_L_GRASP = (-log(Beta532_D1_L_GRASP./Beta1064_D1_L_GRASP))./(log(532/1064));
         AE_D1_L_GRASP = eval(sprintf('AExp'));
-        % AE355_532SCC = (-log(Beta355.\beta532))./(log(355/532));       
-        % AE355_1064SCC = (-log(Beta355.\beta1064))./(log(355/1064));        
-        % AE532_1064SCC = (-log(Beta532.\beta1064))./(log(532/1064));
+        % AE355_532SCC = (-log(Beta355./Beta532))./(log(355/532));       
+        % AE355_1064SCC = (-log(Beta355./Beta1064))./(log(355/1064));        
+        % AE532_1064SCC = (-log(Beta532./Beta1064))./(log(532/1064));
         
-        save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','AE355_532_D1_L_GRASP','AE355_1064_D1_L_GRASP','AE532_1064_D1_L_GRASP','AE_D1_L_GRASP');%,'AE355_532SCC','AE355_1064SCC','AE532_1064SCC');       
+        save([fullfile(path2file, ['GRASP_', 'EARLINET', '_', NombreEntrada2, '_', config])],'-append','AE355_532_D1_L_GRASP','AE355_1064_D1_L_GRASP','AE532_1064_D1_L_GRASP','AE_D1_L_GRASP');%,'AE355_532SCC','AE355_1064SCC','AE532_1064SCC');       
         
 
         %! * Fracció de l'esfera
@@ -419,7 +420,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
         EffRT_D1_L_GRASP = eval(sprintf('sd_effective_radii_total'));
         EffRF_D1_L_GRASP = eval(sprintf('sd_effective_radii_fine'));
         EffRC_D1_L_GRASP = eval(sprintf('sd_effective_radii_coarse'));
-        save([fullfile(path2file, ['GRASP_', ubi, '_', NombreEntrada2, '_', config])],'-append','EffRC_D1_L_GRASP','EffRF_D1_L_GRASP','EffRT_D1_L_GRASP','Error_SF_D1_L_GRASP','SF_D1_L_GRASP','std_SF_D1_L_GRASP','bias_SF_D1_L_GRASP');        
+        save([fullfile(path2file, ['GRASP_', 'EARLINET', '_', NombreEntrada2, '_', config])],'-append','EffRC_D1_L_GRASP','EffRF_D1_L_GRASP','EffRT_D1_L_GRASP','Error_SF_D1_L_GRASP','SF_D1_L_GRASP','std_SF_D1_L_GRASP','bias_SF_D1_L_GRASP');        
     
 
     %%! Gràfiques representades
@@ -560,7 +561,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     plot(Waves_AERONET,AAOD_AERONET,':*k'),hold off
     ylabel('AAOD')
     xlabel('\lambda, (nm)')
-    legend('GRASP-Fine','GRASP-Coarse','GRASP-Total','AERONET')
+    legend('GRASP-Total','GRASP-Coarse','GRASP-Fine','AERONET')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])  
     grid on
@@ -574,7 +575,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureXLabel = '\lambda, (nm)';
     dataFigureXLim = [];
     dataFigureYLim = [];
-    dataFigureLegend = {'GRASP-Fine','GRASP-Coarse','GRASP-Total','AERONET'};
+    dataFigureLegend = {'GRASP-Total','GRASP-Coarse','GRASP-Fine','AERONET'};
     dataFigureTitle = [station ', ' datestr(dateproc,'yyyymmdd HH:MM')];
     dataFigureLogScale = {};
     save(dataFigureName, 'dataFigureAxis', 'dataFigureColor', 'dataFigureYLabel', 'dataFigureXLabel', 'dataFigureYLim', 'dataFigureXLim', 'dataFigureLegend', 'dataFigureTitle', 'dataFigureLogScale');
@@ -588,7 +589,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     plot(Waves_AERONET,SSA_AERONET,':*k'),hold off
     ylabel('SSA')
     xlabel('\lambda, (nm)')
-    legend('GRASP-Fine','GRASP-Coarse','GRASP-Total','AERONET')
+    legend('GRASP-Total','GRASP-Coarse','GRASP-Fine','AERONET')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')]) 
     grid on
@@ -602,7 +603,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureXLabel = '\lambda, (nm)';
     dataFigureXLim = [];
     dataFigureYLim = [];
-    dataFigureLegend = {'GRASP-Fine','GRASP-Coarse','GRASP-Total','AERONET'};
+    dataFigureLegend = {'GRASP-Total','GRASP-Coarse','GRASP-Fine','AERONET'};
     dataFigureTitle = [station ', ' datestr(dateproc,'yyyymmdd HH:MM')];
     dataFigureLogScale = {};
     save(dataFigureName, 'dataFigureAxis', 'dataFigureColor', 'dataFigureYLabel', 'dataFigureXLabel', 'dataFigureYLim', 'dataFigureXLim', 'dataFigureLegend', 'dataFigureTitle', 'dataFigureLogScale');
@@ -616,7 +617,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     plot(Waves_AERONET2,AOD_AERONET,':*k'),hold off
     ylabel('AOD')
     xlabel('\lambda, (nm)')
-    legend('GRASP-Fine','GRASP-Coarse','GRASP-Total','AERONET')
+    legend('GRASP-Total','GRASP-Coarse','GRASP-Fine','AERONET')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')]) 
     grid on
@@ -630,7 +631,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureXLabel = '\lambda, (nm)';
     dataFigureXLim = [];
     dataFigureYLim = [];
-    dataFigureLegend = {'GRASP-Fine','GRASP-Coarse','GRASP-Total','AERONET'};
+    dataFigureLegend = {'GRASP-Total','GRASP-Coarse','GRASP-Fine','AERONET'};
     dataFigureTitle = [station ', ' datestr(dateproc,'yyyymmdd HH:MM')];
     dataFigureLogScale = {};
     save(dataFigureName, 'dataFigureAxis', 'dataFigureColor', 'dataFigureYLabel', 'dataFigureXLabel', 'dataFigureYLim', 'dataFigureXLim', 'dataFigureLegend', 'dataFigureTitle', 'dataFigureLogScale');
@@ -646,7 +647,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     ylabel('LR, (sr)')
     xlabel('\lambda, (nm)')
     box on
-    legend('GRASP-Fine','GRASP-Coarse','GRASP-Total','AERONET')
+    legend('GRASP-Total','GRASP-Coarse','GRASP-Fine','AERONET')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])  
     grid on
@@ -660,7 +661,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureXLabel = '\lambda, (nm)';
     dataFigureXLim = [];
     dataFigureYLim = [];
-    dataFigureLegend = {'GRASP-Fine','GRASP-Coarse','GRASP-Total','AERONET'};
+    dataFigureLegend = {'GRASP-Total','GRASP-Coarse','GRASP-Fine','AERONET'};
     dataFigureTitle = [station ', ' datestr(dateproc,'yyyymmdd HH:MM')];
     dataFigureLogScale = {};
     save(dataFigureName, 'dataFigureAxis', 'dataFigureColor', 'dataFigureYLabel', 'dataFigureXLabel', 'dataFigureYLim', 'dataFigureXLim', 'dataFigureLegend', 'dataFigureTitle', 'dataFigureLogScale');
@@ -706,7 +707,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     xlabel('Backscatter, (Mm^{-1}sr^{-1})')
     box on
     ylim([Hmin, Hmax])
-    legend('\beta 355 nm','\beta 532 nm','\beta 1064 nm')
+    legend('/beta 355 nm','/beta 532 nm','/beta 1064 nm')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])  
     grid on
@@ -720,7 +721,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureXLabel = 'Backscatter, (Mm^{-1}sr^{-1})';
     dataFigureXLim = [];
     dataFigureYLim = [Hmin, Hmax];
-    dataFigureLegend = {'\beta 355 nm','\beta 532 nm','\beta 1064 nm'};
+    dataFigureLegend = {'/beta 355 nm','/beta 532 nm','/beta 1064 nm'};
     dataFigureTitle = [station ', ' datestr(dateproc,'yyyymmdd HH:MM')];
     dataFigureLogScale = {};
     save(dataFigureName, 'dataFigureAxis', 'dataFigureColor', 'dataFigureYLabel', 'dataFigureXLabel', 'dataFigureYLim', 'dataFigureXLim', 'dataFigureLegend', 'dataFigureTitle', 'dataFigureLogScale');
@@ -861,10 +862,10 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])      
     grid on
-    savefig(h15, fullfile(path2file, ['figures\beta_' config '_SCCxGRASP_' station '_' datestr(dateproc,'yymmddHHMM') '.fig']));
+    savefig(h15, fullfile(path2file, ['figures/Beta_' config '_SCCxGRASP_' station '_' datestr(dateproc,'yymmddHHMM') '.fig']));
 
     % Figure Data model
-    dataFigureName = fullfile(path2file, ['figures\beta_' config '_SCCxGRASP_' station '_' datestr(dateproc,'yymmddHHMM') '.mat']);
+    dataFigureName = fullfile(path2file, ['figures/Beta_' config '_SCCxGRASP_' station '_' datestr(dateproc,'yymmddHHMM') '.mat']);
     dataFigureAxis = {Beta355SSC, range355SSC, Beta532SSC, range532SSC, Beta1064SSC, range1064SCC, Beta355_D1_L_GRASP, altitude, Beta532_D1_L_GRASP, altitude, Beta1064_D1_L_GRASP, altitude};
     dataFigureColor = {'b', 'g', 'r','--b', '--g','--r'};
     dataFigureYLabel = 'Height asl, (km)';
@@ -968,7 +969,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     plot(Lambda,aaodF_D1_L_GRASP,'-ob',Lambda,aaodC_D1_L_GRASP,'-or',Lambda,aaod_D1_L_GRASP,'-ok')
     ylabel('AAOD')
     xlabel('\lambda, (nm)')
-    legend('GRASP-Fine','GRASP-Coarse','GRASP-Total')
+    legend('GRASP-Total','GRASP-Coarse','GRASP-Fine')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])  
     grid on
@@ -982,7 +983,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureXLabel = '\lambda, (nm)';
     dataFigureXLim = [];
     dataFigureYLim = [];
-    dataFigureLegend = {'GRASP-Fine','GRASP-Coarse','GRASP-Total'};
+    dataFigureLegend = {'GRASP-Total','GRASP-Coarse','GRASP-Fine'};
     dataFigureTitle = [station ', ' datestr(dateproc,'yyyymmdd HH:MM')];
     dataFigureLogScale = {};
     save(dataFigureName, 'dataFigureAxis', 'dataFigureColor', 'dataFigureYLabel', 'dataFigureXLabel', 'dataFigureYLim', 'dataFigureXLim', 'dataFigureLegend', 'dataFigureTitle', 'dataFigureLogScale');
@@ -995,7 +996,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     plot(Lambda,ssaF_D1_L_GRASP,'-ob',Lambda,ssaC_D1_L_GRASP,'-or',Lambda,ssa_D1_L_GRASP,'-ok')
     ylabel('SSA')
     xlabel('\lambda, (nm)')
-    legend('GRASP-Fine','GRASP-Coarse','GRASP-Total')
+    legend('GRASP-Total','GRASP-Coarse','GRASP-Fine')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])  
     grid on
@@ -1009,7 +1010,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureXLabel = '\lambda, (nm)';
     dataFigureXLim = [];
     dataFigureYLim = [];
-    dataFigureLegend = {'GRASP-Fine','GRASP-Coarse','GRASP-Total'};
+    dataFigureLegend = {'GRASP-Total','GRASP-Coarse','GRASP-Fine'};
     dataFigureTitle = [station ', ' datestr(dateproc,'yyyymmdd HH:MM')];
     dataFigureLogScale = {};
     save(dataFigureName, 'dataFigureAxis', 'dataFigureColor', 'dataFigureYLabel', 'dataFigureXLabel', 'dataFigureYLim', 'dataFigureXLim', 'dataFigureLegend', 'dataFigureTitle', 'dataFigureLogScale');
@@ -1023,7 +1024,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     plot(Lambda,AODF_D1_L_GRASP,'-ob',Lambda,AODC_D1_L_GRASP,'-or',Lambda,aod_D1_L_GRASP,'-ok')
     ylabel('AOD')
     xlabel('\lambda, (nm)')
-    legend('GRASP-Fine','GRASP-Coarse','GRASP-Total')
+    legend('GRASP-Total','GRASP-Coarse','GRASP-Fine')
     legend('boxoff')
     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])  
     grid on
@@ -1037,7 +1038,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     dataFigureXLabel = '\lambda, (nm)';
     dataFigureXLim = [];
     dataFigureYLim = [];
-    dataFigureLegend = {'GRASP-Fine','GRASP-Coarse','GRASP-Total'};
+    dataFigureLegend = {'GRASP-Total','GRASP-Coarse','GRASP-Fine'};
     dataFigureTitle = [station ', ' datestr(dateproc,'yyyymmdd HH:MM')];
     dataFigureLogScale = {};
     save(dataFigureName, 'dataFigureAxis', 'dataFigureColor', 'dataFigureYLabel', 'dataFigureXLabel', 'dataFigureYLim', 'dataFigureXLim', 'dataFigureLegend', 'dataFigureTitle', 'dataFigureLogScale');
@@ -1060,7 +1061,7 @@ function[GRASP_Plot_Correctly] = grasp_plotting_UPC(path2file, config, Lambda,Wa
     %     legend('boxoff')
     %     title ([station ', ' datestr(dateproc,'yyyymmdd HH:MM')])   
     %     grid on
-    %     hgsave(h22,['figures\alpha_SCCxGRASP_' station '_' datestr(dateproc,'yymmddHHMM') '.fig']);    
+    %     hgsave(h22,['figures/Alpha_SCCxGRASP_' station '_' datestr(dateproc,'yymmddHHMM') '.fig']);    
     
     %%%% LR profiles (GRASP x SCC)
     %

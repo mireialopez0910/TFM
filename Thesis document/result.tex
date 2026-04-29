@@ -40,10 +40,35 @@ Settings window has been created in order to allow the user to configure both th
 \subsection{Work-flux}
 The final work-flux for working with GRASP algorithm can be summarised in the following steps, all included in the developed application and executed in CALCULA environment:
 \begin{enumerate}
-    \item Download files: Select date range and station and download the corresponding files. Available files will be shown in same View
+    \item Create, open or import a project: Load a project in order to save downloaded data and ouput data and figures in a defined directory.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=16cm]{img/Execution/Home.png}
+        \caption[Home screen]{\footnotesize{Home screen}}
+        \label{fig:Home}
+    \end{figure}
+    \item Download files: Select date range and station and download the corresponding files. Available files will be shown in same View.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=16cm]{img/Execution/FilesDownloaded.png}
+        \caption[Files downloaded]{\footnotesize{Files downloaded}}
+        \label{fig:FilesDownloaded}
+    \end{figure}
     \item Combine data: Select the desired MeasureID, choosing the data and time range to be used. Heights can be configured and available configurations will be automatically shown. 
+    \item \begin{figure}[H]
+        \centering  
+        \includegraphics[width=16cm]{img/Execution/OptionsEnabled.png}
+        \caption[Data combination with enabled options]{\footnotesize{Data combination with enabled options}}
+        \label{fig:OptionsEnabled}
+    \end{figure}
     \item Execute GRASP: Send data will create the input files automatically for GRASP algorithm and will execute it. 
     \item Plot results: Available results will be automatically detected. If possible, list of figures will be created and saved in Output directory. The user will be able to choose which figure to show.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=16cm]{img/Execution/plotted.png}
+        \caption[Plotted figure]{\footnotesize{Plotted figure example}}
+        \label{fig:Plotting_plotted}
+    \end{figure}    
 \end{enumerate}
 \subsection{Low resolution User Interface}
 Using Avalonia Nuget package provokes the inability to resize the application window, since it does not maintain the correct format for the moment. In some tests, it has been detected that all actions cannot be executed in a low resolution system. Then, it has been created the option of a low resolution UI, which can be downloaded from the same link with name GRASP\_Builder\_v200\_Linux\_Small.zip in \url{https://drive.google.com/drive/folders/1-ah8Bmy-WjuZU2IpYdQzZkzaAbUyykzX?usp=sharing}. This option allows the user to execute the application in a low resolution system, having a slightly modified UI, which can be seen in the following figures: \Cref{fig:low_resolution_ui}

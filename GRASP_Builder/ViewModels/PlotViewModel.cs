@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 
 namespace GRASP_Builder.ViewModels
@@ -138,8 +139,9 @@ namespace GRASP_Builder.ViewModels
             var dict = new Dictionary<string, object>
                     {
                         { "selected_measure_ID", SelectedMeasureID},
-                        {"selected_measurement_file_to_show", SelectedFileToShow },
-                        {"output_dir",$@"{projectCfg?.GetValue("MatlabOutputDirectory")}" }
+                        { "selected_measurement_file_to_show", SelectedFileToShow },
+                        { "output_dir",$@"{projectCfg?.GetValue("MatlabOutputDirectory")}" },
+                        { "station", Regex.Replace(_selectedMeasureID, "[^a-zA-Z]", "").ToUpper()}
                     };
 
             if (AppConfig.Instance.IsDebugging())
@@ -163,7 +165,7 @@ namespace GRASP_Builder.ViewModels
             var dict = new Dictionary<string, object>
                     {
                         { "path_to_figure_data", Path.Combine(figureFolder,SelectedFigureToShow)},
-                    };
+            };
 
             if (AppConfig.Instance.IsDebugging())
                 Logger.Log($"PlotFigures Matlab script started with dicctionary: {FormatHelpers.DictionaryToString(dict)}");
@@ -260,7 +262,7 @@ namespace GRASP_Builder.ViewModels
                 var figureFileList = Directory.GetFiles(figureFolder, "*.mat");
 
                 //add available figures in combobox list options
-                
+
                 foreach (var file in figureFileList)
                 {
                     string nameWithoutExt = Path.GetFileNameWithoutExtension(file);

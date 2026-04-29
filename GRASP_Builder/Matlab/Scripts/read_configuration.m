@@ -49,6 +49,8 @@ for i = 1:length(configData)
         path_to_figure_data = (extractAfter(line, '='));
     elseif startsWith(line, 'output_dir')
         CONFIG_output = (extractAfter(line, '='));
+    elseif startsWith(line, 'station')
+        station = (extractAfter(line, '='));
     end
 end
 %% 

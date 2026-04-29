@@ -71,35 +71,8 @@ public class ViewModel : ObservableObject
 <Button Content="Execute" Command="{Binding Cmd}" />
 \end{lstlisting}
 
-\subsection{SOLID principles}
-{SOLID principles are a set of five principles that are used to design software with the objective of making it easy to maintain and modify, making a project more maintainable and scalable \cite{solid}. It lowers the dependency between classes, minimising the impact of changes and making the code more reusable, maintainable, flexible and stable. \smallskip\\
-They also support growth in development, making it easier to add new features without the need of modifying already implemented code. \smallskip\\
-These principles are:}
-  \begin{itemize}
-    \item{Single Responsibility Principle (SRP)}
-    \item{Open/Closed Principle (OCP)}
-    \item{Liskov Substitution Principle (LSP)}
-    \item{Interface Segregation Principle (ISP)}
-    \item{Dependency Inversion Principle (DIP)}
-  \end{itemize}
-
-  \subsubsection{Single Responsibility Principle}
-  {States that \textit{a class should have only one reason to change}, meaning that it should have only one responsibility, job or purpose within the software project.\smallskip\\
-    In order to apply this principle, it is necessary to divide the code into different classes, each one with a specific responsibility. It is important to note that this principle is not always possible to apply, but it is a good practice to try to do so.}
-  \subsubsection{Open/Closed Principle}
-  {States that \textit{an entity should be open for extension, but closed for modification}, meaning that it should be easy to extend the functionality of the entity without modifying its existing code. \smallskip\\
-  In order to apply this principle it can be used abstraction by implementing Interfaces and Abstract classes and by using different design patterns like Strategy or Decorator.}
-  \subsubsection{Liskov Substitution Principle}
-  { Introduced in 1987 by Barbara Liskov, it states that \textit{derived or child classes must be substitutable for their base or parent classes}, ensuring that any class can be used in place of its parent class without any loss of functionality. \smallskip\\
-  In order to apply this principle, it is important to ensure that subclasses can be used anywhere where the base class is used without changing the expected behaviour, avoiding overriding methods and making sure to not throw NotImplementedException. This can be done by using Interfaces and Abstract classes.}
-  \subsubsection{Interface Segregation Principle}
-  {This principle applies directly to interfaces, and it states that \textit{do not force any client to implement an interface which is irrelevant to them}. The main objective of this principle is to not implement too big interfaces and to implement instead smaller and more specific interfaces.\smallskip\\
-  If this principle is used in a project, the corresponding software architecture should have many interfaces implementations with specific purposes.}
-  \subsubsection{Dependency Inversion Principle}
-  {States that \textit{high-level modules should not depend on low-level modules, but both should depend on abstractions}, ensuring that the dependencies are inverted and that the high-level modules are not dependent on the low-level modules. \smallskip\\
-  In order to apply this principle, it is suggested to use abstractions and interfaces to define the dependencies between modules.}
 \subsection{Project architecture}
-{Applying the MVVM design pattern and the SOLID principles, the project architecture can be summed up as follows:}
+{Applying the MVVM design pattern and the SOLID principles\cite{solid}, the project architecture can be summed up as follows:}
 \begin{figure}[H]
     \centering
     \includegraphics[width=16cm]{img/architecture_mvvm.png}
@@ -109,4 +82,25 @@ These principles are:}
 
 {In \Cref{fig:architecture} it can be seen how the Views are divided into different folders. The Windows folder contains all the files containing the definitions of the different windows and dialogs of the application, while the Views folder contains all the files containing the definitions of different UserControls. UserControls are used as Content in the MainWindow, in this case, as Contents of the different tab items.\smallskip\\
 The ViewModel section contains all the files containing the definitions of the different ViewModels of the application. Most of them are located in the ViewModels folder, but it can also be appreciated that there is a folder named UIElement, where the models for CheckItems and TabItems are located. With these classes, adding these items to Views and ViewModels is easier to maintain and update.\smallskip\\
-Finally, the Model component is composed of all the internal classes of the application. It has been divided into AppCode, where all the implementations related to app logic are located, and Matlab, where all the MATLAB scripts are located as well as the necessary implementations for the app to execute them.}
+Finally, the Model component is composed of all the internal classes of the application. It has been divided into AppCode, where all the implementations related to app logic are located, and Matlab, where all the Matlab scripts are located as well as the necessary implementations for the app to execute them.}
+
+\subsubsection{Matlab scripts}
+{The Matlab scripts can be found in the project solution in the Scripts folder inside the Matlab one, as it can be seen in \Cref{fig:architecture}. This folders, can be accessed also in the execution directory, with the same structure. This organisation can be seen in the following picture:}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{img/Matlab_folders.drawio.png}
+    \caption[Matlab scripts organisation]{\footnotesize{Matlab scripts organisation}}
+    \label{fig:matlab_folders}
+\end{figure}
+Thanks to this, it is not necessary to compile the full project in order to modify the scripts or configuration files. If any modification of these files is needed, it can be directly accessed and modified. These scrips can be also compiled with Matlba without the need of executing the full application, but it is needed to configure different parameters, depending on the different scrips.
+\smallskip\\The most important files are:
+\begin{itemize}
+    \item{GetHeights.m}: Calculates the minimum and maximum height of the indicated Measure ID
+    \item{Preview.m}: Plots graph of the selected Measure ID of both Range Corrected Signal or Volume Depolarization
+    \item{SendData.m}: Creates .sdat file that will be used for executing GRASP algorithm with the corresponding data of the selected Measure ID
+    \item{SaveFigures.m}: Creates the different figures obtained from the output data after executing GRASP and saves them in the output folder in .mat files
+    \item{PlotFigure.m}: Plots the selected figures from .mat files
+    \item{read\_configuration.m}: Reads the configuration file written by the main application during pre-execution actions
+    \item{\*.yml}: Configuration files for GRASP. During execution, the corresponding file is copyied to the output folder and configured with the name parameters depending on Measure ID and selected configuration
+\end{itemize}
+Other files can be found in this folder, containing functions that will be used in the different scripts mentioned in this list. 
