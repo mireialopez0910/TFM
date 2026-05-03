@@ -198,6 +198,8 @@
 configFile = "config_scripts.txt";
 run('config_file.m');
 read_configuration;
+warning('off', 'all');
+
 
 path2datafile = path_to_figure_data;
 plotdata = load(path2datafile);    

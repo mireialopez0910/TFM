@@ -440,11 +440,10 @@ namespace GRASP_Builder.ViewModels
                     Logger.Log($"Send Data Matlab script started with dicctionary: {FormatHelpers.DictionaryToString(dict)}");
 
                 MatlabController.RunMatlabScript(ScriptType.SendFiles, dict, "_DC");
-
-                Messenger.Default.Send<object>("ReloadMeasureID", null);
             }
             else
-                Logger.Log("ERROR: No data option selected to send.");
+                MessagesController.Show($"ERROR: No data option can be selected. Choose another Measure ID.", $"ERROR", isError: true);
+            
             IsConfigSelectionEnabled = true;
         }
 

@@ -92,7 +92,7 @@ Finally, the Model component is composed of all the internal classes of the appl
     \caption[Matlab scripts organisation]{\footnotesize{Matlab scripts organisation}}
     \label{fig:matlab_folders}
 \end{figure}
-Thanks to this, it is not necessary to compile the full project in order to modify the scripts or configuration files. If any modification of these files is needed, it can be directly accessed and modified. These scrips can be also compiled with Matlba without the need of executing the full application, but it is needed to configure different parameters, depending on the different scrips.
+Thanks to this, it is not necessary to compile the full project in order to modify the scripts or configuration files. If any modification of these files is needed, it can be directly accessed and modified. These scripts can be also compiled with Matlab without the need of executing the full application, but it is needed to configure different parameters, depending on the different scripts.
 \smallskip\\The most important files are:
 \begin{itemize}
     \item{GetHeights.m}: Calculates the minimum and maximum height of the indicated Measure ID
@@ -101,6 +101,6 @@ Thanks to this, it is not necessary to compile the full project in order to modi
     \item{SaveFigures.m}: Creates the different figures obtained from the output data after executing GRASP and saves them in the output folder in .mat files
     \item{PlotFigure.m}: Plots the selected figures from .mat files
     \item{read\_configuration.m}: Reads the configuration file written by the main application during pre-execution actions
-    \item{\*.yml}: Configuration files for GRASP. During execution, the corresponding file is copyied to the output folder and configured with the name parameters depending on Measure ID and selected configuration
+    \item{\*.yml}: Configuration files for GRASP. During execution, the corresponding file is copied to the output folder and configured with the name parameters depending on Measure ID and selected configuration
 \end{itemize}
 Other files can be found in this folder, containing functions that will be used in the different scripts mentioned in this list. 

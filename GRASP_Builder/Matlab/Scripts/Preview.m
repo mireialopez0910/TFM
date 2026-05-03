@@ -43,7 +43,7 @@ if noError == true
 
 
     % Devuelve las configuraciones disponibles
-    [is_D1_L, is_D1P_L, is_D1_L_VD, is_D1P_L_VD, messageFromCheckSendData] = f();
+    [is_D1_L, is_D1P_L, is_D1_L_VD, is_D1P_L_VD, messageFromCheckSendData] = checkSendDataConfigs();
 
     if strcmpi(strtrim(is_D1_L), "true")
         logMessage('D1_L enabled');

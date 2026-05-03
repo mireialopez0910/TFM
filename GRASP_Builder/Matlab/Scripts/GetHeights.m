@@ -1,4 +1,5 @@
 configFile = 'config_scripts.txt';
+warning('off', 'all');
 
 %%%% LOAD RESOURCES %%%%
 warning('off','all');

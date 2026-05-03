@@ -26,10 +26,6 @@ namespace GRASP_Builder
         }
     }
 
-    public class WindowHelpers
-    {
-    }
-
     public class FileHelpers
     {
         public static void RenameFile(string sourcePath, string newName) //classe nova file helper?? mirar quant codi es repeteix etc -> nadal?

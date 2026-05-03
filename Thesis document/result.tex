@@ -40,7 +40,7 @@ Settings window has been created in order to allow the user to configure both th
 \subsection{Work-flux}
 The final work-flux for working with GRASP algorithm can be summarised in the following steps, all included in the developed application and executed in CALCULA environment:
 \begin{enumerate}
-    \item Create, open or import a project: Load a project in order to save downloaded data and ouput data and figures in a defined directory.
+    \item Create, open or import a project: Load a project in order to save downloaded data and output data and figures in a defined directory.
     \begin{figure}[H]
         \centering
         \includegraphics[width=16cm]{img/Execution/Home.png}
@@ -55,7 +55,7 @@ The final work-flux for working with GRASP algorithm can be summarised in the fo
         \label{fig:FilesDownloaded}
     \end{figure}
     \item Combine data: Select the desired MeasureID, choosing the data and time range to be used. Heights can be configured and available configurations will be automatically shown. 
-    \item \begin{figure}[H]
+    \begin{figure}[H]
         \centering  
         \includegraphics[width=16cm]{img/Execution/OptionsEnabled.png}
         \caption[Data combination with enabled options]{\footnotesize{Data combination with enabled options}}
@@ -70,6 +70,29 @@ The final work-flux for working with GRASP algorithm can be summarised in the fo
         \label{fig:Plotting_plotted}
     \end{figure}    
 \end{enumerate}
+\subsection{Transparent implemented features}
+With the objective of having an enhanced user experience, different features have been implemented in the application. These features are not noticeable for the user, but they improve the application's performance and functionality. 
+\begin{enumerate}
+    \item Actris-Earlinet measurements are automatically filtered between Download step and Data Combination step. Measurements taken during night time (without sun radiation) are not useful for GRASP algorithm, so the corresponding option is automatically removed from Data Combination options and cannot be sent to GRASP. 
+    \item Matlab scripts in Data combination have been corrected and optimised. 
+    \begin{itemize}
+        \item File detection has been corrected to the expected format.
+        \item Data names and structure inside Matlab namespace have been corrected to more general cases.
+        \item Error detection has been enhanced for missing data in empty files.
+        \item Configuration detection has been corrected.
+        \item Interpolation has been implemented for VD data. It prevents GRASP errors and gives a wider measurement range for the algorithm execution.
+        \item Endings without ";" have been detected and corrected, in order to give a cleaner Matlab execution.
+    \end{itemize}
+    \item All directories used during execution are defined in Settings and can be modified. This allows the user to configure the application to their needs.
+    \item Matlab scripts in Plotting have been corrected and optimised.
+    \begin{itemize}
+        \item Wrong figure legend have been corrected in several figures.
+        \item Title detection has been detected in order to show correct Station name, without relying on file structure. File structure can be modified from data providers and may be obsolete with time. Station is now detected from Measure ID and passed as configuration parameter.
+        \item Endings without ";" have been detected and corrected, in order to give a cleaner Matlab execution.
+        \item Remove warnings.
+    \end{itemize}
+\end{enumerate}
+
 \subsection{Low resolution User Interface}
 Using Avalonia Nuget package provokes the inability to resize the application window, since it does not maintain the correct format for the moment. In some tests, it has been detected that all actions cannot be executed in a low resolution system. Then, it has been created the option of a low resolution UI, which can be downloaded from the same link with name GRASP\_Builder\_v200\_Linux\_Small.zip in \url{https://drive.google.com/drive/folders/1-ah8Bmy-WjuZU2IpYdQzZkzaAbUyykzX?usp=sharing}. This option allows the user to execute the application in a low resolution system, having a slightly modified UI, which can be seen in the following figures: \Cref{fig:low_resolution_ui}
 \begin{figure}[H]
@@ -90,4 +113,4 @@ Using Avalonia Nuget package provokes the inability to resize the application wi
     \caption[Plotting view for low resolution UI]{\footnotesize{Plotting view for low resolution UI}}
     \label{fig:plotting_view}
 \end{figure}
-This option allows the user to execute the application in a low resolution system, since this User Interface is smaller than the lowest screen resolution option in Windows operative system.
+This option allows the user to execute the application in a low resolution system, since this User Interface is smaller than the lowest screen resolution option in Windows operating system.

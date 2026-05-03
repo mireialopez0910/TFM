@@ -1,0 +1,40 @@
+\begin{ganttchart}[y unit title=0.5cm,
+y unit chart=0.75cm,
+vgrid,hgrid,
+bar label node/.append style={text width=2.5cm,align=right},
+title height=1,
+today=12,
+today label=Delivery,
+title label font=\small,
+bar label font=\footnotesize,
+group label font=\small,
+milestone label font=\small,
+today label font=\small,
+bar/.style={draw,fill=cyan!75!black},
+bar incomplete/.append style={fill=orange!50},
+bar height=0.5]{1}{16}
+
+ % 2nd semester
+ \gantttitle{Phases of the Project - 2026}{16} \\
+ \gantttitle{February}{4}
+ \gantttitle{March}{4} 
+ \gantttitle{April}{4}
+ \gantttitle{May}{4}\\
+ 
+ \ganttgroup[inline=false]{Testing}{1}{12}\\
+ \ganttbar[progress=100]{2nd version tests}{1}{10} \\
+ 
+ \ganttbar[progress=100]{Final version tests}{10}{12} \\
+ \ganttgroup[inline=false]{Re-design}{5}{10} \\
+ 
+ \ganttbar[progress=100]{Architecture re-design}{5}{7} \\
+ \ganttbar[progress=100]{Matlab fixes}{7}{9} \\
+ \ganttbar[progress=100]{App fixes}{8}{10} \\
+
+ \ganttgroup[inline=false]{Documentation}{1}{12}\\
+ \ganttbar[progress=100]{Continuous documentation}{1}{12} \\
+ \ganttgroup[inline=false]{Review}{1}{16}\\
+ \ganttbar[progress=100]{Continuous review}{1}{12} \\
+ \ganttgroup[inline=false]{Finalization}{12}{16}\\
+ \ganttbar[progress=25]{Presentation}{12}{16}
+\end{ganttchart}

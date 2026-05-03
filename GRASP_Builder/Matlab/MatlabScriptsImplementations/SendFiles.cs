@@ -70,6 +70,7 @@ namespace GRASP_Builder.Matlab
                 }
             }
             Messenger.Default.Send<bool>("UpdateButtonsEnabled", true);
+            Messenger.Default.Send<object>("ReloadMeasureID", null);
         }
 
         private void SaveOutputNameInConfigFile(string outputName, string config, string output_dir)
