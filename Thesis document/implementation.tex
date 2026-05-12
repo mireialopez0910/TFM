@@ -12,7 +12,32 @@ In order to use Avalonia, it is necessary to install the corresponding extension
 \end{figure}
 Since the app will be executing Matlab scripts, it is also necessary to have Matlab installed. In this case it has been used Matlab R2024a\cite{Download_matlab}.\smallskip\\
 In order to run the GRASP algorithm it is necessary to access to CALCULA, where it is already installed and running in Ubuntu that will only be used for testing.
-\subsection{Views and ViewModels}
+
+\subsection{MVVM}
+{
+  Design pattern MVVM (Model-View-ViewModel) is a software architecture pattern designed with the goal of having a clear separation between the user interface (frontend) and the business logic (backend) \cite{mvvm}. There are different frameworks that use this standard, such as Angular, .NET WPF...\smallskip\\
+  This application needs to be able to execute in CALCULA operating system (Linux), so it is necessary to use a framework that is compatible with this system. Originally, it was going to be developed using .NET WPF, but it was decided to use Avalonia instead, as it is a cross-platform framework that can be executed in different operating systems. The differences between both frameworks are very low, mainly being the name of the files (.axaml instead of .xaml) and the way to define the user interface. \smallskip\\
+  This architecture is divided in three main components:}
+  \begin{itemize}
+    \item{Model}: It contains the data and most of the app logic. It structures the information (classes and identities), how to retrieve it and how to manage it (services, data bases and controllers).
+    \item{View}: It defines all the elements in the user interface and what the user will see and will interact with. The only responsibility of the code defined in this section is to define the visual structure of the app and to create input elements for the user to interact with.
+    \item{ViewModel}: It is the bridge between the Model and the View. It is the one that controls the flow of data between the Model and the View.
+  \end{itemize}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=12.5cm]{img/MVVM.png}
+    \caption[MMV design pattern]{\footnotesize{MVVM design pattern}}
+    \label{fig:mvvm}
+  \end{figure}
+The most important advantages of using this design pattern are:
+\begin{itemize}
+  \item{Changes only affect the view or the model, not both}
+  \item{Separated testing for views and models}
+  \item{User interface can be modified without affecting the model}
+  \item {Teams with different developers can work on the same project simultaneously without affecting each other}
+\end{itemize}
+In order to implement MVVM pattern it is necessary to implement ObservableObject and RelayCommand classes from the .NET community toolkit, explained in Annexes \ref{ap:observable_object} and \ref{ap:relay_command}.
+\subsubsection{Views and ViewModels}
 In order to not overload the content of the different files for the User Interface implementation (Views and Windows) and management (View Models) it has been created a different View class for each Tab and for each Window, that can be resumed in the following list:
 \begin{itemize}
     \item About Window: Window that shows general information about the app and containg button "Help" which opens User Manual
@@ -27,31 +52,39 @@ In order to not overload the content of the different files for the User Interfa
     \item Settings View: Window where the user is able to modify the app configuration parameters.
 \end{itemize}
 All these classes for both Views and ViewModels are implemented using the MVVM pattern using ObservableObject and RelayCommand classes from the .NET community toolkit. In addition, all ViewModels classes have been structured by regions in order to homogeneously group the different properties, commands and methods.\smallskip\\
-In order to establish communication between different classes to notify modifications, it has been used the Messenger class from the .NET community toolkit. It consists on defining a Send Action, that can include some parameter or variable and a Receive Action, that will be executed when the Send Action is called, executing the linked method.\smallskip\\ 
-In the following example it can be seen an example of how the DataCombinationViewModel is using the Messenger class to receive modifications in the buttons enabled state:\smallskip
-\begin{lstlisting}
-public DataCombinationViewModel()
-{
-    Messenger.Default.Register<bool>("UpdateButtonsEnabled", UpdateButtonsEnabled);
-}   
+In order to establish communication between different classes to notify modifications, it has been used the Messenger class from the .NET community toolkit. It's usage is explained briefly in Annex \ref{ap:messenger}. 
+\smallskip\\Using Messenger allows to notify modifications in the App between classes that exist simultaneously, in this case between the different Tabs and between ViewModels and Controllers. In the case of creating new Windows like the Settings one, it is not necessary, since the needed information can be passed as parameters to the Constructor when it is initialized.
+\subsection{Project architecture}
+{Applying the MVVM design pattern and the SOLID principles\cite{solid}, the project architecture can be summed up as follows:}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=16cm]{img/architecture_mvvm.png}
+    \caption[MVVM design pattern applied to the project architecture]{\footnotesize{MVVM design pattern applied to the project architecture}}
+    \label{fig:architecture}
+\end{figure}
+{In \Cref{fig:architecture} it can be seen how the Views are divided into different folders. The Windows folder contains all the files containing the definitions of the different windows and dialogs of the application, while the Views folder contains all the files containing the definitions of different UserControls. UserControls are used as Content in the MainWindow, in this case, as Contents of the different tab items.\smallskip\\
+The ViewModel section contains all the files containing the definitions of the different ViewModels of the application. Most of them are located in the ViewModels folder, but it can also be appreciated that there is a folder named UIElement, where the models for CheckItems and TabItems are located. With these classes, adding these items to Views and ViewModels is easier to maintain and update.\smallskip\\
+Finally, the Model component is composed of all the internal classes of the application. It has been divided into AppCode, where all the implementations related to app logic are located, and Matlab, where all the Matlab scripts are located as well as the necessary implementations for the app to execute them.}
 
-private void UpdateButtonsEnabled(bool status)
-{
-    AreButtonsEnabled = status;
-    if (!status)
-    {
-        isEnabled_D1_L = false;
-        isEnabled_D1P_L = false;
-        isEnabled_D1_L_VD = false;
-        isEnabled_D1P_L_VD = false;
-    }
-}
-\end{lstlisting}
-In the corresponding controller, in order to send the modification in order to enable the buttons, for example, it is necessary to execute the following line:
-\begin{lstlisting}
-Messenger.Default.Send<bool>("UpdateButtonsEnabled", true);
-\end{lstlisting}
-Using Messenger allows to notify modifications in the App between classes that exist simultaneously, in this case between the different Tabs and between ViewModels and Controllers. In the case of creating new Windows like the Settings one, it is not necessary, since the needed information can be passed as parameters to the Constructor when it is initialized.
+\subsubsection{Matlab scripts and files}
+{The Matlab scripts can be found in the project solution in the Scripts folder inside the Matlab one, as it can be seen in \Cref{fig:matlab_folders}. This folders, can be accessed also in the execution directory, with the same structure. This organisation can be seen in the following picture:}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{img/Matlab_folders.drawio.png}
+    \caption[Matlab scripts organisation]{\footnotesize{Matlab scripts organisation}}
+    \label{fig:matlab_folders}
+\end{figure}
+The most important files that can be found in this folder are:
+\begin{itemize}
+    \item{GetHeights.m}: Calculates the minimum and maximum height of the indicated Measure ID
+    \item{Preview.m}: Plots graph of the selected Measure ID of both Range Corrected Signal or Volume Depolarization
+    \item{SendData.m}: Creates .sdat file that will be used for executing GRASP algorithm with the corresponding data of the selected Measure ID
+    \item{SaveFigures.m}: Creates the different figures obtained from the output data after executing GRASP and saves them in the output folder in .mat files
+    \item{PlotFigure.m}: Plots the selected figures from .mat files
+    \item{read\_configuration.m}: Reads the configuration file written by the main application during pre-execution actions
+    \item{\*.yml}: Configuration files for GRASP. During execution, the corresponding file is copied to the output folder and configured with the name parameters depending on Measure ID and selected configuration
+\end{itemize}
+Configuration files, which are necessary between SendData script execution and GRASP algorithm execution are also located in hte same folder. If any modification of these files is needed, it can be directly accessed and modified without the need of building the hole project using Visual Studio. These scripts can be also compiled with Matlab without the need of executing the full application, but it is needed to configure different parameters depending on the different scripts, which is done by the application using the read\_configuration script.Other files can be found in this folder, containing functions that will be used in the different scripts mentioned in this list.
 \subsection{Controllers}
 {With the objective of dividing the different actions and separating the different responsabilities, the following list of Controllers have been developed. }
 \begin{itemize}

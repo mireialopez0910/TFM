@@ -29,6 +29,7 @@ public class EarlinetService{
     }
 }
 \end{lstlisting}
+\clearpage
 \section{Aeronet Service Class} \label{ap:aeronet_service}
 \begin{lstlisting}
 public class AeronetService{
@@ -74,7 +75,7 @@ public class AeronetService{
     {...} //BuildUrl methods can be found in GitHub repository
 }
 \end{lstlisting}
-
+\clearpage
 \section{RunMatlabScript method using ProcessStartInfo class}\label{ap:run_matlab_script}
 \begin{lstlisting}
 public static void RunMatlabScript (string scriptPath){
@@ -115,7 +116,80 @@ public static void RunMatlabScript (string scriptPath){
     }
 }
 \end{lstlisting}
+\clearpage
+\section{Observable Object}\label{ap:observable_object}
+{In order to be able to update the user interface automatically when the data changes, Data Binding is used, which is a feature of the MVVM pattern. It is implemented using ObservableObject as a base class. }
+\begin{lstlisting}
+public class User : ObservableObject
+{
+    private string name;
 
+    public string Name
+    {
+        get => name;
+        set => SetProperty(ref name, value);
+    }
+}
+\end{lstlisting}
+{
+In the example, it can be seen how a variable is updated, when it is detected that the new value is different from the old one, SetProperty is called, which implements INotifyPropertyChanged interface, which is the one in charge to notify the corresponding view. \smallskip\\
+In order that the view is updated, it is necessary to call the variable with the same name and to indicate that it is Bindable in the corresponding .axaml file, as it can be seen in the following example:}
+\begin{lstlisting}
+<TextBlock Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+\end{lstlisting}
+{
+In this case, the mode option indicates that the variable can be updated from the view to the model and vice versa, and the update source trigger option indicates that the update will be done when the property changes. Other options can be used, but these are the ones that are most common and that have been used in this project.
+}
+
+\clearpage
+\section{Relay Command}\label{ap:relay_command}
+{Relay command is used to implement commands in the MVVM pattern. It is implemented using ICommand as a base class. It can be used in different ways, but in this project it has been implemented using the following pattern for all View Models:}
+\begin{lstlisting}
+public class ViewModel : ObservableObject
+{
+  public ICommand Cmd => new RelayCommand(Execute, CanExecute);
+  private void Execute(object _)
+  {
+      ExecutionActions();
+  }
+
+  private bool CanExecute(object _)
+  {
+      return true;
+  }
+}
+\end{lstlisting}
+{In order to execute the command, it is necessary to link an interface element of the .axaml file to the Execute method}
+\begin{lstlisting}
+<Button Content="Execute" Command="{Binding Cmd}" />
+\end{lstlisting}
+
+\clearpage
+\section{Messenger}\label{ap:messenger}
+The use of Messenger class consists on defining a Send Action, that can include some parameter or variable and a Receive Action, that will be executed when the Send Action is called, executing the linked method.\smallskip\\ 
+In the following example it can be seen an example of how the DataCombinationViewModel is using the Messenger class to receive modifications in the buttons enabled state:\smallskip
+\begin{lstlisting}
+public DataCombinationViewModel()
+{
+    Messenger.Default.Register<bool>("UpdateButtonsEnabled", UpdateButtonsEnabled);
+}   
+
+private void UpdateButtonsEnabled(bool status)
+{
+    AreButtonsEnabled = status;
+    if (!status)
+    {
+        isEnabled_D1_L = false;
+        isEnabled_D1P_L = false;
+        isEnabled_D1_L_VD = false;
+        isEnabled_D1P_L_VD = false;
+    }
+}
+\end{lstlisting}
+In the corresponding controller, in order to send the modification in order to enable the buttons, for example, it is necessary to execute the following line:
+\begin{lstlisting}
+Messenger.Default.Send<bool>("UpdateButtonsEnabled", true);
+\end{lstlisting}
 \section{Test Results} \label{ap:test_results}
 \includepdf[pages=-]{"./Tests.pdf"}
 

@@ -48,7 +48,7 @@ function [GARRLiC_file_name] = sendData_D1_L( measureID, heightMin, heightMax, i
     
     fileName = "D1_L-" + measureID + "-" + heightMin + "_" + heightMax;
 
-    URL_output = fullfile(CONFIG_output, measureID, fileName)
+    URL_output = fullfile(CONFIG_output, measureID, fileName);
 
     %!
     %! Si els directoris no existeixen es creen però si existeixen no es realitza

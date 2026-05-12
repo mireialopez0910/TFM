@@ -48,7 +48,7 @@ function [GARRLiC_file_name, errorVolumePolarization] = sendData_D1P_L_VD( measu
     
     fileName = "D1P_L_VD-" + measureID + "-" + heightMin + "_" + heightMax;
 
-    URL_output = fullfile(CONFIG_output, measureID, fileName)
+    URL_output = fullfile(CONFIG_output, measureID, fileName);
 
     %!
     %! Si els directoris no existeixen es creen però si existeixen no es realitza

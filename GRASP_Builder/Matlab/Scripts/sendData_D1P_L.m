@@ -47,7 +47,7 @@ function [GARRLiC_file_name] = sendData_D1P_L( measureID, heightMin, heightMax, 
     
     fileName = "D1P_L-" + measureID + "-" + heightMin + "_" + heightMax;
 
-    URL_output = fullfile(CONFIG_output, measureID, fileName)
+    URL_output = fullfile(CONFIG_output, measureID, fileName);
 
     %!
     %! Si els directoris no existeixen es creen però si existeixen no es realitza
@@ -572,51 +572,38 @@ function [GARRLiC_file_name] = sendData_D1P_L( measureID, heightMin, heightMax, 
         PAA = [25 30 35 40 45 50 60 70 80 90 100 110 120 140 160];
         
     
-  
-        %!
-        %! Realitza una prova de simetria
-        for c = 1:length(PAA)
-            A = (abs(DOLP1640aer(1,c)-DOLP1640aer(2,c)))/mDOLP1640aer(c);
-            if A > 0.2
-                mDOLP1640aer(c) = NaN;
-            end
-            if mDOLP1640aer(c) < 0.035
-                mDOLP1640aer(c) = NaN;
-            end                        
-            A = (abs(DOLP1020aer(1,c)-DOLP1020aer(2,c)))/mDOLP1020aer(c);
-            if A > 0.2
-                mDOLP1020aer(c) = NaN;
-            end
-            if mDOLP1020aer(c) < 0.02
-                mDOLP1020aer(c) = NaN;
-            end                
-            A = (abs(DOLP870aer(1,c)-DOLP870aer(2,c)))/mDOLP870aer(c);
-            if A > 0.2
-                mDOLP870aer(c) = NaN;
-            end
-            if mDOLP870aer(c) < 0.02
-                mDOLP870aer(c) = NaN;
-            end           
-            A = (abs(DOLP675aer(1,c)-DOLP675aer(2,c)))/mDOLP675aer(c);
-            if A > 0.2
-                mDOLP675aer(c) = NaN;
-            end
-            if mDOLP675aer(c) < 0.025
-                mDOLP675aer(c) = NaN;
-            end
-            A = (abs(DOLP500aer(1,c)-DOLP500aer(2,c)))/mDOLP500aer(c);
-            if A > 0.2
-                mDOLP500aer(c) = NaN;
-            end
-            A = (abs(DOLP440aer(1,c)-DOLP440aer(2,c)))/mDOLP440aer(c);
-            if A > 0.2
-                mDOLP440aer(c) = NaN;
-            end
-            A = (abs(DOLP380aer(1,c)-DOLP380aer(2,c)))/mDOLP380aer(c);
-            if A > 0.2
-                mDOLP380aer(c) = NaN;
-            end
+    %!
+    %! Realitza una prova de simetria
+    for c = 1:length(PAA)
+        A = (abs(DOLP1640aer(1,c)-DOLP1640aer(2,c)))/mDOLP1640aer(c);
+        if A > 0.2
+            mDOLP1640aer(c) = NaN;
         end
+        A = (abs(DOLP1020aer(1,c)-DOLP1020aer(2,c)))/mDOLP1020aer(c);
+        if A > 0.2
+            mDOLP1020aer(c) = NaN;
+        end
+        A = (abs(DOLP870aer(1,c)-DOLP870aer(2,c)))/mDOLP870aer(c);
+        if A > 0.2
+            mDOLP870aer(c) = NaN;
+        end
+        A = (abs(DOLP675aer(1,c)-DOLP675aer(2,c)))/mDOLP675aer(c);
+        if A > 0.2
+            mDOLP675aer(c) = NaN;
+        end
+        A = (abs(DOLP500aer(1,c)-DOLP500aer(2,c)))/mDOLP500aer(c);
+        if A > 0.2
+            mDOLP500aer(c) = NaN;
+        end
+        A = (abs(DOLP440aer(1,c)-DOLP440aer(2,c)))/mDOLP440aer(c);
+        if A > 0.2
+            mDOLP440aer(c) = NaN;
+        end
+        A = (abs(DOLP380aer(1,c)-DOLP380aer(2,c)))/mDOLP380aer(c);
+        if A > 0.2
+            mDOLP380aer(c) = NaN;
+        end
+    end
     
         Index1640 = find(isfinite(mDOLP1640aer)); mDOLP1640aer = mDOLP1640aer(Index1640); PAA1640 = PAA(Index1640);
         Index1020 = find(isfinite(mDOLP1020aer)); mDOLP1020aer = mDOLP1020aer(Index1020); PAA1020 = PAA(Index1020);

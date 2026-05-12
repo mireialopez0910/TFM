@@ -417,11 +417,9 @@ function [GARRLiC_file_name] = WriteFiles_preGARRLiC_D1P_L(measureID, outPath, l
         GARRLiC_file_name=NombreOutput;
     
     catch ME
-
-        disp('ERROR DE CONFIGURACIÓN EN ARCHIVO');
-        disp(ME.identifier);
-        disp(ME.message);
-        disp(ME.cause);
+        logMessage('ERROR DE CONFIGURACIÓN EN ARCHIVO');
+        logMessage(ME.message);
+        logMessage(ME.cause);
     
         fclose(fichero_GARRLiC);
 
@@ -434,8 +432,6 @@ function [GARRLiC_file_name] = WriteFiles_preGARRLiC_D1P_L(measureID, outPath, l
         end
         
         GARRLiC_file_name='';
-
     end
-
 end
 
